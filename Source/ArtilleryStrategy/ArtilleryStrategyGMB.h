@@ -21,6 +21,6 @@ protected:
 	void BeginPlay() override;
 
 private:
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
 		class UGridGenerator* GridGenerator;
 };
