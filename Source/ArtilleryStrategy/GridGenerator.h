@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GridPlatform.h"
 #include "GridGenerator.generated.h"
 
 
@@ -22,6 +23,8 @@ public:
 		int Columns = 10;
 	UPROPERTY(EditAnywhere, Category = Generation)
 		float Distance = 100.;
+	UPROPERTY(EditAnywhere, Category = Generation)
+		TSubclassOf<IGridPlatform> GridPlatormClass;
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

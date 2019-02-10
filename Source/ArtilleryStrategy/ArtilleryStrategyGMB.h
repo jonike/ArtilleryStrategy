@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "ArtilleryStrategyGameModeBase.generated.h"
+#include "ArtilleryStrategyGMB.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API AArtilleryStrategyGameModeBase : public AGameModeBase
+class ARTILLERYSTRATEGY_API AArtilleryStrategyGMB : public AGameModeBase
 {
 	GENERATED_BODY()
 	
