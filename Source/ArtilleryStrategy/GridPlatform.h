@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "ConstructableBuilding.generated.h"
+#include "GridPlatform.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UConstructableBuilding : public UInterface
+class UGridPlatform : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -16,7 +16,7 @@ class UConstructableBuilding : public UInterface
 /**
  * 
  */
-class ARTILLERYSTRATEGY_API IConstructableBuilding
+class ARTILLERYSTRATEGY_API IGridPlatform
 {
 	GENERATED_BODY()
 
