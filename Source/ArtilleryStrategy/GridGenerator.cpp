@@ -24,6 +24,11 @@ void UGridGenerator::BeginPlay()
 	
 }
 
+void UGridGenerator::SpawnPlatform(FVector* Location) const
+{
+	GetWorld()->SpawnActor(GridPlatformClass->StaticClass(), Location);
+}
+
 
 // Called every frame
 void UGridGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -33,11 +38,24 @@ void UGridGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	// ...
 }
 
-void UGridGenerator::GenerateGrid()
+void UGridGenerator::GenerateGrid() const
 {
+	check(GridPlatformClass);
 	if (GEngine)
 	{
 		UE_LOG(GridGeneration, Log, TEXT("Grid generation started"));
+	}
+
+	FVector Location;
+	Location.Z = 0.;
+	for (int i = 0; i < Rows; ++i)
+	{
+		Location.X = i * Distance;
+		for (int j = 0; j < Columns; ++j)
+		{
+			Location.Y = j * Distance;
+			SpawnPlatform(&Location);
+		}
 	}
 }
 

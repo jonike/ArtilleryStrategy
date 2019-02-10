@@ -4,9 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "GridPlatform.h"
+#include "BaseGridPlatform.h"
 #include "GridGenerator.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ARTILLERYSTRATEGY_API UGridGenerator : public UActorComponent
@@ -19,7 +18,7 @@ public:
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void GenerateGrid();
+	void GenerateGrid() const;;
 
 protected:
 	// Called when the game starts
@@ -33,5 +32,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = Generation)
 		float Distance = 100.;
 	UPROPERTY(EditAnywhere, Category = Generation)
-		TSubclassOf<IGridPlatform> GridPlatormClass;
+		TSubclassOf<ABaseGridPlatform> GridPlatformClass;
+
+	void SpawnPlatform(FVector* Location) const;
 };
