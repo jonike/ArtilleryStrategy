@@ -32,6 +32,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = Generation)
 		float Distance = 100.;
 	UPROPERTY(EditAnywhere, Category = Generation)
+		float DefaultZ = 0.;
+	UPROPERTY(EditAnywhere, Category = Generation)
 		TSubclassOf<ABaseGridPlatform> GridPlatformClass;
 
 	void SpawnPlatform(FVector* Location) const;

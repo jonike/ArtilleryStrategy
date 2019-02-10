@@ -47,7 +47,7 @@ void UGridGenerator::GenerateGrid() const
 	}
 
 	FVector Location;
-	Location.Z = 0.;
+	Location.Z = DefaultZ;
 	for (int i = 0; i < Rows; ++i)
 	{
 		Location.X = i * Distance;
