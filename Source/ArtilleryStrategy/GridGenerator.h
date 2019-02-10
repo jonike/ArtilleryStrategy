@@ -17,6 +17,15 @@ public:
 	// Sets default values for this component's properties
 	UGridGenerator();
 
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	void GenerateGrid();
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
+private:
 	UPROPERTY(EditAnywhere, Category = Generation)
 		int Rows = 10;
 	UPROPERTY(EditAnywhere, Category = Generation)
@@ -25,12 +34,4 @@ public:
 		float Distance = 100.;
 	UPROPERTY(EditAnywhere, Category = Generation)
 		TSubclassOf<IGridPlatform> GridPlatormClass;
-
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void GenerateGrid();
-
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;	
 };

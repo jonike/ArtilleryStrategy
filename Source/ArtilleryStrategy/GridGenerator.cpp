@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GridGenerator.h"
+#include "Engine/Engine.h"
+#include "ArtilleryStrategy.h"
 
 // Sets default values for this component's properties
 UGridGenerator::UGridGenerator()
@@ -33,6 +35,9 @@ void UGridGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 void UGridGenerator::GenerateGrid()
 {
-
+	if (GEngine)
+	{
+		UE_LOG(GridGeneration, Log, TEXT("Grid generation started"));
+	}
 }
 

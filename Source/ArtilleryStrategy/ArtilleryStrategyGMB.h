@@ -13,5 +13,14 @@ UCLASS()
 class ARTILLERYSTRATEGY_API AArtilleryStrategyGMB : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+public:
+	AArtilleryStrategyGMB();
+
+protected:
+	void BeginPlay() override;
+
+private:
+	UPROPERTY()
+		class UGridGenerator* GridGenerator;
 };
