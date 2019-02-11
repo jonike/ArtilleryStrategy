@@ -3,5 +3,5 @@
 #include "ArtilleryStrategy.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, ArtilleryStrategy, "ArtilleryStrategy" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, ArtilleryStrategy, "ArtilleryStrategy");
 DEFINE_LOG_CATEGORY(GridGeneration);

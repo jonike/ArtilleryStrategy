@@ -11,8 +11,8 @@ UCLASS()
 class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IGridPlatform
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ABaseGridPlatform();
 

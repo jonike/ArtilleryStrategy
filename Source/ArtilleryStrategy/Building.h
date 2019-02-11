@@ -14,12 +14,12 @@ class UBuilding : public UInterface
 };
 
 /**
- * 
+ *
  */
 class ARTILLERYSTRATEGY_API IBuilding
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 };

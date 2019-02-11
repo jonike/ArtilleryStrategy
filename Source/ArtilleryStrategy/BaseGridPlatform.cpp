@@ -5,7 +5,7 @@
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = StaticMesh;
@@ -15,13 +15,10 @@ ABaseGridPlatform::ABaseGridPlatform()
 void ABaseGridPlatform::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void ABaseGridPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
-

@@ -14,21 +14,18 @@ UGridGenerator::UGridGenerator()
 	// ...
 }
 
-
 // Called when the game starts
 void UGridGenerator::BeginPlay()
 {
 	Super::BeginPlay();
 
 	// ...
-	
 }
 
 void UGridGenerator::SpawnPlatform(FVector* Location) const
 {
 	GetWorld()->SpawnActor(GridPlatformClass->StaticClass(), Location);
 }
-
 
 // Called every frame
 void UGridGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -58,4 +55,3 @@ void UGridGenerator::GenerateGrid() const
 		}
 	}
 }
-

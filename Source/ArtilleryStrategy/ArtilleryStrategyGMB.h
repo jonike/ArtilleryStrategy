@@ -7,7 +7,7 @@
 #include "ArtilleryStrategyGMB.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API AArtilleryStrategyGMB : public AGameModeBase

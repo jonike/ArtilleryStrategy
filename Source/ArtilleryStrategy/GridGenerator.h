@@ -7,12 +7,12 @@
 #include "BaseGridPlatform.h"
 #include "GridGenerator.generated.h"
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class ARTILLERYSTRATEGY_API UGridGenerator : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UGridGenerator();
 
