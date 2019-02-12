@@ -13,4 +13,20 @@ UCLASS()
 class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	ADefaultPlayerController();
+
+protected:
+	virtual void SetupInputComponent() override;
+
+private:
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
+		class UCameraComponent* CameraComponent;
+
+	UFUNCTION()
+		void MoveForward(float Value);
+
+	UFUNCTION()
+		void MoveRight(float Value);
 };
