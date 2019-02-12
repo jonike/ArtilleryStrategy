@@ -22,9 +22,9 @@ void UGridGenerator::BeginPlay()
 	// ...
 }
 
-void UGridGenerator::SpawnPlatform(FVector* Location) const
+void UGridGenerator::SpawnPlatform(const FVector& Location) const
 {
-	GetWorld()->SpawnActor(GridPlatformClass->StaticClass(), Location);
+	auto SpawnedPlatform = GetWorld()->SpawnActor<AActor>(GridPlatformClass, Location, FRotator::ZeroRotator);
 }
 
 // Called every frame
@@ -51,7 +51,7 @@ void UGridGenerator::GenerateGrid() const
 		for (int j = 0; j < Columns; ++j)
 		{
 			Location.Y = j * Distance;
-			SpawnPlatform(&Location);
+			SpawnPlatform(Location);
 		}
 	}
 }
