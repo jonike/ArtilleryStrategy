@@ -1,13 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "DefaultPlayerController.h"
-#include <Camera/CameraComponent.h>
+#include "Engine/World.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	CameraComponent->SetupAttachment(RootComponent);
 }
 
 void ADefaultPlayerController::SetupInputComponent()
@@ -23,7 +21,11 @@ void ADefaultPlayerController::MoveForward(float Value)
 {
 	if (Value)
 	{
-		UE_LOG(LogTemp, Log, TEXT("MoveForward() was called"));
+		auto* Pawn = GetPawnOrSpectator();
+		if (Pawn)
+		{
+			Pawn->AddActorLocalOffset(FVector::ForwardVector * Value * MaxMovementSpeed);
+		}
 	}
 }
 
@@ -31,6 +33,10 @@ void ADefaultPlayerController::MoveRight(float Value)
 {
 	if (Value)
 	{
-		UE_LOG(LogTemp, Log, TEXT("MoveRight() was called"));
+		auto* Pawn = GetPawnOrSpectator();
+		if (Pawn)
+		{
+			Pawn->AddActorLocalOffset(FVector::RightVector * Value * MaxMovementSpeed);
+		}
 	}
 }

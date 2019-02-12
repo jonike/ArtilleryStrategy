@@ -21,8 +21,8 @@ protected:
 	virtual void SetupInputComponent() override;
 
 private:
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
-		class UCameraComponent* CameraComponent;
+	UPROPERTY(Category = Movement, EditAnywhere)
+		float MaxMovementSpeed = 50.;
 
 	UFUNCTION()
 		void MoveForward(float Value);
