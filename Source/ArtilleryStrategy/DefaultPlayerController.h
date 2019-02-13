@@ -24,9 +24,17 @@ private:
 	UPROPERTY(Category = Movement, EditAnywhere)
 		float MaxMovementSpeed = 50.;
 
+	UPROPERTY(Category = Looking, EditAnywhere)
+		float ZoomRate = 200.;
+
 	UFUNCTION()
 		void MoveForward(float Value);
 
 	UFUNCTION()
 		void MoveRight(float Value);
+
+	UFUNCTION()
+		void Zoom(float Value);
+
+	class USpringArmComponent* GetSpringArmComponent() const;
 };

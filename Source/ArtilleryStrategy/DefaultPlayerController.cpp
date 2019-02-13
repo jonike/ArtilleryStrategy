@@ -2,6 +2,8 @@
 
 #include "DefaultPlayerController.h"
 #include "Engine/World.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "HasSpringArm.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -15,6 +17,7 @@ void ADefaultPlayerController::SetupInputComponent()
 
 	InputComponent->BindAxis("MoveForward", this, &ADefaultPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &ADefaultPlayerController::MoveRight);
+	InputComponent->BindAxis("ZoomIn", this, &ADefaultPlayerController::Zoom);
 }
 
 void ADefaultPlayerController::MoveForward(float Value)
@@ -33,10 +36,36 @@ void ADefaultPlayerController::MoveRight(float Value)
 {
 	if (Value)
 	{
-		auto* Pawn = GetPawnOrSpectator();
+		auto Pawn = GetPawnOrSpectator();
 		if (Pawn)
 		{
 			Pawn->AddActorLocalOffset(FVector::RightVector * Value * MaxMovementSpeed);
 		}
 	}
+}
+
+void ADefaultPlayerController::Zoom(float Value)
+{
+	if (Value)
+	{
+		auto SpringArm = GetSpringArmComponent();
+		if (SpringArm)
+		{
+			SpringArm->TargetArmLength += Value * ZoomRate;
+		}
+	}
+}
+
+USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
+{
+	const auto Pawn = GetPawnOrSpectator();
+	if (Pawn)
+	{
+		const auto PawnWithSpringArm = Cast<IHasSpringArm>(Pawn);
+		if (PawnWithSpringArm)
+		{
+			return PawnWithSpringArm->GetSpringArmComponent();
+		}
+	}
+	return nullptr;
 }
