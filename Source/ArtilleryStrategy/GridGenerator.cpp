@@ -43,14 +43,16 @@ void UGridGenerator::GenerateGrid() const
 		UE_LOG(GridGeneration, Log, TEXT("Grid generation started"));
 	}
 
-	FVector Location;
-	Location.Z = DefaultZ;
+	const auto OffsetX = -(Rows + 1) * Distance / 2;
+	const auto OffsetY = -(Columns + 1)* Distance / 2;
+	FVector Location(OffsetX, OffsetY, DefaultZ);
 	for (int i = 0; i < Rows; ++i)
 	{
-		Location.X = i * Distance;
+		Location.X += Distance;
+		Location.Y = OffsetY;
 		for (int j = 0; j < Columns; ++j)
 		{
-			Location.Y = j * Distance;
+			Location.Y += Distance;
 			SpawnPlatform(Location);
 		}
 	}
