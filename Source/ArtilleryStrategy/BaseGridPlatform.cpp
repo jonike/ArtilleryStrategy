@@ -2,6 +2,8 @@
 
 #include "BaseGridPlatform.h"
 #include "ArtilleryStrategy.h"
+#include "Engine/World.h"
+#include "CanBuyCells.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
@@ -16,9 +18,21 @@ ABaseGridPlatform::ABaseGridPlatform()
 void ABaseGridPlatform::BeginPlay()
 {
 	Super::BeginPlay();
+	OnClicked.AddDynamic(this, &ABaseGridPlatform::AfterClicked);
 }
 
-void ABaseGridPlatform::NotifyActorOnClicked(FKey ButtonPressed)
+void ABaseGridPlatform::AfterClicked(AActor*, FKey)
+{
+	const auto PlayerController = GetWorld()->GetFirstPlayerController();
+	check(PlayerController);
+	auto ControllerThatCanBuy = Cast<ICanBuyCells>(PlayerController);
+	if (ControllerThatCanBuy)
+	{
+		ControllerThatCanBuy->ShowBuyWidget();
+	}
+}
+
+void ABaseGridPlatform::NotifyActorOnClicked(FKey)
 {
 	UE_LOG(MouseInteraction, Verbose, TEXT("Platform clicked"));
 }

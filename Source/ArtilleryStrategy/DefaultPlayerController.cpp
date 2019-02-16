@@ -71,3 +71,13 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 	}
 	return nullptr;
 }
+
+void ADefaultPlayerController::BuyCell(IGridPlatform * Cell)
+{
+	unimplemented();
+}
+
+void ADefaultPlayerController::ShowBuyWidget()
+{
+	unimplemented();
+}

@@ -27,5 +27,8 @@ private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
 		UStaticMeshComponent* StaticMesh;
 
+	UFUNCTION()
+		void AfterClicked(AActor* TouchedActor, FKey ButtonPressed);
+
 	void NotifyActorOnClicked(FKey ButtonPressed) override;
 };
