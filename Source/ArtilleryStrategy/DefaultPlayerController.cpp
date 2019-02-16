@@ -8,6 +8,8 @@
 ADefaultPlayerController::ADefaultPlayerController()
 {
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	bShowMouseCursor = true;
+	bEnableClickEvents = true;
 }
 
 void ADefaultPlayerController::SetupInputComponent()

@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BaseGridPlatform.h"
+#include "ArtilleryStrategy.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
@@ -15,6 +16,11 @@ ABaseGridPlatform::ABaseGridPlatform()
 void ABaseGridPlatform::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ABaseGridPlatform::NotifyActorOnClicked(FKey ButtonPressed)
+{
+	UE_LOG(MouseInteraction, Verbose, TEXT("Platform clicked"));
 }
 
 // Called every frame
