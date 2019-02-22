@@ -58,7 +58,7 @@ void ADefaultPlayerController::Zoom(float Value)
 
 void ADefaultPlayerController::HideBuyWidget()
 {
-	if (BuyWidget)
+	if (BuyWidget && IsBuyWidgetVisible())
 	{
 		BuyWidget->RemoveFromViewport();
 	}
@@ -66,7 +66,7 @@ void ADefaultPlayerController::HideBuyWidget()
 
 bool ADefaultPlayerController::IsBuyWidgetVisible() const
 {
-	return false/*BuyWidget != nullptr && BuyWidget->IsInViewport()*/;
+	return BuyWidget != nullptr && BuyWidget->IsInViewport();
 }
 
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
@@ -90,7 +90,10 @@ void ADefaultPlayerController::ShowBuyWidget()
 {
 	if (!BuyWidget)
 	{
-		BuyWidget = CreateWidget<UUserWidget, APlayerController>(this, BuyWidgetClass->StaticClass(), TEXT("BuyWidget"));
+		BuyWidget = CreateWidget(this, BuyWidgetClass, TEXT("BuyWidget"));
 	}
-	BuyWidget->AddToViewport();
+	if (!IsBuyWidgetVisible())
+	{
+		BuyWidget->AddToViewport();
+	}
 }
