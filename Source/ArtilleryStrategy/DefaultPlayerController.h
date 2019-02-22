@@ -7,6 +7,9 @@
 #include "CanBuyCells.h"
 #include "DefaultPlayerController.generated.h"
 
+class UUserWidget;
+class USpringArmComponent;
+
 /**
  *
  */
@@ -18,6 +21,12 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController,
 public:
 	ADefaultPlayerController();
 
+	void BuyCell(IGridPlatform * Cell) override;
+	void HideBuyWidget() override;
+	bool IsBuyWidgetVisible() const override;
+	void ShowBuyWidget() override;
+	USpringArmComponent* GetSpringArmComponent() const;
+
 protected:
 	void SetupInputComponent() override;
 
@@ -26,14 +35,16 @@ private:
 		float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
 		float ZoomRate = 200.;
+
+	UPROPERTY(Category = Buying, EditDefaultsOnly)
+		TSubclassOf<UUserWidget> BuyWidgetClass;
+	UPROPERTY()
+		UUserWidget* BuyWidget;
+
 	UFUNCTION()
 		void MoveForward(float Value);
 	UFUNCTION()
 		void MoveRight(float Value);
 	UFUNCTION()
 		void Zoom(float Value);
-
-	void BuyCell(IGridPlatform * Cell) override;
-	void ShowBuyWidget() override;
-	class USpringArmComponent* GetSpringArmComponent() const;
 };

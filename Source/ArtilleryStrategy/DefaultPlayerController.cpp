@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "HasSpringArm.h"
+#include "UserWidget.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -26,8 +27,7 @@ void ADefaultPlayerController::MoveForward(float Value)
 {
 	if (Value)
 	{
-		auto* Pawn = GetPawnOrSpectator();
-		if (Pawn)
+		if (auto* Pawn = GetPawnOrSpectator())
 		{
 			Pawn->AddActorLocalOffset(FVector::ForwardVector * Value * MaxMovementSpeed);
 		}
@@ -38,8 +38,7 @@ void ADefaultPlayerController::MoveRight(float Value)
 {
 	if (Value)
 	{
-		auto Pawn = GetPawnOrSpectator();
-		if (Pawn)
+		if (auto Pawn = GetPawnOrSpectator())
 		{
 			Pawn->AddActorLocalOffset(FVector::RightVector * Value * MaxMovementSpeed);
 		}
@@ -50,21 +49,31 @@ void ADefaultPlayerController::Zoom(float Value)
 {
 	if (Value)
 	{
-		auto SpringArm = GetSpringArmComponent();
-		if (SpringArm)
+		if (auto SpringArm = GetSpringArmComponent())
 		{
 			SpringArm->TargetArmLength += Value * ZoomRate;
 		}
 	}
 }
 
+void ADefaultPlayerController::HideBuyWidget()
+{
+	if (BuyWidget)
+	{
+		BuyWidget->RemoveFromViewport();
+	}
+}
+
+bool ADefaultPlayerController::IsBuyWidgetVisible() const
+{
+	return false/*BuyWidget != nullptr && BuyWidget->IsInViewport()*/;
+}
+
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 {
-	const auto Pawn = GetPawnOrSpectator();
-	if (Pawn)
+	if (const auto Pawn = GetPawnOrSpectator())
 	{
-		const auto PawnWithSpringArm = Cast<IHasSpringArm>(Pawn);
-		if (PawnWithSpringArm)
+		if (const auto PawnWithSpringArm = Cast<IHasSpringArm>(Pawn))
 		{
 			return PawnWithSpringArm->GetSpringArmComponent();
 		}
@@ -72,12 +81,16 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 	return nullptr;
 }
 
-void ADefaultPlayerController::BuyCell(IGridPlatform * Cell)
+void ADefaultPlayerController::BuyCell(IGridPlatform* Cell)
 {
-	unimplemented();
+	// unimplemented();
 }
 
 void ADefaultPlayerController::ShowBuyWidget()
 {
-	unimplemented();
+	if (!BuyWidget)
+	{
+		BuyWidget = CreateWidget<UUserWidget, APlayerController>(this, BuyWidgetClass->StaticClass(), TEXT("BuyWidget"));
+	}
+	BuyWidget->AddToViewport();
 }

@@ -23,5 +23,7 @@ class ARTILLERYSTRATEGY_API ICanBuyCells
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	virtual void ShowBuyWidget() = 0;
+	virtual void HideBuyWidget() = 0;
+	virtual bool IsBuyWidgetVisible() const = 0;
 	virtual void BuyCell(class IGridPlatform* Cell) = 0;
 };
