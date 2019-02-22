@@ -7,6 +7,8 @@
 #include "HasSpringArm.h"
 #include "DefaultPlayerPawn.generated.h"
 
+class UInputComponent;
+
 UCLASS()
 class ARTILLERYSTRATEGY_API ADefaultPlayerPawn : public APawn, public IHasSpringArm
 {
@@ -20,7 +22,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 	virtual class USpringArmComponent* GetSpringArmComponent() const override;
 

@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "CanBuyCells.generated.h"
 
+class IGridPlatform;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UCanBuyCells : public UInterface
@@ -25,5 +27,5 @@ public:
 	virtual void ShowBuyWidget() = 0;
 	virtual void HideBuyWidget() = 0;
 	virtual bool IsBuyWidgetVisible() const = 0;
-	virtual void BuyCell(class IGridPlatform* Cell) = 0;
+	virtual void BuyCell(IGridPlatform* Cell) = 0;
 };

@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "HasSpringArm.generated.h"
 
+class USpringArmComponent;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UHasSpringArm : public UInterface
@@ -22,5 +24,5 @@ class ARTILLERYSTRATEGY_API IHasSpringArm
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual class USpringArmComponent* GetSpringArmComponent() const = 0;
+	virtual USpringArmComponent* GetSpringArmComponent() const = 0;
 };
