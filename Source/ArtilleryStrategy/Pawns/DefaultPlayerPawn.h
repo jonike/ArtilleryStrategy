@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "HasSpringArm.h"
+#include "Interfaces/HasSpringArm.h"
 #include "DefaultPlayerPawn.generated.h"
 
 class UInputComponent;

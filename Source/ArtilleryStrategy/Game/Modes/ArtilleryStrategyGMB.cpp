@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ArtilleryStrategyGMB.h"
-#include "GridGenerator.h"
+#include "Components/GridGenerator.h"
 
 AArtilleryStrategyGMB::AArtilleryStrategyGMB()
 {

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "CanBuyCells.h"
+#include "Interfaces/CanBuyCells.h"
 #include "DefaultPlayerController.generated.h"
 
 class UUserWidget;
@@ -21,7 +21,7 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController,
 public:
 	ADefaultPlayerController();
 
-	void BuyCell(IGridPlatform * Cell) override;
+	void BuyCell(IGridPlatform& Cell) override;
 	void HideBuyWidget() override;
 	bool IsBuyWidgetVisible() const override;
 	void ShowBuyWidget() override;

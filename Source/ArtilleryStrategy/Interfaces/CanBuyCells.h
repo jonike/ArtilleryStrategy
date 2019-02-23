@@ -27,5 +27,5 @@ public:
 	virtual void ShowBuyWidget() = 0;
 	virtual void HideBuyWidget() = 0;
 	virtual bool IsBuyWidgetVisible() const = 0;
-	virtual void BuyCell(IGridPlatform* Cell) = 0;
+	virtual void BuyCell(IGridPlatform& Cell) = 0;
 };

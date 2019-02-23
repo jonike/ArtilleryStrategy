@@ -3,7 +3,7 @@
 #include "BaseGridPlatform.h"
 #include "ArtilleryStrategy.h"
 #include "Engine/World.h"
-#include "CanBuyCells.h"
+#include "Interfaces/CanBuyCells.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()

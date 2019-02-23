@@ -3,7 +3,7 @@
 #include "DefaultPlayerController.h"
 #include "Engine/World.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "HasSpringArm.h"
+#include "Interfaces/HasSpringArm.h"
 #include "UserWidget.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
@@ -81,7 +81,7 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 	return nullptr;
 }
 
-void ADefaultPlayerController::BuyCell(IGridPlatform* Cell)
+void ADefaultPlayerController::BuyCell(IGridPlatform& Cell)
 {
 	// unimplemented();
 }

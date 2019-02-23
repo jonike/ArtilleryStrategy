@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "GridPlatform.h"
+#include "Interfaces/GridPlatform.h"
 #include "BaseGridPlatform.generated.h"
 
 UCLASS()
@@ -17,11 +17,11 @@ public:
 	ABaseGridPlatform();
 
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	void Tick(float DeltaTime) override;
 
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	void BeginPlay() override;
 
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))

@@ -1,14 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BuyPlatformWidget.h"
-#include "CanBuyCells.h"
+#include "Interfaces/CanBuyCells.h"
 
 void UBuyPlatformWidget::BuyCell() const
 {
 	if (auto Buyer = GetBuyer())
 	{
 		// TODO: pass actual pointer to cell; nullptr should trigger check()
-		Buyer->BuyCell(nullptr);
 	}
 }
 
