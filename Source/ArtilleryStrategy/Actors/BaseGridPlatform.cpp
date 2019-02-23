@@ -36,6 +36,21 @@ void ABaseGridPlatform::NotifyActorOnClicked(FKey)
 	UE_LOG(MouseInteraction, Verbose, TEXT("Platform clicked"));
 }
 
+AController* ABaseGridPlatform::GetOwnerController() const
+{
+	return OwnerController;
+}
+
+void ABaseGridPlatform::SetOwnerController(AController& NewOwner)
+{
+	OwnerController = &NewOwner;
+}
+
+bool ABaseGridPlatform::HasOwnerController() const
+{
+	return OwnerController != nullptr;
+}
+
 // Called every frame
 void ABaseGridPlatform::Tick(float DeltaTime)
 {

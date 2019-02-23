@@ -5,10 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Interfaces/GridPlatform.h"
+#include "Interfaces/CanBeOwned.h"
 #include "BaseGridPlatform.generated.h"
 
 UCLASS()
-class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IGridPlatform
+class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IGridPlatform, public ICanBeOwned
 {
 	GENERATED_BODY()
 
@@ -19,6 +20,10 @@ public:
 	// Called every frame
 	void Tick(float DeltaTime) override;
 
+	AController* GetOwnerController() const override;
+	void SetOwnerController(AController& NewOwner) override;
+	bool HasOwnerController() const override;
+
 protected:
 	// Called when the game starts or when spawned
 	void BeginPlay() override;
@@ -26,6 +31,9 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
 		UStaticMeshComponent* StaticMesh;
+
+	UPROPERTY()
+		AController* OwnerController = nullptr;
 
 	UFUNCTION()
 		void AfterClicked(AActor* TouchedActor, FKey ButtonPressed);
