@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "Interfaces/CanBuyCells.h"
+#include "Interfaces/OwnerController.h"
 #include "DefaultPlayerController.generated.h"
 
 class UUserWidget;
@@ -14,7 +15,7 @@ class USpringArmComponent;
  *
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells
+class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells, public IOwnerController
 {
 	GENERATED_BODY()
 
@@ -35,7 +36,6 @@ private:
 		float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
 		float ZoomRate = 200.;
-
 	UPROPERTY(Category = Buying, EditDefaultsOnly)
 		TSubclassOf<UUserWidget> BuyWidgetClass;
 	UPROPERTY()
@@ -47,4 +47,6 @@ private:
 		void MoveRight(float Value);
 	UFUNCTION()
 		void Zoom(float Value);
+
+	virtual FColor GetOwnerColor() const;
 };

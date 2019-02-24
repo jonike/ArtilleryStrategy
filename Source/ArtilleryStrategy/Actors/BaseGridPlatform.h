@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Interfaces/GridPlatform.h"
 #include "Interfaces/CanBeOwned.h"
+#include "Interfaces/OwnerController.h"
 #include "BaseGridPlatform.generated.h"
 
 UCLASS()
@@ -20,8 +21,8 @@ public:
 	// Called every frame
 	void Tick(float DeltaTime) override;
 
-	AController* GetOwnerController() const override;
-	void SetOwnerController(AController& NewOwner) override;
+	IOwnerController* GetOwnerController() const override;
+	void SetOwnerController(IOwnerController& NewOwner) override;
 	bool HasOwnerController() const override;
 
 protected:
@@ -32,11 +33,10 @@ private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
 		UStaticMeshComponent* StaticMesh;
 
-	UPROPERTY()
-		AController* OwnerController = nullptr;
-
 	UFUNCTION()
 		void AfterClicked(AActor* TouchedActor, FKey ButtonPressed);
+
+	TScriptInterface<IOwnerController> OwnerController;
 
 	void NotifyActorOnClicked(FKey ButtonPressed) override;
 };

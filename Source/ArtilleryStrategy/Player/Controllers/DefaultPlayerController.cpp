@@ -56,6 +56,11 @@ void ADefaultPlayerController::Zoom(float Value)
 	}
 }
 
+FColor ADefaultPlayerController::GetOwnerColor() const
+{
+	return FColor();
+}
+
 void ADefaultPlayerController::HideBuyWidget()
 {
 	if (BuyWidget && IsBuyWidgetVisible())

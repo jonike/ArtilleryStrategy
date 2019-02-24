@@ -3,6 +3,7 @@
 #include "BaseGridPlatform.h"
 #include "ArtilleryStrategy.h"
 #include "Engine/World.h"
+#include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyCells.h"
 
 // Sets default values
@@ -36,14 +37,14 @@ void ABaseGridPlatform::NotifyActorOnClicked(FKey)
 	UE_LOG(MouseInteraction, Verbose, TEXT("Platform clicked"));
 }
 
-AController* ABaseGridPlatform::GetOwnerController() const
+IOwnerController* ABaseGridPlatform::GetOwnerController() const
 {
-	return OwnerController;
+	return nullptr;
 }
 
-void ABaseGridPlatform::SetOwnerController(AController& NewOwner)
+void ABaseGridPlatform::SetOwnerController(IOwnerController& NewOwner)
 {
-	OwnerController = &NewOwner;
+	OwnerController = Cast<UObject>(&NewOwner);
 }
 
 bool ABaseGridPlatform::HasOwnerController() const

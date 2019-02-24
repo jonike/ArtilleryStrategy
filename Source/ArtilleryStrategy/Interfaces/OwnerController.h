@@ -4,13 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "CanBeOwned.generated.h"
-
-class IOwnerController;
+#include "OwnerController.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UCanBeOwned : public UInterface
+class UOwnerController : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -18,13 +16,11 @@ class UCanBeOwned : public UInterface
 /**
  *
  */
-class ARTILLERYSTRATEGY_API ICanBeOwned
+class ARTILLERYSTRATEGY_API IOwnerController
 {
 	GENERATED_BODY()
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual bool HasOwnerController() const = 0;
-	virtual IOwnerController* GetOwnerController() const = 0;
-	virtual void SetOwnerController(IOwnerController& NewOwner) = 0;
+	virtual FColor GetOwnerColor() const = 0;
 };
