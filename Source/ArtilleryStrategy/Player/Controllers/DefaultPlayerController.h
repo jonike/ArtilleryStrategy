@@ -40,6 +40,8 @@ private:
 		TSubclassOf<UUserWidget> BuyWidgetClass;
 	UPROPERTY()
 		UUserWidget* BuyWidget;
+	UPROPERTY(Category = Color, EditAnywhere)
+		FColor PlayerColor;
 
 	UFUNCTION()
 		void MoveForward(float Value);
@@ -48,5 +50,5 @@ private:
 	UFUNCTION()
 		void Zoom(float Value);
 
-	virtual FColor GetOwnerColor() const;
+	FColor GetOwnerColor() const override;
 };
