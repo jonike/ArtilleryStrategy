@@ -10,6 +10,7 @@
 
 class UUserWidget;
 class USpringArmComponent;
+class UBuyPlatformWidget;
 
 /**
  *
@@ -25,7 +26,7 @@ public:
 	void BuyCell(IGridPlatform& Cell) override;
 	void HideBuyWidget() override;
 	bool IsBuyWidgetVisible() const override;
-	void ShowBuyWidget() override;
+	void ShowBuyWidget(ICanBeOwned& PropertyToBuy) override;
 	USpringArmComponent* GetSpringArmComponent() const;
 
 protected:
@@ -39,7 +40,7 @@ private:
 	UPROPERTY(Category = Buying, EditDefaultsOnly)
 		TSubclassOf<UUserWidget> BuyWidgetClass;
 	UPROPERTY()
-		UUserWidget* BuyWidget;
+		UBuyPlatformWidget* BuyWidget = nullptr;
 	UPROPERTY(Category = Color, EditAnywhere)
 		FColor PlayerColor;
 

@@ -28,7 +28,9 @@ void ABaseGridPlatform::AfterClicked(AActor*, FKey)
 	check(PlayerController);
 	if (auto ControllerThatCanBuy = Cast<ICanBuyCells>(PlayerController))
 	{
-		ControllerThatCanBuy->ShowBuyWidget();
+		const auto SelfAsCanBeOwned = Cast<ICanBeOwned>(this);
+		check(SelfAsCanBeOwned);
+		ControllerThatCanBuy->ShowBuyWidget(*SelfAsCanBeOwned);
 	}
 }
 

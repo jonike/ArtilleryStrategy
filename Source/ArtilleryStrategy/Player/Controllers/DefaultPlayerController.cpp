@@ -4,7 +4,7 @@
 #include "Engine/World.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Interfaces/HasSpringArm.h"
-#include "UserWidget.h"
+#include "Widgets/BuyPlatformWidget.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -91,11 +91,12 @@ void ADefaultPlayerController::BuyCell(IGridPlatform& Cell)
 	// unimplemented();
 }
 
-void ADefaultPlayerController::ShowBuyWidget()
+void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)
 {
 	if (!BuyWidget)
 	{
-		BuyWidget = CreateWidget(this, BuyWidgetClass, TEXT("BuyWidget"));
+		BuyWidget = CreateWidget<UBuyPlatformWidget>(this, BuyWidgetClass);
+		check(BuyWidget);
 	}
 	if (!IsBuyWidgetVisible())
 	{

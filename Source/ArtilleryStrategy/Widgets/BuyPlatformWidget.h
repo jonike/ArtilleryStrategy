@@ -7,6 +7,7 @@
 #include "BuyPlatformWidget.generated.h"
 
 class ICanBuyCells;
+class ICanBeOwned;
 
 /**
  *
@@ -24,5 +25,7 @@ protected:
 		void CloseBuyWidget() const;
 
 private:
+	TScriptInterface<ICanBeOwned> PropertyToBuy;
+
 	ICanBuyCells* GetBuyer() const;
 };
