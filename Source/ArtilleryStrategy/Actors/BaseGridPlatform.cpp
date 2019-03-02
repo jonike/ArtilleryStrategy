@@ -28,9 +28,7 @@ void ABaseGridPlatform::AfterClicked(AActor*, FKey)
 	check(PlayerController);
 	if (auto ControllerThatCanBuy = Cast<ICanBuyCells>(PlayerController))
 	{
-		const auto SelfAsCanBeOwned = Cast<ICanBeOwned>(this);
-		check(SelfAsCanBeOwned);
-		ControllerThatCanBuy->ShowBuyWidget(*SelfAsCanBeOwned);
+		ControllerThatCanBuy->ShowBuyWidget(*this);
 	}
 }
 
@@ -41,12 +39,12 @@ void ABaseGridPlatform::NotifyActorOnClicked(FKey)
 
 IOwnerController* ABaseGridPlatform::GetOwnerController() const
 {
-	return nullptr;
+	return Cast<IOwnerController>(OwnerController.GetObject());
 }
 
 void ABaseGridPlatform::SetOwnerController(IOwnerController& NewOwner)
 {
-	OwnerController = Cast<UObject>(&NewOwner);
+	OwnerController = Cast<UOwnerController>(&NewOwner);
 }
 
 bool ABaseGridPlatform::HasOwnerController() const
