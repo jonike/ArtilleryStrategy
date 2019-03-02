@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "OwnerController.generated.h"
 
+class UMaterialInterface;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UOwnerController : public UInterface
@@ -22,5 +24,5 @@ class ARTILLERYSTRATEGY_API IOwnerController
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual FColor GetOwnerColor() const = 0;
+	virtual UMaterialInterface& GetOwnerMaterial() const = 0;
 };

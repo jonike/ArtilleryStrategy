@@ -68,9 +68,10 @@ void ADefaultPlayerController::WhenBuyClicked(TScriptInterface<ICanBeOwned> Prop
 	BuyCell(*Cast<ICanBeOwned>(Property));
 }
 
-FColor ADefaultPlayerController::GetOwnerColor() const
+UMaterialInterface& ADefaultPlayerController::GetOwnerMaterial() const
 {
-	return PlayerColor;
+	check(PlayerMaterial);
+	return *PlayerMaterial;
 }
 
 void ADefaultPlayerController::HideBuyWidget()
@@ -100,7 +101,7 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 
 void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
 {
-	// unimplemented();
+	Cell.SetOwnerController(*this);
 }
 
 void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)

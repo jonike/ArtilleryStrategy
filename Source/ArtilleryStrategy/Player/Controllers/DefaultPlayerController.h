@@ -11,6 +11,7 @@
 class UUserWidget;
 class USpringArmComponent;
 class UBuyPlatformWidget;
+class UMaterialInterface;
 
 /**
  *
@@ -42,7 +43,7 @@ private:
 	UPROPERTY()
 		UBuyPlatformWidget* BuyWidget = nullptr;
 	UPROPERTY(Category = Color, EditAnywhere)
-		FColor PlayerColor;
+		UMaterialInterface* PlayerMaterial;
 
 	UFUNCTION()
 		void MoveForward(float Value);
@@ -55,5 +56,5 @@ private:
 	UFUNCTION()
 		void WhenBuyClicked(TScriptInterface<ICanBeOwned> Property);
 
-	FColor GetOwnerColor() const override;
+	UMaterialInterface& GetOwnerMaterial() const override;
 };

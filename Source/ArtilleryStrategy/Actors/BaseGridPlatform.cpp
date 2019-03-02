@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyCells.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
@@ -45,6 +46,7 @@ IOwnerController* ABaseGridPlatform::GetOwnerController() const
 void ABaseGridPlatform::SetOwnerController(IOwnerController& NewOwner)
 {
 	OwnerController = Cast<UObject>(&NewOwner);
+	StaticMesh->SetMaterial(0, &NewOwner.GetOwnerMaterial());
 }
 
 bool ABaseGridPlatform::HasOwnerController() const
