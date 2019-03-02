@@ -2,12 +2,15 @@
 
 #include "BuyPlatformWidget.h"
 #include "Interfaces/CanBuyCells.h"
+#include "Interfaces/CanBeOwned.h"
 
 void UBuyPlatformWidget::BuyCell() const
 {
 	if (auto Buyer = GetBuyer())
 	{
-		// TODO: pass actual pointer to cell; nullptr should trigger check()
+		const auto Property = PropertyToBuy.GetObject();
+		check(Property);
+		Buyer->BuyCell(*Cast<ICanBeOwned>(Property));
 	}
 }
 
@@ -17,6 +20,11 @@ void UBuyPlatformWidget::CloseBuyWidget() const
 	{
 		Buyer->HideBuyWidget();
 	}
+}
+
+void UBuyPlatformWidget::SetPropertyToBuy(ICanBeOwned& Property)
+{
+	PropertyToBuy = Cast<UObject>(&Property);
 }
 
 ICanBuyCells* UBuyPlatformWidget::GetBuyer() const

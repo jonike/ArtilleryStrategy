@@ -28,5 +28,5 @@ public:
 	virtual void ShowBuyWidget(ICanBeOwned& PropertyToBuy) = 0;
 	virtual void HideBuyWidget() = 0;
 	virtual bool IsBuyWidgetVisible() const = 0;
-	virtual void BuyCell(IGridPlatform& Cell) = 0;
+	virtual void BuyCell(ICanBeOwned& Cell) = 0;
 };

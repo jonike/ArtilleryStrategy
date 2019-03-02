@@ -27,7 +27,7 @@ void ADefaultPlayerController::MoveForward(float Value)
 {
 	if (Value)
 	{
-		if (auto* Pawn = GetPawnOrSpectator())
+		if (auto * Pawn = GetPawnOrSpectator())
 		{
 			Pawn->AddActorLocalOffset(FVector::ForwardVector * Value * MaxMovementSpeed);
 		}
@@ -86,7 +86,7 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 	return nullptr;
 }
 
-void ADefaultPlayerController::BuyCell(IGridPlatform& Cell)
+void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
 {
 	// unimplemented();
 }
@@ -98,6 +98,7 @@ void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)
 		BuyWidget = CreateWidget<UBuyPlatformWidget>(this, BuyWidgetClass);
 		check(BuyWidget);
 	}
+	BuyWidget->SetPropertyToBuy(PropertyToBuy);
 	if (!IsBuyWidgetVisible())
 	{
 		BuyWidget->AddToViewport();

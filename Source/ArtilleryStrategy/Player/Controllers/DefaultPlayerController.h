@@ -23,7 +23,7 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController,
 public:
 	ADefaultPlayerController();
 
-	void BuyCell(IGridPlatform& Cell) override;
+	void BuyCell(ICanBeOwned& Cell) override;
 	void HideBuyWidget() override;
 	bool IsBuyWidgetVisible() const override;
 	void ShowBuyWidget(ICanBeOwned& PropertyToBuy) override;

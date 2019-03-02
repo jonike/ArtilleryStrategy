@@ -44,7 +44,7 @@ IOwnerController* ABaseGridPlatform::GetOwnerController() const
 
 void ABaseGridPlatform::SetOwnerController(IOwnerController& NewOwner)
 {
-	OwnerController = Cast<UOwnerController>(&NewOwner);
+	OwnerController = Cast<UObject>(&NewOwner);
 }
 
 bool ABaseGridPlatform::HasOwnerController() const

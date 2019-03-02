@@ -17,6 +17,9 @@ class ARTILLERYSTRATEGY_API UBuyPlatformWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
+public:
+	void SetPropertyToBuy(ICanBeOwned& Property);
+
 protected:
 	UFUNCTION(BlueprintCallable, Category = Buttons)
 		void BuyCell() const;
