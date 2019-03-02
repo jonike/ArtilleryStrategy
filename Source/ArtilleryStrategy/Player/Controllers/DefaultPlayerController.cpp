@@ -56,6 +56,18 @@ void ADefaultPlayerController::Zoom(float Value)
 	}
 }
 
+void ADefaultPlayerController::WhenCloseClicked()
+{
+	HideBuyWidget();
+}
+
+void ADefaultPlayerController::WhenBuyClicked(TScriptInterface<ICanBeOwned> PropertyToBuy)
+{
+	const auto Property = PropertyToBuy.GetObject();
+	check(Property);
+	BuyCell(*Cast<ICanBeOwned>(Property));
+}
+
 FColor ADefaultPlayerController::GetOwnerColor() const
 {
 	return PlayerColor;
@@ -97,6 +109,8 @@ void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)
 	{
 		BuyWidget = CreateWidget<UBuyPlatformWidget>(this, BuyWidgetClass);
 		check(BuyWidget);
+		BuyWidget->OnBuyClicked.AddDynamic(this, &ADefaultPlayerController::WhenBuyClicked);
+		BuyWidget->OnCloseClicked.AddDynamic(this, &ADefaultPlayerController::WhenCloseClicked);
 	}
 	BuyWidget->SetPropertyToBuy(PropertyToBuy);
 	if (!IsBuyWidgetVisible())

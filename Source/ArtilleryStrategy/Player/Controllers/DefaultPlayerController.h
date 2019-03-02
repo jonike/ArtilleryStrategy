@@ -50,6 +50,10 @@ private:
 		void MoveRight(float Value);
 	UFUNCTION()
 		void Zoom(float Value);
+	UFUNCTION()
+		void WhenCloseClicked();
+	UFUNCTION()
+		void WhenBuyClicked(TScriptInterface<ICanBeOwned> Property);
 
 	FColor GetOwnerColor() const override;
 };

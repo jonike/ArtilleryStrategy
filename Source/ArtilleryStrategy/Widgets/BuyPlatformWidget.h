@@ -4,10 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Interfaces/CanBeOwned.h"
 #include "BuyPlatformWidget.generated.h"
-
-class ICanBuyCells;
-class ICanBeOwned;
 
 /**
  *
@@ -20,6 +18,12 @@ class ARTILLERYSTRATEGY_API UBuyPlatformWidget : public UUserWidget
 public:
 	void SetPropertyToBuy(ICanBeOwned& Property);
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuyClickedSignature, TScriptInterface<ICanBeOwned>, Property);
+	FOnBuyClickedSignature OnBuyClicked;
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseClickedSignature);
+	FOnCloseClickedSignature OnCloseClicked;
+
 protected:
 	UFUNCTION(BlueprintCallable, Category = Buttons)
 		void BuyCell() const;
@@ -29,6 +33,4 @@ protected:
 
 private:
 	TScriptInterface<ICanBeOwned> PropertyToBuy;
-
-	ICanBuyCells* GetBuyer() const;
 };
