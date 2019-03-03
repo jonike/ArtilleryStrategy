@@ -44,7 +44,7 @@ private:
 	UPROPERTY(Category = Widgets, EditDefaultsOnly)
 		TSubclassOf<UUserWidget> BuyWidgetClass;
 	UPROPERTY(Category = Widgets, EditAnywhere)
-		bool AutoCloseBuyWidget = true;
+		bool bShouldAutoCloseBuyWidget = true;
 	UPROPERTY(Category = Property, EditAnywhere)
 		UMaterialInterface* PlayerMaterial;
 

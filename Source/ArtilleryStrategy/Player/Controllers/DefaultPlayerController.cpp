@@ -126,7 +126,7 @@ void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
 		Cell.SetOwnerController(*this);
 		Wallet.RemoveMoney(Cell.GetCost());
 	}
-	if (AutoCloseBuyWidget)
+	if (bShouldAutoCloseBuyWidget)
 	{
 		HideBuyWidget();
 	}
