@@ -6,6 +6,7 @@
 #include "Interfaces/HasSpringArm.h"
 #include "Widgets/BuyPlatformWidget.h"
 #include "Interfaces/Wallet.h"
+#include "Player/States/DefaultPlayerState.h" // It's not an unused header; without this line cast to IWallet doesn't compile
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -77,7 +78,9 @@ UMaterialInterface& ADefaultPlayerController::GetOwnerMaterial() const
 
 IWallet& ADefaultPlayerController::GetWallet() const
 {
-	const auto Wallet = GetPlayerState<IWallet>();
+	const auto State = GetPlayerState<APlayerState>();
+	check(State);
+	const auto Wallet = Cast<IWallet>(State);
 	check(Wallet);
 	return *Wallet;
 }
@@ -109,11 +112,15 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 
 void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
 {
-	Cell.SetOwnerController(*this);
 	auto& Wallet = GetWallet();
 	if (Wallet.IsEnoughMoney(Cell.GetCost()))
 	{
+		Cell.SetOwnerController(*this);
 		Wallet.RemoveMoney(Cell.GetCost());
+	}
+	if (AutoCloseBuyWidget)
+	{
+		HideBuyWidget();
 	}
 }
 

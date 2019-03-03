@@ -41,12 +41,15 @@ private:
 		float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
 		float ZoomRate = 200.;
-	UPROPERTY(Category = Buying, EditDefaultsOnly)
+	UPROPERTY(Category = Widgets, EditDefaultsOnly)
 		TSubclassOf<UUserWidget> BuyWidgetClass;
+	UPROPERTY(Category = Widgets, EditAnywhere)
+		bool AutoCloseBuyWidget = true;
+	UPROPERTY(Category = Property, EditAnywhere)
+		UMaterialInterface* PlayerMaterial;
+
 	UPROPERTY()
 		UBuyPlatformWidget* BuyWidget = nullptr;
-	UPROPERTY(Category = Color, EditAnywhere)
-		UMaterialInterface* PlayerMaterial;
 
 	UFUNCTION()
 		void MoveForward(float Value);
