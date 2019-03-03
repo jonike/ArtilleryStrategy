@@ -38,6 +38,11 @@ void ABaseGridPlatform::NotifyActorOnClicked(FKey)
 	UE_LOG(MouseInteraction, Verbose, TEXT("Platform clicked"));
 }
 
+int ABaseGridPlatform::GetCost() const
+{
+	return Cost;
+}
+
 IOwnerController* ABaseGridPlatform::GetOwnerController() const
 {
 	return Cast<IOwnerController>(OwnerController.GetObject());

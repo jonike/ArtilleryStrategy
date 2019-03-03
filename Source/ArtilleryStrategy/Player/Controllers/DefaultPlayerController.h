@@ -12,6 +12,7 @@ class UUserWidget;
 class USpringArmComponent;
 class UBuyPlatformWidget;
 class UMaterialInterface;
+class IWallet;
 
 /**
  *
@@ -26,8 +27,10 @@ public:
 
 	void BuyCell(ICanBeOwned& Cell) override;
 	void HideBuyWidget() override;
-	bool IsBuyWidgetVisible() const override;
 	void ShowBuyWidget(ICanBeOwned& PropertyToBuy) override;
+
+	bool IsBuyWidgetVisible() const override;
+
 	USpringArmComponent* GetSpringArmComponent() const;
 
 protected:
@@ -57,4 +60,6 @@ private:
 		void WhenBuyClicked(TScriptInterface<ICanBeOwned> Property);
 
 	UMaterialInterface& GetOwnerMaterial() const override;
+
+	IWallet& GetWallet() const;
 };

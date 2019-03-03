@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Interfaces/HasSpringArm.h"
 #include "Widgets/BuyPlatformWidget.h"
+#include "Interfaces/Wallet.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -74,6 +75,13 @@ UMaterialInterface& ADefaultPlayerController::GetOwnerMaterial() const
 	return *PlayerMaterial;
 }
 
+IWallet& ADefaultPlayerController::GetWallet() const
+{
+	const auto Wallet = GetPlayerState<IWallet>();
+	check(Wallet);
+	return *Wallet;
+}
+
 void ADefaultPlayerController::HideBuyWidget()
 {
 	if (BuyWidget && IsBuyWidgetVisible())
@@ -102,6 +110,11 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
 {
 	Cell.SetOwnerController(*this);
+	auto& Wallet = GetWallet();
+	if (Wallet.IsEnoughMoney(Cell.GetCost()))
+	{
+		Wallet.RemoveMoney(Cell.GetCost());
+	}
 }
 
 void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)

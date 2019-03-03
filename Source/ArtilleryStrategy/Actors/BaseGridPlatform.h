@@ -24,19 +24,21 @@ public:
 	IOwnerController* GetOwnerController() const override;
 	void SetOwnerController(IOwnerController& NewOwner) override;
 	bool HasOwnerController() const override;
+	int GetCost() const override;
 
 protected:
 	// Called when the game starts or when spawned
 	void BeginPlay() override;
+	void NotifyActorOnClicked(FKey ButtonPressed) override;
 
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
 		UStaticMeshComponent* StaticMesh;
+	UPROPERTY(EditAnywhere, Category = Cost)
+		int Cost = 50;
 
 	UFUNCTION()
 		void AfterClicked(AActor* TouchedActor, FKey ButtonPressed);
 
 	TScriptInterface<IOwnerController> OwnerController;
-
-	void NotifyActorOnClicked(FKey ButtonPressed) override;
 };
