@@ -65,4 +65,6 @@ private:
 	UMaterialInterface& GetOwnerMaterial() const override;
 
 	IWallet& GetWallet() const;
+
+	void CreateBuyWidget();
 };

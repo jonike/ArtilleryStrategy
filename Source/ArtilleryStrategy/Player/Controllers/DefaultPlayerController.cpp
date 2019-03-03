@@ -85,6 +85,14 @@ IWallet& ADefaultPlayerController::GetWallet() const
 	return *Wallet;
 }
 
+void ADefaultPlayerController::CreateBuyWidget()
+{
+	BuyWidget = CreateWidget<UBuyPlatformWidget>(this, BuyWidgetClass);
+	check(BuyWidget);
+	BuyWidget->OnBuyClicked.AddDynamic(this, &ADefaultPlayerController::WhenBuyClicked);
+	BuyWidget->OnCloseClicked.AddDynamic(this, &ADefaultPlayerController::WhenCloseClicked);
+}
+
 void ADefaultPlayerController::HideBuyWidget()
 {
 	if (BuyWidget && IsBuyWidgetVisible())
@@ -126,16 +134,16 @@ void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
 
 void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)
 {
-	if (!BuyWidget)
+	if (PropertyToBuy.GetOwnerController() != this)
 	{
-		BuyWidget = CreateWidget<UBuyPlatformWidget>(this, BuyWidgetClass);
-		check(BuyWidget);
-		BuyWidget->OnBuyClicked.AddDynamic(this, &ADefaultPlayerController::WhenBuyClicked);
-		BuyWidget->OnCloseClicked.AddDynamic(this, &ADefaultPlayerController::WhenCloseClicked);
-	}
-	BuyWidget->SetPropertyToBuy(PropertyToBuy);
-	if (!IsBuyWidgetVisible())
-	{
-		BuyWidget->AddToViewport();
+		if (!BuyWidget)
+		{
+			CreateBuyWidget();
+		}
+		BuyWidget->SetPropertyToBuy(PropertyToBuy);
+		if (!IsBuyWidgetVisible())
+		{
+			BuyWidget->AddToViewport();
+		}
 	}
 }
