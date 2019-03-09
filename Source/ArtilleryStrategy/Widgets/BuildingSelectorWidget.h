@@ -24,8 +24,10 @@ protected:
 private:
 	UPROPERTY(Category = Grid, EditAnywhere)
 		UDataTable* BuildingsDataTable;
-	UPROPERTY(Category = Grid, EditDefaultsOnly)
+	UPROPERTY(Category = Grid, EditDefaultsOnly, meta = (MustImplement = "BuildingGridItemWidget"))
 		TSubclassOf<UUserWidget> GridItemWidgetClass;
 	UPROPERTY(Category = Gird, EditAnywhere)
 		int GridColumns = 3;
+
+	void AddGridItemWidget(FName RowName);
 };
