@@ -6,8 +6,6 @@
 #include "DataTableEditor/Private/SRowEditor.h"
 #include "BuildingData.generated.h"
 
-class IBuilding;
-
 /**
  *
  */
@@ -23,6 +21,6 @@ public:
 		FName FriendlyName;
 	UPROPERTY(EditAnywhere)
 		int Cost;
-	UPROPERTY(EditAnywhere)
-		TScriptInterface<IBuilding> SpawnClass;
+	UPROPERTY(EditAnywhere, meta = (MustImplement = "Building"))
+		TSubclassOf<AActor> SpawnClass;
 };
