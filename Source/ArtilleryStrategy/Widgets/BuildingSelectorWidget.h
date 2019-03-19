@@ -8,6 +8,7 @@
 
 class UUniformGridPanel;
 class UDataTable;
+class IBuildingGridItemWidget;
 
 /**
  *
@@ -29,5 +30,8 @@ private:
 	UPROPERTY(Category = Gird, EditAnywhere)
 		int GridColumns = 3;
 
-	void AddGridItemWidget(FName RowName);
+	TArray<IBuildingGridItemWidget*> GridItemWidgets;
+
+	void AddGridItemWidget(FName RowName, int Number, UUniformGridPanel& GridPanel);
+	IBuildingGridItemWidget& LoadOrCreateGridItem(int i);
 };
