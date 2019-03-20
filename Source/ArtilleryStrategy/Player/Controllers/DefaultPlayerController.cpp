@@ -86,25 +86,25 @@ IWallet& ADefaultPlayerController::GetWallet() const
 	return *Wallet;
 }
 
-void ADefaultPlayerController::CreateBuyWidget()
+void ADefaultPlayerController::CreateBuyCellWidget()
 {
-	BuyWidget = CreateWidget<UBuyPlatformWidget>(this, BuyWidgetClass);
-	check(BuyWidget);
-	BuyWidget->OnBuyClicked.AddDynamic(this, &ADefaultPlayerController::WhenBuyClicked);
-	BuyWidget->OnCloseClicked.AddDynamic(this, &ADefaultPlayerController::WhenCloseClicked);
+	BuyCellWidget = CreateWidget<UBuyPlatformWidget>(this, BuyCellWidgetClass);
+	check(BuyCellWidget);
+	BuyCellWidget->OnBuyClicked.AddDynamic(this, &ADefaultPlayerController::WhenBuyClicked);
+	BuyCellWidget->OnCloseClicked.AddDynamic(this, &ADefaultPlayerController::WhenCloseClicked);
 }
 
 void ADefaultPlayerController::HideBuyWidget()
 {
-	if (BuyWidget && IsBuyWidgetVisible())
+	if (BuyCellWidget && IsBuyWidgetVisible())
 	{
-		BuyWidget->RemoveFromViewport();
+		BuyCellWidget->RemoveFromViewport();
 	}
 }
 
 bool ADefaultPlayerController::IsBuyWidgetVisible() const
 {
-	return BuyWidget != nullptr && BuyWidget->IsInViewport();
+	return BuyCellWidget != nullptr && BuyCellWidget->IsInViewport();
 }
 
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
@@ -127,7 +127,7 @@ void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
 		Cell.SetOwnerController(*this);
 		Wallet.RemoveMoney(Cell.GetCost());
 	}
-	if (bShouldAutoCloseBuyWidget)
+	if (bShouldAutoCloseBuyCellWidget)
 	{
 		HideBuyWidget();
 	}
@@ -137,14 +137,14 @@ void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)
 {
 	if (PropertyToBuy.GetOwnerController() != this)
 	{
-		if (!BuyWidget)
+		if (!BuyCellWidget)
 		{
-			CreateBuyWidget();
+			CreateBuyCellWidget();
 		}
-		BuyWidget->SetPropertyToBuy(PropertyToBuy);
+		BuyCellWidget->SetPropertyToBuy(PropertyToBuy);
 		if (!IsBuyWidgetVisible())
 		{
-			BuyWidget->AddToViewport();
+			BuyCellWidget->AddToViewport();
 		}
 	}
 	else

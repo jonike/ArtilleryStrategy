@@ -42,26 +42,26 @@ private:
 		float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
 		float ZoomRate = 200.;
+	UPROPERTY(Category = Widgets, EditAnywhere)
+		bool bShouldAutoCloseBuyCellWidget = true;
+	UPROPERTY(Category = Widgets, EditAnywhere)
+		bool bShouldAutoCloseBuildingsWidget = true;
 
-	// TODO: restrict widget selection to classes that implement specific interface
 	UPROPERTY(Category = Widgets, EditDefaultsOnly)
-		TSubclassOf<UUserWidget> BuyWidgetClass;
+		TSubclassOf<UUserWidget> BuyCellWidgetClass;
 	UPROPERTY(Category = Widgets, EditDefaultsOnly)
 		TSubclassOf<UUserWidget> BuildingsSelectorWidgetClass;
 
-
-	UPROPERTY(Category = Widgets, EditAnywhere)
-		bool bShouldAutoCloseBuyWidget = true;
-	UPROPERTY(Category = Widgets, EditAnywhere)
-		bool bShouldAutoCloseBuildingsWidget = true;
-	UPROPERTY(Category = Property, EditAnywhere)
-		UMaterialInterface* PlayerMaterial;
-
-	// TODO: as only one widget can be shown at a time, remove unused widget and organize widget management
+	// TODO: move widget-specific logic to HUD class
 	UPROPERTY()
-		UBuyPlatformWidget* BuyWidget = nullptr;
+		UBuyPlatformWidget* BuyCellWidget = nullptr;
 	UPROPERTY()
 		UBuildingSelectorWidget* BuildingSelectorWidget = nullptr;
+	UPROPERTY()
+		UUserWidget* ActiveBuyWidget = nullptr;
+
+	UPROPERTY(Category = Property, EditAnywhere)
+		UMaterialInterface* PlayerMaterial;
 
 	UFUNCTION()
 		void MoveForward(float Value);
@@ -78,5 +78,6 @@ private:
 
 	IWallet& GetWallet() const;
 
-	void CreateBuyWidget();
+	void CreateBuyCellWidget();
+	void CreateBuildingSelectorWidget() const;
 };
