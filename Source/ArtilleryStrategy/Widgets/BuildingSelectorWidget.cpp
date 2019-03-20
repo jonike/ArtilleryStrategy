@@ -30,8 +30,8 @@ void UBuildingSelectorWidget::AddGridItemWidget(const FName RowName, const int N
 	GridPanel.AddChildToUniformGrid(ItemWidget);
 	const auto ItemWidgetSlot = Cast<UUniformGridSlot>(ItemWidget->Slot);
 	check(ItemWidgetSlot);
-	ItemWidgetSlot->Row = Number / GridColumns;
-	ItemWidgetSlot->Column = Number % GridColumns;
+	ItemWidgetSlot->SetRow(Number / GridColumns);
+	ItemWidgetSlot->SetColumn(Number % GridColumns);
 	
 }
 

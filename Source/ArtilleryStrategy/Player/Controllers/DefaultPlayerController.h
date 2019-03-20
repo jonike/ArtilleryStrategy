@@ -11,6 +11,7 @@
 class UUserWidget;
 class USpringArmComponent;
 class UBuyPlatformWidget;
+class UBuildingSelectorWidget;
 class UMaterialInterface;
 class IWallet;
 
@@ -41,15 +42,26 @@ private:
 		float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
 		float ZoomRate = 200.;
+
+	// TODO: restrict widget selection to classes that implement specific interface
 	UPROPERTY(Category = Widgets, EditDefaultsOnly)
 		TSubclassOf<UUserWidget> BuyWidgetClass;
+	UPROPERTY(Category = Widgets, EditDefaultsOnly)
+		TSubclassOf<UUserWidget> BuildingsSelectorWidgetClass;
+
+
 	UPROPERTY(Category = Widgets, EditAnywhere)
 		bool bShouldAutoCloseBuyWidget = true;
+	UPROPERTY(Category = Widgets, EditAnywhere)
+		bool bShouldAutoCloseBuildingsWidget = true;
 	UPROPERTY(Category = Property, EditAnywhere)
 		UMaterialInterface* PlayerMaterial;
 
+	// TODO: as only one widget can be shown at a time, remove unused widget and organize widget management
 	UPROPERTY()
 		UBuyPlatformWidget* BuyWidget = nullptr;
+	UPROPERTY()
+		UBuildingSelectorWidget* BuildingSelectorWidget = nullptr;
 
 	UFUNCTION()
 		void MoveForward(float Value);

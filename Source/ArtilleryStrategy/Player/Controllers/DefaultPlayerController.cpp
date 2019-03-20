@@ -7,6 +7,7 @@
 #include "Widgets/BuyPlatformWidget.h"
 #include "Interfaces/Wallet.h"
 #include "Player/States/DefaultPlayerState.h" // It's not an unused header; without this line cast to IWallet doesn't compile
+#include "Widgets/BuildingSelectorWidget.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -145,5 +146,10 @@ void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)
 		{
 			BuyWidget->AddToViewport();
 		}
+	}
+	else
+	{
+		BuildingSelectorWidget = CreateWidget<UBuildingSelectorWidget>(this, BuildingsSelectorWidgetClass);
+		BuildingSelectorWidget->AddToViewport();
 	}
 }
