@@ -8,6 +8,7 @@
 #include "Interfaces/Wallet.h"
 #include "Player/States/DefaultPlayerState.h" // It's not an unused header; without this line cast to IWallet doesn't compile
 #include "Widgets/BuildingSelectorWidget.h"
+#include "Player/HUD/DefaultHUD.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -30,7 +31,7 @@ void ADefaultPlayerController::MoveForward(float Value)
 {
 	if (Value)
 	{
-		if (auto * Pawn = GetPawnOrSpectator())
+		if (auto* Pawn = GetPawnOrSpectator())
 		{
 			Pawn->AddActorLocalOffset(FVector::ForwardVector * Value * MaxMovementSpeed);
 		}
@@ -59,17 +60,6 @@ void ADefaultPlayerController::Zoom(float Value)
 	}
 }
 
-void ADefaultPlayerController::WhenCloseClicked()
-{
-	HideBuyWidget();
-}
-
-void ADefaultPlayerController::WhenBuyClicked(TScriptInterface<ICanBeOwned> PropertyToBuy)
-{
-	const auto Property = PropertyToBuy.GetObject();
-	check(Property);
-	BuyCell(*Cast<ICanBeOwned>(Property));
-}
 
 UMaterialInterface& ADefaultPlayerController::GetOwnerMaterial() const
 {
@@ -86,25 +76,24 @@ IWallet& ADefaultPlayerController::GetWallet() const
 	return *Wallet;
 }
 
-void ADefaultPlayerController::CreateBuyCellWidget()
+ADefaultHUD& ADefaultPlayerController::GetDefaultHUD() const
 {
-	BuyCellWidget = CreateWidget<UBuyPlatformWidget>(this, BuyCellWidgetClass);
-	check(BuyCellWidget);
-	BuyCellWidget->OnBuyClicked.AddDynamic(this, &ADefaultPlayerController::WhenBuyClicked);
-	BuyCellWidget->OnCloseClicked.AddDynamic(this, &ADefaultPlayerController::WhenCloseClicked);
+	const auto HUD = GetHUD();
+	check(HUD);
+	const auto DefaultHUD = Cast<ADefaultHUD>(HUD);
+	check(DefaultHUD);
+	return *DefaultHUD;
 }
+
 
 void ADefaultPlayerController::HideBuyWidget()
 {
-	if (BuyCellWidget && IsBuyWidgetVisible())
-	{
-		BuyCellWidget->RemoveFromViewport();
-	}
+	GetDefaultHUD().HideBuyWidget();
 }
 
 bool ADefaultPlayerController::IsBuyWidgetVisible() const
 {
-	return BuyCellWidget != nullptr && BuyCellWidget->IsInViewport();
+	return GetDefaultHUD().IsBuyWidgetsVisible();
 }
 
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
@@ -127,29 +116,17 @@ void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
 		Cell.SetOwnerController(*this);
 		Wallet.RemoveMoney(Cell.GetCost());
 	}
-	if (bShouldAutoCloseBuyCellWidget)
-	{
-		HideBuyWidget();
-	}
 }
 
 void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)
 {
-	if (PropertyToBuy.GetOwnerController() != this)
+	auto& HUD = GetDefaultHUD();
+	if (PropertyToBuy.GetOwnerController() == this)
 	{
-		if (!BuyCellWidget)
-		{
-			CreateBuyCellWidget();
-		}
-		BuyCellWidget->SetPropertyToBuy(PropertyToBuy);
-		if (!IsBuyWidgetVisible())
-		{
-			BuyCellWidget->AddToViewport();
-		}
+		HUD.ShowBuildingSelectorWidget();
 	}
 	else
 	{
-		BuildingSelectorWidget = CreateWidget<UBuildingSelectorWidget>(this, BuildingsSelectorWidgetClass);
-		BuildingSelectorWidget->AddToViewport();
+		HUD.ShowBuyCellWidget(PropertyToBuy);
 	}
 }

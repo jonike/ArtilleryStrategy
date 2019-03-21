@@ -14,6 +14,7 @@ class UBuyPlatformWidget;
 class UBuildingSelectorWidget;
 class UMaterialInterface;
 class IWallet;
+class ADefaultHUD;
 
 /**
  *
@@ -29,7 +30,6 @@ public:
 	void BuyCell(ICanBeOwned& Cell) override;
 	void HideBuyWidget() override;
 	void ShowBuyWidget(ICanBeOwned& PropertyToBuy) override;
-
 	bool IsBuyWidgetVisible() const override;
 
 	USpringArmComponent* GetSpringArmComponent() const;
@@ -42,23 +42,6 @@ private:
 		float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
 		float ZoomRate = 200.;
-	UPROPERTY(Category = Widgets, EditAnywhere)
-		bool bShouldAutoCloseBuyCellWidget = true;
-	UPROPERTY(Category = Widgets, EditAnywhere)
-		bool bShouldAutoCloseBuildingsWidget = true;
-
-	UPROPERTY(Category = Widgets, EditDefaultsOnly)
-		TSubclassOf<UUserWidget> BuyCellWidgetClass;
-	UPROPERTY(Category = Widgets, EditDefaultsOnly)
-		TSubclassOf<UUserWidget> BuildingsSelectorWidgetClass;
-
-	// TODO: move widget-specific logic to HUD class
-	UPROPERTY()
-		UBuyPlatformWidget* BuyCellWidget = nullptr;
-	UPROPERTY()
-		UBuildingSelectorWidget* BuildingSelectorWidget = nullptr;
-	UPROPERTY()
-		UUserWidget* ActiveBuyWidget = nullptr;
 
 	UPROPERTY(Category = Property, EditAnywhere)
 		UMaterialInterface* PlayerMaterial;
@@ -69,15 +52,9 @@ private:
 		void MoveRight(float Value);
 	UFUNCTION()
 		void Zoom(float Value);
-	UFUNCTION()
-		void WhenCloseClicked();
-	UFUNCTION()
-		void WhenBuyClicked(TScriptInterface<ICanBeOwned> Property);
 
 	UMaterialInterface& GetOwnerMaterial() const override;
 
 	IWallet& GetWallet() const;
-
-	void CreateBuyCellWidget();
-	void CreateBuildingSelectorWidget() const;
+	ADefaultHUD& GetDefaultHUD() const;
 };
