@@ -25,8 +25,8 @@ class ARTILLERYSTRATEGY_API ICanBuyCells
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void ShowBuyWidget(ICanBeOwned& PropertyToBuy) = 0;
+	virtual void ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy) = 0;
 	virtual void HideBuyWidget() = 0;
 	virtual bool IsBuyWidgetVisible() const = 0;
-	virtual void BuyCell(ICanBeOwned& Cell) = 0;
+	virtual void BuyCell(TScriptInterface<ICanBeOwned> Cell) = 0;
 };

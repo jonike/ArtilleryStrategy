@@ -8,7 +8,7 @@
 #include "Interfaces/CanBuyCells.h"
 #include "Player/Controllers/DefaultPlayerController.h"
 
-void ADefaultHUD::ShowBuyCellWidget(ICanBeOwned& Property)
+void ADefaultHUD::ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property)
 {
 	HideBuyWidget();
 	if (!BuyCellWidget)
@@ -17,6 +17,7 @@ void ADefaultHUD::ShowBuyCellWidget(ICanBeOwned& Property)
 	}
 	BuyCellWidget->SetPropertyToBuy(Property);
 	BuyCellWidget->AddToViewport();
+	ActiveBuyWidget = BuyCellWidget;
 }
 
 void ADefaultHUD::ShowBuildingSelectorWidget()
@@ -27,6 +28,7 @@ void ADefaultHUD::ShowBuildingSelectorWidget()
 		CreateBuildingSelectorWidget();
 	}
 	BuildingSelectorWidget->AddToViewport();
+	ActiveBuyWidget = BuildingSelectorWidget;
 }
 
 void ADefaultHUD::HideBuyWidget()
@@ -34,6 +36,7 @@ void ADefaultHUD::HideBuyWidget()
 	if (ActiveBuyWidget)
 	{
 		ActiveBuyWidget->RemoveFromViewport();
+		ActiveBuyWidget = nullptr;
 	}
 }
 
@@ -47,9 +50,9 @@ void ADefaultHUD::WhenBuyClicked(TScriptInterface<ICanBeOwned> Property)
 	if (IsBuyCellWidgetActive())
 	{
 		check(Property.GetInterface());
-		auto& Buyer = GetBuyer();
+		auto Buyer = GetBuyer();
 		// TODO: pass TScriptInterface instead
-		Buyer.BuyCell(*Cast<ICanBeOwned>(Property.GetObject()));
+		Buyer->BuyCell(Property);
 	}
 	if (bAutoCloseBuyWidget)
 	{
@@ -81,10 +84,8 @@ bool ADefaultHUD::IsBuyCellWidgetActive() const
 	return ActiveBuyWidget == BuyCellWidget;
 }
 
-ICanBuyCells& ADefaultHUD::GetBuyer() const
+TScriptInterface<ICanBuyCells> ADefaultHUD::GetBuyer() const
 {
 	const auto Controller = GetOwningPlayerController();
-	const auto Buyer = Cast<ICanBuyCells>(Controller);
-	check(Buyer);
-	return *Buyer;
+	return Controller;
 }

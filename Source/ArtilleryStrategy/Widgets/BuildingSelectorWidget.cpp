@@ -19,13 +19,13 @@ void UBuildingSelectorWidget::FillBuildingsData(UUniformGridPanel* GridPanel)
 
 void UBuildingSelectorWidget::AddGridItemWidget(const FName RowName, const int Number, UUniformGridPanel& GridPanel)
 {
-	auto& GridItemWidget = LoadOrCreateGridItem(Number);
+	auto GridItemWidget = LoadOrCreateGridItem(Number);
 	const auto BuildingData = BuildingsDataTable->FindRow<FBuildingData>(RowName, TEXT("Get row data for filling building selector widget"));
 
 	// There always should be correct row with given name
 	check(BuildingData);
-	GridItemWidget.Setup(*BuildingData);
-	const auto ItemWidget = Cast<UUserWidget>(&GridItemWidget);
+	GridItemWidget->Setup(*BuildingData);
+	const auto ItemWidget = Cast<UUserWidget>(GridItemWidget.GetObject());
 	check(ItemWidget);
 	GridPanel.AddChildToUniformGrid(ItemWidget);
 	const auto ItemWidgetSlot = Cast<UUniformGridSlot>(ItemWidget->Slot);
@@ -35,17 +35,14 @@ void UBuildingSelectorWidget::AddGridItemWidget(const FName RowName, const int N
 	
 }
 
-IBuildingGridItemWidget& UBuildingSelectorWidget::LoadOrCreateGridItem(const int i)
+TScriptInterface<IBuildingGridItemWidget> UBuildingSelectorWidget::LoadOrCreateGridItem(const int i)
 {
 	if (i < GridItemWidgets.Num())
 	{
-		check(GridItemWidgets[i]);
-		return *GridItemWidgets[i];
+		return GridItemWidgets[i];
 	}
 	const auto NewWidget = CreateWidget(GetWorld()->GetFirstPlayerController(), GridItemWidgetClass);
 	check(NewWidget);
-	const auto GridItemWidget = Cast<IBuildingGridItemWidget>(NewWidget);
-	check(GridItemWidget);
-	GridItemWidgets.Add(GridItemWidget);
-	return *GridItemWidget;
+	GridItemWidgets.Add(NewWidget);
+	return NewWidget;
 }

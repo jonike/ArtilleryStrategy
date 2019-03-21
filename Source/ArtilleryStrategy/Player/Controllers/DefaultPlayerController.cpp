@@ -31,9 +31,9 @@ void ADefaultPlayerController::MoveForward(float Value)
 {
 	if (Value)
 	{
-		if (auto* Pawn = GetPawnOrSpectator())
+		if (auto PlayerPawn = GetPawnOrSpectator())
 		{
-			Pawn->AddActorLocalOffset(FVector::ForwardVector * Value * MaxMovementSpeed);
+			PlayerPawn->AddActorLocalOffset(FVector::ForwardVector * Value * MaxMovementSpeed);
 		}
 	}
 }
@@ -42,9 +42,9 @@ void ADefaultPlayerController::MoveRight(float Value)
 {
 	if (Value)
 	{
-		if (auto Pawn = GetPawnOrSpectator())
+		if (auto PlayerPawn = GetPawnOrSpectator())
 		{
-			Pawn->AddActorLocalOffset(FVector::RightVector * Value * MaxMovementSpeed);
+			PlayerPawn->AddActorLocalOffset(FVector::RightVector * Value * MaxMovementSpeed);
 		}
 	}
 }
@@ -98,9 +98,9 @@ bool ADefaultPlayerController::IsBuyWidgetVisible() const
 
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 {
-	if (const auto Pawn = GetPawnOrSpectator())
+	if (const auto PlayerPawn = GetPawnOrSpectator())
 	{
-		if (const auto PawnWithSpringArm = Cast<IHasSpringArm>(Pawn))
+		if (const auto PawnWithSpringArm = Cast<IHasSpringArm>(PlayerPawn))
 		{
 			return PawnWithSpringArm->GetSpringArmComponent();
 		}
@@ -108,20 +108,20 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 	return nullptr;
 }
 
-void ADefaultPlayerController::BuyCell(ICanBeOwned& Cell)
+void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 {
 	auto& Wallet = GetWallet();
-	if (Wallet.IsEnoughMoney(Cell.GetCost()))
+	if (Wallet.IsEnoughMoney(Cell->GetCost()))
 	{
-		Cell.SetOwnerController(*this);
-		Wallet.RemoveMoney(Cell.GetCost());
+		Cell->SetOwnerController(this);
+		Wallet.RemoveMoney(Cell->GetCost());
 	}
 }
 
-void ADefaultPlayerController::ShowBuyWidget(ICanBeOwned& PropertyToBuy)
+void ADefaultPlayerController::ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy)
 {
 	auto& HUD = GetDefaultHUD();
-	if (PropertyToBuy.GetOwnerController() == this)
+	if (PropertyToBuy->GetOwnerController() == this)
 	{
 		HUD.ShowBuildingSelectorWidget();
 	}

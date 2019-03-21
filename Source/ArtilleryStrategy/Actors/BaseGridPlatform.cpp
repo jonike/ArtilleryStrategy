@@ -29,7 +29,7 @@ void ABaseGridPlatform::AfterClicked(AActor*, FKey)
 	check(PlayerController);
 	if (auto ControllerThatCanBuy = Cast<ICanBuyCells>(PlayerController))
 	{
-		ControllerThatCanBuy->ShowBuyWidget(*this);
+		ControllerThatCanBuy->ShowBuyWidget(this);
 	}
 }
 
@@ -43,15 +43,15 @@ int ABaseGridPlatform::GetCost() const
 	return Cost;
 }
 
-IOwnerController* ABaseGridPlatform::GetOwnerController() const
+TScriptInterface<IOwnerController> ABaseGridPlatform::GetOwnerController() const
 {
-	return Cast<IOwnerController>(OwnerController.GetObject());
+	return OwnerController;
 }
 
-void ABaseGridPlatform::SetOwnerController(IOwnerController& NewOwner)
+void ABaseGridPlatform::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
 {
-	OwnerController = Cast<UObject>(&NewOwner);
-	StaticMesh->SetMaterial(0, &NewOwner.GetOwnerMaterial());
+	OwnerController = NewOwner;
+	StaticMesh->SetMaterial(0, &NewOwner->GetOwnerMaterial());
 }
 
 bool ABaseGridPlatform::HasOwnerController() const

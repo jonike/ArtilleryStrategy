@@ -16,7 +16,7 @@ class ARTILLERYSTRATEGY_API UBuyPlatformWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	void SetPropertyToBuy(ICanBeOwned& Property);
+	void SetPropertyToBuy(TScriptInterface<ICanBeOwned> Property);
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuyClickedSignature, TScriptInterface<ICanBeOwned>, Property);
 	FOnBuyClickedSignature OnBuyClicked;

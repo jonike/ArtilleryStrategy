@@ -27,9 +27,9 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController,
 public:
 	ADefaultPlayerController();
 
-	void BuyCell(ICanBeOwned& Cell) override;
+	void BuyCell(TScriptInterface<ICanBeOwned> Cell) override;
 	void HideBuyWidget() override;
-	void ShowBuyWidget(ICanBeOwned& PropertyToBuy) override;
+	void ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy) override;
 	bool IsBuyWidgetVisible() const override;
 
 	USpringArmComponent* GetSpringArmComponent() const;

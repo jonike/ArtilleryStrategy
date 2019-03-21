@@ -30,8 +30,8 @@ private:
 	UPROPERTY(Category = Gird, EditAnywhere)
 		int GridColumns = 3;
 
-	TArray<IBuildingGridItemWidget*> GridItemWidgets;
+	TArray<TScriptInterface<IBuildingGridItemWidget>> GridItemWidgets;
 
 	void AddGridItemWidget(FName RowName, int Number, UUniformGridPanel& GridPanel);
-	IBuildingGridItemWidget& LoadOrCreateGridItem(int i);
+	TScriptInterface<IBuildingGridItemWidget> LoadOrCreateGridItem(int i);
 };

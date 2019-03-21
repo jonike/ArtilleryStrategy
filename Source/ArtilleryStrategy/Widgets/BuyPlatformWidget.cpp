@@ -13,7 +13,7 @@ void UBuyPlatformWidget::CloseBuyWidget() const
 	OnCloseClicked.Broadcast();
 }
 
-void UBuyPlatformWidget::SetPropertyToBuy(ICanBeOwned& Property)
+void UBuyPlatformWidget::SetPropertyToBuy(TScriptInterface<ICanBeOwned> Property)
 {
-	PropertyToBuy = Cast<UObject>(&Property);
+	PropertyToBuy = Property;
 }

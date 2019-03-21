@@ -21,7 +21,7 @@ class ARTILLERYSTRATEGY_API ADefaultHUD : public AHUD
 	GENERATED_BODY()
 
 public:
-	void ShowBuyCellWidget(ICanBeOwned& Property);
+	void ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property);
 	void ShowBuildingSelectorWidget();
 	void HideBuyWidget();
 	bool IsBuyWidgetsVisible() const;
@@ -50,5 +50,5 @@ private:
 	void CreateBuyCellWidget();
 	void CreateBuildingSelectorWidget();
 	bool IsBuyCellWidgetActive() const;
-	ICanBuyCells& GetBuyer() const;
+	TScriptInterface<ICanBuyCells> GetBuyer() const;
 };

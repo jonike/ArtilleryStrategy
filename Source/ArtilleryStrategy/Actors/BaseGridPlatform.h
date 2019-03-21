@@ -21,8 +21,8 @@ public:
 	// Called every frame
 	void Tick(float DeltaTime) override;
 
-	IOwnerController* GetOwnerController() const override;
-	void SetOwnerController(IOwnerController& NewOwner) override;
+	TScriptInterface<IOwnerController> GetOwnerController() const override;
+	void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) override;
 	bool HasOwnerController() const override;
 	int GetCost() const override;
 
