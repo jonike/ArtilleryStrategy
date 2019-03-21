@@ -55,6 +55,6 @@ private:
 
 	UMaterialInterface& GetOwnerMaterial() const override;
 
-	IWallet& GetWallet() const;
+	TScriptInterface<IWallet> GetWallet() const;
 	ADefaultHUD& GetDefaultHUD() const;
 };

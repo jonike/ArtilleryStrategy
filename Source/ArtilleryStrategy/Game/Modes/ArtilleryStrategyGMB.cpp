@@ -17,6 +17,5 @@ AArtilleryStrategyGMB::AArtilleryStrategyGMB()
 void AArtilleryStrategyGMB::BeginPlay()
 {
 	check(GridGenerator);
-
 	GridGenerator->GenerateGrid();
 }

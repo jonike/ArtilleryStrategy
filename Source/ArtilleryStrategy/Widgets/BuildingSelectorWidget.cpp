@@ -21,9 +21,6 @@ void UBuildingSelectorWidget::AddGridItemWidget(const FName RowName, const int N
 {
 	auto GridItemWidget = LoadOrCreateGridItem(Number);
 	const auto BuildingData = BuildingsDataTable->FindRow<FBuildingData>(RowName, TEXT("Get row data for filling building selector widget"));
-
-	// There always should be correct row with given name
-	check(BuildingData);
 	GridItemWidget->Setup(*BuildingData);
 	const auto ItemWidget = Cast<UUserWidget>(GridItemWidget.GetObject());
 	check(ItemWidget);

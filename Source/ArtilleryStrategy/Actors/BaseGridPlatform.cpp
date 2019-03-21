@@ -26,7 +26,6 @@ void ABaseGridPlatform::BeginPlay()
 void ABaseGridPlatform::AfterClicked(AActor*, FKey)
 {
 	const auto PlayerController = GetWorld()->GetFirstPlayerController();
-	check(PlayerController);
 	if (auto ControllerThatCanBuy = Cast<ICanBuyCells>(PlayerController))
 	{
 		ControllerThatCanBuy->ShowBuyWidget(this);

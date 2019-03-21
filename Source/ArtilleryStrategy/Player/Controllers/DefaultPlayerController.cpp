@@ -6,9 +6,9 @@
 #include "Interfaces/HasSpringArm.h"
 #include "Widgets/BuyPlatformWidget.h"
 #include "Interfaces/Wallet.h"
-#include "Player/States/DefaultPlayerState.h" // It's not an unused header; without this line cast to IWallet doesn't compile
 #include "Widgets/BuildingSelectorWidget.h"
 #include "Player/HUD/DefaultHUD.h"
+#include "Player/States/DefaultPlayerState.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -21,15 +21,14 @@ void ADefaultPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	check(InputComponent);
-
 	InputComponent->BindAxis("MoveForward", this, &ADefaultPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &ADefaultPlayerController::MoveRight);
 	InputComponent->BindAxis("ZoomIn", this, &ADefaultPlayerController::Zoom);
 }
 
-void ADefaultPlayerController::MoveForward(float Value)
+void ADefaultPlayerController::MoveForward(const float Value)
 {
-	if (Value)
+	if (!FMath::IsNearlyZero(Value))
 	{
 		if (auto PlayerPawn = GetPawnOrSpectator())
 		{
@@ -38,9 +37,9 @@ void ADefaultPlayerController::MoveForward(float Value)
 	}
 }
 
-void ADefaultPlayerController::MoveRight(float Value)
+void ADefaultPlayerController::MoveRight(const float Value)
 {
-	if (Value)
+	if (!FMath::IsNearlyZero(Value))
 	{
 		if (auto PlayerPawn = GetPawnOrSpectator())
 		{
@@ -49,9 +48,9 @@ void ADefaultPlayerController::MoveRight(float Value)
 	}
 }
 
-void ADefaultPlayerController::Zoom(float Value)
+void ADefaultPlayerController::Zoom(const float Value)
 {
-	if (Value)
+	if (!FMath::IsNearlyZero(Value))
 	{
 		if (auto SpringArm = GetSpringArmComponent())
 		{
@@ -67,13 +66,11 @@ UMaterialInterface& ADefaultPlayerController::GetOwnerMaterial() const
 	return *PlayerMaterial;
 }
 
-IWallet& ADefaultPlayerController::GetWallet() const
+TScriptInterface<IWallet> ADefaultPlayerController::GetWallet() const
 {
 	const auto State = GetPlayerState<APlayerState>();
 	check(State);
-	const auto Wallet = Cast<IWallet>(State);
-	check(Wallet);
-	return *Wallet;
+	return State;
 }
 
 ADefaultHUD& ADefaultPlayerController::GetDefaultHUD() const
@@ -110,11 +107,11 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 
 void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 {
-	auto& Wallet = GetWallet();
-	if (Wallet.IsEnoughMoney(Cell->GetCost()))
+	auto Wallet = GetWallet();
+	if (Wallet->IsEnoughMoney(Cell->GetCost()))
 	{
 		Cell->SetOwnerController(this);
-		Wallet.RemoveMoney(Cell->GetCost());
+		Wallet->RemoveMoney(Cell->GetCost());
 	}
 }
 

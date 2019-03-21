@@ -51,7 +51,6 @@ void ADefaultHUD::WhenBuyClicked(TScriptInterface<ICanBeOwned> Property)
 	{
 		check(Property.GetInterface());
 		auto Buyer = GetBuyer();
-		// TODO: pass TScriptInterface instead
 		Buyer->BuyCell(Property);
 	}
 	if (bAutoCloseBuyWidget)

@@ -46,11 +46,11 @@ void UGridGenerator::GenerateGrid() const
 	const auto OffsetX = -(Rows + 1) * Distance / 2;
 	const auto OffsetY = -(Columns + 1)* Distance / 2;
 	FVector Location(OffsetX, OffsetY, DefaultZ);
-	for (int i = 0; i < Rows; ++i)
+	for (auto i = 0; i < Rows; ++i)
 	{
 		Location.X += Distance;
 		Location.Y = OffsetY;
-		for (int j = 0; j < Columns; ++j)
+		for (auto j = 0; j < Columns; ++j)
 		{
 			Location.Y += Distance;
 			SpawnPlatform(Location);
