@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Interfaces/CanBuyCells.h"
 #include "Interfaces/OwnerController.h"
+#include "Interfaces/CanBuyBuildings.h"
 #include "DefaultPlayerController.generated.h"
 
 class UUserWidget;
@@ -20,7 +21,7 @@ class ADefaultHUD;
  *
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells, public IOwnerController
+class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells, public IOwnerController, public ICanBuyBuildings
 {
 	GENERATED_BODY()
 
@@ -31,6 +32,8 @@ public:
 	void HideBuyWidget() override;
 	void ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy) override;
 	bool IsBuyWidgetVisible() const override;
+
+	void BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> Buildings) override;
 
 	USpringArmComponent* GetSpringArmComponent() const;
 

@@ -3,6 +3,7 @@
 
 #include "BuildingBuyingInfoWidget.h"
 #include "Structs/BuildingData.h"
+#include "Interfaces/CanBuyBuildings.h"
 
 void UBuildingBuyingInfoWidget::SetupWidget(FName RowName, FBuildingData& BuildingData)
 {
@@ -23,5 +24,5 @@ void UBuildingBuyingInfoWidget::SetupWidget(FName RowName, FBuildingData& Buildi
 
 void UBuildingBuyingInfoWidget::SpawnBuilding()
 {
-		OnBuyClicked.Broadcast(BuildingRowName);
+	OnBuyClicked.Broadcast(BuildingRowName);
 }

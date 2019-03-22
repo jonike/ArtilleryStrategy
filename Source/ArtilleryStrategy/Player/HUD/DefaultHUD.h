@@ -43,12 +43,13 @@ private:
 	UUserWidget* ActiveBuyWidget = nullptr;
 
 	UFUNCTION()
-	void WhenBuyClicked(TScriptInterface<ICanBeOwned> Property);
+	void WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property);
+	UFUNCTION()
+	void WhenBuyBuildingClicked(FName BuildingRowName);
 	UFUNCTION()
 	void WhenCloseClicked();
 
 	void CreateBuyCellWidget();
 	void CreateBuildingSelectorWidget();
-	bool IsBuyCellWidgetActive() const;
 	TScriptInterface<ICanBuyCells> GetBuyer() const;
 };

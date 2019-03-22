@@ -93,6 +93,11 @@ bool ADefaultPlayerController::IsBuyWidgetVisible() const
 	return GetDefaultHUD().IsBuyWidgetsVisible();
 }
 
+void ADefaultPlayerController::BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> Buildings)
+{
+	// TODO: provide definition
+}
+
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 {
 	if (const auto PlayerPawn = GetPawnOrSpectator())
