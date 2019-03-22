@@ -24,6 +24,6 @@ class ARTILLERYSTRATEGY_API IBuildingGridItemWidget
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void Setup(FBuildingData& BuildingData) = 0;
+	virtual void SetupWidget(FName RowName, FBuildingData& BuildingData) = 0;
 	virtual void SpawnBuilding() = 0;
 };

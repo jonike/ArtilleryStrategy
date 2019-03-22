@@ -18,11 +18,16 @@ class ARTILLERYSTRATEGY_API UBuildingBuyingInfoWidget : public UUserWidget, publ
 	GENERATED_BODY()
 
 public:
-	void Setup(FBuildingData& BuildingData) override;
+	void SetupWidget(FName RowName, FBuildingData& BuildingData) override;
 
-	void SpawnBuilding() override;
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuyClickedSignature, FName, RowName);
+
+	FOnBuyClickedSignature OnBuyClicked;
 
 protected:
+	UFUNCTION(BlueprintCallable, Category = Spawning)
+	void SpawnBuilding() override;
+
 	UFUNCTION(Category = Accessors, BlueprintImplementableEvent)
 	UImage* GetIconWidget() const;
 
@@ -31,4 +36,9 @@ protected:
 
 	UFUNCTION(Category = Accessors, BlueprintImplementableEvent)
 	UTextBlock* GetCostWidget() const;
+
+
+private:
+	UPROPERTY()
+	FName BuildingRowName;
 };

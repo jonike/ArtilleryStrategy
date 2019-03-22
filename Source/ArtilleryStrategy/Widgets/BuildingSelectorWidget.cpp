@@ -26,7 +26,7 @@ void UBuildingSelectorWidget::AddGridItemWidget(const FName RowName, const int N
 {
 	auto GridItemWidget = LoadOrCreateGridItem(Number);
 	const auto BuildingData = BuildingsDataTable->FindRow<FBuildingData>(RowName, TEXT("Get row data for filling building selector widget"));
-	GridItemWidget->Setup(*BuildingData);
+	GridItemWidget->SetupWidget(RowName, *BuildingData);
 	const auto ItemWidget = Cast<UUserWidget>(GridItemWidget.GetObject());
 	check(ItemWidget);
 	GridPanel.AddChildToUniformGrid(ItemWidget);

@@ -4,8 +4,9 @@
 #include "BuildingBuyingInfoWidget.h"
 #include "Structs/BuildingData.h"
 
-void UBuildingBuyingInfoWidget::Setup(FBuildingData& BuildingData)
+void UBuildingBuyingInfoWidget::SetupWidget(FName RowName, FBuildingData& BuildingData)
 {
+	BuildingRowName = RowName;
 	if (const auto IconWidget = GetIconWidget())
 	{
 		IconWidget->SetBrushFromTexture(BuildingData.Icon);
@@ -22,5 +23,5 @@ void UBuildingBuyingInfoWidget::Setup(FBuildingData& BuildingData)
 
 void UBuildingBuyingInfoWidget::SpawnBuilding()
 {
-	// TODO: add logic for spawning buildings
+		OnBuyClicked.Broadcast(BuildingRowName);
 }
