@@ -76,6 +76,7 @@ void ADefaultHUD::CreateBuildingSelectorWidget()
 {
 	BuildingSelectorWidget = CreateWidget<UBuildingSelectorWidget>(GetOwningPlayerController(), BuildingsSelectorWidgetClass);
 	check(BuildingSelectorWidget);
+	BuildingSelectorWidget->OnCloseClicked.AddDynamic(this, &ADefaultHUD::WhenCloseClicked);
 }
 
 bool ADefaultHUD::IsBuyCellWidgetActive() const

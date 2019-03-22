@@ -18,9 +18,16 @@ class ARTILLERYSTRATEGY_API UBuildingSelectorWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
+public:
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseClickedSignature);
+	FOnCloseClickedSignature OnCloseClicked;
+
 protected:
 	UFUNCTION(BlueprintCallable, Category = Grid)
 		void FillBuildingsData(UUniformGridPanel* GridPanel);
+
+	UFUNCTION(BlueprintCallable, Category = Closing)
+		void CloseWidget() const;
 
 private:
 	UPROPERTY(Category = Grid, EditAnywhere)

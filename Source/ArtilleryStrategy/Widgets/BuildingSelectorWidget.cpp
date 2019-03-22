@@ -17,6 +17,11 @@ void UBuildingSelectorWidget::FillBuildingsData(UUniformGridPanel* GridPanel)
 	}
 }
 
+void UBuildingSelectorWidget::CloseWidget() const
+{
+	OnCloseClicked.Broadcast();
+}
+
 void UBuildingSelectorWidget::AddGridItemWidget(const FName RowName, const int Number, UUniformGridPanel& GridPanel)
 {
 	auto GridItemWidget = LoadOrCreateGridItem(Number);
