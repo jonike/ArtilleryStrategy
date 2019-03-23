@@ -62,6 +62,11 @@ void ADefaultHUD::WhenBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, T
 {
 	const auto Buyer = GetBuildingsBuyer();
 	Buyer->BuyBuilding(Cell, BuildingClass);
+
+	if (bAutoCloseBuyWidget)
+	{
+		HideBuyWidget();
+	}
 }
 
 void ADefaultHUD::WhenCloseClicked()
