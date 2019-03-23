@@ -20,13 +20,14 @@ void ADefaultHUD::ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property)
 	ActiveBuyWidget = BuyCellWidget;
 }
 
-void ADefaultHUD::ShowBuildingSelectorWidget()
+void ADefaultHUD::ShowBuildingSelectorWidget(TScriptInterface<IGridPlatform> Cell)
 {
 	HideBuyWidget();
 	if (!BuildingSelectorWidget)
 	{
 		CreateBuildingSelectorWidget();
 	}
+	BuildingSelectorWidget->SetSelectedPlatform(Cell);
 	BuildingSelectorWidget->AddToViewport();
 	ActiveBuyWidget = BuildingSelectorWidget;
 }
@@ -48,7 +49,7 @@ bool ADefaultHUD::IsBuyWidgetsVisible() const
 void ADefaultHUD::WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property)
 {
 	check(Property.GetInterface());
-	auto Buyer = GetBuyer();
+	auto Buyer = GetCellBuyer();
 	Buyer->BuyCell(Property);
 
 	if (bAutoCloseBuyWidget)
@@ -57,9 +58,10 @@ void ADefaultHUD::WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property)
 	}
 }
 
-void ADefaultHUD::WhenBuyBuildingClicked(FName BuildingRowName)
+void ADefaultHUD::WhenBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
 {
-	// TODO: provide implementation
+	const auto Buyer = GetBuildingsBuyer();
+	Buyer->BuyBuilding(Cell, BuildingClass);
 }
 
 void ADefaultHUD::WhenCloseClicked()
@@ -81,10 +83,15 @@ void ADefaultHUD::CreateBuildingSelectorWidget()
 																	BuildingsSelectorWidgetClass);
 	check(BuildingSelectorWidget);
 	BuildingSelectorWidget->OnCloseClicked.AddDynamic(this, &ADefaultHUD::WhenCloseClicked);
+	BuildingSelectorWidget->OnBuyClicked.AddDynamic(this, &ADefaultHUD::WhenBuyBuildingClicked);
 }
 
-TScriptInterface<ICanBuyCells> ADefaultHUD::GetBuyer() const
+TScriptInterface<ICanBuyCells> ADefaultHUD::GetCellBuyer() const
 {
-	const auto Controller = GetOwningPlayerController();
-	return Controller;
+	return GetOwningPlayerController();
+}
+
+TScriptInterface<ICanBuyBuildings> ADefaultHUD::GetBuildingsBuyer() const
+{
+	return GetOwningPlayerController();
 }

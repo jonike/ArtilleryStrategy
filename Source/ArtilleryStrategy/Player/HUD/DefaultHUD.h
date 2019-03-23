@@ -6,6 +6,8 @@
 #include "GameFramework/HUD.h"
 #include "DefaultHUD.generated.h"
 
+class IGridPlatform;
+class ICanBuyBuildings;
 class UUserWidget;
 class UBuyPlatformWidget;
 class UBuildingSelectorWidget;
@@ -22,7 +24,7 @@ class ARTILLERYSTRATEGY_API ADefaultHUD : public AHUD
 
 public:
 	void ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property);
-	void ShowBuildingSelectorWidget();
+	void ShowBuildingSelectorWidget(TScriptInterface<IGridPlatform> Cell);
 	void HideBuyWidget();
 	bool IsBuyWidgetsVisible() const;
 
@@ -45,11 +47,12 @@ private:
 	UFUNCTION()
 	void WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property);
 	UFUNCTION()
-	void WhenBuyBuildingClicked(FName BuildingRowName);
+	void WhenBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass);
 	UFUNCTION()
 	void WhenCloseClicked();
 
 	void CreateBuyCellWidget();
 	void CreateBuildingSelectorWidget();
-	TScriptInterface<ICanBuyCells> GetBuyer() const;
+	TScriptInterface<ICanBuyCells> GetCellBuyer() const;
+	TScriptInterface<ICanBuyBuildings> GetBuildingsBuyer() const;
 };

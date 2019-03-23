@@ -33,7 +33,7 @@ public:
 	void ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy) override;
 	bool IsBuyWidgetVisible() const override;
 
-	void BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> Buildings) override;
+	void BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
 
 	USpringArmComponent* GetSpringArmComponent() const;
 

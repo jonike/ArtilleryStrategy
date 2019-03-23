@@ -9,6 +9,8 @@
 #include "Widgets/BuildingSelectorWidget.h"
 #include "Player/HUD/DefaultHUD.h"
 #include "Player/States/DefaultPlayerState.h"
+#include "Interfaces/Building.h"
+#include "Interfaces/GridPlatform.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -93,9 +95,11 @@ bool ADefaultPlayerController::IsBuyWidgetVisible() const
 	return GetDefaultHUD().IsBuyWidgetsVisible();
 }
 
-void ADefaultPlayerController::BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> Buildings)
+void ADefaultPlayerController::BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
 {
-	// TODO: provide definition
+	const auto Location = Cell->GetBuildingSpawnLocation();
+	auto SpawnedBuilding = GetWorld()->SpawnActor(BuildingClass, &Location);
+	Cell->SetBuilding(SpawnedBuilding);
 }
 
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
@@ -125,7 +129,7 @@ void ADefaultPlayerController::ShowBuyWidget(TScriptInterface<ICanBeOwned> Prope
 	auto& HUD = GetDefaultHUD();
 	if (PropertyToBuy->GetOwnerController() == this)
 	{
-		HUD.ShowBuildingSelectorWidget();
+		HUD.ShowBuildingSelectorWidget(PropertyToBuy.GetObject());
 	}
 	else
 	{

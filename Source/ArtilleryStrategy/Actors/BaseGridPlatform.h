@@ -9,6 +9,8 @@
 #include "Interfaces/OwnerController.h"
 #include "BaseGridPlatform.generated.h"
 
+class IBuilding;
+
 UCLASS()
 class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IGridPlatform, public ICanBeOwned
 {
@@ -26,6 +28,10 @@ public:
 	bool HasOwnerController() const override;
 	int GetCost() const override;
 
+	FVector GetBuildingSpawnLocation() const override { return GetActorLocation() + BuildingSpawnOffset; }
+	bool HasBuilding() const override { return Building.GetObject() != nullptr; }
+	void SetBuilding(const TScriptInterface<IBuilding> SpawnedBuilding) override { Building = SpawnedBuilding; }
+
 protected:
 	// Called when the game starts or when spawned
 	void BeginPlay() override;
@@ -33,12 +39,15 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
-		UStaticMeshComponent* StaticMesh;
+	UStaticMeshComponent* StaticMesh;
 	UPROPERTY(EditAnywhere, Category = Cost)
-		int Cost = 50;
+	int Cost = 50;
+	UPROPERTY(EditAnywhere, Category = Buildings)
+	FVector BuildingSpawnOffset;
+
+	TScriptInterface<IBuilding> Building;
+	TScriptInterface<IOwnerController> OwnerController;
 
 	UFUNCTION()
-		void AfterClicked(AActor* TouchedActor, FKey ButtonPressed);
-
-	TScriptInterface<IOwnerController> OwnerController;
+	void AfterClicked(AActor* TouchedActor, FKey ButtonPressed);
 };

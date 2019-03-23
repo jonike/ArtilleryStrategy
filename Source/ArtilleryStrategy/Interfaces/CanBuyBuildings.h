@@ -25,5 +25,5 @@ class ARTILLERYSTRATEGY_API ICanBuyBuildings
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> Building) = 0;
+	virtual void BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) = 0;
 };
