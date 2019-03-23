@@ -56,7 +56,7 @@ private:
 	UFUNCTION()
 		void Zoom(float Value);
 
-	UMaterialInterface& GetOwnerMaterial() const override;
+	UMaterialInterface* GetOwnerMaterial() const override;
 
 	TScriptInterface<IWallet> GetWallet() const;
 	ADefaultHUD& GetDefaultHUD() const;

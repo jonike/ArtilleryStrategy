@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BaseBuilding.h"
+#include "Components/StaticMeshComponent.h"
+#include "Interfaces/OwnerController.h"
 
 // Sets default values
 ABaseBuilding::ABaseBuilding()
@@ -15,6 +17,12 @@ ABaseBuilding::ABaseBuilding()
 void ABaseBuilding::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ABaseBuilding::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
+{
+	OwnerController = NewOwner;
+	StaticMesh->SetMaterial(0, OwnerController->GetOwnerMaterial());
 }
 
 // Called every frame

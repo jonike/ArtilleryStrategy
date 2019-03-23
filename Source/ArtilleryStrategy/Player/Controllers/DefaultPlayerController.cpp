@@ -62,10 +62,10 @@ void ADefaultPlayerController::Zoom(const float Value)
 }
 
 
-UMaterialInterface& ADefaultPlayerController::GetOwnerMaterial() const
+UMaterialInterface* ADefaultPlayerController::GetOwnerMaterial() const
 {
 	check(PlayerMaterial);
-	return *PlayerMaterial;
+	return PlayerMaterial;
 }
 
 TScriptInterface<IWallet> ADefaultPlayerController::GetWallet() const
@@ -98,8 +98,12 @@ bool ADefaultPlayerController::IsBuyWidgetVisible() const
 void ADefaultPlayerController::BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
 {
 	const auto Location = Cell->GetBuildingSpawnLocation();
-	auto SpawnedBuilding = GetWorld()->SpawnActor(BuildingClass, &Location);
+	const auto SpawnedBuilding = GetWorld()->SpawnActor(BuildingClass, &Location);
 	Cell->SetBuilding(SpawnedBuilding);
+	if (const auto OwnedBuilding = Cast<ICanBeOwned>(SpawnedBuilding))
+	{
+		OwnedBuilding->SetOwnerController(this);
+	}
 }
 
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const

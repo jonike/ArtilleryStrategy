@@ -50,7 +50,7 @@ TScriptInterface<IOwnerController> ABaseGridPlatform::GetOwnerController() const
 void ABaseGridPlatform::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
 {
 	OwnerController = NewOwner;
-	StaticMesh->SetMaterial(0, &NewOwner->GetOwnerMaterial());
+	StaticMesh->SetMaterial(0, NewOwner->GetOwnerMaterial());
 }
 
 bool ABaseGridPlatform::HasOwnerController() const
