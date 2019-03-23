@@ -129,7 +129,13 @@ void ADefaultPlayerController::ShowBuyWidget(TScriptInterface<ICanBeOwned> Prope
 	auto& HUD = GetDefaultHUD();
 	if (PropertyToBuy->GetOwnerController() == this)
 	{
-		HUD.ShowBuildingSelectorWidget(PropertyToBuy.GetObject());
+		if (const auto GridPlatform = Cast<IGridPlatform>(PropertyToBuy.GetObject()))
+		{
+			if (!GridPlatform->HasBuilding())
+			{
+				HUD.ShowBuildingSelectorWidget(PropertyToBuy.GetObject());
+			}
+		}
 	}
 	else
 	{
