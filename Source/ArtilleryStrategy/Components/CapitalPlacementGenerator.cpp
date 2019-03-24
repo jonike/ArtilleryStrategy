@@ -3,9 +3,9 @@
 #include "CapitalPlacementGenerator.h"
 #include "Engine/World.h"
 #include "Interfaces/OwnerController.h"
-#include "Interfaces/Building.h"
 #include "Actors/CapitalBuilding.h"
 #include "Interfaces/GridPlatform.h"
+#include "Game/States/DefaultGS.h"
 
 // Sets default values for this component's properties
 UCapitalPlacementGenerator::UCapitalPlacementGenerator()
@@ -40,8 +40,9 @@ ACapitalBuilding* UCapitalPlacementGenerator::CreateCapitalBuilding(FVector Loca
 
 TScriptInterface<IGridPlatform> UCapitalPlacementGenerator::GetSpawnCell() const
 {
-	// TODO: add implementation
-	return nullptr;
+	const auto GameState = Cast<ADefaultGS>(GetWorld()->GetGameState());
+	check(GameState);
+	return GameState->GetTileForCapital();
 }
 
 void UCapitalPlacementGenerator::SetupCapitalBuilding(ACapitalBuilding* Capital, TScriptInterface<IOwnerController> Controller) const

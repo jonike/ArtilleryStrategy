@@ -19,7 +19,9 @@ class ARTILLERYSTRATEGY_API UTileMatrix : public UObject
 
 public:
 	void Reserve(int Rows, int Columns);
-	void Add(TScriptInterface<IGridPlatform> Tile);
+
+	int GetRows() const { return MatrixRows; }
+	int GetColumns() const { return MatrixColumns; }
 
 	TScriptInterface<IGridPlatform>& operator()(int Row, int Column);
 	const TScriptInterface<IGridPlatform>& operator()(int Row, int Column) const;
@@ -29,6 +31,9 @@ private:
 	{
 		TArray<TScriptInterface<IGridPlatform>> Storage;
 	};
+
+	int MatrixRows = 0;
+	int MatrixColumns = 0;
 
 	TArray<FRow> Matrix;
 };
