@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "GridGenerator.generated.h"
 
+class IGridPlatform;
+
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class ARTILLERYSTRATEGY_API UGridGenerator : public UActorComponent
 {
@@ -17,7 +19,15 @@ public:
 
 	// Called every frame
 	void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void GenerateGrid() const;;
+	void GenerateGrid() const;
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGridGenerationStartSignature, int, Rows, int, Columns);
+
+	FOnGridGenerationStartSignature OnGridGenerationStart;
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnTileGeneratedSignature, TScriptInterface<IGridPlatform>, Tile, int, Row, int, Column);
+
+	FOnTileGeneratedSignature OnTileGenerated;
 
 protected:
 	// Called when the game starts
@@ -25,15 +35,15 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, Category = Generation)
-		int Rows = 10;
+	int Rows = 10;
 	UPROPERTY(EditAnywhere, Category = Generation)
-		int Columns = 10;
+	int Columns = 10;
 	UPROPERTY(EditAnywhere, Category = Generation)
-		float Distance = 100.;
+	float Distance = 100.;
 	UPROPERTY(EditAnywhere, Category = Generation)
-		float DefaultZ = 0.;
-	UPROPERTY(EditAnywhere, Category = Generation)
-		TSubclassOf<AActor> GridPlatformClass;
+	float DefaultZ = 0.;
+	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "IGridPlatform"))
+	TSubclassOf<AActor> GridPlatformClass;
 
-	void SpawnPlatform(const FVector& Location) const;
+	AActor* SpawnPlatform(const FVector& Location) const;
 };
