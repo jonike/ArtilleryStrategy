@@ -3,6 +3,11 @@
 
 #include "TileMatrix.h"
 
+UTileMatrix::UTileMatrix(const FObjectInitializer& ObjectInitializer)
+{
+}
+
+
 void UTileMatrix::Reserve(const int Rows, const int Columns)
 {
 	Matrix.Reserve(Rows);

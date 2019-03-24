@@ -6,6 +6,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "ArtilleryStrategyGMB.generated.h"
 
+class UCapitalPlacementGenerator;
+class UGridGenerator;
+
 /**
  *
  */
@@ -17,10 +20,15 @@ class ARTILLERYSTRATEGY_API AArtilleryStrategyGMB : public AGameModeBase
 public:
 	AArtilleryStrategyGMB();
 
+	auto GetGridGenerator() const { return GridGenerator; }
+
 protected:
 	void BeginPlay() override;
 
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
-		class UGridGenerator* GridGenerator;
+	UGridGenerator* GridGenerator;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
+	UCapitalPlacementGenerator* CapitalPlacementGenerator;
 };

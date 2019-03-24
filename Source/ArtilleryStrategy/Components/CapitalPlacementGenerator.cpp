@@ -21,8 +21,6 @@ UCapitalPlacementGenerator::UCapitalPlacementGenerator()
 void UCapitalPlacementGenerator::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
 }
 
 void UCapitalPlacementGenerator::PlaceCapital(TScriptInterface<IOwnerController> Controller) const

@@ -11,6 +11,7 @@ class IBuilding;
 class IGridPlatform;
 class ACapitalBuilding;
 class AController;
+class ADefaultGS;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class ARTILLERYSTRATEGY_API UCapitalPlacementGenerator : public UActorComponent

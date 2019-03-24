@@ -18,6 +18,8 @@ class ARTILLERYSTRATEGY_API UTileMatrix : public UObject
 	GENERATED_BODY()
 
 public:
+	UTileMatrix(const FObjectInitializer& ObjectInitializer);
+
 	void Reserve(int Rows, int Columns);
 
 	int GetRows() const { return MatrixRows; }
