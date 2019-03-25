@@ -6,21 +6,16 @@
 #include "Game/Modes/ArtilleryStrategyGMB.h"
 #include "Components/GridGenerator.h"
 
-ADefaultGS::ADefaultGS()
-{
-	// Why this doesn't work?
-	Matrix = CreateDefaultSubobject<UTileMatrix>(TEXT("Tile Matrix"));
-}
-
 TScriptInterface<IGridPlatform> ADefaultGS::GetTileForCapital() const
 {
-	const auto Row = FMath::RandRange(0, Matrix->GetRows() - 1);
-	const auto Column = FMath::RandRange(0, Matrix->GetColumns() - 1);
-	return (*Matrix)(Row, Column);
+	const auto Row = FMath::RandRange(0, Matrix.GetRows() - 1);
+	const auto Column = FMath::RandRange(0, Matrix.GetColumns() - 1);
+	return Matrix(Row, Column);
 }
 
-void ADefaultGS::BeginPlay()
+void ADefaultGS::PostInitializeComponents()
 {
+	Super::PostInitializeComponents();
 	const auto GridGenerator = GetGridGenerator();
 	GridGenerator->OnGridGenerationStart.AddDynamic(this, &ADefaultGS::WhenGridGenerationStarted);
 	GridGenerator->OnTileGenerated.AddDynamic(this, &ADefaultGS::WhenTileGenerated);
@@ -29,12 +24,12 @@ void ADefaultGS::BeginPlay()
 
 void ADefaultGS::WhenGridGenerationStarted(const int Rows, const int Columns)
 {
-	Matrix->Reserve(Rows, Columns);
+	Matrix.Resize(Rows, Columns);
 }
 
 void ADefaultGS::WhenTileGenerated(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column)
 {
-	(*Matrix)(Row, Column) = Tile;
+	Matrix(Row, Column) = Tile;
 }
 
 UGridGenerator* ADefaultGS::GetGridGenerator() const

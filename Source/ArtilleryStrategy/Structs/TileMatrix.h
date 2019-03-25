@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "ScriptInterface.h"
 #include "TileMatrix.generated.h"
 
@@ -12,15 +11,13 @@ class IGridPlatform;
 /**
  * 
  */
-UCLASS()
-class ARTILLERYSTRATEGY_API UTileMatrix : public UObject
+USTRUCT()
+struct ARTILLERYSTRATEGY_API FTileMatrix
 {
 	GENERATED_BODY()
 
 public:
-	UTileMatrix(const FObjectInitializer& ObjectInitializer);
-
-	void Reserve(int Rows, int Columns);
+	void Resize(int Rows, int Columns);
 
 	int GetRows() const { return MatrixRows; }
 	int GetColumns() const { return MatrixColumns; }

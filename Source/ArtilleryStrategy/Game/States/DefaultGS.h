@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
-#include "Objects/TileMatrix.h"
+#include "Structs/TileMatrix.h"
 #include "DefaultGS.generated.h"
 
 class UGridGenerator;
@@ -18,24 +18,22 @@ class ARTILLERYSTRATEGY_API ADefaultGS : public AGameStateBase
 	GENERATED_BODY()
 
 public:
-	ADefaultGS();
 
 	TScriptInterface<IGridPlatform> GetTileForCapital() const;
 
 protected:
-	void BeginPlay() override;
+	void PostInitializeComponents() override;
 
 private:
-	UPROPERTY()
-	UTileMatrix* Matrix;
-
 	UFUNCTION()
 	void WhenGridGenerationStarted(int Rows, int Columns);
 	UFUNCTION()
 	void WhenTileGenerated(TScriptInterface<IGridPlatform> Tile, int Row, int Column);
 
-	void AddTile(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column) const { (*Matrix)(Row, Column) = Tile; }
-	void ReserveTileMatrix(const int Rows, const int Columns) const { Matrix->Reserve(Rows, Columns); }
+	FTileMatrix Matrix;
+
+	void AddTile(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column) { Matrix(Row, Column) = Tile; }
+	void ResizeTileMatrix(const int Rows, const int Columns) { Matrix.Resize(Rows, Columns); }
 
 	UGridGenerator* GetGridGenerator() const;
 };
