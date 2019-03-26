@@ -25,5 +25,5 @@ void ABaseProjectile::BeginPlay()
 void ABaseProjectile::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	AddActorLocalOffset(GetActorForwardVector() * DeltaTime * Speed);
+	AddActorWorldOffset(GetActorForwardVector() * DeltaTime * Speed);
 }
