@@ -19,20 +19,27 @@ public:
 	ABaseWeaponBuilding();
 
 	void Fire() override;
-
 	void SetPlaneAngle(float Angle) override;
-
 	void SetHorizonAngle(float Angle) override;
 
 	bool IsReadyForFire() const override;
 
+protected:
+	void BeginPlay() override;
+	void Tick(float DeltaSeconds) override;
+
 private:
 	UPROPERTY(Category = Projectile, EditAnywhere)
 	TSubclassOf<AActor> ProjectileClass;
-
 	UPROPERTY(Category = Projectile, EditAnywhere)
 	float FireForce = 200.F;
-
 	UPROPERTY(Category = Projectile, EditAnywhere)
 	USceneComponent* GunTip;
+
+	bool bIsSelected = false;
+
+	UFUNCTION()
+	void WhenBuildingClicked(AActor* Actor, FKey Key);
+
+	void PlanarLookAt(FVector Location);
 };

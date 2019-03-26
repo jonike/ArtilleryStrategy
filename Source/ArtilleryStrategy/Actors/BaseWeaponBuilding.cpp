@@ -3,11 +3,43 @@
 
 #include "BaseWeaponBuilding.h"
 #include "Engine/World.h"
+#include "GameFramework/Actor.h"
+#include "GameFramework/PlayerController.h"
 
 ABaseWeaponBuilding::ABaseWeaponBuilding()
 {
 	GunTip = CreateDefaultSubobject<USceneComponent>(TEXT("Gun Tip"));
 	GunTip->SetupAttachment(RootComponent);
+}
+
+void ABaseWeaponBuilding::BeginPlay()
+{
+	Super::BeginPlay();
+	OnClicked.AddDynamic(this, &ABaseWeaponBuilding::WhenBuildingClicked);
+}
+
+void ABaseWeaponBuilding::Tick(float DeltaSeconds)
+{
+	if (bIsSelected)
+	{
+		FHitResult Hit;
+		if (GetWorld()->GetFirstPlayerController()->GetHitResultUnderCursor(ECC_Camera, true, Hit))
+		{
+			PlanarLookAt(Hit.Location);
+		}
+	}
+}
+
+void ABaseWeaponBuilding::WhenBuildingClicked(AActor*, FKey)
+{
+	bIsSelected = !bIsSelected;
+}
+
+void ABaseWeaponBuilding::PlanarLookAt(const FVector Location)
+{
+	const auto Direction = Location - GetActorLocation();
+	const auto Rotation = Direction.Rotation();
+	SetPlaneAngle(Rotation.Yaw);
 }
 
 void ABaseWeaponBuilding::Fire()
