@@ -41,10 +41,6 @@ void UBuildingSelectorWidget::AddGridItemWidget(const FName RowName, const int N
 	// TODO: refactor code to eliminate casts
 	// TODO: extract methods to reduce method size
 	auto GridItemWidget = LoadOrCreateGridItem(Number);
-	if (auto BuildingBuyingInfo = Cast<UBuildingBuyingInfoWidget>(GridItemWidget.GetObject()))
-	{
-		BuildingBuyingInfo->OnBuyClicked.AddDynamic(this, &UBuildingSelectorWidget::WhenBuyClicked);
-	}
 	const auto BuildingData = BuildingsDataTable->FindRow<FBuildingData>(RowName, TEXT("Get row data for filling building selector widget"));
 	GridItemWidget->SetupWidget(RowName, *BuildingData);
 	const auto ItemWidget = Cast<UUserWidget>(GridItemWidget.GetObject());
@@ -64,6 +60,10 @@ TScriptInterface<IBuildingGridItemWidget> UBuildingSelectorWidget::LoadOrCreateG
 		return GridItemWidgets[i];
 	}
 	const auto NewWidget = CreateWidget(GetWorld()->GetFirstPlayerController(), GridItemWidgetClass);
+	if (auto BuildingBuyingInfo = Cast<UBuildingBuyingInfoWidget>(NewWidget))
+	{
+		BuildingBuyingInfo->OnBuyClicked.AddDynamic(this, &UBuildingSelectorWidget::WhenBuyClicked);
+	}
 	check(NewWidget);
 	GridItemWidgets.Add(NewWidget);
 	return NewWidget;

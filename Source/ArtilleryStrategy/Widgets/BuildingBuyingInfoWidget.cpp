@@ -25,4 +25,5 @@ void UBuildingBuyingInfoWidget::SetupWidget(FName RowName, FBuildingData& Buildi
 void UBuildingBuyingInfoWidget::SpawnBuilding()
 {
 	OnBuyClicked.Broadcast(BuildingRowName);
+	// OnBuyClicked.Clear();
 }
