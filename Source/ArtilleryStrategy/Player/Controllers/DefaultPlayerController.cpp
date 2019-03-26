@@ -9,8 +9,9 @@
 #include "Widgets/BuildingSelectorWidget.h"
 #include "Player/HUD/DefaultHUD.h"
 #include "Player/States/DefaultPlayerState.h"
-#include "Interfaces/Building.h"
+#include "Interfaces/WeaponBuilding.h"
 #include "Interfaces/GridPlatform.h"
+#include "Actors/BaseWeaponBuilding.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -23,9 +24,11 @@ void ADefaultPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	check(InputComponent);
-	InputComponent->BindAxis("MoveForward", this, &ADefaultPlayerController::MoveForward);
-	InputComponent->BindAxis("MoveRight", this, &ADefaultPlayerController::MoveRight);
-	InputComponent->BindAxis("ZoomIn", this, &ADefaultPlayerController::Zoom);
+	InputComponent->BindAxis(TEXT("MoveForward"), this, &ADefaultPlayerController::MoveForward);
+	InputComponent->BindAxis(TEXT("MoveRight"), this, &ADefaultPlayerController::MoveRight);
+	InputComponent->BindAxis(TEXT("ZoomIn"), this, &ADefaultPlayerController::Zoom);
+
+	InputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ADefaultPlayerController::FireAllWeapon);
 }
 
 void ADefaultPlayerController::MoveForward(const float Value)
@@ -61,6 +64,11 @@ void ADefaultPlayerController::Zoom(const float Value)
 	}
 }
 
+void ADefaultPlayerController::FireAllWeapon()
+{
+	OnFire.Broadcast();
+}
+
 
 UMaterialInterface* ADefaultPlayerController::GetOwnerMaterial() const
 {
@@ -82,6 +90,14 @@ ADefaultHUD& ADefaultPlayerController::GetDefaultHUD() const
 	const auto DefaultHUD = Cast<ADefaultHUD>(HUD);
 	check(DefaultHUD);
 	return *DefaultHUD;
+}
+
+void ADefaultPlayerController::AddToFireList(const TScriptInterface<IWeaponBuilding> Weapon)
+{
+	// TODO: ugly cast (interface -> abstract class)
+	const auto WeaponBuilding = Cast<ABaseWeaponBuilding>(Weapon.GetObject());
+	check(WeaponBuilding);
+	OnFire.AddDynamic(WeaponBuilding, &ABaseWeaponBuilding::Fire);
 }
 
 

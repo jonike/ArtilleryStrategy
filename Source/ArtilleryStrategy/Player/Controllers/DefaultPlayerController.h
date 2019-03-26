@@ -7,6 +7,7 @@
 #include "Interfaces/CanBuyCells.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyBuildings.h"
+#include "Interfaces/FireManager.h"
 #include "DefaultPlayerController.generated.h"
 
 class UUserWidget;
@@ -21,7 +22,7 @@ class ADefaultHUD;
  *
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells, public IOwnerController, public ICanBuyBuildings
+class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells, public IOwnerController, public ICanBuyBuildings, public IFireManager
 {
 	GENERATED_BODY()
 
@@ -35,6 +36,8 @@ public:
 
 	void BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
 
+	void AddToFireList(TScriptInterface<IWeaponBuilding> Weapon) override;
+
 	USpringArmComponent* GetSpringArmComponent() const;
 
 protected:
@@ -42,22 +45,28 @@ protected:
 
 private:
 	UPROPERTY(Category = Movement, EditAnywhere)
-		float MaxMovementSpeed = 50.;
+	float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
-		float ZoomRate = 200.;
+	float ZoomRate = 200.;
 
 	UPROPERTY(Category = Property, EditAnywhere)
-		UMaterialInterface* PlayerMaterial;
+	UMaterialInterface* PlayerMaterial;
 
 	UFUNCTION()
-		void MoveForward(float Value);
+	void MoveForward(float Value);
 	UFUNCTION()
-		void MoveRight(float Value);
+	void MoveRight(float Value);
 	UFUNCTION()
-		void Zoom(float Value);
+	void Zoom(float Value);
+	UFUNCTION()
+	void FireAllWeapon();
 
 	UMaterialInterface* GetOwnerMaterial() const override;
 
 	TScriptInterface<IWallet> GetWallet() const;
 	ADefaultHUD& GetDefaultHUD() const;
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFireSignature);
+
+	FOnFireSignature OnFire;
 };

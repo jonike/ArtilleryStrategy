@@ -7,6 +7,8 @@
 #include "Interfaces/WeaponBuilding.h"
 #include "BaseWeaponBuilding.generated.h"
 
+class IFireManager;
+
 /**
  * 
  */
@@ -18,7 +20,10 @@ class ARTILLERYSTRATEGY_API ABaseWeaponBuilding : public ABaseBuilding, public I
 public:
 	ABaseWeaponBuilding();
 
+	UFUNCTION()
 	void Fire() override;
+
+
 	void SetPlaneAngle(float Angle) override;
 	void SetHorizonAngle(float Angle) override;
 
@@ -29,10 +34,10 @@ protected:
 	void Tick(float DeltaSeconds) override;
 
 private:
-	UPROPERTY(Category = Projectile, EditAnywhere)
+	UPROPERTY(Category = Projectile, EditAnywhere, meta = (MustImplement = "Projectile"))
 	TSubclassOf<AActor> ProjectileClass;
 	UPROPERTY(Category = Projectile, EditAnywhere)
-	float FireForce = 200.F;
+	float ProjectileInitialSpeed = 200.F;
 	UPROPERTY(Category = Projectile, EditAnywhere)
 	USceneComponent* GunTip;
 
@@ -42,4 +47,6 @@ private:
 	void WhenBuildingClicked(AActor* Actor, FKey Key);
 
 	void PlanarLookAt(FVector Location);
+
+	TScriptInterface<IFireManager> GetFireManager() const;
 };

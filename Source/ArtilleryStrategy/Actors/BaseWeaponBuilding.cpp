@@ -5,6 +5,8 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
+#include "Interfaces/Projectile.h"
+#include "Interfaces/FireManager.h"
 
 ABaseWeaponBuilding::ABaseWeaponBuilding()
 {
@@ -16,6 +18,7 @@ void ABaseWeaponBuilding::BeginPlay()
 {
 	Super::BeginPlay();
 	OnClicked.AddDynamic(this, &ABaseWeaponBuilding::WhenBuildingClicked);
+	GetFireManager()->AddToFireList(this);
 }
 
 void ABaseWeaponBuilding::Tick(float DeltaSeconds)
@@ -42,10 +45,21 @@ void ABaseWeaponBuilding::PlanarLookAt(const FVector Location)
 	SetPlaneAngle(Rotation.Yaw);
 }
 
+TScriptInterface<IFireManager> ABaseWeaponBuilding::GetFireManager() const
+{
+	return GetWorld()->GetFirstPlayerController();
+}
+
 void ABaseWeaponBuilding::Fire()
 {
-	auto Projectile = GetWorld()->SpawnActor<AActor>(ProjectileClass, GunTip->GetComponentTransform());
-	// TODO: add force to the projectile
+	if (bIsSelected)
+	{
+		const auto Spawned = GetWorld()->SpawnActor<AActor>(ProjectileClass, GunTip->GetComponentTransform());
+		if (auto Projectile = Cast<IProjectile>(Spawned))
+		{
+			Projectile->SetInitialSpeed(ProjectileInitialSpeed);
+		}
+	}
 }
 
 void ABaseWeaponBuilding::SetPlaneAngle(const float Angle)
