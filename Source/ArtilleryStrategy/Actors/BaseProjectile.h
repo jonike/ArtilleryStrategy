@@ -16,7 +16,7 @@ public:
 	// Sets default values for this actor's properties
 	ABaseProjectile();
 
-	void SetInitialSpeed(float Value) override;
+	void AddImpulse(float Value) override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -27,12 +27,9 @@ protected:
 
 private:
 	UPROPERTY(Category = Projectile, EditAnywhere)
-	float Speed = 0.0F;
-
-	UPROPERTY(Category = Projectile, EditAnywhere)
 	float Damage = 50.f;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* StaticMesh;
 
 	UFUNCTION()

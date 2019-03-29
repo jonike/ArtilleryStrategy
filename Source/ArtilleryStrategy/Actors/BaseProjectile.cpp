@@ -12,13 +12,19 @@ ABaseProjectile::ABaseProjectile()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	RootComponent = StaticMesh;
+	SetRootComponent(StaticMesh);
+	StaticMesh->SetSimulatePhysics(true);
+	StaticMesh->SetGenerateOverlapEvents(true);
+	StaticMesh->SetNotifyRigidBodyCollision(true);
 }
 
-void ABaseProjectile::SetInitialSpeed(const float Value)
+void ABaseProjectile::AddImpulse(const float Value)
 {
-	Speed = Value;
+	auto Primitive = Cast<UPrimitiveComponent>(RootComponent);
+	check(Primitive);
+	Primitive->AddImpulse(GetActorForwardVector() * Value);
 }
 
 // Called when the game starts or when spawned
@@ -32,7 +38,6 @@ void ABaseProjectile::BeginPlay()
 void ABaseProjectile::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	AddActorWorldOffset(GetActorForwardVector() * DeltaTime * Speed);
 }
 
 void ABaseProjectile::DealDamage(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)

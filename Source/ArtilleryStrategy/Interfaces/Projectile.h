@@ -22,5 +22,5 @@ class ARTILLERYSTRATEGY_API IProjectile
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void SetInitialSpeed(float Speed) = 0;
+	virtual void AddImpulse(float Value) = 0;
 };

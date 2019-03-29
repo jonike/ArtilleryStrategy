@@ -61,7 +61,7 @@ void ABaseWeaponBuilding::Fire()
 		const auto Spawned = GetWorld()->SpawnActor<AActor>(ProjectileClass, GunTip->GetComponentTransform());
 		if (auto Projectile = Cast<IProjectile>(Spawned))
 		{
-			Projectile->SetInitialSpeed(ProjectileInitialSpeed);
+			Projectile->AddImpulse(ProjectileImpulse);
 		}
 	}
 }

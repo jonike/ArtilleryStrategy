@@ -29,11 +29,17 @@ protected:
 	// Called when the game starts or when spawned
 	void BeginPlay() override;
 
+	float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 private:
 	UPROPERTY(Category = Visuals, EditAnywhere)
 	UStaticMeshComponent* StaticMesh;
+
 	UPROPERTY(EditAnywhere, Category = Cost)
 	int Cost = 50;
+
+	UPROPERTY(Category = Health, EditAnywhere)
+	float Health = 200.f;
 
 	TScriptInterface<IOwnerController> OwnerController;
 };

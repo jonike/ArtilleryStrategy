@@ -38,7 +38,7 @@ private:
 	TSubclassOf<AActor> ProjectileClass;
 
 	UPROPERTY(Category = Projectile, EditAnywhere)
-	float ProjectileInitialSpeed = 200.F;
+	float ProjectileImpulse = 200.F;
 
 	UPROPERTY(Category = Shooting, EditAnywhere)
 	float MinShootAngle = 0.f;
