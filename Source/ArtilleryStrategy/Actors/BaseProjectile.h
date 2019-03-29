@@ -26,5 +26,15 @@ protected:
 	void Tick(float DeltaTime) override;
 
 private:
+	UPROPERTY(Category = Projectile, EditAnywhere)
 	float Speed = 0.0F;
+
+	UPROPERTY(Category = Projectile, EditAnywhere)
+	float Damage = 50.f;
+
+	UPROPERTY()
+	UStaticMeshComponent* StaticMesh;
+
+	UFUNCTION()
+	void DealDamage(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 };
