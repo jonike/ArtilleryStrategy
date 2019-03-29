@@ -28,6 +28,10 @@ void ABaseWeaponBuilding::Tick(float DeltaSeconds)
 		FHitResult Hit;
 		if (GetWorld()->GetFirstPlayerController()->GetHitResultUnderCursor(ECC_Camera, true, Hit))
 		{
+			auto Rotation = GunTip->GetComponentRotation();
+			const auto DistanceVector = Hit.Location - GetActorLocation();
+			Rotation.Pitch = FMath::Clamp(DistanceVector.Size() * DistanceToAngleMultiplier, MinShootAngle, MaxShootAngle);
+			GunTip->SetWorldRotation(Rotation);
 			PlanarLookAt(Hit.Location);
 		}
 	}

@@ -36,8 +36,19 @@ protected:
 private:
 	UPROPERTY(Category = Projectile, EditAnywhere, meta = (MustImplement = "Projectile"))
 	TSubclassOf<AActor> ProjectileClass;
+
 	UPROPERTY(Category = Projectile, EditAnywhere)
 	float ProjectileInitialSpeed = 200.F;
+
+	UPROPERTY(Category = Shooting, EditAnywhere)
+	float MinShootAngle = 0.f;
+
+	UPROPERTY(Category = Shooting, EditAnywhere)
+	float MaxShootAngle = 60.f;
+
+	UPROPERTY(Category = Shooting, EditAnywhere)
+	float DistanceToAngleMultiplier = 0.01f;
+
 	UPROPERTY(Category = Projectile, EditAnywhere)
 	USceneComponent* GunTip;
 
