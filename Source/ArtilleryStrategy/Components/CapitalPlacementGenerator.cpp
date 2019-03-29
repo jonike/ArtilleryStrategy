@@ -6,6 +6,7 @@
 #include "Actors/CapitalBuilding.h"
 #include "Interfaces/GridPlatform.h"
 #include "Game/States/DefaultGS.h"
+#include "Interfaces/CanBeOwned.h"
 
 // Sets default values for this component's properties
 UCapitalPlacementGenerator::UCapitalPlacementGenerator()
@@ -26,7 +27,11 @@ void UCapitalPlacementGenerator::BeginPlay()
 void UCapitalPlacementGenerator::PlaceCapital(TScriptInterface<IOwnerController> Controller) const
 {
 	check(Controller);
-	const auto Capital = CreateCapitalBuilding(GetSpawnCell()->GetBuildingSpawnLocation());
+	auto Cell = GetSpawnCell();
+	auto Property = Cast<ICanBeOwned>(Cell.GetObject());
+	check(Property);
+	Property->SetOwnerController(GetWorld()->GetFirstPlayerController());
+	const auto Capital = CreateCapitalBuilding(Cell->GetBuildingSpawnLocation());
 	SetupCapitalBuilding(Capital, Controller);
 }
 
