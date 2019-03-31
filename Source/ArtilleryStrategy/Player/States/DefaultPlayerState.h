@@ -16,12 +16,13 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerState : public APlayerState, public IW
 	GENERATED_BODY()
 
 public:
-	bool IsEnoughMoney(int Amount) const override;
-	void AddMoney(int Amount) override;
-	void RemoveMoney(int Amount) override;
-	int GetMoneyAmount() const override;
+	FResourceStorage& GetResourceWallet() override { return Storage; }
+	const FResourceStorage& GetResourceWallet() const override { return Storage; }
 
 private:
 	UPROPERTY(EditAnywhere, Category = Resources)
-		int Money = 1000;
+	int Money = 1000;
+
+	UPROPERTY(Category = Resources, EditAnywhere)
+	FResourceStorage Storage;
 };

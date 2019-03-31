@@ -136,11 +136,11 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 
 void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 {
-	auto Wallet = GetWallet();
-	if (Wallet->IsEnoughMoney(Cell->GetCost()))
+	const auto Wallet = GetWallet();
+	if (Wallet)
 	{
+		// TODO: check if player has enough resources and spend them on construction
 		Cell->SetOwnerController(this);
-		Wallet->RemoveMoney(Cell->GetCost());
 	}
 }
 
