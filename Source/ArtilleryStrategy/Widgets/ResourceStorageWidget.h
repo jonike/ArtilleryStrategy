@@ -7,6 +7,7 @@
 #include "Interfaces/Wallet.h"
 #include "ResourceStorageWidget.generated.h"
 
+class IResourceWidgetInterface;
 /**
  * 
  */
@@ -18,9 +19,19 @@ class ARTILLERYSTRATEGY_API UResourceStorageWidget : public UUserWidget
 public:
 	void NativeConstruct() override;
 
+protected:
+	UFUNCTION(Category = Resources, BlueprintImplementableEvent)
+	void PlaceResourceWidget(UUserWidget* ResourceWidget);
+
 private:
 	UPROPERTY(Category = Resources, EditAnywhere)
 	UDataTable* ResourcesTable;
 
+	UPROPERTY(Category = Widgets, EditAnywhere, meta = (MustImplement = "ResourceWidgetInterface"))
+	TSubclassOf<UUserWidget> ResourceWidgetClass;
+
+	TArray<TScriptInterface<IResourceWidgetInterface>> ResourceWidgets;
+
+	TScriptInterface<IResourceWidgetInterface> GetResourceWidget(int Index);
 	TScriptInterface<IWallet> GetWallet() const;
 };
