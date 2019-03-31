@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Interfaces/ResourceWidgetInterface.h"
 #include "ResourceWidget.generated.h"
 
 struct FResource;
@@ -11,10 +12,10 @@ struct FResource;
  * 
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API UResourceWidget : public UUserWidget
+class ARTILLERYSTRATEGY_API UResourceWidget : public UUserWidget, public IResourceWidgetInterface
 {
 	GENERATED_BODY()
 
 public:
-	void Fill(const FName& Name, const FResource& Resource);
+	void Fill(const FName& Name, const FResource& Resource) override;
 };
