@@ -2,7 +2,3 @@
 
 
 #include "ResourceWidget.h"
-
-void UResourceWidget::Fill(const FName& Name, const FResource& Resource)
-{
-}
