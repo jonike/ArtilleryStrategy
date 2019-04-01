@@ -6,6 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "DefaultHUD.generated.h"
 
+class UResourceStorageWidget;
 class IGridPlatform;
 class ICanBuyBuildings;
 class UUserWidget;
@@ -28,6 +29,9 @@ public:
 	void HideBuyWidget();
 	bool IsBuyWidgetsVisible() const;
 
+protected:
+	void BeginPlay() override;
+
 private:
 	UPROPERTY(Category = Widgets, EditAnywhere)
 	bool bAutoCloseBuyWidget = true;
@@ -36,6 +40,8 @@ private:
 	TSubclassOf<UUserWidget> BuyCellWidgetClass;
 	UPROPERTY(Category = Widgets, EditDefaultsOnly)
 	TSubclassOf<UUserWidget> BuildingsSelectorWidgetClass;
+	UPROPERTY(Category = Widgets, EditDefaultsOnly)
+	TSubclassOf<UUserWidget> ResourceStorageWidgetClass;
 
 	UPROPERTY()
 	UBuyPlatformWidget* BuyCellWidget = nullptr;
@@ -43,6 +49,8 @@ private:
 	UBuildingSelectorWidget* BuildingSelectorWidget = nullptr;
 	UPROPERTY()
 	UUserWidget* ActiveBuyWidget = nullptr;
+	UPROPERTY()
+	UResourceStorageWidget* ResourceStorageWidget = nullptr;
 
 	UFUNCTION()
 	void WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property);
@@ -51,8 +59,14 @@ private:
 	UFUNCTION()
 	void WhenCloseClicked();
 
+	void ShowResourceStorageWidget();
+	void HideResourceStorageWidget();
+	bool IsResourceStorageWidgetVisible() const;
+
 	void CreateBuyCellWidget();
 	void CreateBuildingSelectorWidget();
+	void CreateResourceStorageWidget();
+
 	TScriptInterface<ICanBuyCells> GetCellBuyer() const;
 	TScriptInterface<ICanBuyBuildings> GetBuildingsBuyer() const;
 };

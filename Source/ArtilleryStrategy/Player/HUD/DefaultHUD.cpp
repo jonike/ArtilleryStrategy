@@ -7,6 +7,7 @@
 #include "Widgets/BuildingSelectorWidget.h"
 #include "Interfaces/CanBuyCells.h"
 #include "Player/Controllers/DefaultPlayerController.h"
+#include "Widgets/ResourceStorageWidget.h"
 
 void ADefaultHUD::ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property)
 {
@@ -46,6 +47,11 @@ bool ADefaultHUD::IsBuyWidgetsVisible() const
 	return ActiveBuyWidget != nullptr;
 }
 
+void ADefaultHUD::BeginPlay()
+{
+	ShowResourceStorageWidget();
+}
+
 void ADefaultHUD::WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property)
 {
 	check(Property.GetInterface());
@@ -74,6 +80,31 @@ void ADefaultHUD::WhenCloseClicked()
 	HideBuyWidget();
 }
 
+void ADefaultHUD::ShowResourceStorageWidget()
+{
+	if (!ResourceStorageWidget)
+	{
+		CreateResourceStorageWidget();
+	}
+	if (!IsResourceStorageWidgetVisible())
+	{
+		ResourceStorageWidget->AddToViewport();
+	}
+}
+
+void ADefaultHUD::HideResourceStorageWidget()
+{
+	if (IsResourceStorageWidgetVisible())
+	{
+		ResourceStorageWidget->RemoveFromViewport();
+	}
+}
+
+bool ADefaultHUD::IsResourceStorageWidgetVisible() const
+{
+	return ResourceStorageWidget && ResourceStorageWidget->IsInViewport();
+}
+
 void ADefaultHUD::CreateBuyCellWidget()
 {
 	BuyCellWidget = CreateWidget<UBuyPlatformWidget>(GetOwningPlayerController(), BuyCellWidgetClass);
@@ -89,6 +120,12 @@ void ADefaultHUD::CreateBuildingSelectorWidget()
 	check(BuildingSelectorWidget);
 	BuildingSelectorWidget->OnCloseClicked.AddDynamic(this, &ADefaultHUD::WhenCloseClicked);
 	BuildingSelectorWidget->OnBuyClicked.AddDynamic(this, &ADefaultHUD::WhenBuyBuildingClicked);
+}
+
+void ADefaultHUD::CreateResourceStorageWidget()
+{
+	ResourceStorageWidget = CreateWidget<UResourceStorageWidget>(GetOwningPlayerController(), ResourceStorageWidgetClass);
+	check(ResourceStorageWidget);
 }
 
 TScriptInterface<ICanBuyCells> ADefaultHUD::GetCellBuyer() const
