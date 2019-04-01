@@ -24,12 +24,10 @@ public:
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseClickedSignature);
 
-	FOnCloseClickedSignature OnCloseClicked;
-
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnBuyClickedSignature, TScriptInterface<IGridPlatform>, Cell,
-												TSubclassOf<AActor>, BuildingClass);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnBuyClickedSignature, TScriptInterface<IGridPlatform>, Cell, TSubclassOf<AActor>, BuildingClass);
 
 	FOnBuyClickedSignature OnBuyClicked;
+	FOnCloseClickedSignature OnCloseClicked;
 
 protected:
 	UFUNCTION(BlueprintCallable, Category = Grid)

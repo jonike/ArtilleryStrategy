@@ -55,7 +55,7 @@ private:
 	bool bIsSelected = false;
 
 	UFUNCTION()
-	void WhenBuildingClicked(AActor* Actor, FKey Key);
+	void ReceiveOnBuildingClicked(AActor* Actor, FKey Key);
 
 	void PlanarLookAt(FVector Location);
 

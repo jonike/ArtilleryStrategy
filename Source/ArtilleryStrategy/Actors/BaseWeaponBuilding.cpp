@@ -17,7 +17,7 @@ ABaseWeaponBuilding::ABaseWeaponBuilding()
 void ABaseWeaponBuilding::BeginPlay()
 {
 	Super::BeginPlay();
-	OnClicked.AddDynamic(this, &ABaseWeaponBuilding::WhenBuildingClicked);
+	OnClicked.AddDynamic(this, &ABaseWeaponBuilding::ReceiveOnBuildingClicked);
 	GetFireManager()->AddToFireList(this);
 }
 
@@ -37,7 +37,7 @@ void ABaseWeaponBuilding::Tick(float DeltaSeconds)
 	}
 }
 
-void ABaseWeaponBuilding::WhenBuildingClicked(AActor*, FKey)
+void ABaseWeaponBuilding::ReceiveOnBuildingClicked(AActor*, FKey)
 {
 	bIsSelected = !bIsSelected;
 }

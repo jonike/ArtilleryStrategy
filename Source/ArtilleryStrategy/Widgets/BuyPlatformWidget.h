@@ -19,17 +19,18 @@ public:
 	void SetPropertyToBuy(TScriptInterface<ICanBeOwned> Property);
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuyClickedSignature, TScriptInterface<ICanBeOwned>, Property);
-	FOnBuyClickedSignature OnBuyClicked;
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseClickedSignature);
+
+	FOnBuyClickedSignature OnBuyClicked;
 	FOnCloseClickedSignature OnCloseClicked;
 
 protected:
 	UFUNCTION(BlueprintCallable, Category = Buttons)
-		void BuyCell() const;
+	void BuyCell() const;
 
 	UFUNCTION(BlueprintCallable, Category = Buttons)
-		void CloseBuyWidget() const;
+	void CloseBuyWidget() const;
 
 private:
 	TScriptInterface<ICanBeOwned> PropertyToBuy;

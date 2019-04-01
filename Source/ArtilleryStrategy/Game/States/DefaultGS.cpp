@@ -17,17 +17,17 @@ void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	const auto GridGenerator = GetGridGenerator();
-	GridGenerator->OnGridGenerationStart.AddDynamic(this, &ADefaultGS::WhenGridGenerationStarted);
-	GridGenerator->OnTileGenerated.AddDynamic(this, &ADefaultGS::WhenTileGenerated);
+	GridGenerator->OnGridGenerationStart.AddDynamic(this, &ADefaultGS::ReceiveOnGridGenerationStarted);
+	GridGenerator->OnTileGenerated.AddDynamic(this, &ADefaultGS::ReceiveOnTileGenerated);
 }
 
 
-void ADefaultGS::WhenGridGenerationStarted(const int Rows, const int Columns)
+void ADefaultGS::ReceiveOnGridGenerationStarted(const int Rows, const int Columns)
 {
 	Matrix.Resize(Rows, Columns);
 }
 
-void ADefaultGS::WhenTileGenerated(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column)
+void ADefaultGS::ReceiveOnTileGenerated(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column)
 {
 	Matrix(Row, Column) = Tile;
 }

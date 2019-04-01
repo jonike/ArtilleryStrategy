@@ -20,10 +20,10 @@ ABaseGridPlatform::ABaseGridPlatform()
 void ABaseGridPlatform::BeginPlay()
 {
 	Super::BeginPlay();
-	OnClicked.AddDynamic(this, &ABaseGridPlatform::AfterClicked);
+	OnClicked.AddDynamic(this, &ABaseGridPlatform::ReceiveOnClicked);
 }
 
-void ABaseGridPlatform::AfterClicked(AActor*, FKey)
+void ABaseGridPlatform::ReceiveOnClicked(AActor*, FKey)
 {
 	const auto PlayerController = GetWorld()->GetFirstPlayerController();
 	if (auto ControllerThatCanBuy = Cast<ICanBuyCells>(PlayerController))

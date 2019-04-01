@@ -53,11 +53,11 @@ private:
 	UResourceStorageWidget* ResourceStorageWidget = nullptr;
 
 	UFUNCTION()
-	void WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property);
+	void ReceiveOnBuyCellClicked(TScriptInterface<ICanBeOwned> Property);
 	UFUNCTION()
-	void WhenBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass);
+	void ReceiveOnBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass);
 	UFUNCTION()
-	void WhenCloseClicked();
+	void ReceiveOnCloseClicked();
 
 	void ShowResourceStorageWidget();
 	void HideResourceStorageWidget();

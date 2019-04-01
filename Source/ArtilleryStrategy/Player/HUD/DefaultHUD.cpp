@@ -52,7 +52,7 @@ void ADefaultHUD::BeginPlay()
 	ShowResourceStorageWidget();
 }
 
-void ADefaultHUD::WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property)
+void ADefaultHUD::ReceiveOnBuyCellClicked(TScriptInterface<ICanBeOwned> Property)
 {
 	check(Property.GetInterface());
 	auto Buyer = GetCellBuyer();
@@ -64,7 +64,7 @@ void ADefaultHUD::WhenBuyCellClicked(TScriptInterface<ICanBeOwned> Property)
 	}
 }
 
-void ADefaultHUD::WhenBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
+void ADefaultHUD::ReceiveOnBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
 {
 	const auto Buyer = GetBuildingsBuyer();
 	Buyer->BuyBuilding(Cell, BuildingClass);
@@ -75,7 +75,7 @@ void ADefaultHUD::WhenBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, T
 	}
 }
 
-void ADefaultHUD::WhenCloseClicked()
+void ADefaultHUD::ReceiveOnCloseClicked()
 {
 	HideBuyWidget();
 }
@@ -109,8 +109,8 @@ void ADefaultHUD::CreateBuyCellWidget()
 {
 	BuyCellWidget = CreateWidget<UBuyPlatformWidget>(GetOwningPlayerController(), BuyCellWidgetClass);
 	check(BuyCellWidget);
-	BuyCellWidget->OnBuyClicked.AddDynamic(this, &ADefaultHUD::WhenBuyCellClicked);
-	BuyCellWidget->OnCloseClicked.AddDynamic(this, &ADefaultHUD::WhenCloseClicked);
+	BuyCellWidget->OnBuyClicked.AddDynamic(this, &ADefaultHUD::ReceiveOnBuyCellClicked);
+	BuyCellWidget->OnCloseClicked.AddDynamic(this, &ADefaultHUD::ReceiveOnCloseClicked);
 }
 
 void ADefaultHUD::CreateBuildingSelectorWidget()
@@ -118,8 +118,8 @@ void ADefaultHUD::CreateBuildingSelectorWidget()
 	BuildingSelectorWidget = CreateWidget<UBuildingSelectorWidget>(GetOwningPlayerController(),
 																	BuildingsSelectorWidgetClass);
 	check(BuildingSelectorWidget);
-	BuildingSelectorWidget->OnCloseClicked.AddDynamic(this, &ADefaultHUD::WhenCloseClicked);
-	BuildingSelectorWidget->OnBuyClicked.AddDynamic(this, &ADefaultHUD::WhenBuyBuildingClicked);
+	BuildingSelectorWidget->OnCloseClicked.AddDynamic(this, &ADefaultHUD::ReceiveOnCloseClicked);
+	BuildingSelectorWidget->OnBuyClicked.AddDynamic(this, &ADefaultHUD::ReceiveOnBuyBuildingClicked);
 }
 
 void ADefaultHUD::CreateResourceStorageWidget()

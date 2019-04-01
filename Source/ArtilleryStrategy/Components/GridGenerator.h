@@ -23,10 +23,9 @@ public:
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGridGenerationStartSignature, int, Rows, int, Columns);
 
-	FOnGridGenerationStartSignature OnGridGenerationStart;
-
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnTileGeneratedSignature, TScriptInterface<IGridPlatform>, Tile, int, Row, int, Column);
 
+	FOnGridGenerationStartSignature OnGridGenerationStart;
 	FOnTileGeneratedSignature OnTileGenerated;
 
 protected:

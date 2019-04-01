@@ -26,9 +26,9 @@ protected:
 
 private:
 	UFUNCTION()
-	void WhenGridGenerationStarted(int Rows, int Columns);
+	void ReceiveOnGridGenerationStarted(int Rows, int Columns);
 	UFUNCTION()
-	void WhenTileGenerated(TScriptInterface<IGridPlatform> Tile, int Row, int Column);
+	void ReceiveOnTileGenerated(TScriptInterface<IGridPlatform> Tile, int Row, int Column);
 
 	FTileMatrix Matrix;
 

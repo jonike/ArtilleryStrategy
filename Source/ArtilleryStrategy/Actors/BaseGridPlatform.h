@@ -49,5 +49,5 @@ private:
 	TScriptInterface<IOwnerController> OwnerController;
 
 	UFUNCTION()
-	void AfterClicked(AActor* TouchedActor, FKey ButtonPressed);
+	void ReceiveOnClicked(AActor* TouchedActor, FKey ButtonPressed);
 };
