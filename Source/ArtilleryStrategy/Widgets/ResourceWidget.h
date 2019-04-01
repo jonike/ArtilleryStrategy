@@ -6,14 +6,13 @@
 #include "Blueprint/UserWidget.h"
 #include "Interfaces/ResourceWidgetInterface.h"
 #include "Structs/Resource.h"
-#include "IUserObjectListEntry.h"
 #include "ResourceWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API UResourceWidget : public UUserWidget, public IResourceWidgetInterface, public IUserObjectListEntry
+class ARTILLERYSTRATEGY_API UResourceWidget : public UUserWidget, public IResourceWidgetInterface
 {
 	GENERATED_BODY()
 
