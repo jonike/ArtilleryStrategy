@@ -15,9 +15,9 @@ struct ARTILLERYSTRATEGY_API FResource : public FTableRowBase
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* Icon;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName FriendlyName;
 };

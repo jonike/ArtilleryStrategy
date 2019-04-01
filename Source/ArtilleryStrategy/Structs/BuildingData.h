@@ -15,12 +15,12 @@ struct ARTILLERYSTRATEGY_API FBuildingData : public FTableRowBase
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UTexture2D* Icon;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FName FriendlyName;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int Cost;
-	UPROPERTY(EditAnywhere, meta = (MustImplement = "Building"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (MustImplement = "Building"))
 		TSubclassOf<AActor> SpawnClass;
 };
