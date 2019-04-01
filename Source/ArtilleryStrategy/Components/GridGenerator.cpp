@@ -24,7 +24,11 @@ void UGridGenerator::BeginPlay()
 
 AActor* UGridGenerator::SpawnPlatform(const FVector& Location) const
 {
-	return GetWorld()->SpawnActor<AActor>(GridPlatformClass, Location, FRotator::ZeroRotator);
+	auto Platform = GetWorld()->SpawnActor<AActor>(GridPlatformClass, Location, FRotator::ZeroRotator);
+#if WITH_EDITOR
+	Platform->SetFolderPath(TEXT("World/Platforms"));
+#endif
+	return Platform;
 }
 
 // Called every frame
@@ -40,7 +44,7 @@ void UGridGenerator::GenerateGrid() const
 	check(GridPlatformClass);
 	OnGridGenerationStart.Broadcast(Rows, Columns);
 	const auto OffsetX = -(Rows + 1) * Distance / 2;
-	const auto OffsetY = -(Columns + 1)* Distance / 2;
+	const auto OffsetY = -(Columns + 1) * Distance / 2;
 	FVector Location(OffsetX, OffsetY, DefaultZ);
 	for (auto i = 0; i < Rows; ++i)
 	{
