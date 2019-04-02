@@ -19,16 +19,4 @@ class ARTILLERYSTRATEGY_API AArtilleryStrategyGMB : public AGameModeBase
 
 public:
 	AArtilleryStrategyGMB();
-
-	auto GetGridGenerator() const { return GridGenerator; }
-
-protected:
-	void BeginPlay() override;
-
-private:
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
-	UGridGenerator* GridGenerator;
-
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
-	UCapitalPlacementGenerator* CapitalPlacementGenerator;
 };

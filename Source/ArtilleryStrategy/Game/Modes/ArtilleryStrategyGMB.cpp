@@ -10,18 +10,10 @@
 
 AArtilleryStrategyGMB::AArtilleryStrategyGMB()
 {
-	GridGenerator = CreateDefaultSubobject<UGridGenerator>(TEXT("Grid Generator"));
-	CapitalPlacementGenerator = CreateDefaultSubobject<UCapitalPlacementGenerator>(TEXT("Capital placement generator"));
+
 
 	PlayerControllerClass = ADefaultPlayerController::StaticClass();
 	PlayerStateClass = ADefaultPlayerState::StaticClass();
 	HUDClass = ADefaultHUD::StaticClass();
 	GameStateClass = ADefaultGS::StaticClass();
-}
-
-void AArtilleryStrategyGMB::BeginPlay()
-{
-	check(GridGenerator);
-	GridGenerator->GenerateGrid();
-	CapitalPlacementGenerator->PlaceCapitalsForAll();
 }
