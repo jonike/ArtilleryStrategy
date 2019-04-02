@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Interfaces/ResourceWidgetInterface.h"
-#include "Structs/Resource.h"
 #include "Interfaces/Wallet.h"
 #include "ResourceWidget.generated.h"
 
@@ -22,6 +21,9 @@ public:
 	void Fill(const FName& Name, const FResource& Resource) override;
 
 protected:
-	UFUNCTION(Category = Initialization, BlueprintPure)
+	UFUNCTION(Category = "Resources", BlueprintPure)
 	TScriptInterface<IWallet> GetWallet() const;
+
+	UFUNCTION(Category = "Resources", BlueprintPure)
+	UResourceStorage* GetResourceStorage() const;
 };
