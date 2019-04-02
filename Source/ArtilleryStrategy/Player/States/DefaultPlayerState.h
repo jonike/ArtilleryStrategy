@@ -17,11 +17,10 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerState : public APlayerState, public IW
 	GENERATED_BODY()
 
 public:
+	ADefaultPlayerState();
+
 	UFUNCTION(Category = "Wallet", BlueprintPure)
 	UResourceStorage* GetResourceWallet() const override { return Storage; }
-
-protected:
-	void PostInitializeComponents() override;
 
 private:
 	UPROPERTY(EditAnywhere, Category = Resources)

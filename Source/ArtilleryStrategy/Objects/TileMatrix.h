@@ -11,7 +11,7 @@ class IGridPlatform;
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class ARTILLERYSTRATEGY_API UTileMatrix : public UObject
 {
 	GENERATED_BODY()
