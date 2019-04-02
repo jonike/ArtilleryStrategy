@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Interfaces/ResourceWidgetInterface.h"
 #include "Structs/Resource.h"
+#include "Interfaces/Wallet.h"
 #include "ResourceWidget.generated.h"
 
 /**
@@ -19,4 +20,8 @@ class ARTILLERYSTRATEGY_API UResourceWidget : public UUserWidget, public IResour
 public:
 	UFUNCTION(Category = Initialization, BlueprintImplementableEvent)
 	void Fill(const FName& Name, const FResource& Resource) override;
+
+protected:
+	UFUNCTION(Category = Initialization, BlueprintPure)
+	TScriptInterface<IWallet> GetWallet() const;
 };

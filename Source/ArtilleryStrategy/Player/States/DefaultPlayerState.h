@@ -16,7 +16,7 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerState : public APlayerState, public IW
 	GENERATED_BODY()
 
 public:
-	FResourceStorage& GetResourceWallet() override { return Storage; }
+	UFUNCTION(Category = "Wallet", BlueprintPure)
 	const FResourceStorage& GetResourceWallet() const override { return Storage; }
 
 private:

@@ -2,3 +2,8 @@
 
 
 #include "ResourceWidget.h"
+
+TScriptInterface<IWallet> UResourceWidget::GetWallet() const
+{
+	return GetOwningPlayer()->GetPlayerState<APlayerState>();
+}
