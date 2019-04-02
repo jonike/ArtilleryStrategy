@@ -8,14 +8,15 @@
 
 TScriptInterface<IGridPlatform> ADefaultGS::GetTileForCapital() const
 {
-	const auto Row = FMath::RandRange(0, Matrix.GetRows() - 1);
-	const auto Column = FMath::RandRange(0, Matrix.GetColumns() - 1);
-	return Matrix(Row, Column);
+	const auto Row = FMath::RandRange(0, Matrix->GetRows() - 1);
+	const auto Column = FMath::RandRange(0, Matrix->GetColumns() - 1);
+	return (*Matrix)(Row, Column);
 }
 
 void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+	Matrix = NewObject<UTileMatrix>();
 	const auto GridGenerator = GetGridGenerator();
 	GridGenerator->OnGridGenerationStart.AddDynamic(this, &ADefaultGS::ReceiveOnGridGenerationStarted);
 	GridGenerator->OnTileGenerated.AddDynamic(this, &ADefaultGS::ReceiveOnTileGenerated);
@@ -24,12 +25,12 @@ void ADefaultGS::PostInitializeComponents()
 
 void ADefaultGS::ReceiveOnGridGenerationStarted(const int Rows, const int Columns)
 {
-	Matrix.Resize(Rows, Columns);
+	Matrix->Resize(Rows, Columns);
 }
 
 void ADefaultGS::ReceiveOnTileGenerated(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column)
 {
-	Matrix(Row, Column) = Tile;
+	(*Matrix)(Row, Column) = Tile;
 }
 
 UGridGenerator* ADefaultGS::GetGridGenerator() const

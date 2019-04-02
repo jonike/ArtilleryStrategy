@@ -11,8 +11,8 @@ class IGridPlatform;
 /**
  * 
  */
-USTRUCT()
-struct ARTILLERYSTRATEGY_API FTileMatrix
+UCLASS()
+class ARTILLERYSTRATEGY_API UTileMatrix : public UObject
 {
 	GENERATED_BODY()
 

@@ -3,7 +3,7 @@
 
 #include "TileMatrix.h"
 
-void FTileMatrix::Resize(const int Rows, const int Columns)
+void UTileMatrix::Resize(const int Rows, const int Columns)
 {
 	Matrix.AddDefaulted(Rows);
 	for (auto& Row : Matrix)
@@ -14,12 +14,12 @@ void FTileMatrix::Resize(const int Rows, const int Columns)
 	MatrixColumns = Columns;
 }
 
-TScriptInterface<IGridPlatform>& FTileMatrix::operator()(const int Row, const int Column)
+TScriptInterface<IGridPlatform>& UTileMatrix::operator()(const int Row, const int Column)
 {
 	return Matrix[Row].Storage[Column];
 }
 
-const TScriptInterface<IGridPlatform>& FTileMatrix::operator()(const int Row, const int Column) const
+const TScriptInterface<IGridPlatform>& UTileMatrix::operator()(const int Row, const int Column) const
 {
 	return Matrix[Row].Storage[Column];
 }

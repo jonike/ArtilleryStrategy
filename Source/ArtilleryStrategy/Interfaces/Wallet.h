@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "Structs/ResourceStorage.h"
+#include "Objects/ResourceStorage.h"
 #include "Wallet.generated.h"
 
 // This class does not need to be modified.
@@ -23,6 +23,5 @@ class ARTILLERYSTRATEGY_API IWallet
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual FResourceStorage& GetResourceWallet() = 0;
-	virtual const FResourceStorage& GetResourceWallet() const = 0;
+	virtual UResourceStorage* GetResourceWallet() const = 0;
 };

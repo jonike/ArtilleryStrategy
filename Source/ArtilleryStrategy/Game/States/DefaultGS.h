@@ -4,7 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
-#include "Structs/TileMatrix.h"
+#include "Interfaces/GridPlatform.h"
+#include "Objects/TileMatrix.h"
 #include "DefaultGS.generated.h"
 
 class UGridGenerator;
@@ -30,10 +31,11 @@ private:
 	UFUNCTION()
 	void ReceiveOnTileGenerated(TScriptInterface<IGridPlatform> Tile, int Row, int Column);
 
-	FTileMatrix Matrix;
+	UPROPERTY()
+	UTileMatrix* Matrix;
 
-	void AddTile(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column) { Matrix(Row, Column) = Tile; }
-	void ResizeTileMatrix(const int Rows, const int Columns) { Matrix.Resize(Rows, Columns); }
+	void AddTile(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column) const { (*Matrix)(Row, Column) = Tile; }
+	void ResizeTileMatrix(const int Rows, const int Columns) const { Matrix->Resize(Rows, Columns); }
 
 	UGridGenerator* GetGridGenerator() const;
 };
