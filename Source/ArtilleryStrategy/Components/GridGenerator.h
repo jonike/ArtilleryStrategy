@@ -41,7 +41,7 @@ private:
 	float Distance = 100.;
 	UPROPERTY(EditAnywhere, Category = Generation)
 	float DefaultZ = 0.;
-	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "IGridPlatform"))
+	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "GridPlatform"))
 	TSubclassOf<AActor> GridPlatformClass;
 
 	AActor* SpawnPlatform(const FVector& Location) const;
