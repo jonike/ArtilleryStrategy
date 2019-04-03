@@ -43,7 +43,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	UCapitalPlacementGenerator* CapitalPlacementGenerator;
 
-	void AddTile(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column) const { (*Matrix)(Row, Column) = Tile; }
+	void AddTile(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column) const { Matrix->Get(Row, Column) = Tile; }
 	void ResizeTileMatrix(const int Rows, const int Columns) const { Matrix->Resize(Rows, Columns); }
 
 	UGridGenerator* GetGridGenerator() const;

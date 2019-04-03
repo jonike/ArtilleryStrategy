@@ -14,6 +14,16 @@ void UTileMatrix::Resize(const int Rows, const int Columns)
 	MatrixColumns = Columns;
 }
 
+TScriptInterface<IGridPlatform>& UTileMatrix::Get(const int Row, const int Column)
+{
+	return Matrix[Row].Storage[Column];
+}
+
+auto UTileMatrix::Get(const int Row, int Column) const -> const TScriptInterface<IGridPlatform>&
+{
+	return Matrix[Row].Storage[Column];
+}
+
 TScriptInterface<IGridPlatform>& UTileMatrix::operator()(const int Row, const int Column)
 {
 	return Matrix[Row].Storage[Column];

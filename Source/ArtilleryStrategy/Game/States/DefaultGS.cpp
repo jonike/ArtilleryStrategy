@@ -17,7 +17,7 @@ TScriptInterface<IGridPlatform> ADefaultGS::GetTileForCapital() const
 {
 	const auto Row = FMath::RandRange(0, Matrix->GetRows() - 1);
 	const auto Column = FMath::RandRange(0, Matrix->GetColumns() - 1);
-	return (*Matrix)(Row, Column);
+	return Matrix->Get(Row, Column);
 }
 
 void ADefaultGS::PostInitializeComponents()
@@ -43,7 +43,7 @@ void ADefaultGS::ReceiveOnGridGenerationStarted(const int Rows, const int Column
 
 void ADefaultGS::ReceiveOnTileGenerated(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column)
 {
-	(*Matrix)(Row, Column) = Tile;
+	Matrix->Get(Row, Column) = Tile;
 }
 
 UGridGenerator* ADefaultGS::GetGridGenerator() const

@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, DefaultToInstanced)
 class ARTILLERYSTRATEGY_API UResourceStorage : public UObject
 {
 	GENERATED_BODY()

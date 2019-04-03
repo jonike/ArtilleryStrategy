@@ -11,7 +11,7 @@ class IGridPlatform;
 /**
  * 
  */
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, DefaultToInstanced)
 class ARTILLERYSTRATEGY_API UTileMatrix : public UObject
 {
 	GENERATED_BODY()
@@ -22,6 +22,9 @@ public:
 	int GetRows() const { return MatrixRows; }
 	int GetColumns() const { return MatrixColumns; }
 
+	TScriptInterface<IGridPlatform>& Get(int Row, int Column);
+	const TScriptInterface<IGridPlatform>& Get(int Row, int Column) const;
+
 	TScriptInterface<IGridPlatform>& operator()(int Row, int Column);
 	const TScriptInterface<IGridPlatform>& operator()(int Row, int Column) const;
 
@@ -31,7 +34,10 @@ private:
 		TArray<TScriptInterface<IGridPlatform>> Storage;
 	};
 
+	UPROPERTY(Category = "Size", VisibleAnywhere)
 	int MatrixRows = 0;
+
+	UPROPERTY(Category = "Size", VisibleAnywhere)
 	int MatrixColumns = 0;
 
 	TArray<FRow> Matrix;
