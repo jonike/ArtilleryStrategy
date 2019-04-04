@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "Game/Modes/ArtilleryStrategyGMB.h"
 #include "Components/GridGenerator.h"
+#include "Interfaces/SpawnStrategy.h"
 
 ADefaultGS::ADefaultGS()
 {
@@ -13,22 +14,23 @@ ADefaultGS::ADefaultGS()
 	Matrix = CreateDefaultSubobject<UTileMatrix>(TEXT("Tile matrix"));
 }
 
-TScriptInterface<IGridPlatform> ADefaultGS::GetTileForCapital() const
+TScriptInterface<ISpawnStrategy> ADefaultGS::GetCapitalSpawnStrategy() const
 {
-	const auto Row = FMath::RandRange(0, Matrix->GetRows() - 1);
-	const auto Column = FMath::RandRange(0, Matrix->GetColumns() - 1);
-	return Matrix->Get(Row, Column);
+	return CapitalSpawnStrategy;
 }
 
 void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+
+	CapitalSpawnStrategy = NewObject<UObject>(this, CapitalSpawnStrategyClass);
+	CapitalSpawnStrategy->SetTileMatrix(Matrix);
+
 	const auto Generator = GetGridGenerator();
 	Generator->OnGridGenerationStart.AddDynamic(this, &ADefaultGS::ReceiveOnGridGenerationStarted);
 	Generator->OnTileGenerated.AddDynamic(this, &ADefaultGS::ReceiveOnTileGenerated);
 	Generator->OnGridGenerationEnd.AddDynamic(GetCapitalPlacementGenerator(), &UCapitalPlacementGenerator::ReceiveOnGridGenerationEnd);
 }
-
 
 void ADefaultGS::ReceiveOnGridGenerationStarted(const int Rows, const int Columns)
 {

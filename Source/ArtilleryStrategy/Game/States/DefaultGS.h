@@ -9,6 +9,7 @@
 #include "Components/CapitalPlacementGenerator.h"
 #include "DefaultGS.generated.h"
 
+class ISpawnStrategy;
 class UGridGenerator;
 
 /**
@@ -22,7 +23,7 @@ class ARTILLERYSTRATEGY_API ADefaultGS : public AGameStateBase
 public:
 	ADefaultGS();
 
-	TScriptInterface<IGridPlatform> GetTileForCapital() const;
+	TScriptInterface<ISpawnStrategy> GetCapitalSpawnStrategy() const;
 
 protected:
 	void PostInitializeComponents() override;
@@ -41,6 +42,12 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	UCapitalPlacementGenerator* CapitalPlacementGenerator;
+
+	UPROPERTY(Category = "Procedural generation", EditDefaultsOnly, meta = (MustImplement = "SpawnStrategy"))
+	TSubclassOf<UObject> CapitalSpawnStrategyClass;
+
+	UPROPERTY()
+	TScriptInterface<ISpawnStrategy> CapitalSpawnStrategy;
 
 	void AddTile(TScriptInterface<IGridPlatform> Tile, int Row, int Column) const;
 	void ResizeTileMatrix(int Rows, int Columns) const;

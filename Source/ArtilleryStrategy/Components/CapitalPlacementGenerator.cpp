@@ -8,6 +8,7 @@
 #include "Game/States/DefaultGS.h"
 #include "Interfaces/CanBeOwned.h"
 #include "GridGenerator.h"
+#include "Interfaces/SpawnStrategy.h"
 
 // Sets default values for this component's properties
 UCapitalPlacementGenerator::UCapitalPlacementGenerator()
@@ -51,7 +52,7 @@ TScriptInterface<IGridPlatform> UCapitalPlacementGenerator::GetSpawnCell() const
 {
 	const auto GameState = Cast<ADefaultGS>(GetWorld()->GetGameState());
 	check(GameState);
-	return GameState->GetTileForCapital();
+	return GameState->GetCapitalSpawnStrategy()->GetNextSpawnPoint();
 }
 
 void UCapitalPlacementGenerator::SetupCapitalBuilding(ACapitalBuilding* Capital, TScriptInterface<IOwnerController> Controller) const
