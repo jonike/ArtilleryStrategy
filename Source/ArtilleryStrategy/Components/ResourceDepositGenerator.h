@@ -5,21 +5,21 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Objects/ResourceDeposit.h"
+#include "Interfaces/MapGenerator.h"
 #include "ResourceDepositGenerator.generated.h"
 
-
+class ISpawnStrategy;
 class IGridPlatform;
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class ARTILLERYSTRATEGY_API UResourceDepositGenerator : public UActorComponent
+class ARTILLERYSTRATEGY_API UResourceDepositGenerator : public UActorComponent, public IMapGenerator
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UResourceDepositGenerator();
 
-	UFUNCTION()
-	void ReceiveOnGridGenerationEnd(int Rows, int Columns);
+	void GenerateMap(UTileMatrix* Tiles) override;
 
 protected:
 	// Called when the game starts
@@ -28,7 +28,17 @@ protected:
 	// Called every frame
 	void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	void OnRegister() override;
+
 private:
+	// Spawn strategy
+	UPROPERTY(EditAnywhere)
+	UResourceDepositGenerator* PlacementGenerator;
+	UPROPERTY(Category = "Procedural generation", EditDefaultsOnly, meta = (MustImplement = "SpawnStrategy"))
+	TSubclassOf<UObject> SpawnStrategyClass;
+	UPROPERTY()
+	TScriptInterface<ISpawnStrategy> SpawnStrategy;
+
 	UPROPERTY(Category = "Resources", EditDefaultsOnly)
 	int DepositsAmount = 4;
 

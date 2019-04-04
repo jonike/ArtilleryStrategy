@@ -2,6 +2,7 @@
 
 
 #include "ResourceDepositGenerator.h"
+#include "Interfaces/SpawnStrategy.h"
 
 // Sets default values for this component's properties
 UResourceDepositGenerator::UResourceDepositGenerator()
@@ -13,11 +14,11 @@ UResourceDepositGenerator::UResourceDepositGenerator()
 	// ...
 }
 
-void UResourceDepositGenerator::ReceiveOnGridGenerationEnd(int Rows, int Columns)
+void UResourceDepositGenerator::GenerateMap(UTileMatrix* Tiles)
 {
+	SpawnStrategy->SetTileMatrix(Tiles);
 	CreateDeposits();
 }
-
 
 // Called when the game starts
 void UResourceDepositGenerator::BeginPlay()
@@ -35,6 +36,12 @@ void UResourceDepositGenerator::TickComponent(float DeltaTime, ELevelTick TickTy
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UResourceDepositGenerator::OnRegister()
+{
+	Super::OnRegister();
+	SpawnStrategy = NewObject<UObject>(this, SpawnStrategyClass);
 }
 
 void UResourceDepositGenerator::CreateDeposits()

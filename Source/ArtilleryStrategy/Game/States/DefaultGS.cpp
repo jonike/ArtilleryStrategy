@@ -6,6 +6,7 @@
 #include "Game/Modes/ArtilleryStrategyGMB.h"
 #include "Components/GridGenerator.h"
 #include "Interfaces/SpawnStrategy.h"
+#include "Interfaces/MapGenerator.h"
 
 ADefaultGS::ADefaultGS()
 {
@@ -30,6 +31,7 @@ void ADefaultGS::PostInitializeComponents()
 	Generator->OnGridGenerationStart.AddDynamic(this, &ADefaultGS::ReceiveOnGridGenerationStarted);
 	Generator->OnTileGenerated.AddDynamic(this, &ADefaultGS::ReceiveOnTileGenerated);
 	Generator->OnGridGenerationEnd.AddDynamic(GetCapitalPlacementGenerator(), &UCapitalPlacementGenerator::ReceiveOnGridGenerationEnd);
+	Generator->OnGridGenerationEnd.AddDynamic(this, &ADefaultGS::ReceiveOnGridGenerationEnd);
 }
 
 void ADefaultGS::ReceiveOnGridGenerationStarted(const int Rows, const int Columns)
@@ -40,6 +42,14 @@ void ADefaultGS::ReceiveOnGridGenerationStarted(const int Rows, const int Column
 void ADefaultGS::ReceiveOnTileGenerated(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column)
 {
 	Matrix->Get(Row, Column) = Tile;
+}
+
+void ADefaultGS::ReceiveOnGridGenerationEnd(int Rows, int Columns)
+{
+	for (auto Generator : MapGenerators)
+	{
+		Generator->GenerateMap(Matrix);
+	}
 }
 
 UGridGenerator* ADefaultGS::GetGridGenerator() const
