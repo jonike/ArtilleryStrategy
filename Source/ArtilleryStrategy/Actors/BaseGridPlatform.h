@@ -9,6 +9,7 @@
 #include "Interfaces/OwnerController.h"
 #include "BaseGridPlatform.generated.h"
 
+class UResourceDeposit;
 class IBuilding;
 
 UCLASS()
@@ -28,9 +29,13 @@ public:
 	bool HasOwnerController() const override;
 	int GetCost() const override;
 
-	FVector GetBuildingSpawnLocation() const override { return GetActorLocation() + BuildingSpawnOffset; }
-	bool HasBuilding() const override { return Building.GetObject() != nullptr; }
-	void SetBuilding(const TScriptInterface<IBuilding> SpawnedBuilding) override { Building = SpawnedBuilding; }
+	FVector GetBuildingSpawnLocation() const override;
+	bool HasBuilding() const override;
+	void SetBuilding(TScriptInterface<IBuilding> SpawnedBuilding) override;
+
+	UResourceDeposit* GetResourceDeposit() const override;
+	bool HasResourceDeposit() const override;
+	void SetResourceDeposit(UResourceDeposit* Deposit) override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -40,10 +45,15 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
 	UStaticMeshComponent* StaticMesh;
+
 	UPROPERTY(EditAnywhere, Category = Cost)
 	int Cost = 50;
+
 	UPROPERTY(EditAnywhere, Category = Buildings)
 	FVector BuildingSpawnOffset;
+
+	UPROPERTY(Category = "Resources", VisibleAnywhere)
+	UResourceDeposit* ResourceDeposit;
 
 	TScriptInterface<IBuilding> Building;
 	TScriptInterface<IOwnerController> OwnerController;

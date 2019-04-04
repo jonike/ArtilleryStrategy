@@ -7,6 +7,7 @@
 #include "GridPlatform.generated.h"
 
 class IBuilding;
+class UResourceDeposit;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -27,4 +28,8 @@ public:
 	virtual FVector GetBuildingSpawnLocation() const = 0;
 	virtual bool HasBuilding() const = 0;
 	virtual void SetBuilding(TScriptInterface<IBuilding> Building) = 0;
+
+	virtual UResourceDeposit* GetResourceDeposit() const = 0;
+	virtual bool HasResourceDeposit() const = 0;
+	virtual void SetResourceDeposit(UResourceDeposit* Deposit) = 0;
 };

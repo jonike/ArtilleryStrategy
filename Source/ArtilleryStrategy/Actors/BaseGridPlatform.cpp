@@ -42,6 +42,36 @@ int ABaseGridPlatform::GetCost() const
 	return Cost;
 }
 
+FVector ABaseGridPlatform::GetBuildingSpawnLocation() const
+{
+	return GetActorLocation() + BuildingSpawnOffset;
+}
+
+bool ABaseGridPlatform::HasBuilding() const
+{
+	return Building.GetObject() != nullptr;
+}
+
+void ABaseGridPlatform::SetBuilding(const TScriptInterface<IBuilding> SpawnedBuilding)
+{
+	Building = SpawnedBuilding;
+}
+
+UResourceDeposit* ABaseGridPlatform::GetResourceDeposit() const
+{
+	return ResourceDeposit;
+}
+
+bool ABaseGridPlatform::HasResourceDeposit() const
+{
+	return ResourceDeposit != nullptr;
+}
+
+void ABaseGridPlatform::SetResourceDeposit(UResourceDeposit* Deposit)
+{
+	ResourceDeposit = Deposit;
+}
+
 TScriptInterface<IOwnerController> ABaseGridPlatform::GetOwnerController() const
 {
 	return OwnerController;
