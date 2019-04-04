@@ -23,16 +23,10 @@ TScriptInterface<IGridPlatform> ADefaultGS::GetTileForCapital() const
 void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-	//Matrix = NewObject<UTileMatrix>();
 	const auto Generator = GetGridGenerator();
 	Generator->OnGridGenerationStart.AddDynamic(this, &ADefaultGS::ReceiveOnGridGenerationStarted);
 	Generator->OnTileGenerated.AddDynamic(this, &ADefaultGS::ReceiveOnTileGenerated);
-}
-
-void ADefaultGS::BeginPlay()
-{
-	GetGridGenerator()->GenerateGrid();
-	GetCapitalPlacementGenerator()->PlaceCapitalsForAll();
+	Generator->OnGridGenerationEnd.AddDynamic(GetCapitalPlacementGenerator(), &UCapitalPlacementGenerator::ReceiveOnGridGenerationEnd);
 }
 
 
@@ -49,6 +43,16 @@ void ADefaultGS::ReceiveOnTileGenerated(const TScriptInterface<IGridPlatform> Ti
 UGridGenerator* ADefaultGS::GetGridGenerator() const
 {
 	return GridGenerator;
+}
+
+void ADefaultGS::AddTile(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column) const
+{
+	Matrix->Get(Row, Column) = Tile;
+}
+
+void ADefaultGS::ResizeTileMatrix(const int Rows, const int Columns) const
+{
+	Matrix->Resize(Rows, Columns);
 }
 
 UCapitalPlacementGenerator* ADefaultGS::GetCapitalPlacementGenerator() const

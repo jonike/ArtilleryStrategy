@@ -26,7 +26,6 @@ public:
 
 protected:
 	void PostInitializeComponents() override;
-	void BeginPlay() override;
 
 private:
 	UFUNCTION()
@@ -43,8 +42,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	UCapitalPlacementGenerator* CapitalPlacementGenerator;
 
-	void AddTile(const TScriptInterface<IGridPlatform> Tile, const int Row, const int Column) const { Matrix->Get(Row, Column) = Tile; }
-	void ResizeTileMatrix(const int Rows, const int Columns) const { Matrix->Resize(Rows, Columns); }
+	void AddTile(TScriptInterface<IGridPlatform> Tile, int Row, int Column) const;
+	void ResizeTileMatrix(int Rows, int Columns) const;
 
 	UGridGenerator* GetGridGenerator() const;
 	UCapitalPlacementGenerator* GetCapitalPlacementGenerator() const;

@@ -22,14 +22,17 @@ public:
 	// Sets default values for this component's properties
 	UCapitalPlacementGenerator();
 
-	// Called every frame
-	void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UFUNCTION()
+	void ReceiveOnGridGenerationEnd(int Rows, int Columns);
 
 	void PlaceCapitalsForAll() const;
 
 protected:
 	// Called when the game starts
 	void BeginPlay() override;
+
+	// Called every frame
+	void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
 	UPROPERTY(EditAnywhere, Category = Capitals, meta = (MustImplement = "IBuilding"))

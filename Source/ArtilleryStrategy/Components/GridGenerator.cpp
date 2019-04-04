@@ -18,8 +18,7 @@ UGridGenerator::UGridGenerator()
 void UGridGenerator::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
+	GenerateGrid();
 }
 
 AActor* UGridGenerator::SpawnPlatform(const FVector& Location) const
@@ -57,4 +56,5 @@ void UGridGenerator::GenerateGrid() const
 			OnTileGenerated.Broadcast(SpawnedTile, i, j);
 		}
 	}
+	OnGridGenerationEnd.Broadcast(Rows, Columns);
 }

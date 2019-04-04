@@ -13,6 +13,12 @@ class ARTILLERYSTRATEGY_API UGridGenerator : public UActorComponent
 {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGridGenerationStartSignature, int, Rows, int, Columns);
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGridGenerationEndSignature, int, Rows, int, Columns);
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnTileGeneratedSignature, TScriptInterface<IGridPlatform>, Tile, int, Row, int, Column);
+
 public:
 	// Sets default values for this component's properties
 	UGridGenerator();
@@ -21,11 +27,8 @@ public:
 	void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void GenerateGrid() const;
 
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGridGenerationStartSignature, int, Rows, int, Columns);
-
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnTileGeneratedSignature, TScriptInterface<IGridPlatform>, Tile, int, Row, int, Column);
-
 	FOnGridGenerationStartSignature OnGridGenerationStart;
+	FOnGridGenerationEndSignature OnGridGenerationEnd;
 	FOnTileGeneratedSignature OnTileGenerated;
 
 protected:
@@ -35,12 +38,16 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category = Generation)
 	int Rows = 10;
+
 	UPROPERTY(EditAnywhere, Category = Generation)
 	int Columns = 10;
+
 	UPROPERTY(EditAnywhere, Category = Generation)
 	float Distance = 100.;
+
 	UPROPERTY(EditAnywhere, Category = Generation)
 	float DefaultZ = 0.;
+
 	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "GridPlatform"))
 	TSubclassOf<AActor> GridPlatformClass;
 
