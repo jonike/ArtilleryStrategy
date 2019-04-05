@@ -34,8 +34,12 @@ protected:
 private:
 	UPROPERTY(Category = "Procedural generation", EditDefaultsOnly, meta = (MustImplement = "SpawnStrategy"))
 	TSubclassOf<UObject> SpawnStrategyClass;
+
 	UPROPERTY()
 	TScriptInterface<ISpawnStrategy> SpawnStrategy;
+
+	UPROPERTY(Category = "Resources", EditDefaultsOnly)
+	UDataTable* ResourceTable;
 
 	UPROPERTY(Category = "Resources", EditDefaultsOnly)
 	int DepositsAmount = 4;

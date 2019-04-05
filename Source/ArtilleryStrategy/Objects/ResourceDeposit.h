@@ -18,15 +18,12 @@ class ARTILLERYSTRATEGY_API UResourceDeposit : public UObject
 
 public:
 	int GetAmount() const;
-	const FResource* GetResource() const;
-	FName GetResourceName() const;
+	FResource GetResource() const;
+	void Setup(FResource* Resource, int Amount);
 
 private:
 	UPROPERTY(Category = "Resource", EditAnywhere)
-	FName ResourceName;
-
-	UPROPERTY(Category = "Resource", EditDefaultsOnly)
-	UDataTable* ResourceDepositTable;
+	FResource Resource;
 
 	UPROPERTY(Category = "Resource", EditAnywhere)
 	int Amount;

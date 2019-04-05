@@ -3,6 +3,7 @@
 #include "ResourceDepositGenerator.h"
 #include "Interfaces/SpawnStrategy.h"
 #include "Game/States/DefaultGS.h"
+#include "Interfaces/GridPlatform.h"
 
 // Sets default values for this component's properties
 UResourceDepositGenerator::UResourceDepositGenerator()
@@ -50,9 +51,23 @@ void UResourceDepositGenerator::InitializeComponent()
 
 void UResourceDepositGenerator::CreateDeposits()
 {
+	if (ResourceTable)
+	{
+		// TODO: extract code to multiple methods
+		const auto Names = ResourceTable->GetRowNames();
+		const auto Index = FMath::RandRange(0, Names.Num()-1);
+		const auto SelectedName = Names[Index];
+		const auto SelectedResource = ResourceTable->FindRow<FResource>(SelectedName, TEXT("Get random resource for resource deposit placement"));
+		check(SelectedResource);
+		const auto Tile = GetTileForDeposit();
+		const auto ResourceDeposit = NewObject<UResourceDeposit>();
+		const auto Amount = FMath::RandRange(SelectedResource->MinAmountSpawned, SelectedResource->MaxAmountSpawned);
+		ResourceDeposit->Setup(SelectedResource, Amount);
+		Tile->SetResourceDeposit(ResourceDeposit);
+	}
 }
 
 TScriptInterface<IGridPlatform> UResourceDepositGenerator::GetTileForDeposit() const
 {
-	return nullptr;
+	return SpawnStrategy->GetNextSpawnPoint();
 }

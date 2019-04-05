@@ -8,12 +8,15 @@ int UResourceDeposit::GetAmount() const
 	return Amount;
 }
 
-const FResource* UResourceDeposit::GetResource() const
+FResource UResourceDeposit::GetResource() const
 {
-	return ResourceDepositTable->FindRow<FResource>(ResourceName, TEXT("Get resource of resource deposit object"));
+	return Resource;
 }
 
-FName UResourceDeposit::GetResourceName() const
+void UResourceDeposit::Setup(FResource* Resource, const int Amount)
 {
-	return ResourceName;
+	check(Resource);
+	// TODO: avoid copying (potentially large) data
+	this->Resource = *Resource;
+	this->Amount = Amount;
 }
