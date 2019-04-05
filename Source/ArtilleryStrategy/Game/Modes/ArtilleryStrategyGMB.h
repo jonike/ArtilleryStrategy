@@ -6,9 +6,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "ArtilleryStrategyGMB.generated.h"
 
-class UCapitalPlacementGenerator;
-class UGridGenerator;
-
 /**
  *
  */
