@@ -23,5 +23,8 @@ class ARTILLERYSTRATEGY_API IMapGenerator
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void GenerateMap(UTileMatrix* Tiles) = 0;
+
+protected:
+	UFUNCTION()
+	virtual void ReceiveOnGridGenerationEnded(UTileMatrix* Tiles) = 0;
 };

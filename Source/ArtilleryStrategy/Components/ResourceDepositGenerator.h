@@ -19,21 +19,19 @@ public:
 	// Sets default values for this component's properties
 	UResourceDepositGenerator();
 
-	void GenerateMap(UTileMatrix* Tiles) override;
-
 protected:
+	UFUNCTION()
+	void ReceiveOnGridGenerationEnded(UTileMatrix* Tiles) override;
+
 	// Called when the game starts
 	void BeginPlay() override;
 
 	// Called every frame
 	void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void OnRegister() override;
+	void InitializeComponent() override;
 
 private:
-	// Spawn strategy
-	UPROPERTY(EditAnywhere)
-	UResourceDepositGenerator* PlacementGenerator;
 	UPROPERTY(Category = "Procedural generation", EditDefaultsOnly, meta = (MustImplement = "SpawnStrategy"))
 	TSubclassOf<UObject> SpawnStrategyClass;
 	UPROPERTY()

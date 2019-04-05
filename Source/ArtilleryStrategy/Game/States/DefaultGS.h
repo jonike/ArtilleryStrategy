@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
-#include "Interfaces/GridPlatform.h"
-#include "Objects/TileMatrix.h"
-#include "Components/CapitalPlacementGenerator.h"
 #include "DefaultGS.generated.h"
 
 class IMapGenerator;
 class UResourceDepositGenerator;
 class ISpawnStrategy;
+class UCapitalPlacementGenerator;
 class UGridGenerator;
+class UTileMatrix;
+class IGridPlatform;
 
 /**
  * 
@@ -22,11 +22,12 @@ class ARTILLERYSTRATEGY_API ADefaultGS : public AGameStateBase
 {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGridGenerationEndedSignature, UTileMatrix*, Tiles);
+
 public:
 	ADefaultGS();
 
-	TScriptInterface<ISpawnStrategy> GetCapitalSpawnStrategy() const;
-	TScriptInterface<ISpawnStrategy> GetDepositSpawnStrategy() const;
+	FOnGridGenerationEndedSignature OnGridGenerationEnded;
 
 protected:
 	void PostInitializeComponents() override;
@@ -39,15 +40,10 @@ private:
 	UGridGenerator* GridGenerator;
 
 	UPROPERTY(Category = "Generation", EditAnywhere)
-	TArray<TScriptInterface<IMapGenerator>> MapGenerators; // TODO: add array of types and then populate array of objects
-
-	// Capital placement
-	UPROPERTY(EditAnywhere)
 	UCapitalPlacementGenerator* CapitalPlacementGenerator;
-	UPROPERTY(Category = "Procedural generation", EditDefaultsOnly, meta = (MustImplement = "SpawnStrategy"))
-	TSubclassOf<UObject> CapitalSpawnStrategyClass;
-	UPROPERTY()
-	TScriptInterface<ISpawnStrategy> CapitalSpawnStrategy;
+
+	UPROPERTY(Category = "Generation", EditAnywhere)
+	UResourceDepositGenerator* ResourceDepositGenerator;
 
 	UFUNCTION()
 	void ReceiveOnGridGenerationStarted(int Rows, int Columns);
@@ -60,5 +56,4 @@ private:
 	void ResizeTileMatrix(int Rows, int Columns) const;
 
 	UGridGenerator* GetGridGenerator() const;
-	UCapitalPlacementGenerator* GetCapitalPlacementGenerator() const;
 };

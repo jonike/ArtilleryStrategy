@@ -5,32 +5,24 @@
 #include "Engine/World.h"
 #include "Game/Modes/ArtilleryStrategyGMB.h"
 #include "Components/GridGenerator.h"
-#include "Interfaces/SpawnStrategy.h"
-#include "Interfaces/MapGenerator.h"
+#include "Objects/TileMatrix.h"
+#include "Components/CapitalPlacementGenerator.h"
+#include "Components/ResourceDepositGenerator.h"
 
 ADefaultGS::ADefaultGS()
 {
 	GridGenerator = CreateDefaultSubobject<UGridGenerator>(TEXT("Grid Generator"));
-	CapitalPlacementGenerator = CreateDefaultSubobject<UCapitalPlacementGenerator>(TEXT("Capital placement generator"));
 	Matrix = CreateDefaultSubobject<UTileMatrix>(TEXT("Tile matrix"));
-}
-
-TScriptInterface<ISpawnStrategy> ADefaultGS::GetCapitalSpawnStrategy() const
-{
-	return CapitalSpawnStrategy;
+	CapitalPlacementGenerator = CreateDefaultSubobject<UCapitalPlacementGenerator>(TEXT("Capital placement"));
+	ResourceDepositGenerator = CreateDefaultSubobject<UResourceDepositGenerator>(TEXT("Resource deposits"));
 }
 
 void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-
-	CapitalSpawnStrategy = NewObject<UObject>(this, CapitalSpawnStrategyClass);
-	CapitalSpawnStrategy->SetTileMatrix(Matrix);
-
 	const auto Generator = GetGridGenerator();
 	Generator->OnGridGenerationStart.AddDynamic(this, &ADefaultGS::ReceiveOnGridGenerationStarted);
 	Generator->OnTileGenerated.AddDynamic(this, &ADefaultGS::ReceiveOnTileGenerated);
-	Generator->OnGridGenerationEnd.AddDynamic(GetCapitalPlacementGenerator(), &UCapitalPlacementGenerator::ReceiveOnGridGenerationEnd);
 	Generator->OnGridGenerationEnd.AddDynamic(this, &ADefaultGS::ReceiveOnGridGenerationEnd);
 }
 
@@ -46,10 +38,7 @@ void ADefaultGS::ReceiveOnTileGenerated(const TScriptInterface<IGridPlatform> Ti
 
 void ADefaultGS::ReceiveOnGridGenerationEnd(int Rows, int Columns)
 {
-	for (auto Generator : MapGenerators)
-	{
-		Generator->GenerateMap(Matrix);
-	}
+	OnGridGenerationEnded.Broadcast(Matrix);
 }
 
 UGridGenerator* ADefaultGS::GetGridGenerator() const
@@ -65,9 +54,4 @@ void ADefaultGS::AddTile(const TScriptInterface<IGridPlatform> Tile, const int R
 void ADefaultGS::ResizeTileMatrix(const int Rows, const int Columns) const
 {
 	Matrix->Resize(Rows, Columns);
-}
-
-UCapitalPlacementGenerator* ADefaultGS::GetCapitalPlacementGenerator() const
-{
-	return CapitalPlacementGenerator;
 }

@@ -16,19 +16,19 @@ UCapitalPlacementGenerator::UCapitalPlacementGenerator()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
+	bWantsInitializeComponent = true;
+}
 
-	// ...
+void UCapitalPlacementGenerator::ReceiveOnGridGenerationEnded(UTileMatrix* Tiles)
+{
+	SpawnStrategy->SetTileMatrix(Tiles);
+	PlaceCapitalsForAll();
 }
 
 // Called when the game starts
 void UCapitalPlacementGenerator::BeginPlay()
 {
 	Super::BeginPlay();
-}
-
-void UCapitalPlacementGenerator::ReceiveOnGridGenerationEnd(int Rows, int Columns)
-{
-	PlaceCapitalsForAll();
 }
 
 void UCapitalPlacementGenerator::PlaceCapital(TScriptInterface<IOwnerController> Controller) const
@@ -50,9 +50,7 @@ ACapitalBuilding* UCapitalPlacementGenerator::CreateCapitalBuilding(FVector Loca
 
 TScriptInterface<IGridPlatform> UCapitalPlacementGenerator::GetSpawnCell() const
 {
-	const auto GameState = Cast<ADefaultGS>(GetWorld()->GetGameState());
-	check(GameState);
-	return GameState->GetCapitalSpawnStrategy()->GetNextSpawnPoint();
+	return SpawnStrategy->GetNextSpawnPoint();
 }
 
 void UCapitalPlacementGenerator::SetupCapitalBuilding(ACapitalBuilding* Capital, TScriptInterface<IOwnerController> Controller) const
@@ -66,6 +64,19 @@ void UCapitalPlacementGenerator::TickComponent(float DeltaTime, ELevelTick TickT
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UCapitalPlacementGenerator::InitializeComponent()
+{
+	Super::InitializeComponent();
+	if (SpawnStrategyClass)
+	{
+		SpawnStrategy = NewObject<UObject>(this, SpawnStrategyClass);
+	}
+	if (const auto DefaultGS = Cast<ADefaultGS>(GetOwner()))
+	{
+		DefaultGS->OnGridGenerationEnded.AddDynamic(this, &UCapitalPlacementGenerator::ReceiveOnGridGenerationEnded);
+	}
 }
 
 void UCapitalPlacementGenerator::PlaceCapitalsForAll() const
