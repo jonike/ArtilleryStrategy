@@ -11,7 +11,7 @@ class UDataTable;
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class ARTILLERYSTRATEGY_API UResourceDeposit : public UObject
 {
 	GENERATED_BODY()
