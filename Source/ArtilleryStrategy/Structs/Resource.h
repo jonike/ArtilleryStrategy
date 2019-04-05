@@ -20,4 +20,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName FriendlyName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int MinAmountSpawned = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int MaxAmountSpawned = 4;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float BaseCost = 10.0;
 };
