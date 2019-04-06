@@ -21,6 +21,8 @@ public:
 	void AddResourceDeposit(UResourceDeposit* Deposit) override;
 	UResourceDeposit* GetProducingResource() const override;
 
+	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
+
 private:
 	UPROPERTY(Category = "Production|Resources", EditAnywhere)
 	UResourceDeposit* ProducedResource;
