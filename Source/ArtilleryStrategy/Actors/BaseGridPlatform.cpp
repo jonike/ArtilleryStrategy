@@ -8,6 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/BillboardComponent.h"
 #include "Objects/ResourceDeposit.h"
+#include "Interfaces/Building.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
@@ -60,7 +61,10 @@ bool ABaseGridPlatform::HasBuilding() const
 
 void ABaseGridPlatform::SetBuilding(const TScriptInterface<IBuilding> SpawnedBuilding)
 {
+	check(SpawnedBuilding);
+	SpawnedBuilding->PrePlaced(this);
 	Building = SpawnedBuilding;
+	SpawnedBuilding->PostPlaced(this);
 }
 
 UResourceDeposit* ABaseGridPlatform::GetResourceDeposit() const

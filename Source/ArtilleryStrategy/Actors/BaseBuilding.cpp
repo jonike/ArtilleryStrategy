@@ -32,6 +32,15 @@ float ABaseBuilding::TakeDamage(const float DamageAmount, FDamageEvent const& Da
 	return DamageAmount;
 }
 
+void ABaseBuilding::PostPlaced(TScriptInterface<IGridPlatform> Tile)
+{
+	// TODO: set pointer to Tile
+}
+
+void ABaseBuilding::PrePlaced(TScriptInterface<IGridPlatform> Tile)
+{
+}
+
 void ABaseBuilding::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
 {
 	OwnerController = NewOwner;

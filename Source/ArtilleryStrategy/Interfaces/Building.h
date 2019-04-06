@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "Building.generated.h"
 
+class IGridPlatform;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UBuilding : public UInterface
@@ -22,4 +24,6 @@ class ARTILLERYSTRATEGY_API IBuilding
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual void PrePlaced(TScriptInterface<IGridPlatform> Tile) = 0;
+	virtual void PostPlaced(TScriptInterface<IGridPlatform> Tile) = 0;
 };
