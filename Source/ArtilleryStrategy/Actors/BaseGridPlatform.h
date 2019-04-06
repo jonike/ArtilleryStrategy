@@ -55,6 +55,9 @@ private:
 	UPROPERTY(Category = "Resources", VisibleAnywhere)
 	UResourceDeposit* ResourceDeposit;
 
+	UPROPERTY(Category = "Resources|Visuals", EditAnywhere)
+	UBillboardComponent* ResourceBillboard;
+
 	TScriptInterface<IBuilding> Building;
 	TScriptInterface<IOwnerController> OwnerController;
 

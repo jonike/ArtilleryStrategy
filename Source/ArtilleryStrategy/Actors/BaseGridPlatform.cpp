@@ -6,6 +6,8 @@
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyCells.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/BillboardComponent.h"
+#include "Objects/ResourceDeposit.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
@@ -14,6 +16,10 @@ ABaseGridPlatform::ABaseGridPlatform()
 	PrimaryActorTick.bCanEverTick = true;
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = StaticMesh;
+	ResourceBillboard = CreateDefaultSubobject<UBillboardComponent>(TEXT("Resource billboard"));
+	ResourceBillboard->SetupAttachment(RootComponent);
+	ResourceBillboard->bHiddenInGame = true;
+	ResourceBillboard->bIsScreenSizeScaled = true;
 }
 
 // Called when the game starts or when spawned
@@ -69,7 +75,10 @@ bool ABaseGridPlatform::HasResourceDeposit() const
 
 void ABaseGridPlatform::SetResourceDeposit(UResourceDeposit* Deposit)
 {
+	check(Deposit);
 	ResourceDeposit = Deposit;
+	ResourceBillboard->SetSprite(Deposit->GetResource().Icon);
+	ResourceBillboard->bHiddenInGame = false;
 }
 
 TScriptInterface<IOwnerController> ABaseGridPlatform::GetOwnerController() const
