@@ -7,15 +7,17 @@
 void UResourceStorage::Add(UResourceDeposit* Resource)
 {
 	const auto& Name = Resource->GetResource().FriendlyName;
-	Storage.FindOrAdd(Name);
+	Storage.Add(Name);
 	Storage[Name] += Resource->GetAmount();
+	OnResourceAdded.Broadcast();
 }
 
-void UResourceStorage::Spend(UResourceDeposit* Resource)
+void UResourceStorage::Spend(UResourceDeposit* Resource, float Amount)
 {
 	const auto& Name = Resource->GetResource().FriendlyName;
-	Storage.FindOrAdd(Name);
+	check(IsEnough(Resource, Amount));
 	Storage[Name] -= Resource->GetAmount();
+	OnResourceSpent.Broadcast();
 }
 
 float UResourceStorage::GetAmount(UResourceDeposit* Resource) const
