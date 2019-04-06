@@ -5,9 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
 #include "Interfaces/Wallet.h"
-#include "Objects/ResourceStorage.h"
 #include "DefaultPlayerState.generated.h"
 
+class UResourceBuildingsManager;
+class UResourceStorage;
 /**
  *
  */
@@ -22,10 +23,12 @@ public:
 	UFUNCTION(Category = "Wallet", BlueprintPure)
 	UResourceStorage* GetResourceWallet() const override { return Storage; }
 
-private:
-	UPROPERTY(EditAnywhere, Category = Resources)
-	int Money = 1000;
+	auto GetResourceBuildingsManager() const { return ResourceBuildingsManager; }
 
-	UPROPERTY(Category = Resources, EditAnywhere)
+private:
+	UPROPERTY(Category = "Resources", EditAnywhere)
 	UResourceStorage* Storage;
+
+	UPROPERTY(Category = "Resources|Buildings", VisibleInstanceOnly)
+	UResourceBuildingsManager* ResourceBuildingsManager;
 };
