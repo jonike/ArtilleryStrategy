@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "ArtilleryStrategyGMB.generated.h"
 
+class UTurnProcessorComponent;
 /**
  *
  */
@@ -16,4 +17,8 @@ class ARTILLERYSTRATEGY_API AArtilleryStrategyGMB : public AGameModeBase
 
 public:
 	AArtilleryStrategyGMB();
+
+private:
+	UPROPERTY(Category = "Turns", EditAnywhere)
+	UTurnProcessorComponent* TurnProcessorComponent;
 };

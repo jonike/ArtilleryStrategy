@@ -26,6 +26,11 @@ float UResourceStorage::GetAmount(UResourceDeposit* Resource) const
 	return Storage.Contains(Name) ? Storage[Name]->GetAmount() : 0.f;
 }
 
+float UResourceStorage::GetAmountByName(const FName Resource) const
+{
+	return Storage.Contains(Resource) ? Storage[Resource]->GetAmount() : 0.f;
+}
+
 bool UResourceStorage::IsEnough(UResourceDeposit* Resource, float Amount) const
 {
 	return GetAmount(Resource) >= Amount;

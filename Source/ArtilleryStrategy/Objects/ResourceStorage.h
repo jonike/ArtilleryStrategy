@@ -31,6 +31,9 @@ public:
 	float GetAmount(UResourceDeposit* Resource) const;
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
+	float GetAmountByName(FName Resource) const;
+
+	UFUNCTION(Category = "Resources", BlueprintPure)
 	bool IsEnough(UResourceDeposit* Resource, float Amount) const;
 
 	FOnResourceAddedSignature OnResourceAdded;
