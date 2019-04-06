@@ -53,17 +53,20 @@ void UResourceDepositGenerator::CreateDeposits()
 {
 	if (ResourceTable)
 	{
-		// TODO: extract code to multiple methods
-		const auto Names = ResourceTable->GetRowNames();
-		const auto Index = FMath::RandRange(0, Names.Num()-1);
-		const auto SelectedName = Names[Index];
-		const auto SelectedResource = ResourceTable->FindRow<FResource>(SelectedName, TEXT("Get random resource for resource deposit placement"));
-		check(SelectedResource);
-		const auto Tile = GetTileForDeposit();
-		const auto ResourceDeposit = NewObject<UResourceDeposit>();
-		const auto Amount = FMath::RandRange(SelectedResource->MinAmountSpawned, SelectedResource->MaxAmountSpawned);
-		ResourceDeposit->Setup(SelectedResource, Amount);
-		Tile->SetResourceDeposit(ResourceDeposit);
+		for (size_t i = 0; i < DepositsAmount; i++)
+		{
+			// TODO: extract code to multiple methods
+			const auto Names = ResourceTable->GetRowNames();
+			const auto Index = FMath::RandRange(0, Names.Num() - 1);
+			const auto SelectedName = Names[Index];
+			const auto SelectedResource = ResourceTable->FindRow<FResource>(SelectedName, TEXT("Get random resource for resource deposit placement"));
+			check(SelectedResource);
+			const auto Tile = GetTileForDeposit();
+			const auto ResourceDeposit = NewObject<UResourceDeposit>();
+			const auto Amount = FMath::RandRange(SelectedResource->MinAmountSpawned, SelectedResource->MaxAmountSpawned);
+			ResourceDeposit->Setup(SelectedResource, Amount);
+			Tile->SetResourceDeposit(ResourceDeposit);
+		}
 	}
 }
 
