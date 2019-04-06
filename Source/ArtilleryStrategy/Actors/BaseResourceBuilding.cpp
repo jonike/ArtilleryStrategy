@@ -3,6 +3,10 @@
 
 #include "BaseResourceBuilding.h"
 #include "Interfaces/GridPlatform.h"
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
+#include "Player/States/DefaultPlayerState.h"
+#include "Objects/ResourceBuildingsManager.h"
 
 bool ABaseResourceBuilding::IsProducingResource() const
 {
@@ -25,5 +29,10 @@ void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Til
 	if (Tile->HasResourceDeposit())
 	{
 		ProducedResource = Tile->GetResourceDeposit();
+		const auto PlayerState = GetWorld()->GetFirstPlayerController()->GetPlayerState<ADefaultPlayerState>();
+		if (PlayerState)
+		{
+			PlayerState->GetResourceBuildingsManager()->AddResourceBuilding(this);
+		}
 	}
 }
