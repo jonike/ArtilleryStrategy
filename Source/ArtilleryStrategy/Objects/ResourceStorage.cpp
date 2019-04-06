@@ -2,25 +2,29 @@
 
 
 #include "ResourceStorage.h"
+#include "Objects/ResourceDeposit.h"
 
-void UResourceStorage::Add(const FName& Resource, const float Amount)
+void UResourceStorage::Add(UResourceDeposit* Resource)
 {
-	Storage.FindOrAdd(Resource);
-	Storage[Resource] += Amount;
+	const auto& Name = Resource->GetResource().FriendlyName;
+	Storage.FindOrAdd(Name);
+	Storage[Name] += Resource->GetAmount();
 }
 
-void UResourceStorage::Spend(const FName& Resource, const float Amount)
+void UResourceStorage::Spend(UResourceDeposit* Resource)
 {
-	Storage.FindOrAdd(Resource);
-	Storage[Resource] -= Amount;
+	const auto& Name = Resource->GetResource().FriendlyName;
+	Storage.FindOrAdd(Name);
+	Storage[Name] -= Resource->GetAmount();
 }
 
-float UResourceStorage::GetAmount(const FName& Resource) const
+float UResourceStorage::GetAmount(UResourceDeposit* Resource) const
 {
-	return Storage.Contains(Resource) ? Storage[Resource] : 0.f;
+	const auto& Name = Resource->GetResource().FriendlyName;
+	return Storage.Contains(Name) ? Storage[Name]->GetAmount() : 0.f;
 }
 
-bool UResourceStorage::IsEnough(const FName& Resource, const float Amount) const
+bool UResourceStorage::IsEnough(UResourceDeposit* Resource, float Amount) const
 {
 	return GetAmount(Resource) >= Amount;
 }

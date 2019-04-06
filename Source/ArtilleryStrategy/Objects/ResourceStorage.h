@@ -6,6 +6,8 @@
 #include "Structs/Resource.h"
 #include "ResourceStorage.generated.h"
 
+class UResourceDeposit;
+
 /**
  * 
  */
@@ -16,19 +18,18 @@ class ARTILLERYSTRATEGY_API UResourceStorage : public UObject
 
 public:
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	void Add(const FName& Resource, const float Amount);
+	void Add(UResourceDeposit* Resource);
 
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	void Spend(const FName& Resource, const float Amount);
+	void Spend(UResourceDeposit* Resource);
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
-	float GetAmount(const FName& Resource) const;
+	float GetAmount(UResourceDeposit* Resource) const;
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
-	bool IsEnough(const FName& Resource, const float Amount) const;
+	bool IsEnough(UResourceDeposit* Resource, float Amount) const;
 
 private:
-	// TODO: do not use FName's directly: renaming resources there or in the data table can lead to problems
 	UPROPERTY(EditAnywhere)
-	TMap<FName, float> Storage;
+	TMap<FName, UResourceDeposit*> Storage;
 };
