@@ -13,10 +13,10 @@ FResource UResourceDeposit::GetResource() const
 	return Resource;
 }
 
-void UResourceDeposit::Setup(FResource* Resource, const int Amount)
+void UResourceDeposit::Setup(FResource* DepositResource, const int ResourceAmount)
 {
-	check(Resource);
+	check(DepositResource);
 	// TODO: avoid copying (potentially large) data
-	this->Resource = *Resource;
-	this->Amount = Amount;
+	Resource = *DepositResource;
+	Amount = ResourceAmount;
 }
