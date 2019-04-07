@@ -28,7 +28,7 @@ void UBuildingSelectorWidget::CloseWidget() const
 	OnCloseClicked.Broadcast();
 }
 
-void UBuildingSelectorWidget::WhenBuyClicked(FName BuildingName)
+void UBuildingSelectorWidget::ReceiveOnBuyClicked(FName BuildingName)
 {
 	const auto Building = BuildingsDataTable->FindRow<FBuildingData>(BuildingName, TEXT("Getting building data for spawning"));
 	check(Building);
@@ -68,7 +68,7 @@ TScriptInterface<IBuildingGridItemWidget> UBuildingSelectorWidget::LoadOrCreateG
 	const auto NewWidget = CreateWidget(GetWorld()->GetFirstPlayerController(), GridItemWidgetClass);
 	if (auto BuildingBuyingInfo = Cast<UBuildingBuyingInfoWidget>(NewWidget))
 	{
-		BuildingBuyingInfo->OnBuyClicked.AddDynamic(this, &UBuildingSelectorWidget::WhenBuyClicked);
+		BuildingBuyingInfo->OnBuyClicked.AddDynamic(this, &UBuildingSelectorWidget::ReceiveOnBuyClicked);
 	}
 	check(NewWidget);
 	GridItemWidgets.Add(NewWidget);

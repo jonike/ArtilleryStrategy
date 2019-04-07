@@ -47,7 +47,7 @@ private:
 	TScriptInterface<IGridPlatform> SelectedPlatform;
 
 	UFUNCTION()
-	void WhenBuyClicked(FName BuildingName);
+	void ReceiveOnBuyClicked(FName BuildingName);
 
 	void AddItemWidget(FName RowName, int Number, UUniformGridPanel* GridPanel);
 	void SetPositionInGrid(UUserWidget* ItemWidget, int Number);
