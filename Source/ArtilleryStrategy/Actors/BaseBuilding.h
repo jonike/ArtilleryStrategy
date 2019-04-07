@@ -26,8 +26,8 @@ public:
 	bool HasOwnerController() const override { return OwnerController.GetObject() != nullptr; }
 
 	// Inherited via IBuilding
-	virtual void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
-	virtual void PrePlaced(TScriptInterface<IGridPlatform> Tile) override;
+	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
+	void PrePlaced(TScriptInterface<IGridPlatform> Tile) override;
 
 protected:
 	// Called when the game starts or when spawned
