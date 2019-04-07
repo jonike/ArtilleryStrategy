@@ -6,3 +6,4 @@
 
 DECLARE_LOG_CATEGORY_EXTERN(GridGeneration, Log, All);
 DECLARE_LOG_CATEGORY_EXTERN(MouseInteraction, Verbose, All);
+DECLARE_LOG_CATEGORY_EXTERN(TurnProcessing, Log, All);

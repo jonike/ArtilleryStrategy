@@ -7,3 +7,4 @@ IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, ArtilleryStrategy, "Artill
 
 DEFINE_LOG_CATEGORY(GridGeneration);
 DEFINE_LOG_CATEGORY(MouseInteraction)
+DEFINE_LOG_CATEGORY(TurnProcessing);

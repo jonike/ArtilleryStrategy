@@ -3,6 +3,7 @@
 
 #include "BaseResourceBuilding.h"
 #include "Interfaces/GridPlatform.h"
+#include "Components/TurnProcessorComponent.h"
 
 bool ABaseResourceBuilding::IsProducingResource() const
 {
@@ -26,4 +27,12 @@ void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Til
 	{
 		ProducedResources = Tile->GetResourceDeposit();
 	}
+	const auto TurnProcessor = GetTurnProcessor(this);
+	// TODO: bind ReceiveOnTurnEnded and ReceiveOnTurnStarted automatically (maybe through method BindToTurnStart/BindToTurnEnd)
+	TurnProcessor->OnTurnEnded.AddDynamic(this, &ABaseResourceBuilding::ReceiveOnTurnEnded);
+}
+
+void ABaseResourceBuilding::ReceiveOnTurnEnded()
+{
+	Super::ReceiveOnTurnEnded();
 }

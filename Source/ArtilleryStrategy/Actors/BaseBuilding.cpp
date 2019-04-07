@@ -3,6 +3,7 @@
 #include "BaseBuilding.h"
 #include "Components/StaticMeshComponent.h"
 #include "Interfaces/OwnerController.h"
+#include "ArtilleryStrategy.h"
 
 // Sets default values
 ABaseBuilding::ABaseBuilding()
@@ -39,6 +40,11 @@ void ABaseBuilding::PostPlaced(TScriptInterface<IGridPlatform> Tile)
 
 void ABaseBuilding::PrePlaced(TScriptInterface<IGridPlatform> Tile)
 {
+}
+
+void ABaseBuilding::ReceiveOnTurnEnded()
+{
+	UE_LOG(TurnProcessing, Log, TEXT("Turn ended for resource building"));
 }
 
 void ABaseBuilding::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)

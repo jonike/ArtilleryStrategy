@@ -6,10 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "Interfaces/Building.h"
 #include "Interfaces/CanBeOwned.h"
+#include "Interfaces/TurnDependent.h"
 #include "BaseBuilding.generated.h"
 
 UCLASS()
-class ARTILLERYSTRATEGY_API ABaseBuilding : public AActor, public IBuilding, public ICanBeOwned
+class ARTILLERYSTRATEGY_API ABaseBuilding : public AActor, public IBuilding, public ICanBeOwned, public ITurnDependent
 {
 	GENERATED_BODY()
 
@@ -27,6 +28,8 @@ public:
 	// Inherited via IBuilding
 	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
 	void PrePlaced(TScriptInterface<IGridPlatform> Tile) override;
+
+	void ReceiveOnTurnEnded() override;
 
 protected:
 	// Called when the game starts or when spawned

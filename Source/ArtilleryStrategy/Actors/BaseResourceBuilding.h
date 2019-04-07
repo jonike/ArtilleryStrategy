@@ -25,6 +25,8 @@ public:
 
 	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
 
+	void ReceiveOnTurnEnded() override;
+
 private:
 	UPROPERTY(Category = "Production|Resources", EditAnywhere)
 	TArray<FResourceDeposit> ProducedResources;
