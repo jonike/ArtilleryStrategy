@@ -27,7 +27,6 @@ public:
 	TScriptInterface<IOwnerController> GetOwnerController() const override;
 	void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) override;
 	bool HasOwnerController() const override;
-	int GetCost() const override;
 
 	FVector GetBuildingSpawnLocation() const override;
 	bool HasBuilding() const override;
@@ -45,9 +44,6 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
 	UStaticMeshComponent* StaticMesh;
-
-	UPROPERTY(EditAnywhere, Category = Cost)
-	int Cost = 50;
 
 	UPROPERTY(EditAnywhere, Category = Buildings)
 	FVector BuildingSpawnOffset;

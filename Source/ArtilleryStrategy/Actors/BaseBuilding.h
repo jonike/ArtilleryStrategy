@@ -22,7 +22,6 @@ public:
 
 	TScriptInterface<IOwnerController> GetOwnerController() const override { return OwnerController; }
 	void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) override;
-	int GetCost() const override { return Cost; }
 	bool HasOwnerController() const override { return OwnerController.GetObject() != nullptr; }
 
 	// Inherited via IBuilding
@@ -38,9 +37,6 @@ protected:
 private:
 	UPROPERTY(Category = Visuals, EditAnywhere)
 	UStaticMeshComponent* StaticMesh;
-
-	UPROPERTY(EditAnywhere, Category = Cost)
-	int Cost = 50;
 
 	UPROPERTY(Category = Health, EditAnywhere)
 	float Health = 200.f;

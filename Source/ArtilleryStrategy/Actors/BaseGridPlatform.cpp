@@ -44,11 +44,6 @@ void ABaseGridPlatform::NotifyActorOnClicked(FKey)
 	UE_LOG(MouseInteraction, Verbose, TEXT("Platform clicked"));
 }
 
-int ABaseGridPlatform::GetCost() const
-{
-	return Cost;
-}
-
 FVector ABaseGridPlatform::GetBuildingSpawnLocation() const
 {
 	return GetActorLocation() + BuildingSpawnOffset;
