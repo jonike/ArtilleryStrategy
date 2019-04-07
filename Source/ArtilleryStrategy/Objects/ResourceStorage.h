@@ -20,7 +20,6 @@ class ARTILLERYSTRATEGY_API UResourceStorage : public UObject
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceSpentSignature);
 
 public:
-	// TODO: replace FResourceDeposit with FResourceAmount?
 	UFUNCTION(Category = "Resources", BlueprintCallable)
 	void AddResource(FResourceAmount& Resource);
 
@@ -37,7 +36,6 @@ public:
 	FOnResourceSpentSignature OnResourceSpent;
 
 private:
-	// TODO: replace with separate class/struct
 	UPROPERTY(EditAnywhere)
 	TMap<FResource, int> Storage;
 };
