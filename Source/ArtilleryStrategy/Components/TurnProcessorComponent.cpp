@@ -15,10 +15,18 @@ UTurnProcessorComponent::UTurnProcessorComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+void UTurnProcessorComponent::EndTurn()
+{
+	OnTurnEnded.Broadcast();
+	PrepareForNextTurn();
+	OnTurnStarted.Broadcast();
+}
+
 // Called when the game starts
 void UTurnProcessorComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	OnTurnStarted.Broadcast();
 }
 
 // Called every frame
@@ -27,18 +35,7 @@ void UTurnProcessorComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UTurnProcessorComponent::GatherAllResources() const
+void UTurnProcessorComponent::PrepareForNextTurn()
 {
-	for (auto Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
-	{
-		const auto PlayerController = Iterator->Get(false);
-		if (PlayerController)
-		{
-			const auto PlayerState = PlayerController->GetPlayerState<ADefaultPlayerState>();
-			if (PlayerState)
-			{
-				PlayerState->GetResourceBuildingsManager()->GatherResources();
-			}
-		}
-	}
+	// logic between the turns
 }

@@ -21,6 +21,8 @@ public:
 	FOnTurnStartedSignature OnTurnStarted;
 	FOnTurnEndedSignature OnTurnEnded;
 
+	void EndTurn();
+
 protected:
 	// Called when the game starts
 	void BeginPlay() override;
@@ -29,5 +31,5 @@ protected:
 	void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	void GatherAllResources() const;
+	void PrepareForNextTurn();
 };
