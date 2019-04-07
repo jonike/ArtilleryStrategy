@@ -114,7 +114,12 @@ bool ADefaultPlayerController::IsBuyWidgetVisible() const
 AActor* ADefaultPlayerController::SpawnBuildingActor(const TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass) const
 {
 	const auto Location = Cell->GetBuildingSpawnLocation();
-	return GetWorld()->SpawnActor(BuildingClass, &Location);
+	const auto Spawned = GetWorld()->SpawnActor(BuildingClass, &Location);
+	check(Spawned);
+#if WITH_EDITOR
+	Spawned->SetFolderPath("World/Buildings");
+#endif
+	return Spawned;
 }
 
 void ADefaultPlayerController::CreateBoughtBuilding(TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass)
