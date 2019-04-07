@@ -1,0 +1,13 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#include "TurnDependent.h"
+#include "Engine/World.h"
+#include "Game/States/DefaultGS.h"
+
+// Add default functionality here for any ITurnDependent functions that are not pure virtual.
+UTurnProcessorComponent* ITurnDependent::GetTurnProcessor(UObject* Context) const
+{
+	const auto GameState = Context->GetWorld()->GetGameState<ADefaultGS>();
+	check(GameState);
+	return GameState->GetTurnProcessor();
+}

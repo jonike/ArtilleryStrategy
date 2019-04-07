@@ -19,6 +19,11 @@ ADefaultGS::ADefaultGS()
 	TurnProcessorComponent = CreateDefaultSubobject<UTurnProcessorComponent>(TEXT("Turn processor component"));
 }
 
+UTurnProcessorComponent* ADefaultGS::GetTurnProcessor() const
+{
+	return TurnProcessorComponent;
+}
+
 void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();

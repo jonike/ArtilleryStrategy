@@ -30,6 +30,8 @@ public:
 
 	FOnGridGenerationEndedSignature OnGridGenerationEnded;
 
+	UTurnProcessorComponent* GetTurnProcessor() const;
+
 protected:
 	void PostInitializeComponents() override;
 
