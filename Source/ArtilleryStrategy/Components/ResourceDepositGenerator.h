@@ -50,6 +50,7 @@ private:
 	TArray<FDataTableRowHandle> AvailableDeposits;
 
 	void CreateDeposits();
-
+	FResource& GetRandomResource() const;
+	int32 GetRandomResourceAmount(const FResource& Resource) const;
 	TScriptInterface<IGridPlatform> GetTileForDeposit() const;
 };
