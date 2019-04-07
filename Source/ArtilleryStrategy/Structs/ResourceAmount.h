@@ -15,10 +15,10 @@ struct ARTILLERYSTRATEGY_API FResourceAmount
 {
 	GENERATED_BODY()
 
-	UPROPERTY(Category = "Resource", EditAnywhere)
+	UPROPERTY(Category = "Resource", EditAnywhere, BlueprintReadWrite)
 	FResource Resource;
 
-	UPROPERTY(Category = "Resource", EditAnywhere)
+	UPROPERTY(Category = "Resource", EditAnywhere, BlueprintReadWrite)
 	float Amount;
 };
 
