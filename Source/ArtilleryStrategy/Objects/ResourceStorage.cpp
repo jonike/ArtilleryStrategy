@@ -14,14 +14,14 @@ void UResourceStorage::AddResource(const FResourceAmount& Resource)
 	{
 		Storage.Add(Resource.Resource, Resource.Amount);
 	}
-	OnResourceAdded.Broadcast();
+	OnResourceAdded.Broadcast(Resource);
 }
 
 void UResourceStorage::SpendResource(const FResourceAmount& Resource)
 {
 	check(IsEnough(Resource));
 	Storage[Resource.Resource] -= Resource.Amount;
-	OnResourceSpent.Broadcast();
+	OnResourceSpent.Broadcast(Resource);
 }
 
 float UResourceStorage::GetAmount(const FResource& Resource) const

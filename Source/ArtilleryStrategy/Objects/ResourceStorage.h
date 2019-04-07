@@ -15,9 +15,9 @@ class ARTILLERYSTRATEGY_API UResourceStorage : public UObject
 {
 	GENERATED_BODY()
 
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceAddedSignature);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnResourceAddedSignature, const FResourceAmount&, ResourceAmount);
 
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceSpentSignature);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnResourceSpentSignature, const FResourceAmount&, ResourceAmount);
 
 public:
 	UFUNCTION(Category = "Resources", BlueprintCallable)
