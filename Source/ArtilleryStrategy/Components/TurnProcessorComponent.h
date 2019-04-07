@@ -11,9 +11,15 @@ class ARTILLERYSTRATEGY_API UTurnProcessorComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnTurnStartedSignature);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnTurnEndedSignature);
+
 public:
 	// Sets default values for this component's properties
 	UTurnProcessorComponent();
+
+	FOnTurnStartedSignature OnTurnStarted;
+	FOnTurnEndedSignature OnTurnEnded;
 
 protected:
 	// Called when the game starts
