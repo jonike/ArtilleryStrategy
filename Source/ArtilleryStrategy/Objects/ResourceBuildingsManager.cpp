@@ -6,7 +6,7 @@
 #include "Engine/World.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "GameFramework/PlayerController.h"
-#include "Objects/ResourceDeposit.h"
+#include "Structs/ResourceDeposit.h"
 
 void UResourceBuildingsManager::GatherResources()
 {

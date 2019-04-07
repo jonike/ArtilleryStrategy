@@ -8,6 +8,7 @@
 
 void UResourceStorageWidget::NativeConstruct()
 {
+	Super::NativeConstruct();
 	if (ResourcesTable)
 	{
 		const auto Wallet = GetWallet();

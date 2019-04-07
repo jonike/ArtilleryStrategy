@@ -7,7 +7,7 @@
 #include "Interfaces/CanBuyCells.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BillboardComponent.h"
-#include "Objects/ResourceDeposit.h"
+#include "Structs/ResourceDeposit.h"
 #include "Interfaces/Building.h"
 
 // Sets default values

@@ -2,7 +2,7 @@
 
 
 #include "ResourceStorage.h"
-#include "Objects/ResourceDeposit.h"
+#include "Structs/ResourceDeposit.h"
 
 void UResourceStorage::Add(UResourceDeposit* Resource)
 {

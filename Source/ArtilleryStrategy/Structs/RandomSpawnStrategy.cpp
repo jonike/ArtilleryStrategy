@@ -2,7 +2,7 @@
 
 
 #include "RandomSpawnStrategy.h"
-#include "TileMatrix.h"
+#include "Objects/TileMatrix.h"
 
 void URandomSpawnStrategy::SetTileMatrix(UTileMatrix* Matrix)
 {

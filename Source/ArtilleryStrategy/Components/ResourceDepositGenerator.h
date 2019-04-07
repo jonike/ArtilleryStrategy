@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Objects/ResourceDeposit.h"
+#include "Structs/ResourceDeposit.h"
 #include "Interfaces/MapGenerator.h"
 #include "ResourceDepositGenerator.generated.h"
 
