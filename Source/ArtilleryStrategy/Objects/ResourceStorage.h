@@ -22,16 +22,16 @@ class ARTILLERYSTRATEGY_API UResourceStorage : public UObject
 public:
 	// TODO: replace FResourceDeposit with FResourceAmount?
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	void Add(FResourceDeposit& Resource);
+	void AddResource(FResourceAmount& Resource);
 
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	void Spend(FResourceDeposit& Resource, float Amount);
+	void SpendResource(FResourceAmount& Resource);
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
-	float GetAmount(FResourceDeposit& Resource) const;
+	float GetAmount(FResource& Resource) const;
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
-	bool IsEnough(FResourceDeposit& Resource, float Amount) const;
+	bool IsEnough(FResourceAmount& Resource) const;
 
 	FOnResourceAddedSignature OnResourceAdded;
 	FOnResourceSpentSignature OnResourceSpent;
@@ -39,5 +39,5 @@ public:
 private:
 	// TODO: replace with separate class/struct
 	UPROPERTY(EditAnywhere)
-	TArray<FResourceDeposit> Storage;
+	TMap<FResource, int> Storage;
 };

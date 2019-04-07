@@ -32,5 +32,14 @@ struct ARTILLERYSTRATEGY_API FResource : public FTableRowBase
 
 inline bool operator==(const FResource& Lhs, const FResource& Rhs)
 {
-	return Lhs.Icon == Rhs.Icon && Lhs.FriendlyName == Rhs.FriendlyName && Lhs.MinAmountSpawned == Rhs.MinAmountSpawned && Lhs.MaxAmountSpawned == Rhs.MaxAmountSpawned && Lhs.BaseCost == Rhs.BaseCost;
+	return Lhs.Icon == Rhs.Icon
+			&& Lhs.FriendlyName == Rhs.FriendlyName
+			&& Lhs.MinAmountSpawned == Rhs.MinAmountSpawned
+			&& Lhs.MaxAmountSpawned == Rhs.MaxAmountSpawned
+			&& Lhs.BaseCost == Rhs.BaseCost;
+}
+
+inline uint32 GetTypeHash(const FResource& Resource)
+{
+	return GetTypeHash(Resource.FriendlyName);
 }

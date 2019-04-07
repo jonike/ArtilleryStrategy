@@ -63,7 +63,6 @@ void UResourceDepositGenerator::CreateDeposits()
 			check(SelectedResource);
 			const auto Tile = GetTileForDeposit();
 			const auto Amount = FMath::RandRange(SelectedResource->MinAmountSpawned, SelectedResource->MaxAmountSpawned);
-			// TODO: cleanup code
 			FResourceDeposit ResourceDeposit;
 			ResourceDeposit.ResourceAmount.Resource = *SelectedResource;
 			ResourceDeposit.ResourceAmount.Amount = Amount;

@@ -2,40 +2,42 @@
 
 
 #include "ResourceStorage.h"
-#include "Structs/ResourceDeposit.h"
+#include "Structs/ResourceAmount.h"
 
-void UResourceStorage::Add(FResourceDeposit& Resource)
+void UResourceStorage::AddResource(FResourceAmount& Resource)
 {
-	if (Storage.Contains(Resource))
-	{
-		const auto Index = Storage.Find(Resource);
-		// TODO: add resource
-	}
-	else
-	{
-		Storage.Add(Resource);
-	}
-	OnResourceAdded.Broadcast();
+	//if (Storage.Contains(Resource))
+	//{
+	//	const auto Index = Storage.Find(Resource);
+	//	// TODO: add resource
+	//}
+	//else
+	//{
+	//	Storage.Add(Resource);
+	//}
+	//OnResourceAdded.Broadcast();
 }
 
-void UResourceStorage::Spend(FResourceDeposit& Resource, float Amount)
+void UResourceStorage::SpendResource(FResourceAmount& Resource)
 {
-	if (Storage.Contains(Resource))
-	{
-		const auto Index = Storage.Find(Resource);
-		// TODO: spend resource
-		OnResourceSpent.Broadcast();
-	}
+	//if (Storage.Contains(Resource))
+	//{
+	//	const auto Index = Storage.Find(Resource);
+	//	// TODO: spend resource
+	//	OnResourceSpent.Broadcast();
+	//}
 	// TODO: check if there is no or not enough resource
 }
 
-float UResourceStorage::GetAmount(FResourceDeposit& Resource) const
+float UResourceStorage::GetAmount(FResource& Resource) const
 {
-	const auto Index = Storage.Find(Resource);
-	return Storage.IsValidIndex(Index) ? Storage[Index].ResourceAmount.Amount : 0.f;
+	/*const auto Index = Storage.FindByPredicate([](const FResourceAmount & ResourceAmount) { return ResourceAmount.Resource == Resource; });
+	return Storage.IsValidIndex(Index) ? Storage[Index].Amount : 0.f;*/
+	return 0.f;
 }
 
-bool UResourceStorage::IsEnough(FResourceDeposit& Resource, const float Amount) const
+bool UResourceStorage::IsEnough(FResourceAmount& Resource) const
 {
-	return GetAmount(Resource) >= Amount;
+	/*return GetAmount(Resource) >= Amount;*/
+	return false;
 }

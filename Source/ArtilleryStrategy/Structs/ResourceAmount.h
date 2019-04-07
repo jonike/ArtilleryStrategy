@@ -10,7 +10,7 @@
 /**
  * 
  */
-USTRUCT()
+USTRUCT(BlueprintType)
 struct ARTILLERYSTRATEGY_API FResourceAmount
 {
 	GENERATED_BODY()
