@@ -4,6 +4,8 @@
 #include "BaseResourceBuilding.h"
 #include "Interfaces/GridPlatform.h"
 #include "Components/TurnProcessorComponent.h"
+#include "Engine/World.h"
+#include "Interfaces/OwnerController.h"
 
 bool ABaseResourceBuilding::IsProducingResource() const
 {
@@ -35,4 +37,16 @@ void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Til
 void ABaseResourceBuilding::ReceiveOnTurnEnded()
 {
 	Super::ReceiveOnTurnEnded();
+	const auto OwnerController = GetWorld()->GetFirstPlayerController<IOwnerController>();
+	if (OwnerController)
+	{
+		const auto Wallet = OwnerController->GetWallet();
+		check(Wallet);
+		const auto ResourceWallet = Wallet->GetResourceWallet();
+		check(ResourceWallet);
+		for (const auto& Resource : ProducedResources)
+		{
+			ResourceWallet->AddResource(Resource.ResourceAmount);
+		}
+	}
 }
