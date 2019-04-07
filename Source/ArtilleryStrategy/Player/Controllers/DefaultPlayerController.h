@@ -40,6 +40,9 @@ public:
 	void ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy) override;
 	bool IsBuyWidgetVisible() const override;
 
+	UMaterialInterface* GetOwnerMaterial() const override;
+	TScriptInterface<IWallet> GetWallet() const override;
+
 	void CreateBoughtBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
 
 	void AddToFireList(TScriptInterface<IWeaponBuilding> Weapon) override;
@@ -68,8 +71,5 @@ private:
 	void FireAllWeapon();
 
 	AActor* SpawnBuildingActor(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) const;
-
-	UMaterialInterface* GetOwnerMaterial() const override;
-	TScriptInterface<IWallet> GetWallet() const;
 	ADefaultHUD& GetDefaultHUD() const;
 };
