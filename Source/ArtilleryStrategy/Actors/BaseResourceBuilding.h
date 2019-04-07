@@ -18,14 +18,14 @@ class ARTILLERYSTRATEGY_API ABaseResourceBuilding : public ABaseBuilding, public
 	GENERATED_BODY()
 
 public:
+	void ReceiveOnTurnEnded() override;
+
 	// Inherited via IResourceBuilding
 	bool IsProducingResource() const override;
 	void AddResourceDeposit(FResourceDeposit& Deposit) override;
 	TArray<FResourceDeposit>& GetProducingResource() override;
 
 	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
-
-	void ReceiveOnTurnEnded() override;
 
 private:
 	UPROPERTY(Category = "Production|Resources", EditAnywhere)

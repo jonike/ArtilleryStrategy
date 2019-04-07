@@ -23,7 +23,11 @@ class ARTILLERYSTRATEGY_API ITurnDependent
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	UFUNCTION()
+	virtual void ReceiveOnTurnStarted();
+
+	UFUNCTION()
+	virtual void ReceiveOnTurnEnded();
+
 	virtual UTurnProcessorComponent* GetTurnProcessor(UObject* Context) const;
-	virtual void ReceiveOnTurnStarted() {}
-	virtual void ReceiveOnTurnEnded() {}
 };

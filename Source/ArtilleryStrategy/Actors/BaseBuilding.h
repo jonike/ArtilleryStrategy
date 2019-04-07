@@ -18,8 +18,8 @@ public:
 	// Sets default values for this actor's properties
 	ABaseBuilding();
 
-	// Called every frame
-	void Tick(float DeltaTime) override;
+	UFUNCTION()
+	void ReceiveOnTurnEnded() override;
 
 	TScriptInterface<IOwnerController> GetOwnerController() const override { return OwnerController; }
 	void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) override;
@@ -29,11 +29,12 @@ public:
 	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
 	void PrePlaced(TScriptInterface<IGridPlatform> Tile) override;
 
-	void ReceiveOnTurnEnded() override;
-
 protected:
 	// Called when the game starts or when spawned
 	void BeginPlay() override;
+
+	// Called every frame
+	void Tick(float DeltaTime) override;
 
 	float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 

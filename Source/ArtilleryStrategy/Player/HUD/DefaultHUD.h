@@ -6,6 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "DefaultHUD.generated.h"
 
+class UTurnWidget;
 class UResourceStorageWidget;
 class IGridPlatform;
 class ICanBuyBuildings;
@@ -42,6 +43,8 @@ private:
 	TSubclassOf<UUserWidget> BuildingsSelectorWidgetClass;
 	UPROPERTY(Category = Widgets, EditDefaultsOnly)
 	TSubclassOf<UUserWidget> ResourceStorageWidgetClass;
+	UPROPERTY(Category = "Widgets", EditDefaultsOnly)
+	TSubclassOf<UUserWidget> TurnWidgetClass;
 
 	UPROPERTY()
 	UBuyPlatformWidget* BuyCellWidget = nullptr;
@@ -51,6 +54,8 @@ private:
 	UUserWidget* ActiveBuyWidget = nullptr;
 	UPROPERTY()
 	UResourceStorageWidget* ResourceStorageWidget = nullptr;
+	UPROPERTY()
+	UTurnWidget* TurnWidget;
 
 	UFUNCTION()
 	void ReceiveOnBuyCellClicked(TScriptInterface<ICanBeOwned> Property);

@@ -8,6 +8,7 @@
 #include "Interfaces/CanBuyCells.h"
 #include "Player/Controllers/DefaultPlayerController.h"
 #include "Widgets/ResourceStorageWidget.h"
+#include "Widgets/TurnWidget.h"
 
 void ADefaultHUD::ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property)
 {
@@ -49,6 +50,8 @@ bool ADefaultHUD::IsBuyWidgetsVisible() const
 
 void ADefaultHUD::BeginPlay()
 {
+	TurnWidget = CreateWidget<UTurnWidget>(GetOwningPlayerController(), TurnWidgetClass);
+	TurnWidget->AddToViewport();
 	ShowResourceStorageWidget();
 }
 

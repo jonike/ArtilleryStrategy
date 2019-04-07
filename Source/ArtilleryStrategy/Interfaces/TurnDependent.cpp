@@ -4,6 +4,14 @@
 #include "Engine/World.h"
 #include "Game/States/DefaultGS.h"
 
+void ITurnDependent::ReceiveOnTurnStarted()
+{
+}
+
+void ITurnDependent::ReceiveOnTurnEnded()
+{
+}
+
 // Add default functionality here for any ITurnDependent functions that are not pure virtual.
 UTurnProcessorComponent* ITurnDependent::GetTurnProcessor(UObject* Context) const
 {
