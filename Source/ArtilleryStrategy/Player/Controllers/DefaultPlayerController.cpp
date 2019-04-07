@@ -111,15 +111,22 @@ bool ADefaultPlayerController::IsBuyWidgetVisible() const
 	return GetDefaultHUD().IsBuyWidgetsVisible();
 }
 
-void ADefaultPlayerController::BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
+AActor* ADefaultPlayerController::SpawnBuildingActor(const TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass) const
 {
 	const auto Location = Cell->GetBuildingSpawnLocation();
-	const auto SpawnedBuilding = GetWorld()->SpawnActor(BuildingClass, &Location);
+	return GetWorld()->SpawnActor(BuildingClass, &Location);
+}
+
+void ADefaultPlayerController::CreateBoughtBuilding(TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass)
+{
+	// TODO: create IGridPlatform::CreateBuilding(TSubclassOf<AActor>, TScriptInterface<IOwnerController>) method
+	const auto SpawnedBuilding = SpawnBuildingActor(Cell, BuildingClass);
 	Cell->SetBuilding(SpawnedBuilding);
 	if (const auto OwnedBuilding = Cast<ICanBeOwned>(SpawnedBuilding))
 	{
 		OwnedBuilding->SetOwnerController(this);
 	}
+	OnBuildingCreated.Broadcast(SpawnedBuilding);
 }
 
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const

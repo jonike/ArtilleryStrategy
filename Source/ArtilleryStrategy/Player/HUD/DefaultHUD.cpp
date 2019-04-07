@@ -67,7 +67,7 @@ void ADefaultHUD::ReceiveOnBuyCellClicked(TScriptInterface<ICanBeOwned> Property
 void ADefaultHUD::ReceiveOnBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
 {
 	const auto Buyer = GetBuildingsBuyer();
-	Buyer->BuyBuilding(Cell, BuildingClass);
+	Buyer->CreateBoughtBuilding(Cell, BuildingClass);
 
 	if (bAutoCloseBuyWidget)
 	{

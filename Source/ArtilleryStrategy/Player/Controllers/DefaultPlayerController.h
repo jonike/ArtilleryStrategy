@@ -26,15 +26,21 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController,
 {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuildingCreatedSignature, TScriptInterface<IBuilding>, CreatedBuilding);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFireSignature);
+
 public:
 	ADefaultPlayerController();
+
+	FOnBuildingCreatedSignature OnBuildingCreated;
+	FOnFireSignature OnFire;
 
 	void BuyCell(TScriptInterface<ICanBeOwned> Cell) override;
 	void HideBuyWidget() override;
 	void ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy) override;
 	bool IsBuyWidgetVisible() const override;
 
-	void BuyBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
+	void CreateBoughtBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
 
 	void AddToFireList(TScriptInterface<IWeaponBuilding> Weapon) override;
 
@@ -61,12 +67,9 @@ private:
 	UFUNCTION()
 	void FireAllWeapon();
 
-	UMaterialInterface* GetOwnerMaterial() const override;
+	AActor* SpawnBuildingActor(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) const;
 
+	UMaterialInterface* GetOwnerMaterial() const override;
 	TScriptInterface<IWallet> GetWallet() const;
 	ADefaultHUD& GetDefaultHUD() const;
-
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFireSignature);
-
-	FOnFireSignature OnFire;
 };
