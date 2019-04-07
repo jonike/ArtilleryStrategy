@@ -16,7 +16,7 @@ struct ARTILLERYSTRATEGY_API FResourceAmount
 	GENERATED_BODY()
 
 	FResource Resource;
-	int Amount;
+	float Amount;
 };
 
 inline bool operator==(const FResourceAmount& Lhs, const FResourceAmount& Rhs)
