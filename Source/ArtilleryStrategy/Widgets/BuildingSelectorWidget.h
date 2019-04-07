@@ -19,12 +19,11 @@ class ARTILLERYSTRATEGY_API UBuildingSelectorWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseClickedSignature);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnBuyClickedSignature, TScriptInterface<IGridPlatform>, Cell, TSubclassOf<AActor>, BuildingClass);
+
 public:
 	void SetSelectedPlatform(TScriptInterface<IGridPlatform> Selected);
-
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseClickedSignature);
-
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnBuyClickedSignature, TScriptInterface<IGridPlatform>, Cell, TSubclassOf<AActor>, BuildingClass);
 
 	FOnBuyClickedSignature OnBuyClicked;
 	FOnCloseClickedSignature OnCloseClicked;
@@ -50,6 +49,8 @@ private:
 	UFUNCTION()
 	void WhenBuyClicked(FName BuildingName);
 
-	void AddGridItemWidget(FName RowName, int Number, UUniformGridPanel& GridPanel);
-	TScriptInterface<IBuildingGridItemWidget> LoadOrCreateGridItem(int i);
+	void AddItemWidget(FName RowName, int Number, UUniformGridPanel* GridPanel);
+	void SetPositionInGrid(UUserWidget* ItemWidget, int Number);
+	void AddWidgetToGrid(TScriptInterface<IBuildingGridItemWidget> GridItemWidget, UUniformGridPanel* GridPanel, int Number);
+	TScriptInterface<IBuildingGridItemWidget> LoadOrCreateGridItem(int Index);
 };

@@ -94,7 +94,7 @@ ADefaultHUD& ADefaultPlayerController::GetDefaultHUD() const
 
 void ADefaultPlayerController::AddToFireList(const TScriptInterface<IWeaponBuilding> Weapon)
 {
-	// TODO: ugly cast (interface -> abstract class)
+	// Cast is needed because we can't add binding to interface method. We have to cast to usual class and then add binding
 	const auto WeaponBuilding = Cast<ABaseWeaponBuilding>(Weapon.GetObject());
 	check(WeaponBuilding);
 	OnFire.AddDynamic(WeaponBuilding, &ABaseWeaponBuilding::Fire);
