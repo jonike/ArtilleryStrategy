@@ -25,10 +25,6 @@ void UTurnProcessorComponent::BeginPlay()
 void UTurnProcessorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	if (bGatherResourcesOnTick)
-	{
-		GatherAllResources();
-	}
 }
 
 void UTurnProcessorComponent::GatherAllResources() const
