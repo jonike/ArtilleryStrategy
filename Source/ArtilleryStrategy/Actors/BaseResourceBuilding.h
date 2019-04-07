@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Actors/BaseBuilding.h"
 #include "Interfaces/ResourceBuilding.h"
+#include "Engine/DataTable.h"
+#include "Structs/ResourceDeposit.h"
 #include "BaseResourceBuilding.generated.h"
 
 /**
@@ -18,12 +20,12 @@ class ARTILLERYSTRATEGY_API ABaseResourceBuilding : public ABaseBuilding, public
 public:
 	// Inherited via IResourceBuilding
 	bool IsProducingResource() const override;
-	void AddResourceDeposit(UResourceDeposit* Deposit) override;
-	UResourceDeposit* GetProducingResource() const override;
+	void AddResourceDeposit(FResourceDeposit& Deposit) override;
+	TArray<FResourceDeposit>& GetProducingResource() override;
 
 	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
 
 private:
 	UPROPERTY(Category = "Production|Resources", EditAnywhere)
-	UResourceDeposit* ProducedResource;
+	TArray<FResourceDeposit> ProducedResources;
 };

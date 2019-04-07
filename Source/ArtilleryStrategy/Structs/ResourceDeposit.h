@@ -4,27 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "Structs/Resource.h"
+#include "ResourceAmount.h"
 #include "ResourceDeposit.generated.h"
 
-class UDataTable;
 /**
  * 
  */
-UCLASS(BlueprintType, Blueprintable)
-class ARTILLERYSTRATEGY_API UResourceDeposit : public UObject
+USTRUCT(BlueprintType, Blueprintable)
+struct ARTILLERYSTRATEGY_API FResourceDeposit
 {
 	GENERATED_BODY()
 
-public:
-	int GetAmount() const;
-	FResource GetResource() const;
-	void Setup(FResource* Resource, int Amount);
-
-private:
-	UPROPERTY(Category = "Resource", EditAnywhere)
-	FResource Resource;
-
-	UPROPERTY(Category = "Resource", EditAnywhere)
-	int Amount;
+	FResourceAmount ResourceAmount;
 };
+
+inline bool operator==(const FResourceDeposit& Lhs, const FResourceDeposit& Rhs)
+{
+	return Lhs.ResourceAmount == Rhs.ResourceAmount;
+}

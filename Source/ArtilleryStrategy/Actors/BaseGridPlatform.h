@@ -7,9 +7,9 @@
 #include "Interfaces/GridPlatform.h"
 #include "Interfaces/CanBeOwned.h"
 #include "Interfaces/OwnerController.h"
+#include "Structs/ResourceDeposit.h"
 #include "BaseGridPlatform.generated.h"
 
-class UResourceDeposit;
 class IBuilding;
 
 UCLASS()
@@ -33,9 +33,9 @@ public:
 	bool HasBuilding() const override;
 	void SetBuilding(TScriptInterface<IBuilding> SpawnedBuilding) override;
 
-	UResourceDeposit* GetResourceDeposit() const override;
+	TArray<FResourceDeposit>& GetResourceDeposit() override;
 	bool HasResourceDeposit() const override;
-	void SetResourceDeposit(UResourceDeposit* Deposit) override;
+	void SetResourceDeposit(FResourceDeposit& Deposit) override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -53,7 +53,7 @@ private:
 	FVector BuildingSpawnOffset;
 
 	UPROPERTY(Category = "Resources", VisibleAnywhere)
-	UResourceDeposit* ResourceDeposit;
+	TArray<FResourceDeposit> ResourceDeposits;
 
 	UPROPERTY(Category = "Resources|Visuals", EditAnywhere)
 	UBillboardComponent* ResourceBillboard;

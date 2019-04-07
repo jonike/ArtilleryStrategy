@@ -7,7 +7,7 @@
 #include "ResourceBuilding.generated.h"
 
 struct FResource;
-class UResourceDeposit;
+struct FResourceDeposit;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -25,7 +25,7 @@ class ARTILLERYSTRATEGY_API IResourceBuilding
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual UResourceDeposit* GetProducingResource() const = 0;
+	virtual TArray<FResourceDeposit>& GetProducingResource() = 0;
 	virtual bool IsProducingResource() const = 0;
-	virtual void AddResourceDeposit(UResourceDeposit* Deposit) = 0;
+	virtual void AddResourceDeposit(FResourceDeposit& Deposit) = 0;
 };

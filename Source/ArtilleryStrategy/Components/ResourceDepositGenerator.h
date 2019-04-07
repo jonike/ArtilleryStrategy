@@ -6,8 +6,10 @@
 #include "Components/ActorComponent.h"
 #include "Structs/ResourceDeposit.h"
 #include "Interfaces/MapGenerator.h"
+#include "Engine/DataTable.h"
 #include "ResourceDepositGenerator.generated.h"
 
+class UDataTable;
 class ISpawnStrategy;
 class IGridPlatform;
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -45,7 +47,7 @@ private:
 	int DepositsAmount = 4;
 
 	UPROPERTY(Category = "Resources", EditDefaultsOnly)
-	TSet<UResourceDeposit*> AvailableDeposits;
+	TArray<FDataTableRowHandle> AvailableDeposits;
 
 	void CreateDeposits();
 

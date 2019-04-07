@@ -14,7 +14,6 @@ struct ARTILLERYSTRATEGY_API FResource : public FTableRowBase
 {
 	GENERATED_BODY()
 
-public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* Icon;
 
@@ -30,3 +29,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BaseCost = 10.0;
 };
+
+inline bool operator==(const FResource& Lhs, const FResource& Rhs)
+{
+	return Lhs.Icon == Rhs.Icon && Lhs.FriendlyName == Rhs.FriendlyName && Lhs.MinAmountSpawned == Rhs.MinAmountSpawned && Lhs.MaxAmountSpawned == Rhs.MaxAmountSpawned && Lhs.BaseCost == Rhs.BaseCost;
+}

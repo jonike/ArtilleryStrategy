@@ -4,9 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Structs/Resource.h"
+#include "Structs/ResourceDeposit.h"
 #include "ResourceStorage.generated.h"
-
-class UResourceDeposit;
 
 /**
  * 
@@ -21,25 +20,24 @@ class ARTILLERYSTRATEGY_API UResourceStorage : public UObject
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResourceSpentSignature);
 
 public:
+	// TODO: replace FResourceDeposit with FResourceAmount?
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	void Add(UResourceDeposit* Resource);
+	void Add(FResourceDeposit& Resource);
 
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	void Spend(UResourceDeposit* Resource, float Amount);
+	void Spend(FResourceDeposit& Resource, float Amount);
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
-	float GetAmount(UResourceDeposit* Resource) const;
+	float GetAmount(FResourceDeposit& Resource) const;
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
-	float GetAmountByName(FName Resource) const;
-
-	UFUNCTION(Category = "Resources", BlueprintPure)
-	bool IsEnough(UResourceDeposit* Resource, float Amount) const;
+	bool IsEnough(FResourceDeposit& Resource, float Amount) const;
 
 	FOnResourceAddedSignature OnResourceAdded;
 	FOnResourceSpentSignature OnResourceSpent;
 
 private:
+	// TODO: replace with separate class/struct
 	UPROPERTY(EditAnywhere)
-	TMap<FName, UResourceDeposit*> Storage;
+	TArray<FResourceDeposit> Storage;
 };

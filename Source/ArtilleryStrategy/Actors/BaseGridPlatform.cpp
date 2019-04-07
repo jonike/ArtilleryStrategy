@@ -67,21 +67,20 @@ void ABaseGridPlatform::SetBuilding(const TScriptInterface<IBuilding> SpawnedBui
 	SpawnedBuilding->PostPlaced(this);
 }
 
-UResourceDeposit* ABaseGridPlatform::GetResourceDeposit() const
+TArray<FResourceDeposit>& ABaseGridPlatform::GetResourceDeposit()
 {
-	return ResourceDeposit;
+	return ResourceDeposits;
 }
 
 bool ABaseGridPlatform::HasResourceDeposit() const
 {
-	return ResourceDeposit != nullptr;
+	return ResourceDeposits.Num() > 0;
 }
 
-void ABaseGridPlatform::SetResourceDeposit(UResourceDeposit* Deposit)
+void ABaseGridPlatform::SetResourceDeposit(FResourceDeposit& Deposit)
 {
-	check(Deposit);
-	ResourceDeposit = Deposit;
-	ResourceBillboard->SetSprite(Deposit->GetResource().Icon);
+	ResourceDeposits.Add(Deposit);
+	ResourceBillboard->SetSprite(Deposit.ResourceAmount.Resource.Icon);
 	ResourceBillboard->bHiddenInGame = false;
 }
 

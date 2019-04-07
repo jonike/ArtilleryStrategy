@@ -6,17 +6,17 @@
 
 bool ABaseResourceBuilding::IsProducingResource() const
 {
-	return ProducedResource != nullptr;
+	return ProducedResources.Num() > 0;
 }
 
-void ABaseResourceBuilding::AddResourceDeposit(UResourceDeposit* Deposit)
+void ABaseResourceBuilding::AddResourceDeposit(FResourceDeposit& Deposit)
 {
-	ProducedResource = Deposit;
+	ProducedResources.Add(Deposit);
 }
 
-UResourceDeposit* ABaseResourceBuilding::GetProducingResource() const
+TArray<FResourceDeposit>& ABaseResourceBuilding::GetProducingResource()
 {
-	return ProducedResource;
+	return ProducedResources;
 }
 
 void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Tile)
@@ -24,6 +24,6 @@ void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Til
 	Super::PostPlaced(Tile);
 	if (Tile->HasResourceDeposit())
 	{
-		ProducedResource = Tile->GetResourceDeposit();
+		ProducedResources = Tile->GetResourceDeposit();
 	}
 }
