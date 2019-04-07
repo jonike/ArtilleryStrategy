@@ -6,6 +6,7 @@
 #include "GameFramework/GameStateBase.h"
 #include "DefaultGS.generated.h"
 
+class UTurnProcessorComponent;
 class IMapGenerator;
 class UResourceDepositGenerator;
 class ISpawnStrategy;
@@ -44,6 +45,9 @@ private:
 
 	UPROPERTY(Category = "Generation", EditAnywhere)
 	UResourceDepositGenerator* ResourceDepositGenerator;
+
+	UPROPERTY(Category = "Turns", EditAnywhere)
+	UTurnProcessorComponent* TurnProcessorComponent;
 
 	UFUNCTION()
 	void ReceiveOnGridGenerationStarted(int Rows, int Columns);

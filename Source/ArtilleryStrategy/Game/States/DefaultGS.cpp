@@ -8,6 +8,7 @@
 #include "Objects/TileMatrix.h"
 #include "Components/CapitalPlacementGenerator.h"
 #include "Components/ResourceDepositGenerator.h"
+#include "Components/TurnProcessorComponent.h"
 
 ADefaultGS::ADefaultGS()
 {
@@ -15,6 +16,7 @@ ADefaultGS::ADefaultGS()
 	Matrix = CreateDefaultSubobject<UTileMatrix>(TEXT("Tile matrix"));
 	CapitalPlacementGenerator = CreateDefaultSubobject<UCapitalPlacementGenerator>(TEXT("Capital placement"));
 	ResourceDepositGenerator = CreateDefaultSubobject<UResourceDepositGenerator>(TEXT("Resource deposits"));
+	TurnProcessorComponent = CreateDefaultSubobject<UTurnProcessorComponent>(TEXT("Turn processor component"));
 }
 
 void ADefaultGS::PostInitializeComponents()
