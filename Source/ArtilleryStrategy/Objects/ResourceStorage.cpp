@@ -6,38 +6,30 @@
 
 void UResourceStorage::AddResource(FResourceAmount& Resource)
 {
-	//if (Storage.Contains(Resource))
-	//{
-	//	const auto Index = Storage.Find(Resource);
-	//	// TODO: add resource
-	//}
-	//else
-	//{
-	//	Storage.Add(Resource);
-	//}
-	//OnResourceAdded.Broadcast();
+	if (Storage.Contains(Resource.Resource))
+	{
+		Storage[Resource.Resource] += Resource.Amount;
+	}
+	else
+	{
+		Storage.Add(Resource.Resource, Resource.Amount);
+	}
+	OnResourceAdded.Broadcast();
 }
 
 void UResourceStorage::SpendResource(FResourceAmount& Resource)
 {
-	//if (Storage.Contains(Resource))
-	//{
-	//	const auto Index = Storage.Find(Resource);
-	//	// TODO: spend resource
-	//	OnResourceSpent.Broadcast();
-	//}
-	// TODO: check if there is no or not enough resource
+	check(IsEnough(Resource));
+	Storage[Resource.Resource] -= Resource.Amount;
+	OnResourceSpent.Broadcast();
 }
 
 float UResourceStorage::GetAmount(FResource& Resource) const
 {
-	/*const auto Index = Storage.FindByPredicate([](const FResourceAmount & ResourceAmount) { return ResourceAmount.Resource == Resource; });
-	return Storage.IsValidIndex(Index) ? Storage[Index].Amount : 0.f;*/
-	return 0.f;
+	return Storage.Contains(Resource) ? Storage[Resource] : 0.f;
 }
 
 bool UResourceStorage::IsEnough(FResourceAmount& Resource) const
 {
-	/*return GetAmount(Resource) >= Amount;*/
-	return false;
+	return GetAmount(Resource.Resource) > Resource.Amount;
 }
