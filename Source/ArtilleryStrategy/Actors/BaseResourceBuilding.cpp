@@ -17,7 +17,7 @@ void ABaseResourceBuilding::AddResourceDeposit(FResourceDeposit& Deposit)
 	ProducedResources.Add(Deposit);
 }
 
-TArray<FResourceDeposit>& ABaseResourceBuilding::GetProducingResource()
+TSet<FResourceDeposit>& ABaseResourceBuilding::GetProducingResources()
 {
 	return ProducedResources;
 }
@@ -25,22 +25,36 @@ TArray<FResourceDeposit>& ABaseResourceBuilding::GetProducingResource()
 void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Tile)
 {
 	Super::PostPlaced(Tile);
-	if (Tile->HasResourceDeposit())
-	{
-		ProducedResources = Tile->GetResourceDeposit();
-	}
+	PopulateProducedResourcesContainer(Tile);
 	const auto TurnProcessor = GetTurnProcessor(this);
 	// TODO: bind ReceiveOnTurnEnded and ReceiveOnTurnStarted automatically (maybe through method BindToTurnStart/BindToTurnEnd)
 	TurnProcessor->OnTurnEnded.AddDynamic(this, &ABaseResourceBuilding::ReceiveOnTurnEnded);
 }
 
+void ABaseResourceBuilding::PopulateProducedResourcesContainer(const TScriptInterface<IGridPlatform> Tile)
+{
+	if (Tile->HasResourceDeposit())
+	{
+		// TODO: rename method (gets resource depositS)
+		const auto& ResourcesOnTile = Tile->GetResourceDeposit();
+		// TODO: rewrite check whether the building can produce resource on the tile (tip: use FDataTableRowHandle)
+		for (const auto& Resource : ResourcesOnTile)
+		{
+			if (ResourcesCanProduce.ContainsByPredicate([&Resource](const auto & Row) { return Row.RowName == Resource.ResourceAmount.Resource.FriendlyName; }))
+			{
+				ProducedResources.Add(Resource);
+			}
+		}
+	}
+}
+
 void ABaseResourceBuilding::ReceiveOnTurnEnded()
 {
 	Super::ReceiveOnTurnEnded();
-	const auto OwnerController = GetWorld()->GetFirstPlayerController<IOwnerController>();
-	if (OwnerController)
+	const auto Controller = GetWorld()->GetFirstPlayerController<IOwnerController>();
+	if (Controller)
 	{
-		const auto Wallet = OwnerController->GetWallet();
+		const auto Wallet = Controller->GetWallet();
 		check(Wallet);
 		const auto ResourceWallet = Wallet->GetResourceWallet();
 		check(ResourceWallet);

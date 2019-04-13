@@ -62,7 +62,7 @@ void ABaseGridPlatform::SetBuilding(const TScriptInterface<IBuilding> SpawnedBui
 	SpawnedBuilding->PostPlaced(this);
 }
 
-TArray<FResourceDeposit>& ABaseGridPlatform::GetResourceDeposit()
+TSet<FResourceDeposit>& ABaseGridPlatform::GetResourceDeposit()
 {
 	return ResourceDeposits;
 }

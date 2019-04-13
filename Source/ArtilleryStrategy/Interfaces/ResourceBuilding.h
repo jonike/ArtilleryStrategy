@@ -25,7 +25,7 @@ class ARTILLERYSTRATEGY_API IResourceBuilding
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual TArray<FResourceDeposit>& GetProducingResource() = 0;
+	virtual TSet<FResourceDeposit>& GetProducingResources() = 0;
 	virtual bool IsProducingResource() const = 0;
 	virtual void AddResourceDeposit(FResourceDeposit& Deposit) = 0;
 };

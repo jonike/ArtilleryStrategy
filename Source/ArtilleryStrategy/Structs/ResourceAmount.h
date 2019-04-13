@@ -26,3 +26,8 @@ inline bool operator==(const FResourceAmount& Lhs, const FResourceAmount& Rhs)
 {
 	return Lhs.Amount == Rhs.Amount && Lhs.Resource == Rhs.Resource;
 }
+
+inline uint32 GetTypeHash(const FResourceAmount& ResourceAmount)
+{
+	return GetTypeHash(ResourceAmount.Resource);
+}

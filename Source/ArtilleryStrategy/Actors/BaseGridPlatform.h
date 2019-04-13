@@ -32,7 +32,7 @@ public:
 	bool HasBuilding() const override;
 	void SetBuilding(TScriptInterface<IBuilding> SpawnedBuilding) override;
 
-	TArray<FResourceDeposit>& GetResourceDeposit() override;
+	TSet<FResourceDeposit>& GetResourceDeposit() override;
 	bool HasResourceDeposit() const override;
 	void SetResourceDeposit(FResourceDeposit& Deposit) override;
 
@@ -48,8 +48,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = Buildings)
 	FVector BuildingSpawnOffset;
 
-	UPROPERTY(Category = "Resources", VisibleAnywhere)
-	TArray<FResourceDeposit> ResourceDeposits;
+	UPROPERTY(Category = "Resources", VisibleInstanceOnly)
+	TSet<FResourceDeposit> ResourceDeposits;
 
 	UPROPERTY(Category = "Resources|Visuals", EditAnywhere)
 	UBillboardComponent* ResourceBillboard;

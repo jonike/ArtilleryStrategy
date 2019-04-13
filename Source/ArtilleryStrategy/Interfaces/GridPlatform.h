@@ -29,7 +29,7 @@ public:
 	virtual bool HasBuilding() const = 0;
 	virtual void SetBuilding(TScriptInterface<IBuilding> Building) = 0;
 
-	virtual TArray<FResourceDeposit>& GetResourceDeposit() = 0;
+	virtual TSet<FResourceDeposit>& GetResourceDeposit() = 0;
 	virtual bool HasResourceDeposit() const = 0;
 	virtual void SetResourceDeposit(FResourceDeposit& Deposit) = 0;
 };

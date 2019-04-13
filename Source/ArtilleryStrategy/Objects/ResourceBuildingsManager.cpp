@@ -14,7 +14,7 @@ void UResourceBuildingsManager::GatherResources()
 	check(PlayerState);
 	for (const auto& Building : ResourceBuildings)
 	{
-		const auto Resource = Building->GetProducingResource();
+		const auto Resource = Building->GetProducingResources();
 		// TODO: gather resources and place in in player's storage
 	}
 }
