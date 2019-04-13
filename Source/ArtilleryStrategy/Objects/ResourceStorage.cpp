@@ -4,24 +4,26 @@
 #include "ResourceStorage.h"
 #include "Structs/ResourceAmount.h"
 
-void UResourceStorage::AddResource(const FResourceAmount& Resource)
+void UResourceStorage::AddResource(FResourceAmount ResourceAmount)
 {
-	if (Storage.Contains(Resource.Resource))
+	if (Storage.Contains(ResourceAmount.Resource))
 	{
-		Storage[Resource.Resource] += Resource.Amount;
+		Storage[ResourceAmount.Resource] += ResourceAmount.Amount;
+		ResourceAmount.Amount = Storage[ResourceAmount.Resource];
 	}
 	else
 	{
-		Storage.Add(Resource.Resource, Resource.Amount);
+		Storage.Add(ResourceAmount.Resource, ResourceAmount.Amount);
 	}
-	OnResourceAdded.Broadcast(Resource);
+	OnResourceAdded.Broadcast(ResourceAmount);
 }
 
-void UResourceStorage::SpendResource(const FResourceAmount& Resource)
+void UResourceStorage::SpendResource(FResourceAmount ResourceAmount)
 {
-	check(IsEnough(Resource));
-	Storage[Resource.Resource] -= Resource.Amount;
-	OnResourceSpent.Broadcast(Resource);
+	check(IsEnough(ResourceAmount));
+	Storage[ResourceAmount.Resource] -= ResourceAmount.Amount;
+	ResourceAmount.Amount = Storage[ResourceAmount.Resource];
+	OnResourceSpent.Broadcast(ResourceAmount);
 }
 
 float UResourceStorage::GetAmount(const FResource& Resource) const

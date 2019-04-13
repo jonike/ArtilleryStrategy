@@ -21,10 +21,10 @@ class ARTILLERYSTRATEGY_API UResourceStorage : public UObject
 
 public:
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	void AddResource(const FResourceAmount& Resource);
+	void AddResource(FResourceAmount ResourceAmount);
 
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	void SpendResource(const FResourceAmount& Resource);
+	void SpendResource(FResourceAmount ResourceAmount);
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
 	float GetAmount(const FResource& Resource) const;
