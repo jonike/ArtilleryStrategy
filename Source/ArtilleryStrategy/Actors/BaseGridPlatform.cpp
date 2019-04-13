@@ -62,17 +62,17 @@ void ABaseGridPlatform::SetBuilding(const TScriptInterface<IBuilding> SpawnedBui
 	SpawnedBuilding->PostPlaced(this);
 }
 
-TSet<FResourceDeposit>& ABaseGridPlatform::GetResourceDeposit()
+TSet<FResourceDeposit>& ABaseGridPlatform::GetResourceDeposits()
 {
 	return ResourceDeposits;
 }
 
-bool ABaseGridPlatform::HasResourceDeposit() const
+bool ABaseGridPlatform::HasResourceDeposits() const
 {
 	return ResourceDeposits.Num() > 0;
 }
 
-void ABaseGridPlatform::SetResourceDeposit(FResourceDeposit& Deposit)
+void ABaseGridPlatform::SetResourceDeposits(FResourceDeposit& Deposit)
 {
 	ResourceDeposits.Add(Deposit);
 	ResourceBillboard->SetSprite(Deposit.ResourceAmount.Resource.Icon);

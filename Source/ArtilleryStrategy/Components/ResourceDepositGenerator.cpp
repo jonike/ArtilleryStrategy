@@ -72,7 +72,7 @@ void UResourceDepositGenerator::CreateDeposits()
 			FResourceDeposit ResourceDeposit;
 			ResourceDeposit.ResourceAmount.Resource = GetRandomResource();
 			ResourceDeposit.ResourceAmount.Amount = GetRandomResourceAmount(ResourceDeposit.ResourceAmount.Resource);
-			GetTileForDeposit()->SetResourceDeposit(ResourceDeposit);
+			GetTileForDeposit()->SetResourceDeposits(ResourceDeposit);
 		}
 	}
 }

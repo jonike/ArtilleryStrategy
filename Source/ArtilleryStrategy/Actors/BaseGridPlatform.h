@@ -32,9 +32,9 @@ public:
 	bool HasBuilding() const override;
 	void SetBuilding(TScriptInterface<IBuilding> SpawnedBuilding) override;
 
-	TSet<FResourceDeposit>& GetResourceDeposit() override;
-	bool HasResourceDeposit() const override;
-	void SetResourceDeposit(FResourceDeposit& Deposit) override;
+	TSet<FResourceDeposit>& GetResourceDeposits() override;
+	bool HasResourceDeposits() const override;
+	void SetResourceDeposits(FResourceDeposit& Deposit) override;
 
 protected:
 	// Called when the game starts or when spawned

@@ -33,10 +33,9 @@ void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Til
 
 void ABaseResourceBuilding::PopulateProducedResourcesContainer(const TScriptInterface<IGridPlatform> Tile)
 {
-	if (Tile->HasResourceDeposit())
+	if (Tile->HasResourceDeposits())
 	{
-		// TODO: rename method (gets resource depositS)
-		const auto& ResourcesOnTile = Tile->GetResourceDeposit();
+		const auto& ResourcesOnTile = Tile->GetResourceDeposits();
 		// TODO: rewrite check whether the building can produce resource on the tile (tip: use FDataTableRowHandle)
 		for (const auto& Resource : ResourcesOnTile)
 		{
