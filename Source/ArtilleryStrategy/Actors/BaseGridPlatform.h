@@ -28,6 +28,9 @@ public:
 	void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) override;
 	bool HasOwnerController() const override;
 
+	bool RequiresResourcesToOwn() const override;
+	FResourcePack GetResourcesToOwn() const override;
+
 	FVector GetBuildingSpawnLocation() const override;
 	bool HasBuilding() const override;
 	void SetBuilding(TScriptInterface<IBuilding> SpawnedBuilding) override;
@@ -53,6 +56,9 @@ private:
 
 	UPROPERTY(Category = "Resources|Visuals", EditAnywhere)
 	UBillboardComponent* ResourceBillboard;
+
+	UPROPERTY(Category = "Resources|Cost to own", EditAnywhere)
+	FResourcePack ResourcesToOwn;
 
 	TScriptInterface<IBuilding> Building;
 	TScriptInterface<IOwnerController> OwnerController;

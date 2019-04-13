@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "ScriptInterface.h"
+#include "Structs/ResourcePack.h"
 #include "CanBeOwned.generated.h"
 
 class IOwnerController;
@@ -27,4 +29,7 @@ public:
 	virtual bool HasOwnerController() const = 0;
 	virtual TScriptInterface<IOwnerController> GetOwnerController() const = 0;
 	virtual void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) = 0;
+
+	virtual bool RequiresResourcesToOwn() const = 0;
+	virtual FResourcePack GetResourcesToOwn() const = 0;
 };

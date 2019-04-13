@@ -33,6 +33,11 @@ float ABaseBuilding::TakeDamage(const float DamageAmount, FDamageEvent const& Da
 	return DamageAmount;
 }
 
+FResourcePack ABaseBuilding::GetResourcesToOwn() const
+{
+	return ResourcesToOwn;
+}
+
 void ABaseBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Tile)
 {
 	UnderlyingTile = Tile;
@@ -51,6 +56,11 @@ void ABaseBuilding::SetOwnerController(TScriptInterface<IOwnerController> NewOwn
 {
 	OwnerController = NewOwner;
 	StaticMesh->SetMaterial(0, OwnerController->GetOwnerMaterial());
+}
+
+bool ABaseBuilding::RequiresResourcesToOwn() const
+{
+	return ResourcesToOwn.Resources.Num() != 0;
 }
 
 // Called every frame

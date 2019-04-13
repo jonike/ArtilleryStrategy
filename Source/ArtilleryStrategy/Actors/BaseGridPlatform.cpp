@@ -95,6 +95,16 @@ bool ABaseGridPlatform::HasOwnerController() const
 	return OwnerController != nullptr;
 }
 
+bool ABaseGridPlatform::RequiresResourcesToOwn() const
+{
+	return ResourcesToOwn.Resources.Num() != 0;
+}
+
+FResourcePack ABaseGridPlatform::GetResourcesToOwn() const
+{
+	return ResourcesToOwn;
+}
+
 // Called every frame
 void ABaseGridPlatform::Tick(float DeltaTime)
 {

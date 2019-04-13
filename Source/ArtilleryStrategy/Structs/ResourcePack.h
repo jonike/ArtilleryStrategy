@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Structs/ResourceAmount.h"
-#include "ResourcesPack.generated.h"
+#include "ResourcePack.generated.h"
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct ARTILLERYSTRATEGY_API FResourcesPack
+struct ARTILLERYSTRATEGY_API FResourcePack
 {
 	GENERATED_BODY()
 
@@ -18,5 +18,5 @@ struct ARTILLERYSTRATEGY_API FResourcesPack
 	TSet<FResourceAmount> Resources;
 
 	/** Compares TSet of FResourceAmount of two FResourcePack objects */
-	bool ContainsEqualResourcePack(const FResourcesPack& Other) const;
+	bool ContainsEqualResourcePack(const FResourcePack& Other) const;
 };

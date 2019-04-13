@@ -25,6 +25,9 @@ public:
 	void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) override;
 	bool HasOwnerController() const override { return OwnerController.GetObject() != nullptr; }
 
+	bool RequiresResourcesToOwn() const override;
+	FResourcePack GetResourcesToOwn() const override;
+
 	// Inherited via IBuilding
 	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
 	void PrePlaced(TScriptInterface<IGridPlatform> Tile) override;
@@ -44,6 +47,9 @@ private:
 
 	UPROPERTY(Category = Health, EditAnywhere)
 	float Health = 200.f;
+
+	UPROPERTY(Category = "Resources|Cost to own", EditAnywhere)
+	FResourcePack ResourcesToOwn;
 
 	TScriptInterface<IOwnerController> OwnerController;
 
