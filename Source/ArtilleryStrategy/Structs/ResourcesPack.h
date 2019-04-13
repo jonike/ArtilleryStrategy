@@ -16,4 +16,7 @@ struct ARTILLERYSTRATEGY_API FResourcesPack
 
 	UPROPERTY(Category = "Resources", EditAnywhere)
 	TSet<FResourceAmount> Resources;
+
+	/** Compares TSet of FResourceAmount of two FResourcePack objects */
+	bool ContainsEqualResourcePack(const FResourcesPack& Other) const;
 };
