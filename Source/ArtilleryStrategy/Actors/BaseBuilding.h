@@ -46,4 +46,6 @@ private:
 	float Health = 200.f;
 
 	TScriptInterface<IOwnerController> OwnerController;
+
+	TScriptInterface<IGridPlatform> UnderlyingTile;
 };

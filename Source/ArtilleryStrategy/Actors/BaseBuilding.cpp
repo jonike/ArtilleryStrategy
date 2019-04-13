@@ -33,9 +33,9 @@ float ABaseBuilding::TakeDamage(const float DamageAmount, FDamageEvent const& Da
 	return DamageAmount;
 }
 
-void ABaseBuilding::PostPlaced(TScriptInterface<IGridPlatform> Tile)
+void ABaseBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Tile)
 {
-	// TODO: set pointer to Tile
+	UnderlyingTile = Tile;
 }
 
 void ABaseBuilding::PrePlaced(TScriptInterface<IGridPlatform> Tile)
