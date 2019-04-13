@@ -17,7 +17,6 @@ class ARTILLERYSTRATEGY_API UResourceBuildingsManager : public UObject
 	GENERATED_BODY()
 	
 public:
-	void GatherResources();
 	void AddResourceBuilding(TScriptInterface<IResourceBuilding> Building);
 
 private:
