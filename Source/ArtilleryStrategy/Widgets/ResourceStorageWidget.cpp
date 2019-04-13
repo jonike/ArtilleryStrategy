@@ -19,7 +19,7 @@ void UResourceStorageWidget::NativeConstruct()
 			{
 				auto ResourceWidget = GetResourceWidget(i);
 				const auto ResourceData = ResourcesTable->FindRow<FResource>(Names[i], TEXT("Filling resource storage widget"));
-				ResourceWidget->Fill(Names[i], *ResourceData);
+				ResourceWidget->SetupResourceWidget(Names[i], *ResourceData);
 				PlaceResourceWidget(Cast<UUserWidget>(ResourceWidget.GetObject()));
 			}
 		}

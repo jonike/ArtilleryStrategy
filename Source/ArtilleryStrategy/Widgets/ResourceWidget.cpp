@@ -5,6 +5,13 @@
 #include "Objects/ResourceStorage.h"
 #include "GameFramework/PlayerState.h"
 
+void UResourceWidget::SetupResourceWidget(const FName& Name, const FResource& Resource)
+{
+	ShowedResource = Resource;
+	GetWallet()->GetResourceWallet()->OnResourceAdded.AddDynamic(this, &UResourceWidget::ReceiveOnResourceAdded);
+	FillResourceWidget(Name, Resource);
+}
+
 TScriptInterface<IWallet> UResourceWidget::GetWallet() const
 {
 	return GetOwningPlayer()->GetPlayerState<APlayerState>();
@@ -13,4 +20,12 @@ TScriptInterface<IWallet> UResourceWidget::GetWallet() const
 UResourceStorage* UResourceWidget::GetResourceStorage() const
 {
 	return  GetWallet()->GetResourceWallet();
+}
+
+void UResourceWidget::ReceiveOnResourceAdded(const FResourceAmount& Resource)
+{
+	if (Resource.Resource.IsSameResource(ShowedResource))
+	{
+		UpdateResourceAmount(Resource);
+	}
 }

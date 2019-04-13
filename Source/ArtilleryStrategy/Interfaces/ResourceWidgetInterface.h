@@ -24,5 +24,5 @@ class ARTILLERYSTRATEGY_API IResourceWidgetInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void Fill(const FName& Name, const FResource& Resource) = 0;
+	virtual void SetupResourceWidget(const FName& Name, const FResource& Resource) = 0;
 };

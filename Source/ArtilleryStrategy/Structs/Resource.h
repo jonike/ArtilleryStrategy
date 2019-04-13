@@ -28,6 +28,8 @@ struct ARTILLERYSTRATEGY_API FResource : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BaseCost = 10.0;
+
+	bool IsSameResource(const FResource& Resource) const { return FriendlyName == Resource.FriendlyName; }
 };
 
 inline bool operator==(const FResource& Lhs, const FResource& Rhs)
