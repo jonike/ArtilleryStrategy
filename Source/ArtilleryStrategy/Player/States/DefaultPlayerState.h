@@ -29,6 +29,6 @@ private:
 	UPROPERTY(Category = "Resources", EditAnywhere)
 	UResourceStorage* Storage;
 
-	UPROPERTY(Category = "Resources|Buildings", VisibleInstanceOnly)
+	UPROPERTY(Category = "Resources", VisibleInstanceOnly)
 	UResourceBuildingsManager* ResourceBuildingsManager;
 };

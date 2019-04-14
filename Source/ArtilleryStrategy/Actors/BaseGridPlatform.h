@@ -54,10 +54,10 @@ private:
 	UPROPERTY(Category = "Resources", VisibleInstanceOnly)
 	TSet<FResourceDeposit> ResourceDeposits;
 
-	UPROPERTY(Category = "Resources|Visuals", EditAnywhere)
+	UPROPERTY(Category = "Resources", EditAnywhere)
 	UBillboardComponent* ResourceBillboard;
 
-	UPROPERTY(Category = "Resources|Cost to own", EditAnywhere)
+	UPROPERTY(Category = "Resources", EditAnywhere)
 	FResourcePack ResourcesToOwn;
 
 	TScriptInterface<IBuilding> Building;

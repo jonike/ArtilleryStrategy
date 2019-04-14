@@ -48,7 +48,7 @@ private:
 	UPROPERTY(Category = Health, EditAnywhere)
 	float Health = 200.f;
 
-	UPROPERTY(Category = "Resources|Cost to own", EditAnywhere)
+	UPROPERTY(Category = "Resources", EditAnywhere)
 	FResourcePack ResourcesToOwn;
 
 	TScriptInterface<IOwnerController> OwnerController;

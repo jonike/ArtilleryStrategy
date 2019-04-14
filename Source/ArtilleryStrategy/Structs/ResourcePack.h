@@ -14,7 +14,7 @@ struct ARTILLERYSTRATEGY_API FResourcePack
 {
 	GENERATED_BODY()
 
-	UPROPERTY(Category = "Resources", EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	TSet<FResourceAmount> Resources;
 
 	/** Compares TSet of FResourceAmount of two FResourcePack objects */

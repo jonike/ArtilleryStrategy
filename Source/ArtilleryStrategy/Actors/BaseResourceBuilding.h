@@ -29,10 +29,10 @@ public:
 	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
 
 private:
-	UPROPERTY(Category = "Production|Resources", EditDefaultsOnly)
+	UPROPERTY(Category = "Production", EditDefaultsOnly)
 	TSet<FResourceHandle> ResourcesCanProduce;
 
-	UPROPERTY(Category = "Production|Resources", VisibleInstanceOnly)
+	UPROPERTY(Category = "Production", VisibleInstanceOnly)
 	TSet<FResourceDeposit> ProducedResources;
 
 	void PopulateProducedResourcesContainer(TScriptInterface<IGridPlatform> Tile);

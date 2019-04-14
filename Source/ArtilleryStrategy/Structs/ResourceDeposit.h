@@ -14,7 +14,7 @@ struct ARTILLERYSTRATEGY_API FResourceDeposit
 {
 	GENERATED_BODY()
 
-	UPROPERTY(Category = "Resource", EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	FResourceAmount ResourceAmount;
 };
 

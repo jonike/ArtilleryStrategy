@@ -20,6 +20,6 @@ public:
 	void AddResourceBuilding(TScriptInterface<IResourceBuilding> Building);
 
 private:
-	UPROPERTY(Category = "Buildings|Resource production", VisibleInstanceOnly)
+	UPROPERTY(Category = "Buildings", VisibleInstanceOnly)
 	TArray<TScriptInterface<IResourceBuilding>> ResourceBuildings;
 };
