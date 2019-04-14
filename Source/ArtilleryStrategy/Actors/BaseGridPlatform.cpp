@@ -75,7 +75,7 @@ bool ABaseGridPlatform::HasResourceDeposits() const
 void ABaseGridPlatform::SetResourceDeposits(FResourceDeposit& Deposit)
 {
 	ResourceDeposits.Add(Deposit);
-	ResourceBillboard->SetSprite(Deposit.ResourceAmount.Resource.Icon);
+	ResourceBillboard->SetSprite(Deposit.ResourceAmount.GetResource(TEXT("Setting sprite for resource deposit on the tile")).Icon);
 	ResourceBillboard->bHiddenInGame = false;
 }
 

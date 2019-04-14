@@ -24,7 +24,7 @@ UResourceStorage* UResourceWidget::GetResourceStorage() const
 
 void UResourceWidget::ReceiveOnResourceAdded(const FResourceAmount& Resource)
 {
-	if (Resource.Resource.IsSameResource(ShowedResource))
+	if (Resource.ResourceHandle == Resource.ResourceHandle)
 	{
 		UpdateResourceAmount(Resource);
 	}

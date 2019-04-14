@@ -3,9 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DataTableEditor/Private/SRowEditor.h"
+#include "Engine/DataTable.h"
 #include "Resource.generated.h"
 
+class UTexture2D;
 /**
  * 
  */
@@ -28,20 +29,8 @@ struct ARTILLERYSTRATEGY_API FResource : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BaseCost = 10.0;
-
-	bool IsSameResource(const FResource& Resource) const { return FriendlyName == Resource.FriendlyName; }
 };
 
-inline bool operator==(const FResource& Lhs, const FResource& Rhs)
-{
-	return Lhs.Icon == Rhs.Icon
-			&& Lhs.FriendlyName == Rhs.FriendlyName
-			&& Lhs.MinAmountSpawned == Rhs.MinAmountSpawned
-			&& Lhs.MaxAmountSpawned == Rhs.MaxAmountSpawned
-			&& Lhs.BaseCost == Rhs.BaseCost;
-}
+bool operator==(const FResource& Lhs, const FResource& Rhs);
 
-inline uint32 GetTypeHash(const FResource& Resource)
-{
-	return GetTypeHash(Resource.FriendlyName);
-}
+uint32 GetTypeHash(const FResource& Resource);

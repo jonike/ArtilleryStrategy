@@ -30,7 +30,7 @@ public:
 
 private:
 	UPROPERTY(Category = "Production|Resources", EditDefaultsOnly)
-	TArray<FDataTableRowHandle> ResourcesCanProduce;
+	TSet<FResourceHandle> ResourcesCanProduce;
 
 	UPROPERTY(Category = "Production|Resources", VisibleInstanceOnly)
 	TSet<FResourceDeposit> ProducedResources;

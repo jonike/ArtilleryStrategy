@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "ResourceAmount.h"
 #include "ResourceDeposit.generated.h"
 
@@ -19,12 +18,6 @@ struct ARTILLERYSTRATEGY_API FResourceDeposit
 	FResourceAmount ResourceAmount;
 };
 
-inline bool operator==(const FResourceDeposit& Lhs, const FResourceDeposit& Rhs)
-{
-	return Lhs.ResourceAmount == Rhs.ResourceAmount;
-}
+bool operator==(const FResourceDeposit& Lhs, const FResourceDeposit& Rhs);
 
-inline uint32 GetTypeHash(const FResourceDeposit& ResourceDeposit)
-{
-	return GetTypeHash(ResourceDeposit.ResourceAmount);
-}
+uint32 GetTypeHash(const FResourceDeposit& ResourceDeposit);

@@ -49,13 +49,10 @@ void UResourceDepositGenerator::InitializeComponent()
 	}
 }
 
-FResource& UResourceDepositGenerator::GetRandomResource() const
+FResourceHandle UResourceDepositGenerator::GetRandomResource() const
 {
-	const auto Names = ResourceTable->GetRowNames();
-	const auto Index = FMath::RandRange(0, Names.Num() - 1);
-	const auto SelectedResource = ResourceTable->FindRow<FResource>(Names[Index], TEXT("Get random resource for resource deposit placement"));
-	check(SelectedResource);
-	return *SelectedResource;
+	const auto Index = FMath::RandRange(0, AvailableDeposits.Num() - 1);
+	return AvailableDeposits[Index];
 }
 
 int32 UResourceDepositGenerator::GetRandomResourceAmount(const FResource& Resource) const
@@ -65,15 +62,12 @@ int32 UResourceDepositGenerator::GetRandomResourceAmount(const FResource& Resour
 
 void UResourceDepositGenerator::CreateDeposits()
 {
-	if (ResourceTable)
+	for (size_t i = 0; i < DepositsAmount; i++)
 	{
-		for (size_t i = 0; i < DepositsAmount; i++)
-		{
-			FResourceDeposit ResourceDeposit;
-			ResourceDeposit.ResourceAmount.Resource = GetRandomResource();
-			ResourceDeposit.ResourceAmount.Amount = GetRandomResourceAmount(ResourceDeposit.ResourceAmount.Resource);
-			GetTileForDeposit()->SetResourceDeposits(ResourceDeposit);
-		}
+		FResourceDeposit ResourceDeposit;
+		ResourceDeposit.ResourceAmount.ResourceHandle = GetRandomResource();
+		ResourceDeposit.ResourceAmount.Amount = GetRandomResourceAmount(ResourceDeposit.ResourceAmount.GetResource(TEXT("Getting resource data for spawning deposits")));
+		GetTileForDeposit()->SetResourceDeposits(ResourceDeposit);
 	}
 }
 

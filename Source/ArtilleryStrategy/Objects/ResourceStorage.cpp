@@ -6,14 +6,14 @@
 
 void UResourceStorage::AddResource(FResourceAmount ResourceAmount)
 {
-	if (Storage.Contains(ResourceAmount.Resource))
+	if (Storage.Contains(ResourceAmount.ResourceHandle))
 	{
-		Storage[ResourceAmount.Resource] += ResourceAmount.Amount;
-		ResourceAmount.Amount = Storage[ResourceAmount.Resource];
+		Storage[ResourceAmount.ResourceHandle] += ResourceAmount.Amount;
+		ResourceAmount.Amount = Storage[ResourceAmount.ResourceHandle];
 	}
 	else
 	{
-		Storage.Add(ResourceAmount.Resource, ResourceAmount.Amount);
+		Storage.Add(ResourceAmount.ResourceHandle, ResourceAmount.Amount);
 	}
 	OnResourceAdded.Broadcast(ResourceAmount);
 }
@@ -21,17 +21,17 @@ void UResourceStorage::AddResource(FResourceAmount ResourceAmount)
 void UResourceStorage::SpendResource(FResourceAmount ResourceAmount)
 {
 	check(IsEnough(ResourceAmount));
-	Storage[ResourceAmount.Resource] -= ResourceAmount.Amount;
-	ResourceAmount.Amount = Storage[ResourceAmount.Resource];
+	Storage[ResourceAmount.ResourceHandle] -= ResourceAmount.Amount;
+	ResourceAmount.Amount = Storage[ResourceAmount.ResourceHandle];
 	OnResourceSpent.Broadcast(ResourceAmount);
 }
 
-float UResourceStorage::GetAmount(const FResource& Resource) const
+float UResourceStorage::GetAmount(const FResourceHandle& Resource) const
 {
 	return Storage.Contains(Resource) ? Storage[Resource] : 0.f;
 }
 
 bool UResourceStorage::IsEnough(const FResourceAmount& Resource) const
 {
-	return GetAmount(Resource.Resource) > Resource.Amount;
+	return GetAmount(Resource.ResourceHandle) > Resource.Amount;
 }

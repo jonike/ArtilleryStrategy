@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Structs/Resource.h"
 #include "Structs/ResourceDeposit.h"
+#include "Structs/ResourceHandle.h"
 #include "ResourceStorage.generated.h"
 
 /**
@@ -27,7 +28,7 @@ public:
 	void SpendResource(FResourceAmount ResourceAmount);
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
-	float GetAmount(const FResource& Resource) const;
+	float GetAmount(const FResourceHandle& Resource) const;
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
 	bool IsEnough(const FResourceAmount& Resource) const;
@@ -36,6 +37,7 @@ public:
 	FOnResourceSpentSignature OnResourceSpent;
 
 private:
+	// TODO: use map with types: FResourceHandle and int
 	UPROPERTY(EditAnywhere)
-	TMap<FResource, int> Storage;
+	TMap<FResourceHandle, int> Storage;
 };

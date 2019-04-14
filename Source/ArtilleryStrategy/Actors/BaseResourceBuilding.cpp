@@ -36,10 +36,9 @@ void ABaseResourceBuilding::PopulateProducedResourcesContainer(const TScriptInte
 	if (Tile->HasResourceDeposits())
 	{
 		const auto& ResourcesOnTile = Tile->GetResourceDeposits();
-		// TODO: rewrite check whether the building can produce resource on the tile (tip: use FDataTableRowHandle)
 		for (const auto& Resource : ResourcesOnTile)
 		{
-			if (ResourcesCanProduce.ContainsByPredicate([&Resource](const auto & Row) { return Row.RowName == Resource.ResourceAmount.Resource.FriendlyName; }))
+			if (ResourcesCanProduce.Contains(Resource.ResourceAmount.ResourceHandle))
 			{
 				ProducedResources.Add(Resource);
 			}

@@ -7,6 +7,7 @@
 #include "Structs/ResourceDeposit.h"
 #include "Interfaces/MapGenerator.h"
 #include "Engine/DataTable.h"
+#include "ScriptInterface.h"
 #include "ResourceDepositGenerator.generated.h"
 
 class UDataTable;
@@ -41,16 +42,13 @@ private:
 	TScriptInterface<ISpawnStrategy> SpawnStrategy;
 
 	UPROPERTY(Category = "Resources", EditDefaultsOnly)
-	UDataTable* ResourceTable;
-
-	UPROPERTY(Category = "Resources", EditDefaultsOnly)
 	int DepositsAmount = 4;
 
 	UPROPERTY(Category = "Resources", EditDefaultsOnly)
-	TArray<FDataTableRowHandle> AvailableDeposits;
+	TArray<FResourceHandle> AvailableDeposits;
 
 	void CreateDeposits();
-	FResource& GetRandomResource() const;
+	FResourceHandle GetRandomResource() const;
 	int32 GetRandomResourceAmount(const FResource& Resource) const;
 	TScriptInterface<IGridPlatform> GetTileForDeposit() const;
 };

@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "Engine/DataTable.h"
 #include "Resource.h"
+#include "Structs/ResourceHandle.h"
 #include "ResourceAmount.generated.h"
 
 /**
@@ -16,18 +18,15 @@ struct ARTILLERYSTRATEGY_API FResourceAmount
 	GENERATED_BODY()
 
 	UPROPERTY(Category = "Resource", EditAnywhere, BlueprintReadWrite)
-	FResource Resource;
+	FResourceHandle ResourceHandle;
 
 	UPROPERTY(Category = "Resource", EditAnywhere, BlueprintReadWrite)
 	float Amount;
+
+	const FResource& GetResource(const FString& Context) const;
+	const FResource& GetResource(const TCHAR* Context) const;
 };
 
-inline bool operator==(const FResourceAmount& Lhs, const FResourceAmount& Rhs)
-{
-	return Lhs.Amount == Rhs.Amount && Lhs.Resource == Rhs.Resource;
-}
+bool operator==(const FResourceAmount& Lhs, const FResourceAmount& Rhs);
 
-inline uint32 GetTypeHash(const FResourceAmount& ResourceAmount)
-{
-	return GetTypeHash(ResourceAmount.Resource);
-}
+uint32 GetTypeHash(const FResourceAmount& ResourceAmount);
