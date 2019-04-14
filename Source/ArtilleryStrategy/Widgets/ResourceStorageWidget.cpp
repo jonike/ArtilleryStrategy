@@ -9,21 +9,18 @@
 void UResourceStorageWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	if (ResourcesTable)
+	const auto Wallet = GetWallet();
+	if (Wallet)
 	{
-		const auto Wallet = GetWallet();
-		if (Wallet)
+		auto Index = 0;
+		for (const auto& Handle : ResourcesToShow)
 		{
-			const auto& Names = ResourcesTable->GetRowNames();
-			for (auto i = 0; i < Names.Num(); ++i)
-			{
-				auto ResourceWidget = GetResourceWidget(i);
-				const auto ResourceData = ResourcesTable->FindRow<FResource>(Names[i], TEXT("Filling resource storage widget"));
-				ResourceWidget->SetupResourceWidget(Names[i], *ResourceData);
-				PlaceResourceWidget(Cast<UUserWidget>(ResourceWidget.GetObject()));
-			}
+			auto ResourceWidget = GetResourceWidget(Index++);
+			ResourceWidget->SetupResourceWidget(Handle);
+			PlaceResourceWidget(Cast<UUserWidget>(ResourceWidget.GetObject()));
 		}
 	}
+
 }
 
 TScriptInterface<IResourceWidgetInterface> UResourceStorageWidget::GetResourceWidget(const int Index)

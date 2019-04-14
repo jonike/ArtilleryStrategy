@@ -5,11 +5,11 @@
 #include "Objects/ResourceStorage.h"
 #include "GameFramework/PlayerState.h"
 
-void UResourceWidget::SetupResourceWidget(const FName& Name, const FResource& Resource)
+void UResourceWidget::SetupResourceWidget(FResourceHandle Resource)
 {
 	ShowedResource = Resource;
 	GetWallet()->GetResourceWallet()->OnResourceAdded.AddDynamic(this, &UResourceWidget::ReceiveOnResourceAdded);
-	FillResourceWidget(Name, Resource);
+	FillResourceWidget(Resource);
 }
 
 TScriptInterface<IWallet> UResourceWidget::GetWallet() const

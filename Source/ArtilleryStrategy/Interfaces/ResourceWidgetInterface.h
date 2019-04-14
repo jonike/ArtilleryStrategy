@@ -4,9 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "Structs/ResourceHandle.h"
 #include "ResourceWidgetInterface.generated.h"
-
-struct FResource;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -24,5 +23,5 @@ class ARTILLERYSTRATEGY_API IResourceWidgetInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void SetupResourceWidget(const FName& Name, const FResource& Resource) = 0;
+	virtual void SetupResourceWidget(FResourceHandle Resource) = 0;
 };

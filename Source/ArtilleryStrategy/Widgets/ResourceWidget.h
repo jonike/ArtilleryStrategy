@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Interfaces/ResourceWidgetInterface.h"
 #include "Interfaces/Wallet.h"
+#include "Structs/ResourceHandle.h"
 #include "ResourceWidget.generated.h"
 
 /**
@@ -17,11 +18,11 @@ class ARTILLERYSTRATEGY_API UResourceWidget : public UUserWidget, public IResour
 	GENERATED_BODY()
 
 public:
-	void SetupResourceWidget(const FName& Name, const FResource& Resource) override;
+	void SetupResourceWidget(FResourceHandle Resource) override;
 
 protected:
 	UFUNCTION(Category = Initialization, BlueprintImplementableEvent)
-	void FillResourceWidget(const FName& Name, const FResource& Resource);
+	void FillResourceWidget(FResourceHandle Resource);
 
 	UFUNCTION(Category = "Update", BlueprintImplementableEvent, BlueprintCallable)
 	void UpdateResourceAmount(const FResourceAmount& Resource);
@@ -33,8 +34,7 @@ protected:
 	UResourceStorage* GetResourceStorage() const;
 
 private:
-	// TODO: FResource copied on on each initialization of widget (only once per widget, but still)
-	FResource ShowedResource;
+	FResourceHandle ShowedResource;
 
 	UFUNCTION()
 	void ReceiveOnResourceAdded(const FResourceAmount& Resource);

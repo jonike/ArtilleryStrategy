@@ -24,8 +24,8 @@ protected:
 	void PlaceResourceWidget(UUserWidget* ResourceWidget);
 
 private:
-	UPROPERTY(Category = Resources, EditAnywhere)
-	UDataTable* ResourcesTable;
+	UPROPERTY(Category = Resources, EditDefaultsOnly)
+	TSet<FResourceHandle> ResourcesToShow;
 
 	UPROPERTY(Category = Widgets, EditAnywhere, meta = (MustImplement = "ResourceWidgetInterface"))
 	TSubclassOf<UUserWidget> ResourceWidgetClass;
