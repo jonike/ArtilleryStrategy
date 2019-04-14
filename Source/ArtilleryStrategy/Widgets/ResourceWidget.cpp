@@ -4,8 +4,9 @@
 #include "ResourceWidget.h"
 #include "Objects/ResourceStorage.h"
 #include "GameFramework/PlayerState.h"
+#include "ScriptInterface.h"
 
-void UResourceWidget::SetupResourceWidget(FResourceHandle Resource)
+void UResourceWidget::SetupResourceWidget(const FResourceHandle Resource)
 {
 	ShowedResource = Resource;
 	GetWallet()->GetResourceWallet()->OnResourceAdded.AddDynamic(this, &UResourceWidget::ReceiveOnResourceAdded);
@@ -24,7 +25,7 @@ UResourceStorage* UResourceWidget::GetResourceStorage() const
 
 void UResourceWidget::ReceiveOnResourceAdded(const FResourceAmount& Resource)
 {
-	if (Resource.ResourceHandle == Resource.ResourceHandle)
+	if (ShowedResource == Resource.ResourceHandle)
 	{
 		UpdateResourceAmount(Resource);
 	}
