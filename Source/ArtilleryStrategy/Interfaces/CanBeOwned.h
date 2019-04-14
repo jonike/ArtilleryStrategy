@@ -31,5 +31,5 @@ public:
 	virtual void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) = 0;
 
 	virtual bool RequiresResourcesToOwn() const = 0;
-	virtual FResourcePack GetResourcesToOwn() const = 0;
+	virtual const FResourcePack& GetResourcesToOwn() const = 0;
 };

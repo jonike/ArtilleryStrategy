@@ -4,14 +4,13 @@
 #include "Engine/World.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Interfaces/HasSpringArm.h"
-#include "Widgets/BuyPlatformWidget.h"
 #include "Interfaces/Wallet.h"
-#include "Widgets/BuildingSelectorWidget.h"
 #include "Player/HUD/DefaultHUD.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/WeaponBuilding.h"
 #include "Interfaces/GridPlatform.h"
 #include "Actors/BaseWeaponBuilding.h"
+#include "Objects/ResourceStorage.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -151,8 +150,13 @@ void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 	const auto Wallet = GetWallet();
 	if (Wallet)
 	{
-		// TODO: check if player has enough resources and spend them on construction
-		Cell->SetOwnerController(this);
+		const auto& ResourceWallet = Wallet->GetResourceWallet();
+		const auto& RequiredResources = Cell->GetResourcesToOwn();
+		if (ResourceWallet->IsEnoughPack(RequiredResources))
+		{
+			ResourceWallet->SpendResourcePack(RequiredResources);
+			Cell->SetOwnerController(this);
+		}
 	}
 }
 

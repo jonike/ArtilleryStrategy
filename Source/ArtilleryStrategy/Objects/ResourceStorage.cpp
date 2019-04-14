@@ -3,6 +3,7 @@
 
 #include "ResourceStorage.h"
 #include "Structs/ResourceAmount.h"
+#include "Structs/ResourcePack.h"
 
 void UResourceStorage::AddResource(FResourceAmount ResourceAmount)
 {
@@ -18,12 +19,29 @@ void UResourceStorage::AddResource(FResourceAmount ResourceAmount)
 	OnResourceAdded.Broadcast(ResourceAmount);
 }
 
+void UResourceStorage::AddResourcePack(const FResourcePack& ResourcePack)
+{
+	for (const auto& ResourcePair : ResourcePack.Resources)
+	{
+		AddResource(ResourcePair);
+	}
+}
+
 void UResourceStorage::SpendResource(FResourceAmount ResourceAmount)
 {
 	check(IsEnough(ResourceAmount));
 	Storage[ResourceAmount.ResourceHandle] -= ResourceAmount.Amount;
 	ResourceAmount.Amount = Storage[ResourceAmount.ResourceHandle];
 	OnResourceSpent.Broadcast(ResourceAmount);
+}
+
+void UResourceStorage::SpendResourcePack(const FResourcePack& ResourcePack)
+{
+	check(IsEnoughPack(ResourcePack));
+	for (const auto& ResourcePair : ResourcePack.Resources)
+	{
+		SpendResource(ResourcePair);
+	}
 }
 
 float UResourceStorage::GetAmount(const FResourceHandle& Resource) const
@@ -34,4 +52,16 @@ float UResourceStorage::GetAmount(const FResourceHandle& Resource) const
 bool UResourceStorage::IsEnough(const FResourceAmount& Resource) const
 {
 	return GetAmount(Resource.ResourceHandle) > Resource.Amount;
+}
+
+bool UResourceStorage::IsEnoughPack(const FResourcePack& ResourcePack) const
+{
+	for (const auto& Resource : ResourcePack.Resources)
+	{
+		if (!IsEnough(Resource))
+		{
+			return false;
+		}
+	}
+	return true;
 }

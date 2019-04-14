@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Structs/Resource.h"
 #include "Structs/ResourceDeposit.h"
 #include "Structs/ResourceHandle.h"
+#include "Structs/ResourcePack.h"
 #include "ResourceStorage.generated.h"
 
+struct FResourcePack;
 /**
  * 
  */
@@ -25,19 +26,27 @@ public:
 	void AddResource(FResourceAmount ResourceAmount);
 
 	UFUNCTION(Category = "Resources", BlueprintCallable)
+	void AddResourcePack(const FResourcePack& ResourcePack);
+
+	UFUNCTION(Category = "Resources", BlueprintCallable)
 	void SpendResource(FResourceAmount ResourceAmount);
+
+	UFUNCTION(Category = "Resources", BlueprintCallable)
+	void SpendResourcePack(const FResourcePack& ResourcePack);
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
 	float GetAmount(const FResourceHandle& Resource) const;
 
-	UFUNCTION(Category = "Resources", BlueprintPure)
+	UFUNCTION(Category = "Resources", BlueprintPure, meta = (DisplayName = "IsEnough (Single resource)"))
 	bool IsEnough(const FResourceAmount& Resource) const;
+
+	UFUNCTION(Category = "Resources", BlueprintCallable, meta = (DisplayName = "IsEnough (Pack)"))
+	bool IsEnoughPack(const FResourcePack& ResourcePack) const;
 
 	FOnResourceAddedSignature OnResourceAdded;
 	FOnResourceSpentSignature OnResourceSpent;
 
 private:
-	// TODO: use map with types: FResourceHandle and int
 	UPROPERTY(EditAnywhere)
 	TMap<FResourceHandle, int> Storage;
 };

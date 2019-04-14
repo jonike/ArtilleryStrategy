@@ -33,7 +33,7 @@ float ABaseBuilding::TakeDamage(const float DamageAmount, FDamageEvent const& Da
 	return DamageAmount;
 }
 
-FResourcePack ABaseBuilding::GetResourcesToOwn() const
+const FResourcePack& ABaseBuilding::GetResourcesToOwn() const
 {
 	return ResourcesToOwn;
 }

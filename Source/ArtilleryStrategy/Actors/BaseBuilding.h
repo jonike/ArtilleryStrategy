@@ -26,7 +26,7 @@ public:
 	bool HasOwnerController() const override { return OwnerController.GetObject() != nullptr; }
 
 	bool RequiresResourcesToOwn() const override;
-	FResourcePack GetResourcesToOwn() const override;
+	const FResourcePack& GetResourcesToOwn() const override;
 
 	// Inherited via IBuilding
 	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;

@@ -29,7 +29,7 @@ public:
 	bool HasOwnerController() const override;
 
 	bool RequiresResourcesToOwn() const override;
-	FResourcePack GetResourcesToOwn() const override;
+	const FResourcePack& GetResourcesToOwn() const override;
 
 	FVector GetBuildingSpawnLocation() const override;
 	bool HasBuilding() const override;

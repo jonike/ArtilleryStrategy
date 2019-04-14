@@ -9,6 +9,7 @@
 #include "Components/BillboardComponent.h"
 #include "Structs/ResourceDeposit.h"
 #include "Interfaces/Building.h"
+#include "GameFramework/PlayerController.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
@@ -100,7 +101,7 @@ bool ABaseGridPlatform::RequiresResourcesToOwn() const
 	return ResourcesToOwn.Resources.Num() != 0;
 }
 
-FResourcePack ABaseGridPlatform::GetResourcesToOwn() const
+const FResourcePack& ABaseGridPlatform::GetResourcesToOwn() const
 {
 	return ResourcesToOwn;
 }
