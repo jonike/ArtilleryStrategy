@@ -43,7 +43,7 @@ public:
 	UMaterialInterface* GetOwnerMaterial() const override;
 	TScriptInterface<IWallet> GetWallet() const override;
 
-	void CreateBoughtBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
+	void CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
 
 	void AddToFireList(TScriptInterface<IWeaponBuilding> Weapon) override;
 
@@ -69,6 +69,8 @@ private:
 	void Zoom(float Value);
 	UFUNCTION()
 	void FireAllWeapon();
+
+	bool TryToBuy(const FResourcePack& ResourcePack) const;
 
 	AActor* SpawnBuildingActor(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) const;
 	ADefaultHUD& GetDefaultHUD() const;

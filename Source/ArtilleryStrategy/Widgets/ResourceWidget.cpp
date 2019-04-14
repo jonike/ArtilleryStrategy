@@ -9,7 +9,8 @@
 void UResourceWidget::SetupResourceWidget(const FResourceHandle Resource)
 {
 	ShowedResource = Resource;
-	GetWallet()->GetResourceWallet()->OnResourceAdded.AddDynamic(this, &UResourceWidget::ReceiveOnResourceAdded);
+	GetWallet()->GetResourceWallet()->OnResourceAdded.AddDynamic(this, &UResourceWidget::ReceiveOnResourceAmountChanged);
+	GetWallet()->GetResourceWallet()->OnResourceSpent.AddDynamic(this, &UResourceWidget::ReceiveOnResourceAmountChanged);
 	FillResourceWidget(Resource);
 }
 
@@ -23,7 +24,7 @@ UResourceStorage* UResourceWidget::GetResourceStorage() const
 	return  GetWallet()->GetResourceWallet();
 }
 
-void UResourceWidget::ReceiveOnResourceAdded(const FResourceAmount& Resource)
+void UResourceWidget::ReceiveOnResourceAmountChanged(const FResourceAmount& Resource)
 {
 	if (ShowedResource == Resource.ResourceHandle)
 	{

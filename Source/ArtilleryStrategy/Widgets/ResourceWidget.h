@@ -37,5 +37,5 @@ private:
 	FResourceHandle ShowedResource;
 
 	UFUNCTION()
-	void ReceiveOnResourceAdded(const FResourceAmount& Resource);
+	void ReceiveOnResourceAmountChanged(const FResourceAmount& Resource);
 };

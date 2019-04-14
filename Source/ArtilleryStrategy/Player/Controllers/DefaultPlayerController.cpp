@@ -11,6 +11,7 @@
 #include "Interfaces/GridPlatform.h"
 #include "Actors/BaseWeaponBuilding.h"
 #include "Objects/ResourceStorage.h"
+#include "Interfaces/CanBeOwned.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -68,6 +69,21 @@ void ADefaultPlayerController::FireAllWeapon()
 	OnFire.Broadcast();
 }
 
+bool ADefaultPlayerController::TryToBuy(const FResourcePack& ResourcePack) const
+{
+	const auto Wallet = GetWallet();
+	if (Wallet)
+	{
+		const auto ResourceWallet = Wallet->GetResourceWallet();
+		check(ResourceWallet);
+		if (ResourceWallet->IsEnoughPack(ResourcePack))
+		{
+			ResourceWallet->SpendResourcePack(ResourcePack);
+			return true;
+		}
+	}
+	return false;
+}
 
 UMaterialInterface* ADefaultPlayerController::GetOwnerMaterial() const
 {
@@ -99,7 +115,6 @@ void ADefaultPlayerController::AddToFireList(const TScriptInterface<IWeaponBuild
 	OnFire.AddDynamic(WeaponBuilding, &ABaseWeaponBuilding::Fire);
 }
 
-
 void ADefaultPlayerController::HideBuyWidget()
 {
 	GetDefaultHUD().HideBuyWidget();
@@ -121,16 +136,22 @@ AActor* ADefaultPlayerController::SpawnBuildingActor(const TScriptInterface<IGri
 	return Spawned;
 }
 
-void ADefaultPlayerController::CreateBoughtBuilding(TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass)
+void ADefaultPlayerController::CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass)
 {
 	// TODO: create IGridPlatform::CreateBuilding(TSubclassOf<AActor>, TScriptInterface<IOwnerController>) method
-	const auto SpawnedBuilding = SpawnBuildingActor(Cell, BuildingClass);
-	Cell->SetBuilding(SpawnedBuilding);
-	if (const auto OwnedBuilding = Cast<ICanBeOwned>(SpawnedBuilding))
+	const auto DefaultBuildingObject = Cast<ICanBeOwned>(BuildingClass.GetDefaultObject());
+	check(DefaultBuildingObject);
+	if (TryToBuy(DefaultBuildingObject->GetResourcesToOwn()))
 	{
-		OwnedBuilding->SetOwnerController(this);
+		// TODO: cleanup building creation code
+		const auto SpawnedBuilding = SpawnBuildingActor(Cell, BuildingClass);
+		Cell->SetBuilding(SpawnedBuilding);
+		if (const auto OwnedBuilding = Cast<ICanBeOwned>(SpawnedBuilding))
+		{
+			OwnedBuilding->SetOwnerController(this);
+		}
+		OnBuildingCreated.Broadcast(SpawnedBuilding);
 	}
-	OnBuildingCreated.Broadcast(SpawnedBuilding);
 }
 
 USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
@@ -147,16 +168,9 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 
 void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 {
-	const auto Wallet = GetWallet();
-	if (Wallet)
+	if (TryToBuy(Cell->GetResourcesToOwn()))
 	{
-		const auto& ResourceWallet = Wallet->GetResourceWallet();
-		const auto& RequiredResources = Cell->GetResourcesToOwn();
-		if (ResourceWallet->IsEnoughPack(RequiredResources))
-		{
-			ResourceWallet->SpendResourcePack(RequiredResources);
-			Cell->SetOwnerController(this);
-		}
+		Cell->SetOwnerController(this);
 	}
 }
 
