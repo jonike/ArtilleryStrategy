@@ -22,6 +22,7 @@ public:
 	int GetRows() const { return MatrixRows; }
 	int GetColumns() const { return MatrixColumns; }
 
+	// TODO: provide SET methods
 	TScriptInterface<IGridPlatform>& Get(int Row, int Column);
 	const TScriptInterface<IGridPlatform>& Get(int Row, int Column) const;
 
