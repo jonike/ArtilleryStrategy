@@ -18,7 +18,7 @@ class ARTILLERYSTRATEGY_API UPlainGridGenerator : public UDataAsset, public ILan
 	GENERATED_BODY()
 
 public:
-	void Generate(const FWorldParams& Params) override;
+	void GenerateWorld(FWorldParams& Params) override;
 
 private:
 	UPROPERTY(Category = "Params", EditAnywhere)
@@ -39,5 +39,5 @@ private:
 	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "GridPlatform"))
 	TSubclassOf<AActor> GridPlatformClass;
 
-	AActor* SpawnPlatform(const FVector& Location) const;
+	AActor* SpawnPlatform(const FWorldParams& Params, const FVector& Location) const;
 };

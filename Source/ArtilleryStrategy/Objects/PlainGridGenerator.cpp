@@ -3,9 +3,12 @@
 
 #include "PlainGridGenerator.h"
 #include "Engine/World.h"
+#include "Structs/WorldParams.h"
+#include "Objects/TileMatrix.h"
 
-void UPlainGridGenerator::Generate(const FWorldParams& Params)
+void UPlainGridGenerator::GenerateWorld(FWorldParams& Params)
 {
+	Params.TileMatrix->Resize(Rows, Columns);
 	check(GridPlatformClass);
 	const auto OffsetX = -(Rows + 1) * RowSpacing / 2;
 	const auto OffsetY = -(Columns + 1) * ColumnSpacing / 2;
@@ -18,14 +21,16 @@ void UPlainGridGenerator::Generate(const FWorldParams& Params)
 		for (auto j = 0; j < Columns; ++j)
 		{
 			Location.Y += ColumnSpacing;
-			const auto SpawnedTile = SpawnPlatform(Location);
+			const auto SpawnedTile = SpawnPlatform(Params, Location);
 		}
 	}
 }
 
-AActor* UPlainGridGenerator::SpawnPlatform(const FVector& Location) const
+AActor* UPlainGridGenerator::SpawnPlatform(const FWorldParams& Params, const FVector& Location) const
 {
-	auto Platform = GetWorld()->SpawnActor<AActor>(GridPlatformClass, Location, FRotator::ZeroRotator);
+	const auto CurrentWorld = Params.CurrentWorld;
+	check(CurrentWorld);
+	auto Platform = CurrentWorld->SpawnActor<AActor>(GridPlatformClass, Location, FRotator::ZeroRotator);
 #if WITH_EDITOR
 	Platform->SetFolderPath(TEXT("World/Platforms"));
 #endif

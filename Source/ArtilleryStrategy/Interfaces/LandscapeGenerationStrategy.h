@@ -23,5 +23,5 @@ class ARTILLERYSTRATEGY_API ILandscapeGenerationStrategy
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void Generate(const FWorldParams& Params) = 0;
+	virtual void GenerateWorld(FWorldParams& Params) = 0;
 };

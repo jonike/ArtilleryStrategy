@@ -27,12 +27,14 @@ void UGridGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	// ...
 }
 
-void UGridGenerator::GenerateWorld() const
+void UGridGenerator::GenerateWorld()
 {
 	OnWorldGenerationStart.Broadcast();
+	// TODO: having to explicitly call initialize method
+	WorldParams.Initialize(this);
 	for (const auto& Pass : WorldGenerationPasses)
 	{
-		Pass->Generate(WorldParams);
+		Pass->GenerateWorld(WorldParams);
 	}
 	OnWorldGenerationEnd.Broadcast();
 }

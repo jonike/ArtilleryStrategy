@@ -14,6 +14,11 @@ struct ARTILLERYSTRATEGY_API FWorldParams
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	void Initialize(UObject* Context);
+
+	UPROPERTY(VisibleInstanceOnly)
 	UTileMatrix* TileMatrix;
+
+	UPROPERTY()
+	UWorld* CurrentWorld;
 };

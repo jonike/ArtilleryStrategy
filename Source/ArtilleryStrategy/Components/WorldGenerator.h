@@ -24,7 +24,7 @@ public:
 	// Sets default values for this component's properties
 	UGridGenerator();
 
-	void GenerateWorld() const;
+	void GenerateWorld();
 
 	FOnWorldGenerationStartSignature OnWorldGenerationStart;
 	FOnWorldGenerationEndSignature OnWorldGenerationEnd;
