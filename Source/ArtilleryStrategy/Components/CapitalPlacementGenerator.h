@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Interfaces/MapGenerator.h"
+#include "ScriptInterface.h"
 #include "CapitalPlacementGenerator.generated.h"
 
 class ISpawnStrategy;
@@ -15,14 +16,14 @@ class ACapitalBuilding;
 class AController;
 class ADefaultGS;
 
-UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class ARTILLERYSTRATEGY_API UCapitalPlacementGenerator : public UActorComponent, public IMapGenerator
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent), Deprecated)
+class ARTILLERYSTRATEGY_API UDEPRECATED_CapitalPlacementGenerator : public UActorComponent, public IMapGenerator
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this component's properties
-	UCapitalPlacementGenerator();
+	UDEPRECATED_CapitalPlacementGenerator();
 
 protected:
 	UFUNCTION()

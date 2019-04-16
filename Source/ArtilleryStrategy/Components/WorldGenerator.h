@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "GridGenerator.generated.h"
+#include "WorldGenerator.generated.h"
 
+class UTileMatrix;
 class IGridPlatform;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -13,11 +14,9 @@ class ARTILLERYSTRATEGY_API UGridGenerator : public UActorComponent
 {
 	GENERATED_BODY()
 
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGridGenerationStartSignature, int, Rows, int, Columns);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnGridGenerationStartSignature);
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGridGenerationEndSignature, int, Rows, int, Columns);
-
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnTileGeneratedSignature, TScriptInterface<IGridPlatform>, Tile, int, Row, int, Column);
 
 public:
 	// Sets default values for this component's properties
@@ -29,27 +28,12 @@ public:
 
 	FOnGridGenerationStartSignature OnGridGenerationStart;
 	FOnGridGenerationEndSignature OnGridGenerationEnd;
-	FOnTileGeneratedSignature OnTileGenerated;
 
 protected:
 	// Called when the game starts
 	void BeginPlay() override;
 
 private:
-	UPROPERTY(EditAnywhere, Category = Generation)
-	int Rows = 10;
-
-	UPROPERTY(EditAnywhere, Category = Generation)
-	int Columns = 10;
-
-	UPROPERTY(EditAnywhere, Category = Generation)
-	float Distance = 100.;
-
-	UPROPERTY(EditAnywhere, Category = Generation)
-	float DefaultZ = 0.;
-
-	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "GridPlatform"))
-	TSubclassOf<AActor> GridPlatformClass;
-
-	AActor* SpawnPlatform(const FVector& Location) const;
+	UPROPERTY(Category = "Tiles", VisibleAnywhere)
+	UTileMatrix* Matrix;
 };

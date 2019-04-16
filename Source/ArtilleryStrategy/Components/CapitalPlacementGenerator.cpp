@@ -7,11 +7,11 @@
 #include "Interfaces/GridPlatform.h"
 #include "Game/States/DefaultGS.h"
 #include "Interfaces/CanBeOwned.h"
-#include "GridGenerator.h"
+#include "WorldGenerator.h"
 #include "Interfaces/SpawnStrategy.h"
 
 // Sets default values for this component's properties
-UCapitalPlacementGenerator::UCapitalPlacementGenerator()
+UDEPRECATED_CapitalPlacementGenerator::UDEPRECATED_CapitalPlacementGenerator()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -19,19 +19,19 @@ UCapitalPlacementGenerator::UCapitalPlacementGenerator()
 	bWantsInitializeComponent = true;
 }
 
-void UCapitalPlacementGenerator::ReceiveOnGridGenerationEnded(UTileMatrix* Tiles)
+void UDEPRECATED_CapitalPlacementGenerator::ReceiveOnGridGenerationEnded(UTileMatrix* Tiles)
 {
 	SpawnStrategy->SetTileMatrix(Tiles);
 	PlaceCapitalsForAll();
 }
 
 // Called when the game starts
-void UCapitalPlacementGenerator::BeginPlay()
+void UDEPRECATED_CapitalPlacementGenerator::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-void UCapitalPlacementGenerator::PlaceCapital(TScriptInterface<IOwnerController> Controller) const
+void UDEPRECATED_CapitalPlacementGenerator::PlaceCapital(TScriptInterface<IOwnerController> Controller) const
 {
 	check(Controller);
 	const auto Cell = GetSpawnCell();
@@ -42,31 +42,31 @@ void UCapitalPlacementGenerator::PlaceCapital(TScriptInterface<IOwnerController>
 	SetupCapitalBuilding(Capital, Controller);
 }
 
-ACapitalBuilding* UCapitalPlacementGenerator::CreateCapitalBuilding(FVector Location) const
+ACapitalBuilding* UDEPRECATED_CapitalPlacementGenerator::CreateCapitalBuilding(FVector Location) const
 {
 	const auto Spawned = GetWorld()->SpawnActor(CapitalActorClass, &Location);
 	return Cast<ACapitalBuilding>(Spawned);
 }
 
-TScriptInterface<IGridPlatform> UCapitalPlacementGenerator::GetSpawnCell() const
+TScriptInterface<IGridPlatform> UDEPRECATED_CapitalPlacementGenerator::GetSpawnCell() const
 {
 	return SpawnStrategy->GetNextSpawnPoint();
 }
 
-void UCapitalPlacementGenerator::SetupCapitalBuilding(ACapitalBuilding* Capital, TScriptInterface<IOwnerController> Controller) const
+void UDEPRECATED_CapitalPlacementGenerator::SetupCapitalBuilding(ACapitalBuilding* Capital, TScriptInterface<IOwnerController> Controller) const
 {
 	Capital->SetOwnerController(Controller);
 }
 
 // Called every frame
-void UCapitalPlacementGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UDEPRECATED_CapitalPlacementGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
 }
 
-void UCapitalPlacementGenerator::InitializeComponent()
+void UDEPRECATED_CapitalPlacementGenerator::InitializeComponent()
 {
 	Super::InitializeComponent();
 	if (SpawnStrategyClass)
@@ -75,11 +75,11 @@ void UCapitalPlacementGenerator::InitializeComponent()
 	}
 	if (const auto DefaultGS = Cast<ADefaultGS>(GetOwner()))
 	{
-		DefaultGS->OnGridGenerationEnded.AddDynamic(this, &UCapitalPlacementGenerator::ReceiveOnGridGenerationEnded);
+		// DefaultGS->OnGridGenerationEnded.AddDynamic(this, &UCapitalPlacementGenerator::ReceiveOnGridGenerationEnded);
 	}
 }
 
-void UCapitalPlacementGenerator::PlaceCapitalsForAll() const
+void UDEPRECATED_CapitalPlacementGenerator::PlaceCapitalsForAll() const
 {
 	auto ControllerIterator = GetWorld()->GetControllerIterator();
 	while (ControllerIterator)

@@ -6,21 +6,20 @@
 #include "Components/ActorComponent.h"
 #include "Structs/ResourceDeposit.h"
 #include "Interfaces/MapGenerator.h"
-#include "Engine/DataTable.h"
 #include "ScriptInterface.h"
 #include "ResourceDepositGenerator.generated.h"
 
 class UDataTable;
 class ISpawnStrategy;
 class IGridPlatform;
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class ARTILLERYSTRATEGY_API UResourceDepositGenerator : public UActorComponent, public IMapGenerator
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Deprecated)
+class ARTILLERYSTRATEGY_API UDEPRECATED_ResourceDepositGenerator : public UActorComponent, public IMapGenerator
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this component's properties
-	UResourceDepositGenerator();
+	UDEPRECATED_ResourceDepositGenerator();
 
 protected:
 	UFUNCTION()

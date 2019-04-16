@@ -6,7 +6,7 @@
 #include "Interfaces/GridPlatform.h"
 
 // Sets default values for this component's properties
-UResourceDepositGenerator::UResourceDepositGenerator()
+UDEPRECATED_ResourceDepositGenerator::UDEPRECATED_ResourceDepositGenerator()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -14,14 +14,14 @@ UResourceDepositGenerator::UResourceDepositGenerator()
 	bWantsInitializeComponent = true;
 }
 
-void UResourceDepositGenerator::ReceiveOnGridGenerationEnded(UTileMatrix* Tiles)
+void UDEPRECATED_ResourceDepositGenerator::ReceiveOnGridGenerationEnded(UTileMatrix* Tiles)
 {
 	SpawnStrategy->SetTileMatrix(Tiles);
 	CreateDeposits();
 }
 
 // Called when the game starts
-void UResourceDepositGenerator::BeginPlay()
+void UDEPRECATED_ResourceDepositGenerator::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -29,14 +29,14 @@ void UResourceDepositGenerator::BeginPlay()
 }
 
 // Called every frame
-void UResourceDepositGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UDEPRECATED_ResourceDepositGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
 }
 
-void UResourceDepositGenerator::InitializeComponent()
+void UDEPRECATED_ResourceDepositGenerator::InitializeComponent()
 {
 	Super::InitializeComponent();
 	if (SpawnStrategyClass)
@@ -45,22 +45,22 @@ void UResourceDepositGenerator::InitializeComponent()
 	}
 	if (const auto DefaultGS = Cast<ADefaultGS>(GetOwner()))
 	{
-		DefaultGS->OnGridGenerationEnded.AddDynamic(this, &UResourceDepositGenerator::ReceiveOnGridGenerationEnded);
+		// DefaultGS->OnGridGenerationEnded.AddDynamic(this, &UResourceDepositGenerator::ReceiveOnGridGenerationEnded);
 	}
 }
 
-FResourceHandle UResourceDepositGenerator::GetRandomResource() const
+FResourceHandle UDEPRECATED_ResourceDepositGenerator::GetRandomResource() const
 {
 	const auto Index = FMath::RandRange(0, AvailableDeposits.Num() - 1);
 	return AvailableDeposits[Index];
 }
 
-int32 UResourceDepositGenerator::GetRandomResourceAmount(const FResource& Resource) const
+int32 UDEPRECATED_ResourceDepositGenerator::GetRandomResourceAmount(const FResource& Resource) const
 {
 	return FMath::RandRange(Resource.MinAmountSpawned, Resource.MaxAmountSpawned);
 }
 
-void UResourceDepositGenerator::CreateDeposits()
+void UDEPRECATED_ResourceDepositGenerator::CreateDeposits()
 {
 	for (size_t i = 0; i < DepositsAmount; i++)
 	{
@@ -71,7 +71,7 @@ void UResourceDepositGenerator::CreateDeposits()
 	}
 }
 
-TScriptInterface<IGridPlatform> UResourceDepositGenerator::GetTileForDeposit() const
+TScriptInterface<IGridPlatform> UDEPRECATED_ResourceDepositGenerator::GetTileForDeposit() const
 {
 	return SpawnStrategy->GetNextSpawnPoint();
 }

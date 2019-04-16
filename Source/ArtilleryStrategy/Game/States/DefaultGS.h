@@ -8,9 +8,9 @@
 
 class UTurnProcessorComponent;
 class IMapGenerator;
-class UResourceDepositGenerator;
+class UDEPRECATED_ResourceDepositGenerator;
 class ISpawnStrategy;
-class UCapitalPlacementGenerator;
+class UDEPRECATED_CapitalPlacementGenerator;
 class UGridGenerator;
 class UTileMatrix;
 class IGridPlatform;
@@ -23,12 +23,8 @@ class ARTILLERYSTRATEGY_API ADefaultGS : public AGameStateBase
 {
 	GENERATED_BODY()
 
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGridGenerationEndedSignature, UTileMatrix*, Tiles);
-
 public:
 	ADefaultGS();
-
-	FOnGridGenerationEndedSignature OnGridGenerationEnded;
 
 	UTurnProcessorComponent* GetTurnProcessor() const;
 
@@ -36,30 +32,9 @@ protected:
 	void PostInitializeComponents() override;
 
 private:
-	UPROPERTY(Category = "Tiles", VisibleAnywhere)
-	UTileMatrix* Matrix;
-
 	UPROPERTY(Category = "Generation", EditAnywhere)
 	UGridGenerator* GridGenerator;
 
-	UPROPERTY(Category = "Generation", EditAnywhere)
-	UCapitalPlacementGenerator* CapitalPlacementGenerator;
-
-	UPROPERTY(Category = "Generation", EditAnywhere)
-	UResourceDepositGenerator* ResourceDepositGenerator;
-
 	UPROPERTY(Category = "Turns", EditAnywhere)
 	UTurnProcessorComponent* TurnProcessorComponent;
-
-	UFUNCTION()
-	void ReceiveOnGridGenerationStarted(int Rows, int Columns);
-	UFUNCTION()
-	void ReceiveOnTileGenerated(TScriptInterface<IGridPlatform> Tile, int Row, int Column);
-	UFUNCTION()
-	void ReceiveOnGridGenerationEnd(int Rows, int Columns);
-
-	void AddTile(TScriptInterface<IGridPlatform> Tile, int Row, int Column) const;
-	void ResizeTileMatrix(int Rows, int Columns) const;
-
-	UGridGenerator* GetGridGenerator() const;
 };

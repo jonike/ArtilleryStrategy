@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "Interfaces/LandscapeGenerationStrategy.h"
+#include "SubclassOf.h"
 #include "PlainGridGenerator.generated.h"
 
+class AActor;
 /**
  * 
  */
@@ -33,4 +35,9 @@ private:
 
 	UPROPERTY(Category = "Params", EditAnywhere)
 	FVector OriginOffset;
+
+	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "GridPlatform"))
+	TSubclassOf<AActor> GridPlatformClass;
+
+	AActor* SpawnPlatform(const FVector& Location) const;
 };
