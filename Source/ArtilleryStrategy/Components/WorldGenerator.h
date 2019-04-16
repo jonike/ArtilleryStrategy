@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Structs/WorldParams.h"
-#include "Interfaces/LandscapeGenerationStrategy.h"
+#include "Interfaces/WorldGenerationPass.h"
 #include "ScriptInterface.h"
 #include "WorldGenerator.generated.h"
 
@@ -41,5 +41,5 @@ private:
 	FWorldParams WorldParams;
 
 	UPROPERTY(Category = "World generation", EditAnywhere)
-	TArray<TScriptInterface<ILandscapeGenerationStrategy>> WorldGenerationPasses;
+	TArray<TScriptInterface<IWorldGenerationPass>> WorldGenerationPasses;
 };

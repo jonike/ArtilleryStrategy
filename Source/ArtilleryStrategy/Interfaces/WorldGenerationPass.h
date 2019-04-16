@@ -4,12 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "LandscapeGenerationStrategy.generated.h"
+#include "WorldGenerationPass.generated.h"
 
 struct FWorldParams;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class ULandscapeGenerationStrategy : public UInterface
+class UWorldGenerationPass : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -17,7 +17,7 @@ class ULandscapeGenerationStrategy : public UInterface
 /**
  * 
  */
-class ARTILLERYSTRATEGY_API ILandscapeGenerationStrategy
+class ARTILLERYSTRATEGY_API IWorldGenerationPass
 {
 	GENERATED_BODY()
 

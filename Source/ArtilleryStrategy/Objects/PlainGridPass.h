@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "Interfaces/LandscapeGenerationStrategy.h"
+#include "Interfaces/WorldGenerationPass.h"
 #include "SubclassOf.h"
-#include "PlainGridGenerator.generated.h"
+#include "PlainGridPass.generated.h"
 
 class AActor;
 /**
  * 
  */
 UCLASS(BlueprintType)
-class ARTILLERYSTRATEGY_API UPlainGridGenerator : public UDataAsset, public ILandscapeGenerationStrategy
+class ARTILLERYSTRATEGY_API UPlainGridPass : public UDataAsset, public IWorldGenerationPass
 {
 	GENERATED_BODY()
 

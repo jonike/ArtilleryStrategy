@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PlainGridGenerator.h"
+#include "PlainGridPass.h"
 #include "Engine/World.h"
 #include "Structs/WorldParams.h"
 #include "Objects/TileMatrix.h"
 
-void UPlainGridGenerator::GenerateWorld(FWorldParams& Params)
+void UPlainGridPass::GenerateWorld(FWorldParams& Params)
 {
 	Params.TileMatrix->Resize(Rows, Columns);
 	check(GridPlatformClass);
@@ -26,7 +26,7 @@ void UPlainGridGenerator::GenerateWorld(FWorldParams& Params)
 	}
 }
 
-AActor* UPlainGridGenerator::SpawnPlatform(const FWorldParams& Params, const FVector& Location) const
+AActor* UPlainGridPass::SpawnPlatform(const FWorldParams& Params, const FVector& Location) const
 {
 	const auto CurrentWorld = Params.CurrentWorld;
 	check(CurrentWorld);
