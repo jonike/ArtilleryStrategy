@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LandscapeGenerationParams.generated.h"
+#include "WorldParams.generated.h"
 
 class UTileMatrix;
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct ARTILLERYSTRATEGY_API FLandscapeGenerationParams
+struct ARTILLERYSTRATEGY_API FWorldParams
 {
 	GENERATED_BODY()
 

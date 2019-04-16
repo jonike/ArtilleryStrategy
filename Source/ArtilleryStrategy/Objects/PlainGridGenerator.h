@@ -18,7 +18,7 @@ class ARTILLERYSTRATEGY_API UPlainGridGenerator : public UDataAsset, public ILan
 	GENERATED_BODY()
 
 public:
-	void Generate(const FLandscapeGenerationParams& Params) override;
+	void Generate(const FWorldParams& Params) override;
 
 private:
 	UPROPERTY(Category = "Params", EditAnywhere)

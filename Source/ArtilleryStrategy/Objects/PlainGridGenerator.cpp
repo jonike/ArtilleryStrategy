@@ -4,7 +4,7 @@
 #include "PlainGridGenerator.h"
 #include "Engine/World.h"
 
-void UPlainGridGenerator::Generate(const FLandscapeGenerationParams& Params)
+void UPlainGridGenerator::Generate(const FWorldParams& Params)
 {
 	check(GridPlatformClass);
 	const auto OffsetX = -(Rows + 1) * RowSpacing / 2;
