@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "Structs/WorldParams.h"
 #include "Objects/TileMatrix.h"
+#include "Interfaces/GridPlatform.h"
 
 void UPlainGridPass::GenerateWorld(FWorldParams& Params)
 {
@@ -22,6 +23,8 @@ void UPlainGridPass::GenerateWorld(FWorldParams& Params)
 		{
 			Location.Y += ColumnSpacing;
 			const auto SpawnedTile = SpawnPlatform(Params, Location);
+			check(SpawnedTile);
+			Params.TileMatrix->Get(i, j) = SpawnedTile;
 		}
 	}
 }
