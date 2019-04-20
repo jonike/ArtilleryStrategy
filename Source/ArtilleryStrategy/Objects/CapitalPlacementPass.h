@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "Interfaces/WorldGenerationPass.h"
-#include "Structs/WorldParams.h"
 #include "CapitalPlacementPass.generated.h"
 
 class IGridPlatform;
@@ -23,15 +22,13 @@ public:
 	void GenerateWorld(FWorldParams& Params) override;
 
 protected:
-	TScriptInterface<IGridPlatform> GetSpawnCell() const;
+	TScriptInterface<IGridPlatform> GetSpawnCell(const FWorldParams& Params) const;
 
 private:
 	UPROPERTY(EditAnywhere, Category = Capitals, meta = (MustImplement = "IBuilding"))
 	TSubclassOf<ACapitalBuilding> CapitalActorClass;
 
-	FWorldParams WorldParams;
-
-	void PlaceCapital(TScriptInterface<IOwnerController> Controller) const;
-	ACapitalBuilding* CreateCapitalBuilding(FVector Location) const;
+	void PlaceCapital(TScriptInterface<IOwnerController> Controller, const FWorldParams& Params) const;
+	ACapitalBuilding* CreateCapitalBuilding(FVector Location, const FWorldParams& Params) const;
 	void SetupCapitalBuilding(ACapitalBuilding* Capital, TScriptInterface<IOwnerController> Controller) const;
 };
