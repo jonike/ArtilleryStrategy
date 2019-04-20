@@ -11,6 +11,7 @@ class IGridPlatform;
 /**
  * 
  */
+// TODO: derive from TMatrixContainer?
 UCLASS(BlueprintType, DefaultToInstanced)
 class ARTILLERYSTRATEGY_API UTileMatrix : public UObject
 {
