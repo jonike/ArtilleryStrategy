@@ -29,5 +29,5 @@ private:
 	UPROPERTY(Category = "Bumps", EditAnywhere)
 	TArray<int> BumpOffsets{3, 2, 1, 1};
 
-	void TryToApplyOffset(FWorldParams& Params, int Row, int Column, int Offset) const;
+	void ApplyOffset(FWorldParams& Params, int Row, int Column, int Offset) const;
 };
