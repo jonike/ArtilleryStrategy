@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "BaseWeaponBuilding.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
@@ -59,6 +58,9 @@ void ABaseWeaponBuilding::Fire()
 	if (bIsSelected)
 	{
 		const auto Spawned = GetWorld()->SpawnActor<AActor>(ProjectileClass, GunTip->GetComponentTransform());
+#if WITH_EDITOR
+		Spawned->SetFolderPath(TEXT("Projectiles"));
+#endif
 		if (auto Projectile = Cast<IProjectile>(Spawned))
 		{
 			Projectile->AddImpulse(ProjectileImpulse);
