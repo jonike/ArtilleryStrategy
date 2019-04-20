@@ -24,7 +24,7 @@ float URandomVerticalOffsetPass::GetRandomOffset(const float Min, const float Ma
 {
 	const auto Steps = static_cast<int>((Max - Min) / Step);
 	const auto RandomStep = FMath::RandRange(0, Steps);
-	return Min + Steps * RandomStep;
+	return Min + Step * RandomStep;
 }
 
 void URandomVerticalOffsetPass::OffsetAllTiles(const FWorldParams& Params)
