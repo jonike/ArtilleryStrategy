@@ -26,7 +26,7 @@ void UPlainGridPass::GenerateWorld(FWorldParams& Params)
 		{
 			check(Params.HeightMatrix.IsValidIndex(Row, Column));
 			Location.Y += ColumnSpacing;
-			Location.Z = OriginOffset.Z + Params.HeightMatrix.Get(Row, Column);
+			Location.Z = OriginOffset.Z + Params.HeightMatrix.Get(Row, Column) * HeightSpacing;
 			const auto SpawnedTile = SpawnPlatform(Params, Location);
 			check(SpawnedTile);
 			Params.TileMatrix->Get(Row, Column) = SpawnedTile;
