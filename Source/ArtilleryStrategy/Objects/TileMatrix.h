@@ -21,6 +21,7 @@ public:
 
 	int GetRows() const { return MatrixRows; }
 	int GetColumns() const { return MatrixColumns; }
+	bool IsValidIndex(int Row, int Column) const;
 
 	// TODO: provide SET methods
 	TScriptInterface<IGridPlatform>& Get(int Row, int Column);
