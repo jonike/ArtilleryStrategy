@@ -4,17 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-//#include "MatrixContainer.generated.h"
 
 /**
  * 
  */
 template <typename T>
-//USTRUCT(BlueprintType)
 struct ARTILLERYSTRATEGY_API TMatrixContainer
 {
-	//GENERATED_BODY()
-
 public:
 	void Resize(int Rows, int Columns);
 

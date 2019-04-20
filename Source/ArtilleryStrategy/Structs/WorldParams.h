@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MatrixContainer.h"
 #include "WorldParams.generated.h"
 
 class UTileMatrix;
@@ -21,4 +22,6 @@ struct ARTILLERYSTRATEGY_API FWorldParams
 
 	UPROPERTY()
 	UWorld* CurrentWorld;
+
+	TMatrixContainer<int> HeightMatrix;
 };
