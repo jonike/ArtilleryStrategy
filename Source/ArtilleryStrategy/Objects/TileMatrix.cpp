@@ -4,10 +4,10 @@
 
 void UTileMatrix::Resize(const int Rows, const int Columns)
 {
-	Matrix.AddDefaulted(Rows);
+	Matrix.SetNum(Rows);
 	for (auto& Row : Matrix)
 	{
-		Row.Storage.AddDefaulted(Columns);
+		Row.Storage.SetNum(Columns);
 	}
 	MatrixRows = Rows;
 	MatrixColumns = Columns;

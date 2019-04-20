@@ -9,3 +9,10 @@ void FWorldParams::Initialize(UObject* Context)
 	TileMatrix = NewObject<UTileMatrix>(Context);
 	CurrentWorld = Context->GetWorld();
 }
+
+void FWorldParams::Initialize(UObject* Context, const int Rows, const int Columns)
+{
+	Initialize(Context);
+	TileMatrix->Resize(Rows, Columns);
+	HeightMatrix.Resize(Rows, Columns);
+}

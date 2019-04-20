@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "Interfaces/WorldGenerationPass.h"
-#include "Interfaces/GridPlatform.h"
 #include "RandomVerticalOffsetPass.generated.h"
 
 /**
@@ -20,7 +19,7 @@ public:
 	void GenerateWorld(FWorldParams& Params) override;
 
 protected:
-	virtual void OffsetTile(TScriptInterface<IGridPlatform> Tile);
+	virtual void OffsetTile(FWorldParams& Params, int Row, int Column);
 	virtual float GetRandomOffset(float Min, float Max, float Step);
 
 private:
@@ -33,5 +32,5 @@ private:
 	UPROPERTY(Category = "Offset", EditDefaultsOnly)
 	float OffsetStep = 100.f;
 
-	void OffsetAllTiles(const FWorldParams& Params);
+	void OffsetAllTiles(FWorldParams& Params);
 };

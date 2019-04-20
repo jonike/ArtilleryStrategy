@@ -17,6 +17,7 @@ public:
 	int GetRows() const;
 	int GetColumns() const;
 	bool IsValidIndex(int Row, int Column) const;
+	bool Empty() const;
 
 	T& Get(int Row, int Column);
 	const T& Get(int Row, int Column) const;
@@ -31,10 +32,10 @@ private:
 template <typename T>
 void TMatrixContainer<T>::Resize(int Rows, int Columns)
 {
-	Matrix.AddDefaulted(Rows);
+	Matrix.SetNum(Rows);
 	for (auto& Row : Matrix)
 	{
-		Row.AddDefaulted(Columns);
+		Row.SetNum(Columns);
 	}
 }
 
@@ -65,26 +66,32 @@ bool TMatrixContainer<T>::IsValidIndex(int Row, int Column) const
 }
 
 template <typename T>
-T& TMatrixContainer<T>::Get(int Row, int Column)
+bool TMatrixContainer<T>::Empty() const
 {
-	return this(Row, Column);
+	return Matrix.Num() == 0 || Matrix[0].Num() == 0;
 }
 
 template <typename T>
-const T& TMatrixContainer<T>::Get(int Row, int Column) const
-{
-	return this(Row, Column);
-}
-
-template <typename T>
-T& TMatrixContainer<T>::operator()(int Row, int Column)
+T& TMatrixContainer<T>::Get(const int Row, const int Column)
 {
 	check(IsValidIndex(Row, Column));
 	return Matrix[Row][Column];
 }
 
 template <typename T>
-const T& TMatrixContainer<T>::operator()(int Row, int Column) const
+const T& TMatrixContainer<T>::Get(const int Row, const int Column) const
 {
-	return this(Row, Column);
+	return Get(Row, Column);
+}
+
+template <typename T>
+T& TMatrixContainer<T>::operator()(const int Row, const int Column)
+{
+	return Get(Row, Column);
+}
+
+template <typename T>
+const T& TMatrixContainer<T>::operator()(const int Row, const int Column) const
+{
+	return Get(Row, Column);
 }

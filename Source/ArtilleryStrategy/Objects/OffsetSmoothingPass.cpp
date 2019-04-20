@@ -5,7 +5,7 @@
 #include "TileMatrix.h"
 #include "GameFramework/Actor.h"
 
-void UOffsetSmoothingPass::GenerateWorld(FWorldParams& Params)
+void UDEPRECATED_OffsetSmoothingPass::GenerateWorld(FWorldParams& Params)
 {
 	const auto* Matrix = Params.TileMatrix;
 	for (auto Row = SmoothRadius; Row < Matrix->GetRows() - SmoothRadius; ++Row)
@@ -21,7 +21,7 @@ void UOffsetSmoothingPass::GenerateWorld(FWorldParams& Params)
 	}
 }
 
-void UOffsetSmoothingPass::SmoothTile(const TScriptInterface<IGridPlatform> Tile, const int Deviance)
+void UDEPRECATED_OffsetSmoothingPass::SmoothTile(const TScriptInterface<IGridPlatform> Tile, const int Deviance)
 {
 	const auto TileActor = Cast<AActor>(Tile.GetObject());
 	check(TileActor);
@@ -29,7 +29,7 @@ void UOffsetSmoothingPass::SmoothTile(const TScriptInterface<IGridPlatform> Tile
 	TileActor->AddActorWorldOffset(Offset, false, nullptr, ETeleportType::TeleportPhysics);
 }
 
-int UOffsetSmoothingPass::CalculateDevianceLevel(const FWorldParams& Params, const int TileRow, const int TileColumn)
+int UDEPRECATED_OffsetSmoothingPass::CalculateDevianceLevel(const FWorldParams& Params, const int TileRow, const int TileColumn)
 {
 	const auto* Matrix = Params.TileMatrix;
 	auto Deviance = 0;
@@ -51,7 +51,7 @@ int UOffsetSmoothingPass::CalculateDevianceLevel(const FWorldParams& Params, con
 	return Deviance;
 }
 
-int UOffsetSmoothingPass::CalculateDevianceForPair(const TScriptInterface<IGridPlatform> AnalyzedTile, const TScriptInterface<IGridPlatform> NeighborTile) const
+int UDEPRECATED_OffsetSmoothingPass::CalculateDevianceForPair(const TScriptInterface<IGridPlatform> AnalyzedTile, const TScriptInterface<IGridPlatform> NeighborTile) const
 {
 	const auto AnalyzedActor = Cast<AActor>(AnalyzedTile.GetObject());
 	check(AnalyzedActor);

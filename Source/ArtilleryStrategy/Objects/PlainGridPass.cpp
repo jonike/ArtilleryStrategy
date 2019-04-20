@@ -5,26 +5,31 @@
 #include "Engine/World.h"
 #include "Structs/WorldParams.h"
 #include "Objects/TileMatrix.h"
-#include "Interfaces/GridPlatform.h"
 
 void UPlainGridPass::GenerateWorld(FWorldParams& Params)
 {
+	// TODO: refactor code
+	check(!Params.HeightMatrix.Empty());
+	const auto Rows = Params.HeightMatrix.GetRows();
+	const auto Columns = Params.HeightMatrix.GetColumns();
 	Params.TileMatrix->Resize(Rows, Columns);
 	check(GridPlatformClass);
 	const auto OffsetX = -(Rows + 1) * RowSpacing / 2;
 	const auto OffsetY = -(Columns + 1) * ColumnSpacing / 2;
 	FVector Location(OffsetX, OffsetY, 0);
 	Location += OriginOffset;
-	for (auto i = 0; i < Rows; ++i)
+	for (auto Row = 0; Row < Rows; ++Row)
 	{
 		Location.X += RowSpacing;
 		Location.Y = OffsetY;
-		for (auto j = 0; j < Columns; ++j)
+		for (auto Column = 0; Column < Columns; ++Column)
 		{
+			check(Params.HeightMatrix.IsValidIndex(Row, Column));
 			Location.Y += ColumnSpacing;
+			Location.Z = OriginOffset.Z + Params.HeightMatrix.Get(Row, Column);
 			const auto SpawnedTile = SpawnPlatform(Params, Location);
 			check(SpawnedTile);
-			Params.TileMatrix->Get(i, j) = SpawnedTile;
+			Params.TileMatrix->Get(Row, Column) = SpawnedTile;
 		}
 	}
 }

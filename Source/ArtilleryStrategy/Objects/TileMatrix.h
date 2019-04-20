@@ -4,9 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "ScriptInterface.h"
+#include "Interfaces/GridPlatform.h"
 #include "TileMatrix.generated.h"
-
-class IGridPlatform;
 
 /**
  * 

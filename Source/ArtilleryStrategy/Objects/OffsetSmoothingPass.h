@@ -11,8 +11,8 @@
 /**
  * 
  */
-UCLASS()
-class ARTILLERYSTRATEGY_API UOffsetSmoothingPass : public UDataAsset, public IWorldGenerationPass
+UCLASS(Deprecated)
+class ARTILLERYSTRATEGY_API UDEPRECATED_OffsetSmoothingPass : public UDataAsset, public IWorldGenerationPass
 {
 	GENERATED_BODY()
 

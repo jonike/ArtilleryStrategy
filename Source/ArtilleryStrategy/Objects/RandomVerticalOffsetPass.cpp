@@ -3,21 +3,16 @@
 #include "RandomVerticalOffsetPass.h"
 #include "Structs/WorldParams.h"
 #include "TileMatrix.h"
-#include "GameFramework/Actor.h"
 
 void URandomVerticalOffsetPass::GenerateWorld(FWorldParams& Params)
 {
 	OffsetAllTiles(Params);
 }
 
-void URandomVerticalOffsetPass::OffsetTile(const TScriptInterface<IGridPlatform> Tile)
+void URandomVerticalOffsetPass::OffsetTile(FWorldParams& Params, const int Row, const int Column)
 {
-	check(Tile);
 	const auto RandomOffset = GetRandomOffset(MinVerticalOffset, MaxVerticalOffset, OffsetStep);
-	const FVector Offset(0, 0, RandomOffset);
-	const auto TileActor = Cast<AActor>(Tile.GetObject());
-	check(TileActor);
-	TileActor->AddActorWorldOffset(Offset, false, nullptr, ETeleportType::TeleportPhysics);
+	Params.HeightMatrix.Get(Row, Column) += RandomOffset;
 }
 
 float URandomVerticalOffsetPass::GetRandomOffset(const float Min, const float Max, const float Step)
@@ -27,14 +22,14 @@ float URandomVerticalOffsetPass::GetRandomOffset(const float Min, const float Ma
 	return Min + Step * RandomStep;
 }
 
-void URandomVerticalOffsetPass::OffsetAllTiles(const FWorldParams& Params)
+void URandomVerticalOffsetPass::OffsetAllTiles(FWorldParams& Params)
 {
 	const auto* TileMatrix = Params.TileMatrix;
 	for (auto Row = 0; Row < TileMatrix->GetRows(); ++Row)
 	{
 		for (auto Column = 0; Column < TileMatrix->GetColumns(); ++Column)
 		{
-			OffsetTile(TileMatrix->Get(Row, Column));
+			OffsetTile(Params, Row, Column);
 		}
 	}
 }

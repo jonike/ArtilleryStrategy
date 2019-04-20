@@ -12,6 +12,7 @@ class AActor;
 /**
  * 
  */
+// TODO: rename to TileSpawnPass
 UCLASS(BlueprintType)
 class ARTILLERYSTRATEGY_API UPlainGridPass : public UDataAsset, public IWorldGenerationPass
 {
@@ -21,19 +22,16 @@ public:
 	void GenerateWorld(FWorldParams& Params) override;
 
 private:
-	UPROPERTY(Category = "Params", EditAnywhere)
-	int Rows = 0;
-
-	UPROPERTY(Category = "Params", EditAnywhere)
-	int Columns = 0;
-
-	UPROPERTY(Category = "Params", EditAnywhere)
+	UPROPERTY(Category = "Spacing", EditAnywhere)
 	float RowSpacing = 100.f;
 
-	UPROPERTY(Category = "Params", EditAnywhere)
+	UPROPERTY(Category = "Spacing", EditAnywhere)
 	float ColumnSpacing = 100.f;
 
-	UPROPERTY(Category = "Params", EditAnywhere)
+	UPROPERTY(Category = "Spacing", EditAnywhere)
+	float HeightSpacing = 100.f;
+
+	UPROPERTY(Category = "Location", EditAnywhere)
 	FVector OriginOffset;
 
 	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "GridPlatform"))

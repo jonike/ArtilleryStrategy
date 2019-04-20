@@ -38,6 +38,12 @@ protected:
 
 private:
 	UPROPERTY(Category = "World generation", EditAnywhere)
+	int Rows = 20;
+
+	UPROPERTY(Category = "World generation", EditAnywhere)
+	int Columns = 20;
+
+	UPROPERTY(Category = "World generation", EditAnywhere)
 	FWorldParams WorldParams;
 
 	UPROPERTY(Category = "World generation", EditAnywhere)

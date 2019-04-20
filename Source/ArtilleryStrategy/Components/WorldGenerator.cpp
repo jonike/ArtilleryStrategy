@@ -31,7 +31,7 @@ void UGridGenerator::GenerateWorld()
 {
 	OnWorldGenerationStart.Broadcast();
 	// TODO: having to explicitly call initialize method
-	WorldParams.Initialize(this);
+	WorldParams.Initialize(this, Rows, Columns);
 	for (const auto& Pass : WorldGenerationPasses)
 	{
 		Pass->GenerateWorld(WorldParams);
