@@ -46,6 +46,9 @@ void UCapitalPlacementPass::PlaceCapital(const TScriptInterface<IOwnerController
 ACapitalBuilding* UCapitalPlacementPass::CreateCapitalBuilding(FVector Location, const FWorldParams& Params) const
 {
 	const auto Spawned = Params.CurrentWorld->SpawnActor(CapitalActorClass, &Location);
+#if WITH_EDITOR
+	Spawned->SetFolderPath(TEXT("World/Capitals"));
+#endif
 	return Cast<ACapitalBuilding>(Spawned);
 }
 
