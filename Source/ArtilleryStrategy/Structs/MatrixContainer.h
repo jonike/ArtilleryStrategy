@@ -81,7 +81,8 @@ T& TMatrixContainer<T>::Get(const int Row, const int Column)
 template <typename T>
 const T& TMatrixContainer<T>::Get(const int Row, const int Column) const
 {
-	return Get(Row, Column);
+	check(IsValidIndex(Row, Column));
+	return Matrix[Row][Column];
 }
 
 template <typename T>

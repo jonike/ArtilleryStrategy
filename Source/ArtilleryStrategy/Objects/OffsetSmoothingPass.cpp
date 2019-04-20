@@ -2,70 +2,99 @@
 
 #include "OffsetSmoothingPass.h"
 #include "Structs/WorldParams.h"
-#include "TileMatrix.h"
-#include "GameFramework/Actor.h"
 
-void UDEPRECATED_OffsetSmoothingPass::GenerateWorld(FWorldParams& Params)
+void UOffsetSmoothingPass::GenerateWorld(FWorldParams& Params)
 {
-	const auto* Matrix = Params.TileMatrix;
-	for (auto Row = SmoothRadius; Row < Matrix->GetRows() - SmoothRadius; ++Row)
+	AppropriateLevels.Resize(Params.HeightMatrix.GetRows(), Params.HeightMatrix.GetColumns());
+	do
 	{
-		for (auto Column = SmoothRadius; Column < Matrix->GetColumns() - SmoothRadius; ++Column)
+		SmoothAll(Params);
+	}
+	while (!IsSmoothingComplete(Params));
+}
+
+void UOffsetSmoothingPass::SmoothAll(FWorldParams& Params)
+{
+	// TODO: extract two methods
+	for (auto Row = 0; Row < Params.HeightMatrix.GetRows(); ++Row)
+	{
+		for (auto Column = 0; Column < Params.HeightMatrix.GetColumns(); ++Column)
 		{
-			const auto Deviance = CalculateDevianceLevel(Params, Row, Column);
-			if (Deviance < MinDevianceLevel || Deviance > MaxDevianceLevel)
-			{
-				SmoothTile(Matrix->Get(Row, Column), Deviance);
-			}
+			AppropriateLevels.Get(Row, Column) = GetAppropriateLevels(Params, Row, Column);
+		}
+	}
+
+	for (auto Row = 0; Row < Params.HeightMatrix.GetRows(); ++Row)
+	{
+		for (auto Column = 0; Column < Params.HeightMatrix.GetColumns(); ++Column)
+		{
+			AdjustHeight(Params, Row, Column);
 		}
 	}
 }
 
-void UDEPRECATED_OffsetSmoothingPass::SmoothTile(const TScriptInterface<IGridPlatform> Tile, const int Deviance)
+void UOffsetSmoothingPass::AdjustHeight(FWorldParams& Params, const int Row, const int Column)
 {
-	const auto TileActor = Cast<AActor>(Tile.GetObject());
-	check(TileActor);
-	const FVector Offset(0, 0, - FMath::Sign(Deviance) * OffsetPerDeviancePoint);
-	TileActor->AddActorWorldOffset(Offset, false, nullptr, ETeleportType::TeleportPhysics);
+	if (!IsAppropriatePosition(Params, Row, Column))
+	{
+		auto& Height = Params.HeightMatrix.Get(Row, Column);
+		const auto& Levels = AppropriateLevels.Get(Row, Column);
+		if (Height < Levels.Min)
+		{
+			Height = Levels.Min;
+		}
+		else
+		{
+			Height = Levels.Max;
+		}
+	}
 }
 
-int UDEPRECATED_OffsetSmoothingPass::CalculateDevianceLevel(const FWorldParams& Params, const int TileRow, const int TileColumn)
+bool UOffsetSmoothingPass::IsAppropriatePosition(const FWorldParams& Params, const int Row, const int Column) const
 {
-	const auto* Matrix = Params.TileMatrix;
-	auto Deviance = 0;
-	for (auto Row = TileRow - SmoothRadius; Row <= TileRow + SmoothRadius; ++Row)
+	const auto& Levels = AppropriateLevels.Get(Row, Column);
+	const auto Height = Params.HeightMatrix.Get(Row, Column);
+	return Height >= Levels.Min && Height <= Levels.Max;
+}
+
+bool UOffsetSmoothingPass::IsSmoothingComplete(const FWorldParams& Params) const
+{
+	for (auto Row = 0; Row < AppropriateLevels.GetRows(); ++Row)
 	{
-		for (auto Column = TileColumn - SmoothRadius; Column <= TileColumn + SmoothRadius; ++Column)
+		for (auto Column = 0; Column < AppropriateLevels.GetColumns(); ++Column)
 		{
-			if (Row == TileRow && Column == TileColumn)
+			if (!IsAppropriatePosition(Params, Row, Column))
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+UOffsetSmoothingPass::FRange UOffsetSmoothingPass::GetAppropriateLevels(const FWorldParams& Params, const int TileRow, const int TileColumn) const
+{
+	FRange Levels;
+	Levels.Set(Params.HeightMatrix.Get(TileRow, TileColumn));
+	for (auto Row = TileRow - 1; Row <= TileRow + 1; ++Row)
+	{
+		for (auto Column = TileColumn - 1; Column <= TileColumn + 1; ++Column)
+		{
+			if (Row == TileRow && Column == TileColumn || !Params.HeightMatrix.IsValidIndex(Row, Column))
 			{
 				continue;
 			}
-
-			if (Matrix->IsValidIndex(Row, Column))
+			const auto NeighborHeight = Params.HeightMatrix.Get(Row, Column);
+			if (NeighborHeight + MaxHeightDifference < Levels.Min)
 			{
-				Deviance += CalculateDevianceForPair(Matrix->Get(TileRow, TileColumn), Matrix->Get(Row, Column));
+				Levels.Min = NeighborHeight + MaxHeightDifference;
+			}
+			else if (NeighborHeight - MaxHeightDifference > Levels.Max)
+			{
+				Levels.Max = NeighborHeight - MaxHeightDifference;
 			}
 		}
 	}
-	return Deviance;
+	return Levels;
 }
-
-int UDEPRECATED_OffsetSmoothingPass::CalculateDevianceForPair(const TScriptInterface<IGridPlatform> AnalyzedTile, const TScriptInterface<IGridPlatform> NeighborTile) const
-{
-	const auto AnalyzedActor = Cast<AActor>(AnalyzedTile.GetObject());
-	check(AnalyzedActor);
-	const auto NeighborActor = Cast<AActor>(NeighborTile.GetObject());
-	check(NeighborActor);
-	const auto AnalyzedLocation = AnalyzedActor->GetActorLocation();
-	const auto NeighborLocation = NeighborActor->GetActorLocation();
-	if (AnalyzedLocation.Z > NeighborLocation.Z)
-	{
-		return +1;
-	}
-	if (AnalyzedLocation.Z < NeighborLocation.Z)
-	{
-		return -1;
-	}
-	return 0;
-}
+;

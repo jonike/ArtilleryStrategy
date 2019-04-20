@@ -5,37 +5,47 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "Interfaces/WorldGenerationPass.h"
-#include "Interfaces/GridPlatform.h"
+#include "Structs/MatrixContainer.h"
 #include "OffsetSmoothingPass.generated.h"
 
 /**
  * 
  */
-UCLASS(Deprecated)
-class ARTILLERYSTRATEGY_API UDEPRECATED_OffsetSmoothingPass : public UDataAsset, public IWorldGenerationPass
+UCLASS()
+class ARTILLERYSTRATEGY_API UOffsetSmoothingPass : public UDataAsset, public IWorldGenerationPass
 {
 	GENERATED_BODY()
 
 public:
 	void GenerateWorld(FWorldParams& Params) override;
 
-protected:
-	virtual void SmoothTile(TScriptInterface<IGridPlatform> Tile, int Deviance);
-	virtual int CalculateDevianceLevel(const FWorldParams& Params, int TileRow, int TileColumn);
-
 private:
-	UPROPERTY(Category = "Range", EditDefaultsOnly)
-	int SmoothRadius = 2;
+	struct FRange
+	{
+		void Set(const int MinValue, const int MaxValue)
+		{
+			Min = MinValue;
+			Max = MaxValue;
+		}
 
-	UPROPERTY(Category = "Tolerance", EditDefaultsOnly)
-	int MinDevianceLevel = -2;
+		void Set(const int Value)
+		{
+			Set(Value, Value);
+		}
 
-	UPROPERTY(Category = "Tolerance", EditDefaultsOnly)
-	int MaxDevianceLevel = 2;
+		int Min;
+		int Max;
+	};
 
-	// TODO: value depends on offset for different levels in RandomVerticalOffsetPass
-	UPROPERTY(Category = "Smoothing", EditDefaultsOnly)
-	float OffsetPerDeviancePoint = 100.f;
+	UPROPERTY(EditAnywhere)
+	int MaxHeightDifference = 1;
 
-	int CalculateDevianceForPair(TScriptInterface<IGridPlatform> AnalyzedTile, TScriptInterface<IGridPlatform> NeighborTile) const;
+	TMatrixContainer<FRange> AppropriateLevels;
+
+	void SmoothAll(FWorldParams& Params);
+	void AdjustHeight(FWorldParams& Params, int Row, int Column);
+
+	bool IsAppropriatePosition(const FWorldParams& Params, int Row, int Column) const;
+	bool IsSmoothingComplete(const FWorldParams& Params) const;
+	FRange GetAppropriateLevels(const FWorldParams& Params, int TileRow, int TileColumn) const;
 };
