@@ -12,6 +12,7 @@ AInstancedMeshSpawner::AInstancedMeshSpawner()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 	TileInstancedMesh = CreateDefaultSubobject<UHierarchicalInstancedStaticMeshComponent>(TEXT("Tile instanced mesh"));
 	TileInstancedMesh->SetupAttachment(RootComponent);
+	TileInstancedMesh->SetGenerateOverlapEvents(false);
 }
 
 // Called when the game starts or when spawned

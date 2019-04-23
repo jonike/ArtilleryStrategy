@@ -75,6 +75,6 @@ private:
 	UFUNCTION()
 	void ReceiveOnClicked(AActor* TouchedActor, FKey ButtonPressed);
 
-	void AddInstancedMesh() const;
+	void AddInstancedMesh();
 	AInstancedMeshSpawner* GetInstancedMeshSpawner() const;
 };

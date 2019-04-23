@@ -21,6 +21,8 @@ ABaseGridPlatform::ABaseGridPlatform()
 	PrimaryActorTick.bCanEverTick = true;
 	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Mesh"));
 	RootComponent = CollisionBox;
+	CollisionBox->SetBoxExtent(FVector(50.f, 50.f, 50.f));
+	CollisionBox->SetCollisionProfileName(TEXT("BlockAll"));
 	ResourceBillboard = CreateDefaultSubobject<UBillboardComponent>(TEXT("Resource billboard"));
 	ResourceBillboard->SetupAttachment(RootComponent);
 	ResourceBillboard->bHiddenInGame = true;
@@ -44,12 +46,12 @@ void ABaseGridPlatform::ReceiveOnClicked(AActor*, FKey)
 	}
 }
 
-void ABaseGridPlatform::AddInstancedMesh() const
+void ABaseGridPlatform::AddInstancedMesh()
 {
 	const auto InstancedMeshSpawner = GetInstancedMeshSpawner();
 	check(InstancedMeshSpawner);
 	const FTransform InstanceTransform(FQuat::Identity, GetActorLocation() + InstancedMeshOffset, FVector::OneVector);
-	InstancedMeshSpawner->GetTileInstancedMesh()->AddInstance(InstanceTransform);
+	MeshInstanceIndex = InstancedMeshSpawner->GetTileInstancedMesh()->AddInstance(InstanceTransform);
 }
 
 AInstancedMeshSpawner* ABaseGridPlatform::GetInstancedMeshSpawner() const
@@ -107,6 +109,7 @@ TScriptInterface<IOwnerController> ABaseGridPlatform::GetOwnerController() const
 void ABaseGridPlatform::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
 {
 	OwnerController = NewOwner;
+	// TODO: owner controller should mark its property
 }
 
 bool ABaseGridPlatform::HasOwnerController() const
