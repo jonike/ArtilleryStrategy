@@ -60,6 +60,9 @@ private:
 	UPROPERTY(Category = "Resources", EditAnywhere)
 	UBillboardComponent* ResourceBillboard;
 
+	UPROPERTY(Category = "Ownership", EditAnywhere)
+	UBillboardComponent* OwnerIconBillboard;
+
 	UPROPERTY(Category = "Resources", EditAnywhere)
 	FResourcePack ResourcesToOwn;
 

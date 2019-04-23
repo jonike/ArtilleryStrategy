@@ -27,6 +27,10 @@ ABaseGridPlatform::ABaseGridPlatform()
 	ResourceBillboard->SetupAttachment(RootComponent);
 	ResourceBillboard->bHiddenInGame = true;
 	ResourceBillboard->bIsScreenSizeScaled = true;
+	OwnerIconBillboard = CreateDefaultSubobject<UBillboardComponent>(TEXT("Owner icon billboard"));
+	OwnerIconBillboard->SetupAttachment(RootComponent);
+	OwnerIconBillboard->bHiddenInGame = true;
+	OwnerIconBillboard->bIsScreenSizeScaled = true;
 }
 
 // Called when the game starts or when spawned
@@ -109,7 +113,8 @@ TScriptInterface<IOwnerController> ABaseGridPlatform::GetOwnerController() const
 void ABaseGridPlatform::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
 {
 	OwnerController = NewOwner;
-	// TODO: owner controller should mark its property
+	OwnerIconBillboard->SetSprite(NewOwner->GetOwnerIcon());
+	OwnerIconBillboard->bHiddenInGame = false;
 }
 
 bool ABaseGridPlatform::HasOwnerController() const

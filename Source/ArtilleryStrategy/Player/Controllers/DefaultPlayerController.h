@@ -40,6 +40,7 @@ public:
 	void ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy) override;
 	bool IsBuyWidgetVisible() const override;
 
+	UTexture2D* GetOwnerIcon() const override;
 	UMaterialInterface* GetOwnerMaterial() const override;
 	TScriptInterface<IWallet> GetWallet() const override;
 
@@ -57,9 +58,10 @@ private:
 	float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
 	float ZoomRate = 200.;
-
 	UPROPERTY(Category = Property, EditAnywhere)
 	UMaterialInterface* PlayerMaterial;
+	UPROPERTY(Category = "Property", EditDefaultsOnly)
+	UTexture2D* PlayerIcon;
 
 	UFUNCTION()
 	void MoveForward(float Value);

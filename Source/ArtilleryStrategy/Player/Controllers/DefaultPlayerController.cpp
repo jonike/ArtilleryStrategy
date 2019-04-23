@@ -125,6 +125,11 @@ bool ADefaultPlayerController::IsBuyWidgetVisible() const
 	return GetDefaultHUD().IsBuyWidgetsVisible();
 }
 
+UTexture2D* ADefaultPlayerController::GetOwnerIcon() const
+{
+	return PlayerIcon;
+}
+
 AActor* ADefaultPlayerController::SpawnBuildingActor(const TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass) const
 {
 	const auto Location = Cell->GetBuildingSpawnLocation();

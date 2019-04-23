@@ -26,5 +26,6 @@ class ARTILLERYSTRATEGY_API IOwnerController
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	virtual UMaterialInterface* GetOwnerMaterial() const = 0;
+	virtual UTexture2D* GetOwnerIcon() const = 0;
 	virtual TScriptInterface<IWallet> GetWallet() const = 0;
 };
