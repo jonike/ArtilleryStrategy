@@ -6,6 +6,7 @@
 #include "Engine/DataAsset.h"
 #include "Interfaces/WorldGenerationPass.h"
 #include "Structs/MatrixContainer.h"
+#include "Structs/ValueRange.h"
 #include "OffsetSmoothingPass.generated.h"
 
 /**
@@ -18,34 +19,19 @@ class ARTILLERYSTRATEGY_API UOffsetSmoothingPass : public UDataAsset, public IWo
 
 public:
 	void GenerateWorld(FWorldParams& Params) override;
+	void CalculateAppropriateLevels(FWorldParams& Params);
+	void AdjustAllHeights(FWorldParams& Params);
 
 private:
-	struct FRange
-	{
-		void Set(const int MinValue, const int MaxValue)
-		{
-			Min = MinValue;
-			Max = MaxValue;
-		}
-
-		void Set(const int Value)
-		{
-			Set(Value, Value);
-		}
-
-		int Min;
-		int Max;
-	};
-
 	UPROPERTY(EditAnywhere)
-	int MaxHeightDifference = 1;
+	int MaxHeightDifference = 2;
 
-	TMatrixContainer<FRange> AppropriateLevels;
+	TMatrixContainer<TValueRange<int>> AppropriateRanges;
 
 	void SmoothAll(FWorldParams& Params);
 	void AdjustHeight(FWorldParams& Params, int Row, int Column);
 
 	bool IsAppropriatePosition(const FWorldParams& Params, int Row, int Column) const;
 	bool IsSmoothingComplete(const FWorldParams& Params) const;
-	FRange GetAppropriateLevels(const FWorldParams& Params, int TileRow, int TileColumn) const;
+	TValueRange<int> GetAppropriateLevels(const FWorldParams& Params, int TileRow, int TileColumn) const;
 };

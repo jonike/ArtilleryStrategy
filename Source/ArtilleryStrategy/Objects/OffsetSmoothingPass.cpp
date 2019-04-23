@@ -5,25 +5,27 @@
 
 void UOffsetSmoothingPass::GenerateWorld(FWorldParams& Params)
 {
-	AppropriateLevels.Resize(Params.HeightMatrix.GetRows(), Params.HeightMatrix.GetColumns());
-	do
+	AppropriateRanges.Resize(Params.HeightMatrix.GetRows(), Params.HeightMatrix.GetColumns());
+	CalculateAppropriateLevels(Params);
+	while (!IsSmoothingComplete(Params))
 	{
 		SmoothAll(Params);
 	}
-	while (!IsSmoothingComplete(Params));
 }
 
-void UOffsetSmoothingPass::SmoothAll(FWorldParams& Params)
+void UOffsetSmoothingPass::CalculateAppropriateLevels(FWorldParams& Params)
 {
-	// TODO: extract two methods
 	for (auto Row = 0; Row < Params.HeightMatrix.GetRows(); ++Row)
 	{
 		for (auto Column = 0; Column < Params.HeightMatrix.GetColumns(); ++Column)
 		{
-			AppropriateLevels.Get(Row, Column) = GetAppropriateLevels(Params, Row, Column);
+			AppropriateRanges.Get(Row, Column) = GetAppropriateLevels(Params, Row, Column);
 		}
 	}
+}
 
+void UOffsetSmoothingPass::AdjustAllHeights(FWorldParams& Params)
+{
 	for (auto Row = 0; Row < Params.HeightMatrix.GetRows(); ++Row)
 	{
 		for (auto Column = 0; Column < Params.HeightMatrix.GetColumns(); ++Column)
@@ -33,35 +35,41 @@ void UOffsetSmoothingPass::SmoothAll(FWorldParams& Params)
 	}
 }
 
+void UOffsetSmoothingPass::SmoothAll(FWorldParams& Params)
+{
+	AdjustAllHeights(Params);
+	CalculateAppropriateLevels(Params);
+}
+
 void UOffsetSmoothingPass::AdjustHeight(FWorldParams& Params, const int Row, const int Column)
 {
 	if (!IsAppropriatePosition(Params, Row, Column))
 	{
 		auto& Height = Params.HeightMatrix.Get(Row, Column);
-		const auto& Levels = AppropriateLevels.Get(Row, Column);
-		if (Height < Levels.Min)
+		const auto& Range = AppropriateRanges.Get(Row, Column);
+		if (Range.IsLess(Height))
 		{
-			Height = Levels.Min;
+			Height = Range.GetMin();
 		}
-		else
+		else if (Range.IsGreater(Height))
 		{
-			Height = Levels.Max;
+			Height = Range.GetMax();
 		}
 	}
 }
 
 bool UOffsetSmoothingPass::IsAppropriatePosition(const FWorldParams& Params, const int Row, const int Column) const
 {
-	const auto& Levels = AppropriateLevels.Get(Row, Column);
+	const auto& Range = AppropriateRanges.Get(Row, Column);
 	const auto Height = Params.HeightMatrix.Get(Row, Column);
-	return Height >= Levels.Min && Height <= Levels.Max;
+	return Range.IsInRange(Height);
 }
 
 bool UOffsetSmoothingPass::IsSmoothingComplete(const FWorldParams& Params) const
 {
-	for (auto Row = 0; Row < AppropriateLevels.GetRows(); ++Row)
+	for (auto Row = 0; Row < AppropriateRanges.GetRows(); ++Row)
 	{
-		for (auto Column = 0; Column < AppropriateLevels.GetColumns(); ++Column)
+		for (auto Column = 0; Column < AppropriateRanges.GetColumns(); ++Column)
 		{
 			if (!IsAppropriatePosition(Params, Row, Column))
 			{
@@ -72,10 +80,9 @@ bool UOffsetSmoothingPass::IsSmoothingComplete(const FWorldParams& Params) const
 	return true;
 }
 
-UOffsetSmoothingPass::FRange UOffsetSmoothingPass::GetAppropriateLevels(const FWorldParams& Params, const int TileRow, const int TileColumn) const
+TValueRange<int> UOffsetSmoothingPass::GetAppropriateLevels(const FWorldParams& Params, const int TileRow, const int TileColumn) const
 {
-	FRange Levels;
-	Levels.Set(Params.HeightMatrix.Get(TileRow, TileColumn));
+	TValueRange<int> Range(-INT_MAX, INT_MAX);
 	for (auto Row = TileRow - 1; Row <= TileRow + 1; ++Row)
 	{
 		for (auto Column = TileColumn - 1; Column <= TileColumn + 1; ++Column)
@@ -85,16 +92,15 @@ UOffsetSmoothingPass::FRange UOffsetSmoothingPass::GetAppropriateLevels(const FW
 				continue;
 			}
 			const auto NeighborHeight = Params.HeightMatrix.Get(Row, Column);
-			if (NeighborHeight + MaxHeightDifference < Levels.Min)
+			if (Range.GetMin() < NeighborHeight - MaxHeightDifference)
 			{
-				Levels.Min = NeighborHeight + MaxHeightDifference;
+				Range.SetMin(NeighborHeight - MaxHeightDifference);
 			}
-			else if (NeighborHeight - MaxHeightDifference > Levels.Max)
+			else if (Range.GetMax() > NeighborHeight + MaxHeightDifference)
 			{
-				Levels.Max = NeighborHeight - MaxHeightDifference;
+				Range.SetMax(NeighborHeight + MaxHeightDifference);
 			}
 		}
 	}
-	return Levels;
+	return Range;
 }
-;
