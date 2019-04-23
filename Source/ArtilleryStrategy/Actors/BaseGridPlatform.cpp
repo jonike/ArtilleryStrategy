@@ -48,7 +48,8 @@ void ABaseGridPlatform::AddInstancedMesh() const
 {
 	const auto InstancedMeshSpawner = GetInstancedMeshSpawner();
 	check(InstancedMeshSpawner);
-	InstancedMeshSpawner->GetTileInstancedMesh()->AddInstance(InstancedMeshTransform);
+	const FTransform InstanceTransform(FQuat::Identity, GetActorLocation() + InstancedMeshOffset, FVector::OneVector);
+	InstancedMeshSpawner->GetTileInstancedMesh()->AddInstance(InstanceTransform);
 }
 
 AInstancedMeshSpawner* ABaseGridPlatform::GetInstancedMeshSpawner() const

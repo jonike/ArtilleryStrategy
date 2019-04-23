@@ -64,7 +64,7 @@ private:
 	FResourcePack ResourcesToOwn;
 
 	UPROPERTY(Category = "Visuals", EditDefaultsOnly)
-	FTransform InstancedMeshTransform;
+	FVector InstancedMeshOffset;
 
 	UPROPERTY(Category = "Visuals", VisibleInstanceOnly)
 	int MeshInstanceIndex;

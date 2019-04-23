@@ -20,9 +20,10 @@ UTurnProcessorComponent* ADefaultGS::GetTurnProcessor() const
 void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+	TileMeshSpawner = GetWorld()->SpawnActor<AInstancedMeshSpawner>(InstancedMeshSpawnerClass);
 }
 
 void ADefaultGS::BeginPlay()
 {
-	TileMeshSpawner = GetWorld()->SpawnActor<AInstancedMeshSpawner>(InstancedMeshSpawnerClass);
+	Super::BeginPlay();
 }
