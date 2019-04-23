@@ -10,7 +10,10 @@
 #include "Structs/ResourceDeposit.h"
 #include "BaseGridPlatform.generated.h"
 
+class UBoxComponent;
+class UHierarchicalInstancedStaticMeshComponent;
 class IBuilding;
+class AInstancedMeshSpawner;
 
 UCLASS()
 class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IGridPlatform, public ICanBeOwned
@@ -46,7 +49,7 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess))
-	UStaticMeshComponent* StaticMesh;
+	UBoxComponent* CollisionBox;
 
 	UPROPERTY(EditAnywhere, Category = Buildings)
 	FVector BuildingSpawnOffset;
@@ -60,9 +63,18 @@ private:
 	UPROPERTY(Category = "Resources", EditAnywhere)
 	FResourcePack ResourcesToOwn;
 
+	UPROPERTY(Category = "Visuals", EditDefaultsOnly)
+	FTransform InstancedMeshTransform;
+
+	UPROPERTY(Category = "Visuals", VisibleInstanceOnly)
+	int MeshInstanceIndex;
+
 	TScriptInterface<IBuilding> Building;
 	TScriptInterface<IOwnerController> OwnerController;
 
 	UFUNCTION()
 	void ReceiveOnClicked(AActor* TouchedActor, FKey ButtonPressed);
+
+	void AddInstancedMesh() const;
+	AInstancedMeshSpawner* GetInstancedMeshSpawner() const;
 };

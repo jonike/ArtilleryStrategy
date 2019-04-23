@@ -4,6 +4,7 @@
 #include "DefaultGS.h"
 #include "Components/WorldGenerator.h"
 #include "Components/TurnProcessorComponent.h"
+#include "Engine/World.h"
 
 ADefaultGS::ADefaultGS()
 {
@@ -19,4 +20,9 @@ UTurnProcessorComponent* ADefaultGS::GetTurnProcessor() const
 void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+}
+
+void ADefaultGS::BeginPlay()
+{
+	TileMeshSpawner = GetWorld()->SpawnActor<AInstancedMeshSpawner>(InstancedMeshSpawnerClass);
 }

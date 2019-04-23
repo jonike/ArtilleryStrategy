@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
+#include "Actors/InstancedMeshSpawner.h"
 #include "DefaultGS.generated.h"
 
 class UTurnProcessorComponent;
@@ -27,9 +28,12 @@ public:
 	ADefaultGS();
 
 	UTurnProcessorComponent* GetTurnProcessor() const;
+	auto GetTileMeshSpawner() const { return TileMeshSpawner; }
 
 protected:
 	void PostInitializeComponents() override;
+
+	void BeginPlay() override;
 
 private:
 	UPROPERTY(Category = "Generation", EditAnywhere)
@@ -37,4 +41,10 @@ private:
 
 	UPROPERTY(Category = "Turns", EditAnywhere)
 	UTurnProcessorComponent* TurnProcessorComponent;
+
+	UPROPERTY()
+	AInstancedMeshSpawner* TileMeshSpawner;
+
+	UPROPERTY(Category = "Instanced meshes", EditDefaultsOnly)
+	TSubclassOf<AInstancedMeshSpawner> InstancedMeshSpawnerClass;
 };

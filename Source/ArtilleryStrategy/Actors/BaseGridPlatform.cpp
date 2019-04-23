@@ -5,19 +5,22 @@
 #include "Engine/World.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyCells.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/BoxComponent.h"
 #include "Components/BillboardComponent.h"
 #include "Structs/ResourceDeposit.h"
 #include "Interfaces/Building.h"
 #include "GameFramework/PlayerController.h"
+#include "Components/HierarchicalInstancedStaticMeshComponent.h"
+#include "Game/States/DefaultGS.h"
+#include "InstancedMeshSpawner.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	RootComponent = StaticMesh;
+	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Mesh"));
+	RootComponent = CollisionBox;
 	ResourceBillboard = CreateDefaultSubobject<UBillboardComponent>(TEXT("Resource billboard"));
 	ResourceBillboard->SetupAttachment(RootComponent);
 	ResourceBillboard->bHiddenInGame = true;
@@ -29,6 +32,7 @@ void ABaseGridPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 	OnClicked.AddDynamic(this, &ABaseGridPlatform::ReceiveOnClicked);
+	AddInstancedMesh();
 }
 
 void ABaseGridPlatform::ReceiveOnClicked(AActor*, FKey)
@@ -38,6 +42,20 @@ void ABaseGridPlatform::ReceiveOnClicked(AActor*, FKey)
 	{
 		ControllerThatCanBuy->ShowBuyWidget(this);
 	}
+}
+
+void ABaseGridPlatform::AddInstancedMesh() const
+{
+	const auto InstancedMeshSpawner = GetInstancedMeshSpawner();
+	check(InstancedMeshSpawner);
+	InstancedMeshSpawner->GetTileInstancedMesh()->AddInstance(InstancedMeshTransform);
+}
+
+AInstancedMeshSpawner* ABaseGridPlatform::GetInstancedMeshSpawner() const
+{
+	const auto GameState = GetWorld()->GetGameState<ADefaultGS>();
+	check(GameState);
+	return GameState->GetTileMeshSpawner();
 }
 
 void ABaseGridPlatform::NotifyActorOnClicked(FKey)
@@ -88,7 +106,6 @@ TScriptInterface<IOwnerController> ABaseGridPlatform::GetOwnerController() const
 void ABaseGridPlatform::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
 {
 	OwnerController = NewOwner;
-	StaticMesh->SetMaterial(0, NewOwner->GetOwnerMaterial());
 }
 
 bool ABaseGridPlatform::HasOwnerController() const
