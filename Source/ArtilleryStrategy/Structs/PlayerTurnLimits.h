@@ -15,6 +15,8 @@ struct ARTILLERYSTRATEGY_API FPlayerTurnLimits
 	GENERATED_BODY()
 
 public:
+	void ResetAllLimits();
+
 	auto GetBuildingsLimit() const { return BuildingsLimit; }
 	auto GetTilesLimit() const { return TilesLimit; }
 

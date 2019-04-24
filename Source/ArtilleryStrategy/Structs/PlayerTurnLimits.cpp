@@ -2,3 +2,9 @@
 
 
 #include "PlayerTurnLimits.h"
+
+void FPlayerTurnLimits::ResetAllLimits()
+{
+	TilesLimit.Reset();
+	BuildingsLimit.Reset();
+}
