@@ -30,12 +30,12 @@ void ADefaultPlayerState::PostInitializeComponents()
 	TurnProcessor->OnTurnEnded.AddDynamic(this, &ADefaultPlayerState::ReceiveOnTurnEnded);
 }
 
-void ADefaultPlayerState::ReceiveOnBuildingCreated(TScriptInterface<IBuilding> Building)
+void ADefaultPlayerState::RegisterBuyingBuilding(TScriptInterface<IBuilding> Building)
 {
 	TurnLimits.GetBuildingsLimit().Increment();
 }
 
-void ADefaultPlayerState::ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile)
+void ADefaultPlayerState::RegisterBuyingCell(TScriptInterface<IGridPlatform> Tile)
 {
 	TurnLimits.GetTilesLimit().Increment();
 }

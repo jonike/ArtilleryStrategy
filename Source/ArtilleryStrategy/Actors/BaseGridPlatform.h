@@ -37,6 +37,7 @@ public:
 	FVector GetBuildingSpawnLocation() const override;
 	bool HasBuilding() const override;
 	void SetBuilding(TScriptInterface<IBuilding> SpawnedBuilding) override;
+	TScriptInterface<IBuilding> CreateBuilding(TSubclassOf<AActor> BuildingClass) override;
 
 	TSet<FResourceDeposit>& GetResourceDeposits() override;
 	bool HasResourceDeposits() const override;
@@ -79,5 +80,7 @@ private:
 	void ReceiveOnClicked(AActor* TouchedActor, FKey ButtonPressed);
 
 	void AddInstancedMesh();
+
+	AActor* SpawnBuildingActor(TSubclassOf<AActor> BuildingClass) const;
 	AInstancedMeshSpawner* GetInstancedMeshSpawner() const;
 };

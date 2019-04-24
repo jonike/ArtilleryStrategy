@@ -74,8 +74,7 @@ private:
 	UFUNCTION()
 	void FireAllWeapon();
 
-	bool TryToBuy(const FResourcePack& ResourcePack) const;
-
-	AActor* SpawnBuildingActor(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) const;
+	bool TryToBuyWithPack(const FResourcePack& ResourcePack) const;
+	bool TryToBuyDefaultBuilding(const TSubclassOf<AActor> BuildingClass) const;
 	ADefaultHUD& GetDefaultHUD() const;
 };

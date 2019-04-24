@@ -80,12 +80,34 @@ bool ABaseGridPlatform::HasBuilding() const
 	return Building.GetObject() != nullptr;
 }
 
+AActor* ABaseGridPlatform::SpawnBuildingActor(const TSubclassOf<AActor> BuildingClass) const
+{
+	const auto Location = GetBuildingSpawnLocation();
+	const auto Spawned = GetWorld()->SpawnActor(BuildingClass, &Location);
+	check(Spawned);
+#if WITH_EDITOR
+	Spawned->SetFolderPath("World/Buildings");
+#endif
+	return Spawned;
+}
+
 void ABaseGridPlatform::SetBuilding(const TScriptInterface<IBuilding> SpawnedBuilding)
 {
 	check(SpawnedBuilding);
 	SpawnedBuilding->PrePlaced(this);
 	Building = SpawnedBuilding;
 	SpawnedBuilding->PostPlaced(this);
+}
+
+TScriptInterface<IBuilding> ABaseGridPlatform::CreateBuilding(TSubclassOf<AActor> BuildingClass)
+{
+	const auto SpawnedBuilding = SpawnBuildingActor(BuildingClass);
+	SetBuilding(SpawnedBuilding);
+	if (const auto OwnedBuilding = Cast<ICanBeOwned>(SpawnedBuilding))
+	{
+		OwnedBuilding->SetOwnerController(GetOwnerController());
+	}
+	return SpawnedBuilding;
 }
 
 TSet<FResourceDeposit>& ABaseGridPlatform::GetResourceDeposits()

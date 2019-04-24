@@ -69,7 +69,7 @@ void ADefaultPlayerController::FireAllWeapon()
 	OnFire.Broadcast();
 }
 
-bool ADefaultPlayerController::TryToBuy(const FResourcePack& ResourcePack) const
+bool ADefaultPlayerController::TryToBuyWithPack(const FResourcePack& ResourcePack) const
 {
 	const auto Wallet = GetWallet();
 	if (Wallet)
@@ -83,6 +83,13 @@ bool ADefaultPlayerController::TryToBuy(const FResourcePack& ResourcePack) const
 		}
 	}
 	return false;
+}
+
+bool ADefaultPlayerController::TryToBuyDefaultBuilding(const TSubclassOf<AActor> BuildingClass) const
+{
+	const auto DefaultBuildingObject = Cast<ICanBeOwned>(BuildingClass.GetDefaultObject());
+	check(DefaultBuildingObject);
+	return TryToBuyWithPack(DefaultBuildingObject->GetResourcesToOwn());
 }
 
 UMaterialInterface* ADefaultPlayerController::GetOwnerMaterial() const
@@ -130,20 +137,8 @@ UTexture2D* ADefaultPlayerController::GetOwnerIcon() const
 	return PlayerIcon;
 }
 
-AActor* ADefaultPlayerController::SpawnBuildingActor(const TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass) const
-{
-	const auto Location = Cell->GetBuildingSpawnLocation();
-	const auto Spawned = GetWorld()->SpawnActor(BuildingClass, &Location);
-	check(Spawned);
-#if WITH_EDITOR
-	Spawned->SetFolderPath("World/Buildings");
-#endif
-	return Spawned;
-}
-
 void ADefaultPlayerController::CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass)
 {
-	// TODO: create IGridPlatform::CreateBuilding(TSubclassOf<AActor>, TScriptInterface<IOwnerController>) method
 	const auto State = GetPlayerState<ADefaultPlayerState>();
 	check(State);
 	if (State->GetTurnLimits().GetBuildingsLimit().IsLimitReached())
@@ -151,19 +146,11 @@ void ADefaultPlayerController::CreateSelectedBuilding(TScriptInterface<IGridPlat
 		return;
 	}
 
-	const auto DefaultBuildingObject = Cast<ICanBeOwned>(BuildingClass.GetDefaultObject());
-	check(DefaultBuildingObject);
-	if (TryToBuy(DefaultBuildingObject->GetResourcesToOwn()))
+	if (TryToBuyDefaultBuilding(BuildingClass))
 	{
-		// TODO: cleanup building creation code
-		const auto SpawnedBuilding = SpawnBuildingActor(Cell, BuildingClass);
-		Cell->SetBuilding(SpawnedBuilding);
-		if (const auto OwnedBuilding = Cast<ICanBeOwned>(SpawnedBuilding))
-		{
-			OwnedBuilding->SetOwnerController(this);
-		}
-		OnBuildingCreated.Broadcast(SpawnedBuilding);
-		State->ReceiveOnBuildingCreated(SpawnedBuilding);
+		const auto Building = Cell->CreateBuilding(BuildingClass);
+		OnBuildingCreated.Broadcast(Building);
+		State->RegisterBuyingBuilding(Building);
 	}
 }
 
@@ -188,18 +175,15 @@ void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 		return;
 	}
 
-	if (TryToBuy(Cell->GetResourcesToOwn()))
+	if (TryToBuyWithPack(Cell->GetResourcesToOwn()))
 	{
-		// TODO: extract method
-		OnTileBought.Broadcast(Cell.GetObject());
 		Cell->SetOwnerController(this);
-
-		// TODO: refactor buying new buildings and tiles
-		State->ReceiveOnTileBought(Cell.GetObject());
+		OnTileBought.Broadcast(Cell.GetObject());
+		State->RegisterBuyingCell(Cell.GetObject());
 	}
 }
 
-void ADefaultPlayerController::ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy)
+void ADefaultPlayerController::ShowBuyWidget(const TScriptInterface<ICanBeOwned> PropertyToBuy)
 {
 	auto& HUD = GetDefaultHUD();
 	if (PropertyToBuy->GetOwnerController() == this)

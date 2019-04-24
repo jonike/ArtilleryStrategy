@@ -28,10 +28,10 @@ public:
 	UResourceStorage* GetResourceWallet() const override { return Storage; }
 
 	UFUNCTION()
-	void ReceiveOnBuildingCreated(TScriptInterface<IBuilding> Building);
+	void RegisterBuyingBuilding(TScriptInterface<IBuilding> Building);
 
 	UFUNCTION()
-	void ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile);
+	void RegisterBuyingCell(TScriptInterface<IGridPlatform> Tile);
 
 	void ReceiveOnTurnStarted() override;
 
