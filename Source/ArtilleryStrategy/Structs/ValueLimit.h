@@ -24,6 +24,8 @@ public:
 	bool IsLimitReached() const;
 
 private:
+	UPROPERTY(EditAnywhere)
 	int Value = 0;
+	UPROPERTY(EditAnywhere)
 	int MaxValue = 1;
 };
