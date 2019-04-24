@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
 #include "Interfaces/Wallet.h"
+#include "Structs/PlayerTurnLimits.h"
 #include "DefaultPlayerState.generated.h"
 
 class UResourceBuildingsManager;
@@ -31,4 +32,7 @@ private:
 
 	UPROPERTY(Category = "Resources", VisibleInstanceOnly)
 	UResourceBuildingsManager* ResourceBuildingsManager;
+
+	UPROPERTY(Category="Turn limits", EditAnywhere)
+	FPlayerTurnLimits TurnLimits;
 };
