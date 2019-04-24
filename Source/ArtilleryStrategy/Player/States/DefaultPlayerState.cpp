@@ -4,6 +4,7 @@
 #include "Objects/ResourceStorage.h"
 #include "Objects/ResourceBuildingsManager.h"
 #include "Components/TurnProcessorComponent.h"
+#include "Player/Controllers/DefaultPlayerController.h"
 
 ADefaultPlayerState::ADefaultPlayerState()
 {
@@ -27,4 +28,19 @@ void ADefaultPlayerState::PostInitializeComponents()
 	const auto TurnProcessor = GetTurnProcessor(this);
 	TurnProcessor->OnTurnStarted.AddDynamic(this, &ADefaultPlayerState::ReceiveOnTurnStarted);
 	TurnProcessor->OnTurnEnded.AddDynamic(this, &ADefaultPlayerState::ReceiveOnTurnEnded);
+	// TODO: rewrite; doesn't work
+	const auto PlayerController = Cast<ADefaultPlayerController>(GetInstigatorController());
+	check(PlayerController);
+	PlayerController->OnTileBought.AddDynamic(this, &ADefaultPlayerState::ReceiveOnTileBought);
+	PlayerController->OnBuildingCreated.AddDynamic(this, &ADefaultPlayerState::ReceiveOnBuildingCreated);
+}
+
+void ADefaultPlayerState::ReceiveOnBuildingCreated(TScriptInterface<IBuilding> Building)
+{
+	TurnLimits.GetBuildingsLimit().Increment();
+}
+
+void ADefaultPlayerState::ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile)
+{
+	TurnLimits.GetTilesLimit().Increment();
 }

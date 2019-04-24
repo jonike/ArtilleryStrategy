@@ -27,12 +27,14 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController,
 	GENERATED_BODY()
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuildingCreatedSignature, TScriptInterface<IBuilding>, CreatedBuilding);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTileBoughtSignature, TScriptInterface<IGridPlatform>, Tile);
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFireSignature);
 
 public:
 	ADefaultPlayerController();
 
 	FOnBuildingCreatedSignature OnBuildingCreated;
+	FOnTileBoughtSignature OnTileBought;
 	FOnFireSignature OnFire;
 
 	void BuyCell(TScriptInterface<ICanBeOwned> Cell) override;

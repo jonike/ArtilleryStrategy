@@ -144,6 +144,13 @@ AActor* ADefaultPlayerController::SpawnBuildingActor(const TScriptInterface<IGri
 void ADefaultPlayerController::CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass)
 {
 	// TODO: create IGridPlatform::CreateBuilding(TSubclassOf<AActor>, TScriptInterface<IOwnerController>) method
+	const auto State = GetPlayerState<ADefaultPlayerState>();
+	check(State);
+	if (State->GetTurnLimits().GetBuildingsLimit().IsLimitReached())
+	{
+		return;
+	}
+
 	const auto DefaultBuildingObject = Cast<ICanBeOwned>(BuildingClass.GetDefaultObject());
 	check(DefaultBuildingObject);
 	if (TryToBuy(DefaultBuildingObject->GetResourcesToOwn()))
@@ -173,8 +180,17 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 
 void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 {
+	const auto State = GetPlayerState<ADefaultPlayerState>();
+	check(State);
+	if (State->GetTurnLimits().GetTilesLimit().IsLimitReached())
+	{
+		return;
+	}
+
 	if (TryToBuy(Cell->GetResourcesToOwn()))
 	{
+		// TODO: extract method
+		OnTileBought.Broadcast(Cell.GetObject());
 		Cell->SetOwnerController(this);
 	}
 }

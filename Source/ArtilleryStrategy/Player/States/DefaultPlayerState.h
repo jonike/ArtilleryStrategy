@@ -9,6 +9,8 @@
 #include "Interfaces/TurnDependent.h"
 #include "DefaultPlayerState.generated.h"
 
+class IGridPlatform;
+class IBuilding;
 class UResourceBuildingsManager;
 class UResourceStorage;
 /**
@@ -22,10 +24,12 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerState : public APlayerState, public IW
 public:
 	ADefaultPlayerState();
 
-	void ReceiveOnTurnStarted() override;
-
 	UFUNCTION(Category = "Wallet", BlueprintPure)
 	UResourceStorage* GetResourceWallet() const override { return Storage; }
+
+	void ReceiveOnTurnStarted() override;
+
+	auto& GetTurnLimits() { return TurnLimits; }
 
 	auto GetResourceBuildingsManager() const { return ResourceBuildingsManager; }
 
@@ -42,4 +46,10 @@ private:
 
 	UPROPERTY(Category="Turn limits", EditAnywhere)
 	FPlayerTurnLimits TurnLimits;
+
+	UFUNCTION()
+	void ReceiveOnBuildingCreated(TScriptInterface<IBuilding> Building);
+
+	UFUNCTION()
+	void ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile);
 };
