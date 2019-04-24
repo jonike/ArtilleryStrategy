@@ -29,5 +29,5 @@ public:
 	UFUNCTION()
 	virtual void ReceiveOnTurnEnded();
 
-	virtual UTurnProcessorComponent* GetTurnProcessor(UObject* Context) const;
+	virtual UTurnProcessorComponent* GetTurnProcessor(const UObject* Context) const;
 };

@@ -13,7 +13,7 @@ void ITurnDependent::ReceiveOnTurnEnded()
 }
 
 // Add default functionality here for any ITurnDependent functions that are not pure virtual.
-UTurnProcessorComponent* ITurnDependent::GetTurnProcessor(UObject* Context) const
+UTurnProcessorComponent* ITurnDependent::GetTurnProcessor(const UObject* Context) const
 {
 	const auto GameState = Context->GetWorld()->GetGameState<ADefaultGS>();
 	check(GameState);
