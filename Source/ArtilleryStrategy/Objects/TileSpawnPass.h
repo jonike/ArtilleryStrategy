@@ -6,7 +6,7 @@
 #include "Engine/DataAsset.h"
 #include "Interfaces/WorldGenerationPass.h"
 #include "SubclassOf.h"
-#include "PlainGridPass.generated.h"
+#include "TileSpawnPass.generated.h"
 
 class AActor;
 /**
