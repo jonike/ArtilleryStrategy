@@ -12,7 +12,6 @@ class AActor;
 /**
  * 
  */
-// TODO: rename to TileSpawnPass
 UCLASS(BlueprintType)
 class ARTILLERYSTRATEGY_API UPlainGridPass : public UDataAsset, public IWorldGenerationPass
 {
