@@ -27,6 +27,12 @@ public:
 	UFUNCTION(Category = "Wallet", BlueprintPure)
 	UResourceStorage* GetResourceWallet() const override { return Storage; }
 
+	UFUNCTION()
+	void ReceiveOnBuildingCreated(TScriptInterface<IBuilding> Building);
+
+	UFUNCTION()
+	void ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile);
+
 	void ReceiveOnTurnStarted() override;
 
 	auto& GetTurnLimits() { return TurnLimits; }
@@ -46,10 +52,4 @@ private:
 
 	UPROPERTY(Category="Turn limits", EditAnywhere)
 	FPlayerTurnLimits TurnLimits;
-
-	UFUNCTION()
-	void ReceiveOnBuildingCreated(TScriptInterface<IBuilding> Building);
-
-	UFUNCTION()
-	void ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile);
 };

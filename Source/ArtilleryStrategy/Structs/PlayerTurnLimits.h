@@ -17,8 +17,8 @@ struct ARTILLERYSTRATEGY_API FPlayerTurnLimits
 public:
 	void ResetAllLimits();
 
-	auto GetBuildingsLimit() const { return BuildingsLimit; }
-	auto GetTilesLimit() const { return TilesLimit; }
+	FValueLimit& GetBuildingsLimit() { return BuildingsLimit; }
+	FValueLimit& GetTilesLimit() { return TilesLimit; }
 
 private:
 	UPROPERTY(EditAnywhere)

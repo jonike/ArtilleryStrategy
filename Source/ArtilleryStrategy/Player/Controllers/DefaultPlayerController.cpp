@@ -163,6 +163,7 @@ void ADefaultPlayerController::CreateSelectedBuilding(TScriptInterface<IGridPlat
 			OwnedBuilding->SetOwnerController(this);
 		}
 		OnBuildingCreated.Broadcast(SpawnedBuilding);
+		State->ReceiveOnBuildingCreated(SpawnedBuilding);
 	}
 }
 
@@ -192,6 +193,9 @@ void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 		// TODO: extract method
 		OnTileBought.Broadcast(Cell.GetObject());
 		Cell->SetOwnerController(this);
+
+		// TODO: refactor buying new buildings and tiles
+		State->ReceiveOnTileBought(Cell.GetObject());
 	}
 }
 
