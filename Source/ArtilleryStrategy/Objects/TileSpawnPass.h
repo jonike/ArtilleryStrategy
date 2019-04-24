@@ -36,5 +36,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Generation, meta = (MustImplement = "GridPlatform"))
 	TSubclassOf<AActor> GridPlatformClass;
 
+	void GenerateGrid(FWorldParams& Params, int Rows, int Columns) const;
+	void ResizeTilesMatrix(FWorldParams& Params, int& Rows, int& Columns);
+	
+	FVector CalculateStartLocation(int Rows, int Columns) const;
 	AActor* SpawnPlatform(const FWorldParams& Params, const FVector& Location) const;
 };
