@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
 #include "Interfaces/HasSpringArm.h"
+#include "BasePawn.h"
 #include "DefaultPlayerPawn.generated.h"
 
 class UInputComponent;
 
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultPlayerPawn : public APawn, public IHasSpringArm
+class ARTILLERYSTRATEGY_API ADefaultPlayerPawn : public ABasePawn, public IHasSpringArm
 {
 	GENERATED_BODY()
 
@@ -32,8 +32,8 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, Category = Components)
-		class USpringArmComponent* SpringArmComponent;
+	class USpringArmComponent* SpringArmComponent;
 
 	UPROPERTY(EditAnywhere, Category = Components)
-		class UCameraComponent* CameraComponent;
+	class UCameraComponent* CameraComponent;
 };
