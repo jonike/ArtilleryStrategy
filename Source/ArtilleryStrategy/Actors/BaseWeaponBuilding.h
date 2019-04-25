@@ -23,7 +23,6 @@ public:
 	UFUNCTION()
 	void Fire() override;
 
-
 	void SetPlaneAngle(float Angle) override;
 	void SetHorizonAngle(float Angle) override;
 
@@ -32,6 +31,10 @@ public:
 protected:
 	void BeginPlay() override;
 	void Tick(float DeltaSeconds) override;
+	void PostInitializeComponents() override;
+
+	void ReceiveOnTurnStarted() override;
+	void ReceiveOnTurnEnded() override;
 
 private:
 	UPROPERTY(Category = Projectile, EditAnywhere, meta = (MustImplement = "Projectile"))
@@ -53,6 +56,7 @@ private:
 	USceneComponent* GunTip;
 
 	bool bIsSelected = false;
+	bool bFiredOnThisTurn = false;
 
 	UFUNCTION()
 	void ReceiveOnBuildingClicked(AActor* Actor, FKey Key);

@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Interfaces/Projectile.h"
 #include "Interfaces/FireManager.h"
+#include "Components/TurnProcessorComponent.h"
 
 ABaseWeaponBuilding::ABaseWeaponBuilding()
 {
@@ -22,7 +23,7 @@ void ABaseWeaponBuilding::BeginPlay()
 
 void ABaseWeaponBuilding::Tick(float DeltaSeconds)
 {
-	if (bIsSelected)
+	if (bIsSelected && IsReadyForFire())
 	{
 		FHitResult Hit;
 		if (GetWorld()->GetFirstPlayerController()->GetHitResultUnderCursor(ECC_Camera, true, Hit))
@@ -36,9 +37,20 @@ void ABaseWeaponBuilding::Tick(float DeltaSeconds)
 	}
 }
 
+void ABaseWeaponBuilding::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	const auto TurnProcessor = GetTurnProcessor(this);
+	TurnProcessor->OnTurnStarted.AddDynamic(this, &ABaseWeaponBuilding::ReceiveOnTurnStarted);
+	TurnProcessor->OnTurnEnded.AddDynamic(this, &ABaseWeaponBuilding::ReceiveOnTurnEnded);
+}
+
 void ABaseWeaponBuilding::ReceiveOnBuildingClicked(AActor*, FKey)
 {
-	bIsSelected = !bIsSelected;
+	if (IsReadyForFire())
+	{
+		bIsSelected = !bIsSelected;
+	}
 }
 
 void ABaseWeaponBuilding::PlanarLookAt(const FVector Location)
@@ -55,8 +67,10 @@ TScriptInterface<IFireManager> ABaseWeaponBuilding::GetFireManager() const
 
 void ABaseWeaponBuilding::Fire()
 {
-	if (bIsSelected)
+	if (bIsSelected && IsReadyForFire())
 	{
+		bFiredOnThisTurn = true;
+		bIsSelected = false;
 		const auto Spawned = GetWorld()->SpawnActor<AActor>(ProjectileClass, GunTip->GetComponentTransform());
 #if WITH_EDITOR
 		Spawned->SetFolderPath(TEXT("Projectiles"));
@@ -82,8 +96,17 @@ void ABaseWeaponBuilding::SetHorizonAngle(const float Angle)
 	SetActorRelativeRotation(Rotation);
 }
 
+void ABaseWeaponBuilding::ReceiveOnTurnStarted()
+{
+	bFiredOnThisTurn = false;
+}
+
+void ABaseWeaponBuilding::ReceiveOnTurnEnded()
+{
+	bIsSelected = false;
+}
+
 bool ABaseWeaponBuilding::IsReadyForFire() const
 {
-	// TODO: add actual implementation for IsReadyForFire()
-	return true;
+	return !bFiredOnThisTurn;
 }
