@@ -19,10 +19,10 @@ class ARTILLERYSTRATEGY_API UPlayerTurnLimitsWidget : public UUserWidget, public
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
-	void FillTilesLimit(FValueLimit& Limit);
+	void FillTilesLimit(const FValueLimit& Limit);
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void FillBuildingsLimit(FValueLimit& Limit);
+	void FillBuildingsLimit(const FValueLimit& Limit);
 
 	UFUNCTION()
 	void ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile);

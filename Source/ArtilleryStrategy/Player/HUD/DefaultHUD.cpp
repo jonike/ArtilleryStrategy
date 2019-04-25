@@ -9,6 +9,7 @@
 #include "Player/Controllers/DefaultPlayerController.h"
 #include "Widgets/ResourceStorageWidget.h"
 #include "Widgets/TurnWidget.h"
+#include "Widgets/PlayerTurnLimitsWidget.h"
 
 void ADefaultHUD::ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property)
 {
@@ -52,6 +53,8 @@ void ADefaultHUD::BeginPlay()
 {
 	TurnWidget = CreateWidget<UTurnWidget>(GetOwningPlayerController(), TurnWidgetClass);
 	TurnWidget->AddToViewport();
+	PlayerTurnLimitsWidget = CreateWidget<UPlayerTurnLimitsWidget>(GetOwningPlayerController(), PlayerTurnLimitsWidgetClass);
+	PlayerTurnLimitsWidget->AddToViewport();
 	ShowResourceStorageWidget();
 }
 

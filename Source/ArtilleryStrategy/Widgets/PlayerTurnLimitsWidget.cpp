@@ -34,6 +34,8 @@ void UPlayerTurnLimitsWidget::NativeConstruct()
 	check(PlayerState);
 	TilesLimit = PlayerState->GetTurnLimits().GetTilesLimit();
 	BuildingsLimit = PlayerState->GetTurnLimits().GetBuildingsLimit();
+	FillTilesLimit(TilesLimit);
+	FillBuildingsLimit(BuildingsLimit);
 }
 
 void UPlayerTurnLimitsWidget::ReceiveOnTurnStarted()
