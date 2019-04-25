@@ -21,11 +21,13 @@ public:
 	void Increment();
 	void Reset();
 
+	int GetValue() const { return Value; }
+	int GetMaxValue() const { return MaxValue; }
 	bool IsLimitReached() const;
 
 private:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	int Value = 0;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	int MaxValue = 1;
 };
