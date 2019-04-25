@@ -57,9 +57,10 @@ void ADefaultPlayerController::Zoom(const float Value)
 {
 	if (!FMath::IsNearlyZero(Value))
 	{
-		if (auto SpringArm = GetSpringArmComponent())
+		if (const auto SpringArm = GetSpringArmComponent())
 		{
-			SpringArm->TargetArmLength += Value * ZoomRate;
+			const auto DesiredLength = SpringArm->TargetArmLength + Value * ZoomRate;
+			SpringArm->TargetArmLength = FMath::Clamp(DesiredLength, MinZoomDistance, MaxZoomDistance);
 		}
 	}
 }

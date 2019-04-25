@@ -60,6 +60,10 @@ private:
 	float MaxMovementSpeed = 50.;
 	UPROPERTY(Category = Looking, EditAnywhere)
 	float ZoomRate = 200.;
+	UPROPERTY(Category = "Looking", EditAnywhere)
+	float MinZoomDistance = 0.f;
+	UPROPERTY(Category = "Looking", EditAnywhere)
+	float MaxZoomDistance = 1600.f;
 	UPROPERTY(Category = Property, EditAnywhere)
 	UMaterialInterface* PlayerMaterial;
 	UPROPERTY(Category = "Property", EditDefaultsOnly)
