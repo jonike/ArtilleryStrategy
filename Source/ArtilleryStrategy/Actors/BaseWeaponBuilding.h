@@ -31,8 +31,8 @@ public:
 protected:
 	void BeginPlay() override;
 	void Tick(float DeltaSeconds) override;
-	void PostInitializeComponents() override;
 
+	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
 	void ReceiveOnTurnStarted() override;
 	void ReceiveOnTurnEnded() override;
 

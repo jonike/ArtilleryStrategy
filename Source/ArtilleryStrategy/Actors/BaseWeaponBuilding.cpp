@@ -37,9 +37,9 @@ void ABaseWeaponBuilding::Tick(float DeltaSeconds)
 	}
 }
 
-void ABaseWeaponBuilding::PostInitializeComponents()
+void ABaseWeaponBuilding::PostPlaced(TScriptInterface<IGridPlatform> Tile)
 {
-	Super::PostInitializeComponents();
+	Super::PostPlaced(Tile);
 	const auto TurnProcessor = GetTurnProcessor(this);
 	TurnProcessor->OnTurnStarted.AddDynamic(this, &ABaseWeaponBuilding::ReceiveOnTurnStarted);
 	TurnProcessor->OnTurnEnded.AddDynamic(this, &ABaseWeaponBuilding::ReceiveOnTurnEnded);
