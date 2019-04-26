@@ -24,10 +24,12 @@ public:
 	// Sets default values for this component's properties
 	UGridGenerator();
 
-	void GenerateWorld();
-
 	FOnWorldGenerationStartSignature OnWorldGenerationStart;
 	FOnWorldGenerationEndSignature OnWorldGenerationEnd;
+
+	void GenerateWorld();
+
+	const FWorldParams& GetWorldParams() const;
 
 protected:
 	// Called when the game starts

@@ -38,3 +38,8 @@ void UGridGenerator::GenerateWorld()
 	}
 	OnWorldGenerationEnd.Broadcast();
 }
+
+const FWorldParams& UGridGenerator::GetWorldParams() const
+{
+	return WorldParams;
+}
