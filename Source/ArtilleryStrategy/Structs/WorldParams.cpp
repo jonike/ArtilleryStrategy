@@ -16,3 +16,28 @@ void FWorldParams::Initialize(UObject* Context, const int Rows, const int Column
 	TileMatrix->Resize(Rows, Columns);
 	HeightMatrix.Resize(Rows, Columns);
 }
+
+int FWorldParams::GetColumns() const
+{
+	return Columns;
+}
+
+UTileMatrix* FWorldParams::GetTileMatrix() const
+{
+	return TileMatrix;
+}
+
+UWorld* FWorldParams::GetCurrentWorld() const
+{
+	return CurrentWorld;
+}
+
+TMatrixContainer<int> FWorldParams::GetHeightMatrix() const
+{
+	return HeightMatrix;
+}
+
+int FWorldParams::GetRows() const
+{
+	return Rows;
+}

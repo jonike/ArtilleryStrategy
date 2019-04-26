@@ -18,6 +18,13 @@ struct ARTILLERYSTRATEGY_API FWorldParams
 	void Initialize(UObject* Context);
 	void Initialize(UObject* Context, int Rows, int Columns);
 
+	int GetRows() const;
+	int GetColumns() const;
+
+	UTileMatrix* GetTileMatrix() const;
+	UWorld* GetCurrentWorld() const;
+	TMatrixContainer<int> GetHeightMatrix() const;
+
 	UPROPERTY(VisibleInstanceOnly)
 	UTileMatrix* TileMatrix;
 
@@ -26,4 +33,8 @@ struct ARTILLERYSTRATEGY_API FWorldParams
 
 	// TODO: change to TMatrixContainer<FTileData> DataMatrix;
 	TMatrixContainer<int> HeightMatrix;
+
+private:
+	int Rows = 0;
+	int Columns = 0;
 };
