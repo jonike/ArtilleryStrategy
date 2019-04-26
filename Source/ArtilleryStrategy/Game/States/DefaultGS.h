@@ -27,12 +27,17 @@ class ARTILLERYSTRATEGY_API ADefaultGS : public AGameStateBase
 public:
 	ADefaultGS();
 
+	UFUNCTION(BlueprintCallable)
 	UTurnProcessorComponent* GetTurnProcessor() const;
-	auto GetTileMeshSpawner() const { return TileMeshSpawner; }
+
+	UFUNCTION(BlueprintCallable)
+	AInstancedMeshSpawner* GetTileMeshSpawner() const;
+
+	UFUNCTION(BlueprintCallable)
+	UGridGenerator* GetGridGenerator() const;
 
 protected:
 	void PostInitializeComponents() override;
-
 	void BeginPlay() override;
 
 private:

@@ -17,6 +17,16 @@ UTurnProcessorComponent* ADefaultGS::GetTurnProcessor() const
 	return TurnProcessorComponent;
 }
 
+AInstancedMeshSpawner* ADefaultGS::GetTileMeshSpawner() const
+{
+	return TileMeshSpawner;
+}
+
+UGridGenerator* ADefaultGS::GetGridGenerator() const
+{
+	return GridGenerator;
+}
+
 void ADefaultGS::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
