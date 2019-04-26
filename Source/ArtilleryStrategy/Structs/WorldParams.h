@@ -35,6 +35,6 @@ struct ARTILLERYSTRATEGY_API FWorldParams
 	TMatrixContainer<int> HeightMatrix;
 
 private:
-	int Rows = 0;
-	int Columns = 0;
+	int WorldRows = 0;
+	int WorldColumns = 0;
 };
