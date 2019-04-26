@@ -15,6 +15,8 @@ class ARTILLERYSTRATEGY_API UFindBestResourceTile : public UBTTaskNode
 	GENERATED_BODY()
 
 public:
+	UFindBestResourceTile();
+
 	EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 	void OnGameplayTaskActivated(UGameplayTask& Task) override;
