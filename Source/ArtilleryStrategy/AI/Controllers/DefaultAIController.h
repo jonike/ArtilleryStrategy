@@ -13,5 +13,15 @@ UCLASS()
 class ARTILLERYSTRATEGY_API ADefaultAIController : public AAIController
 {
 	GENERATED_BODY()
-	
+
+public:
+protected:
+	void BeginPlay() override;
+
+private:
+	UPROPERTY(Category = "Behavior", EditAnywhere)
+	UBehaviorTree* TurnBehavior;
+
+	UPROPERTY(Category = "Behavior", EditAnywhere)
+	UBlackboardData* BlackboardData;
 };
