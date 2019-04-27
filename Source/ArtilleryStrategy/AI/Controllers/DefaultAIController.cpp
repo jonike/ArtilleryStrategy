@@ -7,6 +7,11 @@
 #include "Interfaces/CanBeOwned.h"
 #include "Interfaces/GridPlatform.h"
 
+ADefaultAIController::ADefaultAIController()
+{
+	bWantsPlayerState = true;
+}
+
 UMaterialInterface* ADefaultAIController::GetOwnerMaterial() const
 {
 	return OwnerMaterial;

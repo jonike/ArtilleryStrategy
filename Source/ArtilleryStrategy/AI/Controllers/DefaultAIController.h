@@ -18,6 +18,8 @@ class ARTILLERYSTRATEGY_API ADefaultAIController : public AAIController, public 
 	GENERATED_BODY()
 
 public:
+	ADefaultAIController();
+
 	UMaterialInterface* GetOwnerMaterial() const override;
 	UTexture2D* GetOwnerIcon() const override;
 	TScriptInterface<IWallet> GetWallet() const override;
