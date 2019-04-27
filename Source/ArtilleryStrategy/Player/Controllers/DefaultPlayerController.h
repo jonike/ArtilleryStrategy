@@ -8,6 +8,7 @@
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyBuildings.h"
 #include "Interfaces/FireManager.h"
+#include "Interfaces/NeedsBuyWidget.h"
 #include "DefaultPlayerController.generated.h"
 
 class UUserWidget;
@@ -22,7 +23,7 @@ class ADefaultHUD;
  *
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells, public IOwnerController, public ICanBuyBuildings, public IFireManager
+class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells, public IOwnerController, public ICanBuyBuildings, public IFireManager, public INeedsBuyWidget
 {
 	GENERATED_BODY()
 

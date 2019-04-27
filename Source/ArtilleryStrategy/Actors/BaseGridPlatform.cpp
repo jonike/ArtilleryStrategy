@@ -4,7 +4,6 @@
 #include "ArtilleryStrategy.h"
 #include "Engine/World.h"
 #include "Interfaces/OwnerController.h"
-#include "Interfaces/CanBuyCells.h"
 #include "Components/BoxComponent.h"
 #include "Components/BillboardComponent.h"
 #include "Structs/ResourceDeposit.h"
@@ -13,6 +12,7 @@
 #include "Components/HierarchicalInstancedStaticMeshComponent.h"
 #include "Game/States/DefaultGS.h"
 #include "InstancedMeshSpawner.h"
+#include "Interfaces/NeedsBuyWidget.h"
 
 // Sets default values
 ABaseGridPlatform::ABaseGridPlatform()
@@ -44,7 +44,7 @@ void ABaseGridPlatform::BeginPlay()
 void ABaseGridPlatform::ReceiveOnClicked(AActor*, FKey)
 {
 	const auto PlayerController = GetWorld()->GetFirstPlayerController();
-	if (auto ControllerThatCanBuy = Cast<ICanBuyCells>(PlayerController))
+	if (auto ControllerThatCanBuy = Cast<INeedsBuyWidget>(PlayerController))
 	{
 		ControllerThatCanBuy->ShowBuyWidget(this);
 	}
