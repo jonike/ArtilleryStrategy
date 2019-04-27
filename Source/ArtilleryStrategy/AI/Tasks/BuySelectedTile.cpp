@@ -50,6 +50,10 @@ EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerC
 		if (const auto Cell = Cast<ICanBeOwned>(ObjectToBuy))
 		{
 			DefaultController->BuyCell(ObjectToBuy);
+			if (bShouldClearSelectedTile)
+			{
+				OwnerComp.GetBlackboardComponent()->SetValueAsObject(SelectedTile.SelectedKeyName, nullptr);
+			}
 			return EBTNodeResult::Succeeded;
 		}
 	}

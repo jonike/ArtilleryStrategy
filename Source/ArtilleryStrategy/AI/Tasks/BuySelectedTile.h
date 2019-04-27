@@ -26,5 +26,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	FBlackboardKeySelector SelectedTile;
 
+	UPROPERTY(EditAnywhere)
+	bool bShouldClearSelectedTile = true;
+
 	EBTNodeResult::Type BuySelected(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, UObject* ObjectToBuy) const;
 };
