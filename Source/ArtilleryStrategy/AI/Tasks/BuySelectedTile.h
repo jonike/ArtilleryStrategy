@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(Abstract)
+UCLASS()
 class ARTILLERYSTRATEGY_API UBuySelectedTile : public UBTTaskNode
 {
 	GENERATED_BODY()
@@ -22,10 +22,9 @@ public:
 
 	void OnGameplayTaskActivated(UGameplayTask& Task) override;
 
-protected:
-	virtual EBTNodeResult::Type BuySelected(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, UObject* ObjectToBuy);
-
 private:
 	UPROPERTY(EditAnywhere)
-	FBlackboardKeySelector Selected;
+	FBlackboardKeySelector SelectedTile;
+
+	EBTNodeResult::Type BuySelected(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, UObject* ObjectToBuy) const;
 };
