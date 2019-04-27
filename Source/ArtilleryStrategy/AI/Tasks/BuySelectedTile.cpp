@@ -1,19 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BuySelected.h"
+#include "BuySelectedTile.h"
 #include "Interfaces/GridPlatform.h"
 #include "AIController.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Interfaces/CanBeOwned.h"
 
-UBuySelected::UBuySelected()
+UBuySelectedTile::UBuySelectedTile()
 {
-	Selected.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UBuySelected, Selected), UCanBeOwned::StaticClass());
+	Selected.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UBuySelectedTile, Selected), UCanBeOwned::StaticClass());
 }
 
-EBTNodeResult::Type UBuySelected::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UBuySelectedTile::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	const auto Controller = OwnerComp.GetAIOwner();
 	const auto PlayerState = Controller->GetPlayerState<ADefaultPlayerState>();
@@ -35,16 +35,16 @@ EBTNodeResult::Type UBuySelected::ExecuteTask(UBehaviorTreeComponent& OwnerComp,
 	return EBTNodeResult::Failed;
 }
 
-void UBuySelected::OnGameplayTaskActivated(UGameplayTask& Task)
+void UBuySelectedTile::OnGameplayTaskActivated(UGameplayTask& Task)
 {
 }
 
-EBTNodeResult::Type UBuySelected::BuySelected(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, UObject* ObjectToBuy)
+EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, UObject* ObjectToBuy)
 {
 	return EBTNodeResult::Failed;
 }
 
-EBTNodeResult::Type UBuySelected::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UBuySelectedTile::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	return EBTNodeResult::Aborted;
 }

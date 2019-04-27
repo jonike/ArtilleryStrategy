@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "BuySelected.generated.h"
+#include "BuySelectedTile.generated.h"
 
 /**
  * 
  */
 UCLASS(Abstract)
-class ARTILLERYSTRATEGY_API UBuySelected : public UBTTaskNode
+class ARTILLERYSTRATEGY_API UBuySelectedTile : public UBTTaskNode
 {
 	GENERATED_BODY()
 
 public:
-	UBuySelected();
+	UBuySelectedTile();
 
 	EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	EBTNodeResult::Type AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
