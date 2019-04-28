@@ -6,10 +6,12 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "SelectBuildingClass.generated.h"
 
+class IGridPlatform;
+
 /**
  *
  */
-UCLASS(Abstract)
+UCLASS()
 class ARTILLERYSTRATEGY_API USelectBuildingClass : public UBTTaskNode
 {
 	GENERATED_BODY()
@@ -23,16 +25,16 @@ public:
 	void OnGameplayTaskActivated(UGameplayTask& Task) override;
 
 protected:
-	UFUNCTION(BlueprintNativeEvent)
-	virtual void SelectClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, TScriptInterface<IGridPlatform> Tile);
+	virtual void SelectClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
 
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	virtual void SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, TScriptInterface<ICanBeOwned> Tile);
+	virtual void SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
 
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	virtual void SelectEnegryBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, TScriptInterface<ICanBeOwned> Tile);
+	virtual void SelectEnegryBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
 
 private:
+	UPROPERTY(Category = "Input", EditAnywhere)
+	UDataTable* ResourceBuildings;
+
 	UPROPERTY(Category = "Input", EditAnywhere)
 	FBlackboardKeySelector SelectedTile;
 

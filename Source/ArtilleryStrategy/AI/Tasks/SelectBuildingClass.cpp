@@ -11,8 +11,12 @@
 
 USelectBuildingClass::USelectBuildingClass()
 {
+	SelectedTile.AllowNoneAsValue(false);
 	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, SelectedTile), UGridPlatform::StaticClass());
 	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, SelectedTile), UCanBeOwned::StaticClass());
+
+	BuildingClass.AllowNoneAsValue(false);
+	// TODO: fix AddClassFilter() not working
 	BuildingClass.AddClassFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, BuildingClass), UBuilding::StaticClass());
 	BuildingClass.AddClassFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, BuildingClass), UCanBeOwned::StaticClass());
 }
@@ -23,7 +27,7 @@ EBTNodeResult::Type USelectBuildingClass::ExecuteTask(UBehaviorTreeComponent& Ow
 	{
 		if (const auto Tile = Cast<IGridPlatform>(TileObject))
 		{
-			SelectClass(OwnerComp, NodeMemory, Tile);
+			SelectClass(OwnerComp, NodeMemory, TileObject);
 		}
 	}
 	return EBTNodeResult::Failed;
@@ -39,7 +43,18 @@ void USelectBuildingClass::OnGameplayTaskActivated(UGameplayTask& Task)
 
 }
 
-void USelectBuildingClass::SelectClass_Implementation(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, TScriptInterface<IGridPlatform> Tile)
+void USelectBuildingClass::SelectClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
 {
-	
+	// TODO: switch on what kind of resources tile has
+	SelectMineralBuildingClass(OwnerComp, NodeMemory, Tile);
+}
+
+void USelectBuildingClass::SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
+{
+	// TODO: provide logic for selecting mineral building class
+}
+
+void USelectBuildingClass::SelectEnegryBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
+{
+	// TODO: provide logic for selecting energy building class
 }
