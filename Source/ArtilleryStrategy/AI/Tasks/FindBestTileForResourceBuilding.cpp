@@ -23,14 +23,10 @@ UFindBestTileForResourceBuilding::UFindBestTileForResourceBuilding()
 
 EBTNodeResult::Type UFindBestTileForResourceBuilding::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	const auto Controller = OwnerComp.GetAIOwner();
-	if (const auto PlayerState = Controller->GetPlayerState<ADefaultPlayerState>())
+	if (const auto GameState = OwnerComp.GetWorld()->GetGameState<ADefaultGS>())
 	{
-		if (const auto GameState = OwnerComp.GetWorld()->GetGameState<ADefaultGS>())
-		{
-			const auto& WorldParams = GameState->GetGridGenerator()->GetWorldParams();
-			return GetBestResourceTile(OwnerComp, NodeMemory, WorldParams);
-		}
+		const auto& WorldParams = GameState->GetGridGenerator()->GetWorldParams();
+		return GetBestResourceTile(OwnerComp, NodeMemory, WorldParams);
 	}
 	return EBTNodeResult::Failed;
 }
