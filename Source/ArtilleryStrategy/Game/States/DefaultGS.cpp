@@ -8,7 +8,7 @@
 
 ADefaultGS::ADefaultGS()
 {
-	GridGenerator = CreateDefaultSubobject<UGridGenerator>(TEXT("Grid Generator"));
+	WorldGenerator = CreateDefaultSubobject<UWorldGenerator>(TEXT("Grid Generator"));
 	TurnProcessorComponent = CreateDefaultSubobject<UTurnProcessorComponent>(TEXT("Turn processor component"));
 }
 
@@ -22,9 +22,9 @@ AInstancedMeshSpawner* ADefaultGS::GetTileMeshSpawner() const
 	return TileMeshSpawner;
 }
 
-UGridGenerator* ADefaultGS::GetGridGenerator() const
+UWorldGenerator* ADefaultGS::GetWorldGenerator() const
 {
-	return GridGenerator;
+	return WorldGenerator;
 }
 
 void ADefaultGS::PostInitializeComponents()

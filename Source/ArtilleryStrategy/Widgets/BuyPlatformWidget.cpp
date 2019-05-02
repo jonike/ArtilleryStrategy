@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BuyPlatformWidget.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 
 void UBuyPlatformWidget::BuyCell() const
 {
@@ -13,7 +13,7 @@ void UBuyPlatformWidget::CloseBuyWidget() const
 	OnCloseClicked.Broadcast();
 }
 
-void UBuyPlatformWidget::SetPropertyToBuy(TScriptInterface<ICanBeOwned> Property)
+void UBuyPlatformWidget::SetPropertyToBuy(TScriptInterface<IPlayerProperty> Property)
 {
 	PropertyToBuy = Property;
 }

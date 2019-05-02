@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Interfaces/GridPlatform.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 #include "Interfaces/OwnerController.h"
 #include "Structs/ResourceDeposit.h"
 #include "BaseGridPlatform.generated.h"
@@ -19,7 +19,7 @@ class AInstancedMeshSpawner;
  * \brief A base class for all tile classes
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IGridPlatform, public ICanBeOwned
+class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IGridPlatform, public IPlayerProperty
 {
 	GENERATED_BODY()
 

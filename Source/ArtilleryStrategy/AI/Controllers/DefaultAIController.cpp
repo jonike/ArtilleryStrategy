@@ -4,7 +4,7 @@
 #include "DefaultAIController.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "Player/States/DefaultPlayerState.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 #include "Interfaces/GridPlatform.h"
 
 ADefaultAIController::ADefaultAIController()
@@ -27,7 +27,7 @@ TScriptInterface<IWallet> ADefaultAIController::GetWallet() const
 	return GetPlayerState<ADefaultPlayerState>();
 }
 
-void ADefaultAIController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
+void ADefaultAIController::BuyCell(TScriptInterface<IPlayerProperty> Cell)
 {
 	// TODO: copy pasted from player controller
 	const auto State = GetPlayerState<ADefaultPlayerState>();
@@ -90,7 +90,7 @@ bool ADefaultAIController::TryToBuyWithPack(const FResourcePack& ResourcePack) c
 bool ADefaultAIController::TryToBuyDefaultBuilding(const TSubclassOf<AActor> BuildingClass) const
 {
 	// TODO: copy pasted from player controller
-	const auto DefaultBuildingObject = Cast<ICanBeOwned>(BuildingClass.GetDefaultObject());
+	const auto DefaultBuildingObject = Cast<IPlayerProperty>(BuildingClass.GetDefaultObject());
 	check(DefaultBuildingObject);
 	return TryToBuyWithPack(DefaultBuildingObject->GetResourcesToOwn());
 }

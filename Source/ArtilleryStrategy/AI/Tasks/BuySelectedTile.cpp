@@ -5,14 +5,14 @@
 #include "AIController.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "AI/Controllers/DefaultAIController.h"
 #include "Libraries/ASLibrary.h"
 
 UBuySelectedTile::UBuySelectedTile()
 {
-	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UBuySelectedTile, SelectedTile), UCanBeOwned::StaticClass());
+	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UBuySelectedTile, SelectedTile), UPlayerProperty::StaticClass());
 	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UBuySelectedTile, SelectedTile), UGridPlatform::StaticClass());
 }
 
@@ -25,7 +25,7 @@ EBTNodeResult::Type UBuySelectedTile::ExecuteTask(UBehaviorTreeComponent& OwnerC
 		if (const auto StoredObject = OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelectedTile.SelectedKeyName))
 		{
 			// The stored objects has correct type
-			if (const auto Tile = Cast<ICanBeOwned>(StoredObject))
+			if (const auto Tile = Cast<IPlayerProperty>(StoredObject))
 			{
 				// Have enough resources
 				if (PlayerState->GetResourceWallet()
@@ -51,7 +51,7 @@ EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerC
 	if (const auto Controller = Cast<ICanBuyCells>(OwnerComp.GetAIOwner()))
 	{
 		// Object can be bought
-		if (Cast<ICanBeOwned>(ObjectToBuy))
+		if (Cast<IPlayerProperty>(ObjectToBuy))
 		{
 			// Can buy tiles on this turn
 			if (!UASLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner())

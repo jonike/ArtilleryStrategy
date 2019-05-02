@@ -4,7 +4,7 @@
 
 #include "GameFramework/Actor.h"
 #include "Interfaces/Building.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 #include "Interfaces/TurnDependent.h"
 #include "BaseBuilding.generated.h"
 
@@ -12,7 +12,7 @@
  * \brief Base class for all buildings
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ABaseBuilding : public AActor, public IBuilding, public ICanBeOwned, public ITurnDependent
+class ARTILLERYSTRATEGY_API ABaseBuilding : public AActor, public IBuilding, public IPlayerProperty, public ITurnDependent
 {
 	GENERATED_BODY()
 

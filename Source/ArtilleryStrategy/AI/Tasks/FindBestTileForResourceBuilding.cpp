@@ -3,7 +3,7 @@
 
 #include "FindBestTileForResourceBuilding.h"
 #include "Interfaces/GridPlatform.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 #include "AIController.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "Game/States/DefaultGS.h"
@@ -18,14 +18,14 @@
 UFindBestTileForResourceBuilding::UFindBestTileForResourceBuilding()
 {
 	ResultTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestTileForResourceBuilding, ResultTile), UGridPlatform::StaticClass());
-	ResultTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestTileForResourceBuilding, ResultTile), UCanBeOwned::StaticClass());
+	ResultTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestTileForResourceBuilding, ResultTile), UPlayerProperty::StaticClass());
 }
 
 EBTNodeResult::Type UFindBestTileForResourceBuilding::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	if (const auto GameState = OwnerComp.GetWorld()->GetGameState<ADefaultGS>())
 	{
-		const auto& WorldParams = GameState->GetGridGenerator()->GetWorldParams();
+		const auto& WorldParams = GameState->GetWorldGenerator()->GetWorldParams();
 		return GetBestResourceTile(OwnerComp, NodeMemory, WorldParams);
 	}
 	return EBTNodeResult::Failed;
@@ -49,7 +49,7 @@ EBTNodeResult::Type UFindBestTileForResourceBuilding::GetBestResourceTile(UBehav
 		for (auto Column = 0; Column < Params.GetColumns(); ++Column)
 		{
 			const auto Tile = Params.TileMatrix->Get(Row, Column).GetObject();
-			if (const auto OwnedTile = Cast<ICanBeOwned>(Tile))
+			if (const auto OwnedTile = Cast<IPlayerProperty>(Tile))
 			{
 				const auto TileOwner = OwnedTile->GetOwnerController().GetObject();
 				if (TileOwner == SelfOwner)

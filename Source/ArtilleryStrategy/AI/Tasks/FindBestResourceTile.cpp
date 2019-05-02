@@ -22,7 +22,7 @@ EBTNodeResult::Type UFindBestResourceTile::ExecuteTask(UBehaviorTreeComponent& O
 	// TODO: rewrite to find best tile
 	const auto GameState = GetWorld()->GetGameState<ADefaultGS>();
 	check(GameState);
-	const auto& Params = GameState->GetGridGenerator()->GetWorldParams();
+	const auto& Params = GameState->GetWorldGenerator()->GetWorldParams();
 	const auto Row = FMath::RandRange(0, Params.GetRows() - 1);
 	const auto Column = FMath::RandRange(0, Params.GetColumns() - 1);
 	const auto Tile = Params.GetTileMatrix()->Get(Row, Column);

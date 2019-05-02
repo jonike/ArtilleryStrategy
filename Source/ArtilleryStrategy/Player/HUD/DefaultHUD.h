@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
 #include "DefaultHUD.generated.h"
 
@@ -14,7 +13,7 @@ class ICanBuyBuildings;
 class UUserWidget;
 class UBuyPlatformWidget;
 class UBuildingSelectorWidget;
-class ICanBeOwned;
+class IPlayerProperty;
 class ICanBuyCells;
 
 /**
@@ -26,7 +25,7 @@ class ARTILLERYSTRATEGY_API ADefaultHUD : public AHUD
 	GENERATED_BODY()
 
 public:
-	void ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property);
+	void ShowBuyCellWidget(TScriptInterface<IPlayerProperty> Property);
 	void ShowBuildingSelectorWidget(TScriptInterface<IGridPlatform> Cell);
 	void HideBuyWidget();
 	bool IsBuyWidgetsVisible() const;
@@ -63,7 +62,7 @@ private:
 	UPlayerTurnLimitsWidget* PlayerTurnLimitsWidget;
 
 	UFUNCTION()
-	void ReceiveOnBuyCellClicked(TScriptInterface<ICanBeOwned> Property);
+	void ReceiveOnBuyCellClicked(TScriptInterface<IPlayerProperty> Property);
 	UFUNCTION()
 	void ReceiveOnBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass);
 	UFUNCTION()

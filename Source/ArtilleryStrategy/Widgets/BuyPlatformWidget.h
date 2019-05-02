@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 #include "BuyPlatformWidget.generated.h"
 
 /**
@@ -16,9 +16,9 @@ class ARTILLERYSTRATEGY_API UBuyPlatformWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	void SetPropertyToBuy(TScriptInterface<ICanBeOwned> Property);
+	void SetPropertyToBuy(TScriptInterface<IPlayerProperty> Property);
 
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuyClickedSignature, TScriptInterface<ICanBeOwned>, Property);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuyClickedSignature, TScriptInterface<IPlayerProperty>, Property);
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseClickedSignature);
 
@@ -33,5 +33,5 @@ protected:
 	void CloseBuyWidget() const;
 
 private:
-	TScriptInterface<ICanBeOwned> PropertyToBuy;
+	TScriptInterface<IPlayerProperty> PropertyToBuy;
 };

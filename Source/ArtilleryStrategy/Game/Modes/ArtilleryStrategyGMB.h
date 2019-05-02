@@ -2,12 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "ArtilleryStrategyGMB.generated.h"
 
 /**
- *
+ * \brief Base class for all game modes
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API AArtilleryStrategyGMB : public AGameModeBase

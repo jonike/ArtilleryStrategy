@@ -5,7 +5,7 @@
 #include "Objects/TileMatrix.h"
 
 // Sets default values for this component's properties
-UGridGenerator::UGridGenerator()
+UWorldGenerator::UWorldGenerator()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -13,21 +13,21 @@ UGridGenerator::UGridGenerator()
 }
 
 // Called when the game starts
-void UGridGenerator::BeginPlay()
+void UWorldGenerator::BeginPlay()
 {
 	Super::BeginPlay();
 	GenerateWorld();
 }
 
 // Called every frame
-void UGridGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UWorldGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
 }
 
-void UGridGenerator::GenerateWorld()
+void UWorldGenerator::GenerateWorld()
 {
 	OnWorldGenerationStart.Broadcast();
 	// TODO: having to explicitly call initialize method
@@ -39,7 +39,7 @@ void UGridGenerator::GenerateWorld()
 	OnWorldGenerationEnd.Broadcast();
 }
 
-const FWorldParams& UGridGenerator::GetWorldParams() const
+const FWorldParams& UWorldGenerator::GetWorldParams() const
 {
 	return WorldParams;
 }

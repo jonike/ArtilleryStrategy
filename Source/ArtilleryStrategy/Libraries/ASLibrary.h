@@ -11,7 +11,7 @@
 class AController;
 class IWallet;
 class IOwnerController;
-class UGridGenerator;
+class UWorldGenerator;
 class IFireManager;
 /**
  * 
@@ -29,7 +29,7 @@ public:
 	static TScriptInterface<IFireManager> GetFireManagerForPawn(APawn* Pawn);
 
 	UFUNCTION(BlueprintCallable)
-	static UGridGenerator* GetMapGenerator(UObject* Object);
+	static UWorldGenerator* GetMapGenerator(UObject* Object);
 
 	UFUNCTION(BlueprintCallable)
 	static TScriptInterface<IWallet> GetWalletForActor(AActor* Actor);

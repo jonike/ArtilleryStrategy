@@ -23,14 +23,14 @@ TScriptInterface<IFireManager> UASLibrary::GetFireManagerForPawn(APawn* Pawn)
 	return Pawn->GetController();
 }
 
-UGridGenerator* UASLibrary::GetMapGenerator(UObject* Object)
+UWorldGenerator* UASLibrary::GetMapGenerator(UObject* Object)
 {
 	check(Object);
 	const auto World = Object->GetWorld();
 	check(World);
 	const auto GameState = World->GetGameState<ADefaultGS>();
 	check(GameState);
-	return GameState->GetGridGenerator();
+	return GameState->GetWorldGenerator();
 }
 
 TScriptInterface<IWallet> UASLibrary::GetWalletForActor(AActor* Actor)

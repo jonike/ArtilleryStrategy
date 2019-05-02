@@ -7,7 +7,7 @@
 #include "CanBuyCells.generated.h"
 
 class IGridPlatform;
-class ICanBeOwned;
+class IPlayerProperty;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -25,5 +25,5 @@ class ARTILLERYSTRATEGY_API ICanBuyCells
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void BuyCell(TScriptInterface<ICanBeOwned> Cell) = 0;
+	virtual void BuyCell(TScriptInterface<IPlayerProperty> Cell) = 0;
 };

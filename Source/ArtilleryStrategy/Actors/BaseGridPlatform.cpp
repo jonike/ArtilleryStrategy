@@ -103,7 +103,7 @@ TScriptInterface<IBuilding> ABaseGridPlatform::CreateBuilding(TSubclassOf<AActor
 {
 	const auto SpawnedBuilding = SpawnBuildingActor(BuildingClass);
 	SetBuilding(SpawnedBuilding);
-	if (const auto OwnedBuilding = Cast<ICanBeOwned>(SpawnedBuilding))
+	if (const auto OwnedBuilding = Cast<IPlayerProperty>(SpawnedBuilding))
 	{
 		OwnedBuilding->SetOwnerController(GetOwnerController());
 	}

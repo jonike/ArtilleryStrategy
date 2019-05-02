@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "Building.generated.h"
 
@@ -16,7 +15,7 @@ class UBuilding : public UInterface
 };
 
 /**
- *
+ *	\brief Represents building
  */
 class ARTILLERYSTRATEGY_API IBuilding
 {
@@ -24,6 +23,15 @@ class ARTILLERYSTRATEGY_API IBuilding
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	/**
+	 * \brief Actions before building was placed on the tile
+	 * \param Tile where building was placed
+	 */
 	virtual void PrePlaced(TScriptInterface<IGridPlatform> Tile) = 0;
+
+	/**
+	 * \brief Actions after the building was placed
+	 * \param Tile where building was placed
+	 */
 	virtual void PostPlaced(TScriptInterface<IGridPlatform> Tile) = 0;
 };

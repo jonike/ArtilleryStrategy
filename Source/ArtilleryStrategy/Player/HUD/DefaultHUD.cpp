@@ -11,7 +11,7 @@
 #include "Widgets/TurnWidget.h"
 #include "Widgets/PlayerTurnLimitsWidget.h"
 
-void ADefaultHUD::ShowBuyCellWidget(TScriptInterface<ICanBeOwned> Property)
+void ADefaultHUD::ShowBuyCellWidget(TScriptInterface<IPlayerProperty> Property)
 {
 	HideBuyWidget();
 	if (!BuyCellWidget)
@@ -58,7 +58,7 @@ void ADefaultHUD::BeginPlay()
 	ShowResourceStorageWidget();
 }
 
-void ADefaultHUD::ReceiveOnBuyCellClicked(TScriptInterface<ICanBeOwned> Property)
+void ADefaultHUD::ReceiveOnBuyCellClicked(TScriptInterface<IPlayerProperty> Property)
 {
 	check(Property.GetInterface());
 	auto Buyer = GetCellBuyer();

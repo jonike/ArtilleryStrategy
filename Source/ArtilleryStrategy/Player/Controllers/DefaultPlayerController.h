@@ -38,9 +38,9 @@ public:
 	FOnTileBoughtSignature OnTileBought;
 	FOnFireSignature OnFire;
 
-	void BuyCell(TScriptInterface<ICanBeOwned> Cell) override;
+	void BuyCell(TScriptInterface<IPlayerProperty> Cell) override;
 	void HideBuyWidget() override;
-	void ShowBuyWidget(TScriptInterface<ICanBeOwned> PropertyToBuy) override;
+	void ShowBuyWidget(TScriptInterface<IPlayerProperty> PropertyToBuy) override;
 	bool IsBuyWidgetVisible() const override;
 
 	UTexture2D* GetOwnerIcon() const override;

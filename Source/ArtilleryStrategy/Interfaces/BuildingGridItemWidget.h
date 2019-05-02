@@ -16,7 +16,7 @@ class UBuildingGridItemWidget : public UInterface
 };
 
 /**
- *
+ *	\brief Store widget that shows info about one building that player can buy
  */
 class ARTILLERYSTRATEGY_API IBuildingGridItemWidget
 {
@@ -24,6 +24,15 @@ class ARTILLERYSTRATEGY_API IBuildingGridItemWidget
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	/**
+	 * \brief 
+	 * \param RowName DataTable row name for current building
+	 * \param BuildingData info about current building
+	 */
 	virtual void SetupWidget(FName RowName, FBuildingData& BuildingData) = 0;
+
+	/**
+	 * \brief Create selected widget
+	 */
 	virtual void SpawnBuilding() = 0;
 };

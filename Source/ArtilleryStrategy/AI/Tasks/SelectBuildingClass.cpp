@@ -3,7 +3,7 @@
 
 #include "SelectBuildingClass.h"
 #include "Interfaces/GridPlatform.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 #include "Interfaces/Building.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -14,12 +14,12 @@ USelectBuildingClass::USelectBuildingClass()
 {
 	SelectedTile.AllowNoneAsValue(false);
 	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, SelectedTile), UGridPlatform::StaticClass());
-	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, SelectedTile), UCanBeOwned::StaticClass());
+	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, SelectedTile), UPlayerProperty::StaticClass());
 
 	BuildingClass.AllowNoneAsValue(false);
 	// TODO: fix AddClassFilter() not working
 	BuildingClass.AddClassFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, BuildingClass), UBuilding::StaticClass());
-	BuildingClass.AddClassFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, BuildingClass), UCanBeOwned::StaticClass());
+	BuildingClass.AddClassFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, BuildingClass), UPlayerProperty::StaticClass());
 }
 
 EBTNodeResult::Type USelectBuildingClass::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

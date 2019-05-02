@@ -23,7 +23,7 @@ public:
 	UTexture2D* GetOwnerIcon() const override;
 	TScriptInterface<IWallet> GetWallet() const override;
 
-	void BuyCell(TScriptInterface<ICanBeOwned> Cell) override;
+	void BuyCell(TScriptInterface<IPlayerProperty> Cell) override;
 	void CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
 
 protected:

@@ -11,7 +11,7 @@
 #include "Interfaces/GridPlatform.h"
 #include "Actors/BaseWeaponBuilding.h"
 #include "Objects/ResourceStorage.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 
 ADefaultPlayerController::ADefaultPlayerController()
 {
@@ -88,7 +88,7 @@ bool ADefaultPlayerController::TryToBuyWithPack(const FResourcePack& ResourcePac
 
 bool ADefaultPlayerController::TryToBuyDefaultBuilding(const TSubclassOf<AActor> BuildingClass) const
 {
-	const auto DefaultBuildingObject = Cast<ICanBeOwned>(BuildingClass.GetDefaultObject());
+	const auto DefaultBuildingObject = Cast<IPlayerProperty>(BuildingClass.GetDefaultObject());
 	check(DefaultBuildingObject);
 	return TryToBuyWithPack(DefaultBuildingObject->GetResourcesToOwn());
 }
@@ -167,7 +167,7 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 	return nullptr;
 }
 
-void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
+void ADefaultPlayerController::BuyCell(TScriptInterface<IPlayerProperty> Cell)
 {
 	const auto State = GetPlayerState<ADefaultPlayerState>();
 	check(State);
@@ -184,7 +184,7 @@ void ADefaultPlayerController::BuyCell(TScriptInterface<ICanBeOwned> Cell)
 	}
 }
 
-void ADefaultPlayerController::ShowBuyWidget(const TScriptInterface<ICanBeOwned> PropertyToBuy)
+void ADefaultPlayerController::ShowBuyWidget(const TScriptInterface<IPlayerProperty> PropertyToBuy)
 {
 	auto& HUD = GetDefaultHUD();
 	if (PropertyToBuy->GetOwnerController() == this)

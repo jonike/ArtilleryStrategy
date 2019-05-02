@@ -6,7 +6,7 @@
 #include "Actors/CapitalBuilding.h"
 #include "Interfaces/GridPlatform.h"
 #include "Game/States/DefaultGS.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 #include "WorldGenerator.h"
 #include "Interfaces/SpawnStrategy.h"
 
@@ -35,7 +35,7 @@ void UDEPRECATED_CapitalPlacementGenerator::PlaceCapital(TScriptInterface<IOwner
 {
 	check(Controller);
 	const auto Cell = GetSpawnCell();
-	auto Property = Cast<ICanBeOwned>(Cell.GetObject());
+	auto Property = Cast<IPlayerProperty>(Cell.GetObject());
 	check(Property);
 	Property->SetOwnerController(GetWorld()->GetFirstPlayerController());
 	const auto Capital = CreateCapitalBuilding(Cell->GetBuildingSpawnLocation());

@@ -9,7 +9,7 @@
 #include "Interfaces/GridPlatform.h"
 #include "GameFramework/PlayerController.h"
 #include "Interfaces/OwnerController.h"
-#include "Interfaces/CanBeOwned.h"
+#include "Interfaces/PlayerProperty.h"
 
 void UCapitalPlacementPass::GenerateWorld(FWorldParams& Params)
 {
@@ -36,7 +36,7 @@ void UCapitalPlacementPass::PlaceCapital(const TScriptInterface<IOwnerController
 {
 	check(Controller);
 	const auto Cell = GetSpawnCell(Params);
-	auto Property = Cast<ICanBeOwned>(Cell.GetObject());
+	auto Property = Cast<IPlayerProperty>(Cell.GetObject());
 	check(Property);
 	Property->SetOwnerController(Params.CurrentWorld->GetFirstPlayerController());
 	const auto Capital = CreateCapitalBuilding(Cell->GetBuildingSpawnLocation(), Params);

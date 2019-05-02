@@ -2,22 +2,19 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
 #include "Actors/InstancedMeshSpawner.h"
 #include "DefaultGS.generated.h"
 
 class UTurnProcessorComponent;
 class IMapGenerator;
-class UDEPRECATED_ResourceDepositGenerator;
 class ISpawnStrategy;
-class UDEPRECATED_CapitalPlacementGenerator;
-class UGridGenerator;
+class UWorldGenerator;
 class UTileMatrix;
 class IGridPlatform;
 
 /**
- * 
+ * \brief Base class for all game state classes
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API ADefaultGS : public AGameStateBase
@@ -27,14 +24,26 @@ class ARTILLERYSTRATEGY_API ADefaultGS : public AGameStateBase
 public:
 	ADefaultGS();
 
+	/**
+	 * \brief Get turn processor component
+	 * \return Turn processor component
+	 */
 	UFUNCTION(BlueprintCallable)
 	UTurnProcessorComponent* GetTurnProcessor() const;
 
+	/**
+	 * \brief Get component that spawns tiles instanced meshes
+	 * \return Component for spawning instanced meshes for tiles
+	 */
 	UFUNCTION(BlueprintCallable)
 	AInstancedMeshSpawner* GetTileMeshSpawner() const;
 
+	/**
+	 * \brief Get world generator
+	 * \return Component that generates game world
+	 */
 	UFUNCTION(BlueprintCallable)
-	UGridGenerator* GetGridGenerator() const;
+	UWorldGenerator* GetWorldGenerator() const;
 
 protected:
 	void PostInitializeComponents() override;
@@ -42,7 +51,7 @@ protected:
 
 private:
 	UPROPERTY(Category = "Generation", EditAnywhere)
-	UGridGenerator* GridGenerator;
+	UWorldGenerator* WorldGenerator;
 
 	UPROPERTY(Category = "Turns", EditAnywhere)
 	UTurnProcessorComponent* TurnProcessorComponent;

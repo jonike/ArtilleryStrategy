@@ -12,7 +12,7 @@
 class IGridPlatform;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class ARTILLERYSTRATEGY_API UGridGenerator : public UActorComponent
+class ARTILLERYSTRATEGY_API UWorldGenerator : public UActorComponent
 {
 	GENERATED_BODY()
 
@@ -22,7 +22,7 @@ class ARTILLERYSTRATEGY_API UGridGenerator : public UActorComponent
 
 public:
 	// Sets default values for this component's properties
-	UGridGenerator();
+	UWorldGenerator();
 
 	FOnWorldGenerationStartSignature OnWorldGenerationStart;
 	FOnWorldGenerationEndSignature OnWorldGenerationEnd;
