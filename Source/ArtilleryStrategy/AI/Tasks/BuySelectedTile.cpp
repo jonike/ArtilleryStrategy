@@ -8,6 +8,7 @@
 #include "Interfaces/CanBeOwned.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "AI/Controllers/DefaultAIController.h"
+#include "Libraries/ASLibrary.h"
 
 UBuySelectedTile::UBuySelectedTile()
 {
@@ -18,14 +19,17 @@ UBuySelectedTile::UBuySelectedTile()
 EBTNodeResult::Type UBuySelectedTile::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	const auto Controller = OwnerComp.GetAIOwner();
-	const auto PlayerState = Controller->GetPlayerState<ADefaultPlayerState>();
-	if (PlayerState)
+	if (const auto PlayerState = Controller->GetPlayerState<ADefaultPlayerState>())
 	{
+		// There is stored object in the key
 		if (const auto StoredObject = OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelectedTile.SelectedKeyName))
 		{
+			// The stored objects has correct type
 			if (const auto Tile = Cast<ICanBeOwned>(StoredObject))
 			{
-				if (PlayerState->GetResourceWallet()->IsEnoughPack(Tile->GetResourcesToOwn()))
+				// Have enough resources
+				if (PlayerState->GetResourceWallet()
+					->IsEnoughPack(Tile->GetResourcesToOwn()))
 				{
 					const auto BuyResult = BuySelected(OwnerComp, NodeMemory, StoredObject);;
 					return BuyResult;
@@ -43,18 +47,24 @@ void UBuySelectedTile::OnGameplayTaskActivated(UGameplayTask& Task)
 
 EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, UObject* ObjectToBuy) const
 {
-	const auto Controller = OwnerComp.GetAIOwner();
-	const auto DefaultController = Cast<ADefaultAIController>(Controller);
-	if (DefaultController)
+	// Can buy cells
+	if (const auto Controller = Cast<ICanBuyCells>(OwnerComp.GetAIOwner()))
 	{
-		if (const auto Cell = Cast<ICanBeOwned>(ObjectToBuy))
+		// Object can be bought
+		if (Cast<ICanBeOwned>(ObjectToBuy))
 		{
-			DefaultController->BuyCell(ObjectToBuy);
-			if (bShouldClearSelectedTile)
+			// Can buy tiles on this turn
+			if (!UASLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner())
+				.GetTilesLimit()
+				.IsLimitReached())
 			{
-				OwnerComp.GetBlackboardComponent()->SetValueAsObject(SelectedTile.SelectedKeyName, nullptr);
+				Controller->BuyCell(ObjectToBuy);
+				if (bShouldClearSelectedTile)
+				{
+					OwnerComp.GetBlackboardComponent()->SetValueAsObject(SelectedTile.SelectedKeyName, nullptr);
+				}
+				return EBTNodeResult::Succeeded;
 			}
-			return EBTNodeResult::Succeeded;
 		}
 	}
 	return EBTNodeResult::Failed;
