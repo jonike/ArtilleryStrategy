@@ -20,6 +20,9 @@ public:
 	FValueLimit& GetBuildingsLimit() { return BuildingsLimit; }
 	FValueLimit& GetTilesLimit() { return TilesLimit; }
 
+	const FValueLimit& GetBuildingsLimit() const { return BuildingsLimit; }
+	const FValueLimit& GetTilesLimit() const { return TilesLimit; }
+
 private:
 	UPROPERTY(EditAnywhere)
 	FValueLimit BuildingsLimit;
