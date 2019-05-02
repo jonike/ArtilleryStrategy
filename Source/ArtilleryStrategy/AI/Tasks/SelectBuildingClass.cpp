@@ -2,7 +2,7 @@
 
 
 #include "SelectBuildingClass.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "Interfaces/PlayerProperty.h"
 #include "Interfaces/Building.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"

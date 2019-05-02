@@ -5,7 +5,7 @@
 #include "Engine/World.h"
 #include "Game/States/DefaultGS.h"
 #include "Components/WorldGenerator.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
 #include "Objects/TileMatrix.h"

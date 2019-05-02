@@ -5,7 +5,7 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/PlayerProperty.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 
 ADefaultAIController::ADefaultAIController()
 {

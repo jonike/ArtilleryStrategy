@@ -3,7 +3,7 @@
 #include "ResourceDepositGenerator.h"
 #include "Interfaces/SpawnStrategy.h"
 #include "Game/States/DefaultGS.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 
 // Sets default values for this component's properties
 UDEPRECATED_ResourceDepositGenerator::UDEPRECATED_ResourceDepositGenerator()

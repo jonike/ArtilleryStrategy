@@ -4,7 +4,7 @@
 #include "ResourceDepositPass.h"
 #include "Structs/Resource.h"
 #include "Structs/ResourceDeposit.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "Structs/WorldParams.h"
 #include "TileMatrix.h"
 

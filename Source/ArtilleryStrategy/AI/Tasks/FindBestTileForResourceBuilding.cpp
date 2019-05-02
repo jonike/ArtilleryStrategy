@@ -2,7 +2,7 @@
 
 
 #include "FindBestTileForResourceBuilding.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "Interfaces/PlayerProperty.h"
 #include "AIController.h"
 #include "Player/States/DefaultPlayerState.h"

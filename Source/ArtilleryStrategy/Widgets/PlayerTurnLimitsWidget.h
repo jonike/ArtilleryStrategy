@@ -6,7 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Interfaces/TurnDependent.h"
 #include "Structs/ValueLimit.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "PlayerTurnLimitsWidget.generated.h"
 
 /**

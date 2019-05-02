@@ -2,7 +2,7 @@
 
 
 #include "BaseResourceBuilding.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "Components/TurnProcessorComponent.h"
 #include "Engine/World.h"
 #include "Interfaces/OwnerController.h"

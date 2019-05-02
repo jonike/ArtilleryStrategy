@@ -8,7 +8,7 @@
 #include "Player/HUD/DefaultHUD.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/WeaponBuilding.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "Actors/BaseWeaponBuilding.h"
 #include "Objects/ResourceStorage.h"
 #include "Interfaces/PlayerProperty.h"

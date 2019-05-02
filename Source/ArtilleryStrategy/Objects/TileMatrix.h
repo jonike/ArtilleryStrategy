@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ScriptInterface.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "TileMatrix.generated.h"
 
 /**

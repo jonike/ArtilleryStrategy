@@ -4,7 +4,7 @@
 #include "Engine/World.h"
 #include "Interfaces/OwnerController.h"
 #include "Actors/CapitalBuilding.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "Game/States/DefaultGS.h"
 #include "Interfaces/PlayerProperty.h"
 #include "WorldGenerator.h"

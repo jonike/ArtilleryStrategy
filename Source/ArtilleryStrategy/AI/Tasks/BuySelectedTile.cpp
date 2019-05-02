@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BuySelectedTile.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "AIController.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "BehaviorTree/BlackboardComponent.h"

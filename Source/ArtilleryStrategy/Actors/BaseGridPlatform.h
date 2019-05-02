@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "Interfaces/PlayerProperty.h"
 #include "Interfaces/OwnerController.h"
 #include "Structs/ResourceDeposit.h"

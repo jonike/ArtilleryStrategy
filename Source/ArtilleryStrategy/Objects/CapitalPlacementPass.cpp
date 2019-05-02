@@ -6,7 +6,7 @@
 #include "Engine/World.h"
 #include "Actors/CapitalBuilding.h"
 #include "Objects/TileMatrix.h"
-#include "Interfaces/GridPlatform.h"
+#include "Interfaces/WorldTile.h"
 #include "GameFramework/PlayerController.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/PlayerProperty.h"
