@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "WorldGenerationPass.generated.h"
 
@@ -15,7 +14,7 @@ class UWorldGenerationPass : public UInterface
 };
 
 /**
- * 
+ * \brief Pass for world generation which works with FWorldParams
  */
 class ARTILLERYSTRATEGY_API IWorldGenerationPass
 {

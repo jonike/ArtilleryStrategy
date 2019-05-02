@@ -14,7 +14,7 @@ class UWeaponBuilding : public UInterface
 };
 
 /**
- * 
+ * \brief Building that can fire during turn
  */
 class ARTILLERYSTRATEGY_API IWeaponBuilding
 {
@@ -23,7 +23,9 @@ class ARTILLERYSTRATEGY_API IWeaponBuilding
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	virtual void Fire() = 0;
+
 	virtual void SetPlaneAngle(float Angle) = 0;
+
 	virtual void SetHorizonAngle(float Angle) = 0;
 
 	virtual bool IsReadyForFire() const = 0;
