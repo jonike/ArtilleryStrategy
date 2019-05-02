@@ -14,7 +14,7 @@ void UResourceWidget::SetupResourceWidget(const FResourceHandle Resource)
 	FillResourceWidget(Resource);
 }
 
-TScriptInterface<IWallet> UResourceWidget::GetWallet() const
+TScriptInterface<IPlayerRepository> UResourceWidget::GetWallet() const
 {
 	return GetOwningPlayer()->GetPlayerState<APlayerState>();
 }

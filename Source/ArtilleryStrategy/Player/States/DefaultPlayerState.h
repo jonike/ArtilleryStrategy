@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
-#include "Interfaces/Wallet.h"
+#include "Interfaces/PlayerRepository.h"
 #include "Structs/PlayerTurnLimits.h"
 #include "Interfaces/TurnDependent.h"
 #include "DefaultPlayerState.generated.h"
@@ -17,7 +17,7 @@ class UResourceStorage;
  *
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultPlayerState : public APlayerState, public IWallet, public ITurnDependent
+class ARTILLERYSTRATEGY_API ADefaultPlayerState : public APlayerState, public IPlayerRepository, public ITurnDependent
 {
 	GENERATED_BODY()
 

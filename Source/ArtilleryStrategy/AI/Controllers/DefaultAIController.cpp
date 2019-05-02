@@ -22,7 +22,7 @@ UTexture2D* ADefaultAIController::GetOwnerIcon() const
 	return OwnerIcon;
 }
 
-TScriptInterface<IWallet> ADefaultAIController::GetWallet() const
+TScriptInterface<IPlayerRepository> ADefaultAIController::GetWallet() const
 {
 	return GetPlayerState<ADefaultPlayerState>();
 }

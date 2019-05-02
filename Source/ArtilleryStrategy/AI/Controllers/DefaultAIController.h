@@ -21,7 +21,7 @@ public:
 
 	UMaterialInterface* GetOwnerMaterial() const override;
 	UTexture2D* GetOwnerIcon() const override;
-	TScriptInterface<IWallet> GetWallet() const override;
+	TScriptInterface<IPlayerRepository> GetWallet() const override;
 
 	void BuyTile(TScriptInterface<IPlayerProperty> Cell) override;
 	void CreateSelectedBuilding(TScriptInterface<IWorldTile> Cell, TSubclassOf<AActor> BuildingClass) override;

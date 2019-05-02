@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Interfaces/ResourceWidgetInterface.h"
-#include "Interfaces/Wallet.h"
+#include "Interfaces/PlayerRepository.h"
 #include "Structs/ResourceHandle.h"
 #include "ResourceWidget.generated.h"
 
@@ -28,7 +28,7 @@ protected:
 	void UpdateResourceAmount(const FResourceAmount& Resource);
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
-	TScriptInterface<IWallet> GetWallet() const;
+	TScriptInterface<IPlayerRepository> GetWallet() const;
 
 	UFUNCTION(Category = "Resources", BlueprintPure)
 	UResourceStorage* GetResourceStorage() const;

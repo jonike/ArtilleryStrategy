@@ -16,7 +16,7 @@ class USpringArmComponent;
 class UBuyPlatformWidget;
 class UBuildingSelectorWidget;
 class UMaterialInterface;
-class IWallet;
+class IPlayerRepository;
 class ADefaultHUD;
 
 /**
@@ -45,7 +45,7 @@ public:
 
 	UTexture2D* GetOwnerIcon() const override;
 	UMaterialInterface* GetOwnerMaterial() const override;
-	TScriptInterface<IWallet> GetWallet() const override;
+	TScriptInterface<IPlayerRepository> GetWallet() const override;
 
 	void CreateSelectedBuilding(TScriptInterface<IWorldTile> Cell, TSubclassOf<AActor> BuildingClass) override;
 

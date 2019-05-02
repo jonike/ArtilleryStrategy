@@ -3,7 +3,7 @@
 
 #include "ASLibrary.h"
 #include "Interfaces/FireManager.h"
-#include "Interfaces/Wallet.h"
+#include "Interfaces/PlayerRepository.h"
 #include "Engine/World.h"
 #include "Game/States/DefaultGS.h"
 #include "ScriptInterface.h"
@@ -33,7 +33,7 @@ UWorldGenerator* UASLibrary::GetMapGenerator(UObject* Object)
 	return GameState->GetWorldGenerator();
 }
 
-TScriptInterface<IWallet> UASLibrary::GetWalletForActor(AActor* Actor)
+TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForActor(AActor* Actor)
 {
 	check(Actor);
 	const auto Controller = Actor->GetInstigatorController();
@@ -41,7 +41,7 @@ TScriptInterface<IWallet> UASLibrary::GetWalletForActor(AActor* Actor)
 	return Controller->GetPlayerState<APlayerState>();
 }
 
-TScriptInterface<IWallet> UASLibrary::GetWalletForPawn(APawn* Pawn)
+TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForPawn(APawn* Pawn)
 {
 	check(Pawn);
 	const auto Controller = Pawn->GetController();

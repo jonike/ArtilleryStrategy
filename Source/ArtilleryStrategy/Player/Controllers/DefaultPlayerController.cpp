@@ -4,7 +4,7 @@
 #include "Engine/World.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Interfaces/HasSpringArm.h"
-#include "Interfaces/Wallet.h"
+#include "Interfaces/PlayerRepository.h"
 #include "Player/HUD/DefaultHUD.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/WeaponBuilding.h"
@@ -99,7 +99,7 @@ UMaterialInterface* ADefaultPlayerController::GetOwnerMaterial() const
 	return PlayerMaterial;
 }
 
-TScriptInterface<IWallet> ADefaultPlayerController::GetWallet() const
+TScriptInterface<IPlayerRepository> ADefaultPlayerController::GetWallet() const
 {
 	const auto State = GetPlayerState<APlayerState>();
 	check(State);

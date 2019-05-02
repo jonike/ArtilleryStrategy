@@ -2,7 +2,7 @@
 
 
 #include "ResourceStorageWidget.h"
-#include "Interfaces/Wallet.h"
+#include "Interfaces/PlayerRepository.h"
 #include "GameFramework/PlayerState.h"
 #include "Interfaces/ResourceWidgetInterface.h"
 
@@ -34,7 +34,7 @@ TScriptInterface<IResourceWidgetInterface> UResourceStorageWidget::GetResourceWi
 	return ResourceWidget;
 }
 
-TScriptInterface<IWallet> UResourceStorageWidget::GetWallet() const
+TScriptInterface<IPlayerRepository> UResourceStorageWidget::GetWallet() const
 {
 	return GetWorld()->GetFirstPlayerController()->GetPlayerState<APlayerState>();
 }

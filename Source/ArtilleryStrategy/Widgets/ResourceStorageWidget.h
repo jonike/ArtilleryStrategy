@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Interfaces/Wallet.h"
+#include "Interfaces/PlayerRepository.h"
 #include "ResourceStorageWidget.generated.h"
 
 class IResourceWidgetInterface;
@@ -33,5 +33,5 @@ private:
 	TArray<TScriptInterface<IResourceWidgetInterface>> ResourceWidgets;
 
 	TScriptInterface<IResourceWidgetInterface> GetResourceWidget(int Index);
-	TScriptInterface<IWallet> GetWallet() const;
+	TScriptInterface<IPlayerRepository> GetWallet() const;
 };

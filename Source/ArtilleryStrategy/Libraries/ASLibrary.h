@@ -9,7 +9,7 @@
 #include "ASLibrary.generated.h"
 
 class AController;
-class IWallet;
+class IPlayerRepository;
 class IOwnerController;
 class UWorldGenerator;
 class IFireManager;
@@ -32,10 +32,10 @@ public:
 	static UWorldGenerator* GetMapGenerator(UObject* Object);
 
 	UFUNCTION(BlueprintCallable)
-	static TScriptInterface<IWallet> GetWalletForActor(AActor* Actor);
+	static TScriptInterface<IPlayerRepository> GetPlayerRepositoryForActor(AActor* Actor);
 
 	UFUNCTION(BlueprintCallable)
-	static TScriptInterface<IWallet> GetWalletForPawn(APawn* Pawn);
+	static TScriptInterface<IPlayerRepository> GetPlayerRepositoryForPawn(APawn* Pawn);
 
 	UFUNCTION(BlueprintCallable)
 	static const FWorldParams& GetWorldParams(UObject* Object);

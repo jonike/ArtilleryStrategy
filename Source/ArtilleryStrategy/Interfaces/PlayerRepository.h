@@ -4,11 +4,11 @@
 
 #include "UObject/Interface.h"
 #include "Objects/ResourceStorage.h"
-#include "Wallet.generated.h"
+#include "PlayerRepository.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI, meta = (CannotImplementInterfaceInBlueprint))
-class UWallet : public UInterface
+class UPlayerRepository : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -16,12 +16,12 @@ class UWallet : public UInterface
 /**
  * \brief Class that holds all actives that player has
  */
-class ARTILLERYSTRATEGY_API IWallet
+class ARTILLERYSTRATEGY_API IPlayerRepository
 {
 	GENERATED_BODY()
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(Category = "Resources", BlueprintCallable)
-	virtual UResourceStorage* GetResourceWallet() const = 0;
+		virtual UResourceStorage* GetResourceWallet() const = 0;
 };

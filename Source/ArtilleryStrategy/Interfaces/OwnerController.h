@@ -3,7 +3,7 @@
 #pragma once
 
 #include "UObject/Interface.h"
-#include "Wallet.h"
+#include "PlayerRepository.h"
 #include "OwnerController.generated.h"
 
 class UMaterialInterface;
@@ -28,5 +28,5 @@ public:
 
 	virtual UTexture2D* GetOwnerIcon() const = 0;
 
-	virtual TScriptInterface<IWallet> GetWallet() const = 0;
+	virtual TScriptInterface<IPlayerRepository> GetWallet() const = 0;
 };
