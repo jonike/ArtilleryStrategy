@@ -6,6 +6,7 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "SelectBuildingClass.generated.h"
 
+class UDataTable;
 class IGridPlatform;
 
 /**
@@ -29,7 +30,7 @@ protected:
 
 	virtual void SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
 
-	virtual void SelectEnegryBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
+	virtual void SelectEnergyBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
 
 private:
 	UPROPERTY(Category = "Input", EditAnywhere)

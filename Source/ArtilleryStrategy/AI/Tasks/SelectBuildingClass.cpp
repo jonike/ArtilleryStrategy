@@ -25,7 +25,7 @@ EBTNodeResult::Type USelectBuildingClass::ExecuteTask(UBehaviorTreeComponent& Ow
 {
 	if (const auto TileObject = OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelectedTile.SelectedKeyName))
 	{
-		if (const auto Tile = Cast<IGridPlatform>(TileObject))
+		if (Cast<IGridPlatform>(TileObject))
 		{
 			SelectClass(OwnerComp, NodeMemory, TileObject);
 		}
@@ -54,7 +54,7 @@ void USelectBuildingClass::SelectMineralBuildingClass(UBehaviorTreeComponent& Ow
 	// TODO: provide logic for selecting mineral building class
 }
 
-void USelectBuildingClass::SelectEnegryBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
+void USelectBuildingClass::SelectEnergyBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
 {
 	// TODO: provide logic for selecting energy building class
 }
