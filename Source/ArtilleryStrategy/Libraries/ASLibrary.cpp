@@ -8,6 +8,8 @@
 #include "Game/States/DefaultGS.h"
 #include "ScriptInterface.h"
 #include "GameFramework/PlayerState.h"
+#include "Components/WorldGenerator.h"
+#include "Player/States/DefaultPlayerState.h"
 
 TScriptInterface<IFireManager> UASLibrary::GetFireManagerForActor(AActor* Actor)
 {
@@ -45,4 +47,18 @@ TScriptInterface<IWallet> UASLibrary::GetWalletForPawn(APawn* Pawn)
 	const auto Controller = Pawn->GetController();
 	check(Controller);
 	return Controller->GetPlayerState<APlayerState>();
+}
+
+const FWorldParams& UASLibrary::GetWorldParams(UObject* Object)
+{
+	const auto MapGenerator = GetMapGenerator(Object);
+	check(MapGenerator);
+	return MapGenerator->GetWorldParams();
+}
+
+const FPlayerTurnLimits& UASLibrary::GetPlayerTurnLimitsForController(AController* Controller)
+{
+	const auto State = Controller->GetPlayerState<ADefaultPlayerState>();
+	check(State);
+	return State->GetTurnLimits();
 }
