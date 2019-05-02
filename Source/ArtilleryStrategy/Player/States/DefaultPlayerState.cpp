@@ -35,7 +35,7 @@ void ADefaultPlayerState::RegisterBuyingBuilding(TScriptInterface<IBuilding> Bui
 	TurnLimits.GetBuildingsLimit().Increment();
 }
 
-void ADefaultPlayerState::RegisterBuyingCell(TScriptInterface<IGridPlatform> Tile)
+void ADefaultPlayerState::RegisterBuyingCell(TScriptInterface<IWorldTile> Tile)
 {
 	TurnLimits.GetTilesLimit().Increment();
 }

@@ -19,7 +19,7 @@ class AInstancedMeshSpawner;
  * \brief A base class for all tile classes
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IGridPlatform, public IPlayerProperty
+class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IWorldTile, public IPlayerProperty
 {
 	GENERATED_BODY()
 

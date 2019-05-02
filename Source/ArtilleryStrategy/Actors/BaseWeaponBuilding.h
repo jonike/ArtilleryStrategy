@@ -32,7 +32,7 @@ protected:
 	void BeginPlay() override;
 	void Tick(float DeltaSeconds) override;
 
-	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
+	void PostPlaced(TScriptInterface<IWorldTile> Tile) override;
 	void ReceiveOnTurnStarted() override;
 	void ReceiveOnTurnEnded() override;
 

@@ -29,8 +29,8 @@ public:
 	auto RequiresResourcesToOwn() const -> bool override;
 	auto GetResourcesToOwn() const -> const FResourcePack& override;
 
-	auto PostPlaced(TScriptInterface<IGridPlatform> Tile) -> void override;
-	auto PrePlaced(TScriptInterface<IGridPlatform> Tile) -> void override;
+	auto PostPlaced(TScriptInterface<IWorldTile> Tile) -> void override;
+	auto PrePlaced(TScriptInterface<IWorldTile> Tile) -> void override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -68,5 +68,5 @@ private:
 	/**
 	 * \brief The tile this building was built on
 	 */
-	TScriptInterface<IGridPlatform> UnderlyingTile;
+	TScriptInterface<IWorldTile> UnderlyingTile;
 };

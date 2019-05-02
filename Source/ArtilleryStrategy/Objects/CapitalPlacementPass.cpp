@@ -23,7 +23,7 @@ void UCapitalPlacementPass::GenerateWorld(FWorldParams& Params)
 	}
 }
 
-TScriptInterface<IGridPlatform> UCapitalPlacementPass::GetSpawnCell(const FWorldParams& Params) const
+TScriptInterface<IWorldTile> UCapitalPlacementPass::GetSpawnCell(const FWorldParams& Params) const
 {
 	const auto Matrix = Params.TileMatrix;
 	check(Matrix);

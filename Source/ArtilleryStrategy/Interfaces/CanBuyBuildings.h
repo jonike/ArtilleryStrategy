@@ -6,7 +6,7 @@
 #include "CanBuyBuildings.generated.h"
 
 class IBuilding;
-class IGridPlatform;
+class IWorldTile;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -29,5 +29,5 @@ public:
 	 * \param Cell place where to create building
 	 * \param BuildingClass building class to spawn
 	 */
-	virtual void CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) = 0;
+	virtual void CreateSelectedBuilding(TScriptInterface<IWorldTile> Cell, TSubclassOf<AActor> BuildingClass) = 0;
 };

@@ -24,7 +24,7 @@ public:
 	TScriptInterface<IWallet> GetWallet() const override;
 
 	void BuyTile(TScriptInterface<IPlayerProperty> Cell) override;
-	void CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
+	void CreateSelectedBuilding(TScriptInterface<IWorldTile> Cell, TSubclassOf<AActor> BuildingClass) override;
 
 protected:
 	void BeginPlay() override;

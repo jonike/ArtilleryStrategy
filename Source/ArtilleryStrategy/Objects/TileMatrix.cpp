@@ -22,22 +22,22 @@ bool UTileMatrix::IsValidIndex(const int Row, const int Column) const
 	return Matrix[Row].Storage.IsValidIndex(Column);
 }
 
-TScriptInterface<IGridPlatform>& UTileMatrix::Get(const int Row, const int Column)
+TScriptInterface<IWorldTile>& UTileMatrix::Get(const int Row, const int Column)
 {
 	return Matrix[Row].Storage[Column];
 }
 
-auto UTileMatrix::Get(const int Row, const int Column) const -> const TScriptInterface<IGridPlatform>&
+auto UTileMatrix::Get(const int Row, const int Column) const -> const TScriptInterface<IWorldTile>&
 {
 	return Matrix[Row].Storage[Column];
 }
 
-TScriptInterface<IGridPlatform>& UTileMatrix::operator()(const int Row, const int Column)
+TScriptInterface<IWorldTile>& UTileMatrix::operator()(const int Row, const int Column)
 {
 	return Matrix[Row].Storage[Column];
 }
 
-const TScriptInterface<IGridPlatform>& UTileMatrix::operator()(const int Row, const int Column) const
+const TScriptInterface<IWorldTile>& UTileMatrix::operator()(const int Row, const int Column) const
 {
 	return Matrix[Row].Storage[Column];
 }

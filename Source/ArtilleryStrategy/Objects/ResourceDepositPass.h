@@ -8,7 +8,7 @@
 #include "Structs/ResourceHandle.h"
 #include "ResourceDepositPass.generated.h"
 
-class IGridPlatform;
+class IWorldTile;
 struct FResource;
 class ISpawnStrategy;
 /**
@@ -25,7 +25,7 @@ public:
 protected:
 	virtual FResourceHandle GetRandomResource() const;
 	virtual int32 GetRandomResourceAmount(const FResource& Resource) const;
-	virtual TScriptInterface<IGridPlatform> GetTileForDeposit(const FWorldParams& Params) const;
+	virtual TScriptInterface<IWorldTile> GetTileForDeposit(const FWorldParams& Params) const;
 
 private:
 	UPROPERTY(Category = "Resources", EditDefaultsOnly)

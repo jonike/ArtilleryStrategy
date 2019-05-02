@@ -7,7 +7,7 @@
 #include "SelectBuildingClass.generated.h"
 
 class UDataTable;
-class IGridPlatform;
+class IWorldTile;
 
 /**
  * \brief Task that selects building class depending on what resources is available on the given tile
@@ -26,11 +26,11 @@ public:
 	void OnGameplayTaskActivated(UGameplayTask& Task) override;
 
 protected:
-	virtual void SelectClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
+	virtual void SelectClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile);
 
-	virtual void SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
+	virtual void SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile);
 
-	virtual void SelectEnergyBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile);
+	virtual void SelectEnergyBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile);
 
 private:
 	UPROPERTY(Category = "Input", EditAnywhere)

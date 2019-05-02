@@ -9,7 +9,7 @@
 class UUniformGridPanel;
 class UDataTable;
 class IBuildingGridItemWidget;
-class IGridPlatform;
+class IWorldTile;
 
 /**
  *
@@ -20,10 +20,10 @@ class ARTILLERYSTRATEGY_API UBuildingSelectorWidget : public UUserWidget
 	GENERATED_BODY()
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseClickedSignature);
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnBuyClickedSignature, TScriptInterface<IGridPlatform>, Cell, TSubclassOf<AActor>, BuildingClass);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnBuyClickedSignature, TScriptInterface<IWorldTile>, Cell, TSubclassOf<AActor>, BuildingClass);
 
 public:
-	void SetSelectedPlatform(TScriptInterface<IGridPlatform> Selected);
+	void SetSelectedPlatform(TScriptInterface<IWorldTile> Selected);
 
 	FOnBuyClickedSignature OnBuyClicked;
 	FOnCloseClickedSignature OnCloseClicked;
@@ -44,7 +44,7 @@ private:
 	int GridColumns = 3;
 
 	TArray<TScriptInterface<IBuildingGridItemWidget>> GridItemWidgets;
-	TScriptInterface<IGridPlatform> SelectedPlatform;
+	TScriptInterface<IWorldTile> SelectedPlatform;
 
 	UFUNCTION()
 	void ReceiveOnBuyClicked(FName BuildingName);

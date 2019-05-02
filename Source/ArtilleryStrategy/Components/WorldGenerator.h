@@ -9,7 +9,7 @@
 #include "ScriptInterface.h"
 #include "WorldGenerator.generated.h"
 
-class IGridPlatform;
+class IWorldTile;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class ARTILLERYSTRATEGY_API UWorldGenerator : public UActorComponent

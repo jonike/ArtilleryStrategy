@@ -24,16 +24,16 @@ public:
 	bool IsValidIndex(int Row, int Column) const;
 
 	// TODO: provide SET methods
-	TScriptInterface<IGridPlatform>& Get(int Row, int Column);
-	const TScriptInterface<IGridPlatform>& Get(int Row, int Column) const;
+	TScriptInterface<IWorldTile>& Get(int Row, int Column);
+	const TScriptInterface<IWorldTile>& Get(int Row, int Column) const;
 
-	TScriptInterface<IGridPlatform>& operator()(int Row, int Column);
-	const TScriptInterface<IGridPlatform>& operator()(int Row, int Column) const;
+	TScriptInterface<IWorldTile>& operator()(int Row, int Column);
+	const TScriptInterface<IWorldTile>& operator()(int Row, int Column) const;
 
 private:
 	struct FRow
 	{
-		TArray<TScriptInterface<IGridPlatform>> Storage;
+		TArray<TScriptInterface<IWorldTile>> Storage;
 	};
 
 	UPROPERTY(Category = "Size", VisibleAnywhere)

@@ -13,7 +13,7 @@
 USelectBuildingClass::USelectBuildingClass()
 {
 	SelectedTile.AllowNoneAsValue(false);
-	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, SelectedTile), UGridPlatform::StaticClass());
+	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, SelectedTile), UWorldTile::StaticClass());
 	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USelectBuildingClass, SelectedTile), UPlayerProperty::StaticClass());
 
 	BuildingClass.AllowNoneAsValue(false);
@@ -27,7 +27,7 @@ EBTNodeResult::Type USelectBuildingClass::ExecuteTask(UBehaviorTreeComponent& Ow
 	check(Buildings);
 	if (const auto TileObject = OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelectedTile.SelectedKeyName))
 	{
-		if (Cast<IGridPlatform>(TileObject))
+		if (Cast<IWorldTile>(TileObject))
 		{
 			SelectClass(OwnerComp, NodeMemory, TileObject);
 		}
@@ -45,13 +45,13 @@ void USelectBuildingClass::OnGameplayTaskActivated(UGameplayTask& Task)
 
 }
 
-void USelectBuildingClass::SelectClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
+void USelectBuildingClass::SelectClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile)
 {
 	// TODO: switch on what kind of resources tile has
 	SelectMineralBuildingClass(OwnerComp, NodeMemory, Tile);
 }
 
-void USelectBuildingClass::SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
+void USelectBuildingClass::SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile)
 {
 	// TODO: provide logic for selecting mineral building class
 	const auto Names = Buildings->GetRowNames();
@@ -63,7 +63,7 @@ void USelectBuildingClass::SelectMineralBuildingClass(UBehaviorTreeComponent& Ow
 	}
 }
 
-void USelectBuildingClass::SelectEnergyBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
+void USelectBuildingClass::SelectEnergyBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile)
 {
 	// TODO: provide logic for selecting energy building class
 }

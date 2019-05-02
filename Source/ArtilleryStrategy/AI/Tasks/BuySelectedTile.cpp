@@ -13,7 +13,7 @@
 UBuySelectedTile::UBuySelectedTile()
 {
 	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UBuySelectedTile, SelectedTile), UPlayerProperty::StaticClass());
-	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UBuySelectedTile, SelectedTile), UGridPlatform::StaticClass());
+	SelectedTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UBuySelectedTile, SelectedTile), UWorldTile::StaticClass());
 }
 
 EBTNodeResult::Type UBuySelectedTile::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

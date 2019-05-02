@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "GridPlatform.generated.h"
+#include "WorldTile.generated.h"
 
 class IBuilding;
 struct FResourceDeposit;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UGridPlatform : public UInterface
+class UWorldTile : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -19,7 +19,7 @@ class UGridPlatform : public UInterface
 /**
  *
  */
-class ARTILLERYSTRATEGY_API IGridPlatform
+class ARTILLERYSTRATEGY_API IWorldTile
 {
 	GENERATED_BODY()
 

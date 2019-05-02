@@ -45,7 +45,7 @@ void ADefaultAIController::BuyTile(TScriptInterface<IPlayerProperty> Cell)
 	}
 }
 
-void ADefaultAIController::CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
+void ADefaultAIController::CreateSelectedBuilding(TScriptInterface<IWorldTile> Cell, TSubclassOf<AActor> BuildingClass)
 {
 	// TODO: copy pasted from player controller
 	const auto State = GetPlayerState<ADefaultPlayerState>();

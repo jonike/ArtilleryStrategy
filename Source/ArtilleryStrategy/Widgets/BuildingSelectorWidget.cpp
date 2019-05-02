@@ -8,7 +8,7 @@
 #include "Structs/BuildingData.h"
 #include "BuildingBuyingInfoWidget.h"
 
-void UBuildingSelectorWidget::SetSelectedPlatform(const TScriptInterface<IGridPlatform> Selected)
+void UBuildingSelectorWidget::SetSelectedPlatform(const TScriptInterface<IWorldTile> Selected)
 {
 	SelectedPlatform = Selected;
 }

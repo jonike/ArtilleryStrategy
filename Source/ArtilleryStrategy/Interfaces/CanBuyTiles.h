@@ -5,7 +5,7 @@
 #include "UObject/Interface.h"
 #include "CanBuyTiles.generated.h"
 
-class IGridPlatform;
+class IWorldTile;
 class IPlayerProperty;
 
 // This class does not need to be modified.

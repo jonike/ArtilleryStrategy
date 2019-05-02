@@ -7,7 +7,7 @@
 #include "SpawnStrategy.generated.h"
 
 class UTileMatrix;
-class IGridPlatform;
+class IWorldTile;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class USpawnStrategy : public UInterface
@@ -26,5 +26,5 @@ class ARTILLERYSTRATEGY_API ISpawnStrategy
 public:
 	virtual void SetTileMatrix(UTileMatrix* Matrix) = 0;
 
-	virtual TScriptInterface<IGridPlatform> GetNextSpawnPoint() const = 0;
+	virtual TScriptInterface<IWorldTile> GetNextSpawnPoint() const = 0;
 };

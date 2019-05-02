@@ -37,7 +37,7 @@ void ABaseWeaponBuilding::Tick(float DeltaSeconds)
 	}
 }
 
-void ABaseWeaponBuilding::PostPlaced(TScriptInterface<IGridPlatform> Tile)
+void ABaseWeaponBuilding::PostPlaced(TScriptInterface<IWorldTile> Tile)
 {
 	Super::PostPlaced(Tile);
 	const auto TurnProcessor = GetTurnProcessor(this);

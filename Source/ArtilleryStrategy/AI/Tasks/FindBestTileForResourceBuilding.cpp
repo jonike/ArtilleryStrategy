@@ -17,7 +17,7 @@
 
 UFindBestTileForResourceBuilding::UFindBestTileForResourceBuilding()
 {
-	ResultTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestTileForResourceBuilding, ResultTile), UGridPlatform::StaticClass());
+	ResultTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestTileForResourceBuilding, ResultTile), UWorldTile::StaticClass());
 	ResultTile.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestTileForResourceBuilding, ResultTile), UPlayerProperty::StaticClass());
 }
 

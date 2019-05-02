@@ -6,7 +6,7 @@
 #include "Player/Controllers/DefaultPlayerController.h"
 #include "Player/States/DefaultPlayerState.h"
 
-void UPlayerTurnLimitsWidget::ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile)
+void UPlayerTurnLimitsWidget::ReceiveOnTileBought(TScriptInterface<IWorldTile> Tile)
 {
 	TilesLimit.Increment();
 	FillTilesLimit(TilesLimit);

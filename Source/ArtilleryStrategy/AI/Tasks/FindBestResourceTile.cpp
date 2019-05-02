@@ -14,7 +14,7 @@ UFindBestResourceTile::UFindBestResourceTile()
 {
 	bNotifyTick = false;
 	bNotifyTaskFinished = false;
-	Key.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestResourceTile, Key), UGridPlatform::StaticClass());
+	Key.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestResourceTile, Key), UWorldTile::StaticClass());
 }
 
 EBTNodeResult::Type UFindBestResourceTile::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

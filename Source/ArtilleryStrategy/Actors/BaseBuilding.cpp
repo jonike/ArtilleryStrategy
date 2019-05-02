@@ -38,12 +38,12 @@ auto ABaseBuilding::GetResourcesToOwn() const -> const FResourcePack&
 	return ResourcesToOwn;
 }
 
-auto ABaseBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Tile) -> void
+auto ABaseBuilding::PostPlaced(const TScriptInterface<IWorldTile> Tile) -> void
 {
 	UnderlyingTile = Tile;
 }
 
-auto ABaseBuilding::PrePlaced(TScriptInterface<IGridPlatform> Tile) -> void
+auto ABaseBuilding::PrePlaced(TScriptInterface<IWorldTile> Tile) -> void
 {
 }
 

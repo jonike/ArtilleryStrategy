@@ -71,7 +71,7 @@ void UDEPRECATED_ResourceDepositGenerator::CreateDeposits()
 	}
 }
 
-TScriptInterface<IGridPlatform> UDEPRECATED_ResourceDepositGenerator::GetTileForDeposit() const
+TScriptInterface<IWorldTile> UDEPRECATED_ResourceDepositGenerator::GetTileForDeposit() const
 {
 	return SpawnStrategy->GetNextSpawnPoint();
 }

@@ -11,7 +11,7 @@
 class ISpawnStrategy;
 class IOwnerController;
 class IBuilding;
-class IGridPlatform;
+class IWorldTile;
 class ACapitalBuilding;
 class AController;
 class ADefaultGS;
@@ -50,6 +50,6 @@ private:
 	void PlaceCapitalsForAll() const;
 	void PlaceCapital(TScriptInterface<IOwnerController> Controller) const;
 	ACapitalBuilding* CreateCapitalBuilding(FVector Location) const;
-	TScriptInterface<IGridPlatform> GetSpawnCell() const;
+	TScriptInterface<IWorldTile> GetSpawnCell() const;
 	void SetupCapitalBuilding(ACapitalBuilding* Capital, TScriptInterface<IOwnerController> Controller) const;
 };

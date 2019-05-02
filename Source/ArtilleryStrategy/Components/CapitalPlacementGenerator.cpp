@@ -48,7 +48,7 @@ ACapitalBuilding* UDEPRECATED_CapitalPlacementGenerator::CreateCapitalBuilding(F
 	return Cast<ACapitalBuilding>(Spawned);
 }
 
-TScriptInterface<IGridPlatform> UDEPRECATED_CapitalPlacementGenerator::GetSpawnCell() const
+TScriptInterface<IWorldTile> UDEPRECATED_CapitalPlacementGenerator::GetSpawnCell() const
 {
 	return SpawnStrategy->GetNextSpawnPoint();
 }

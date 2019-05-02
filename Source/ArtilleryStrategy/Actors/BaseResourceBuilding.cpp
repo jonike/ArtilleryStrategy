@@ -22,7 +22,7 @@ TSet<FResourceDeposit>& ABaseResourceBuilding::GetProducingResources()
 	return ProducedResources;
 }
 
-void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Tile)
+void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IWorldTile> Tile)
 {
 	Super::PostPlaced(Tile);
 	PopulateProducedResourcesContainer(Tile);
@@ -31,7 +31,7 @@ void ABaseResourceBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Til
 	TurnProcessor->OnTurnEnded.AddDynamic(this, &ABaseResourceBuilding::ReceiveOnTurnEnded);
 }
 
-void ABaseResourceBuilding::PopulateProducedResourcesContainer(const TScriptInterface<IGridPlatform> Tile)
+void ABaseResourceBuilding::PopulateProducedResourcesContainer(const TScriptInterface<IWorldTile> Tile)
 {
 	if (Tile->HasResourceDeposits())
 	{

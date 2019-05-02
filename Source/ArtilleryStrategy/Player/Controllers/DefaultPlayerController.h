@@ -28,7 +28,7 @@ class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController,
 	GENERATED_BODY()
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnBuildingCreatedSignature, TScriptInterface<IBuilding>, CreatedBuilding);
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTileBoughtSignature, TScriptInterface<IGridPlatform>, Tile);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTileBoughtSignature, TScriptInterface<IWorldTile>, Tile);
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFireSignature);
 
 public:
@@ -47,7 +47,7 @@ public:
 	UMaterialInterface* GetOwnerMaterial() const override;
 	TScriptInterface<IWallet> GetWallet() const override;
 
-	void CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) override;
+	void CreateSelectedBuilding(TScriptInterface<IWorldTile> Cell, TSubclassOf<AActor> BuildingClass) override;
 
 	void AddToFireList(TScriptInterface<IWeaponBuilding> Weapon) override;
 

@@ -11,7 +11,7 @@ class IMapGenerator;
 class ISpawnStrategy;
 class UWorldGenerator;
 class UTileMatrix;
-class IGridPlatform;
+class IWorldTile;
 
 /**
  * \brief Base class for all game state classes

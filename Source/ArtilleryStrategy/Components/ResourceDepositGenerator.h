@@ -11,7 +11,7 @@
 
 class UDataTable;
 class ISpawnStrategy;
-class IGridPlatform;
+class IWorldTile;
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Deprecated)
 class ARTILLERYSTRATEGY_API UDEPRECATED_ResourceDepositGenerator : public UActorComponent, public IMapGenerator
 {
@@ -49,5 +49,5 @@ private:
 	void CreateDeposits();
 	FResourceHandle GetRandomResource() const;
 	int32 GetRandomResourceAmount(const FResource& Resource) const;
-	TScriptInterface<IGridPlatform> GetTileForDeposit() const;
+	TScriptInterface<IWorldTile> GetTileForDeposit() const;
 };

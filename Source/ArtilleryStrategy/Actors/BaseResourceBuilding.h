@@ -25,7 +25,7 @@ public:
 	void AddResourceDeposit(FResourceDeposit& Deposit) override;
 	TSet<FResourceDeposit>& GetProducingResources() override;
 
-	void PostPlaced(TScriptInterface<IGridPlatform> Tile) override;
+	void PostPlaced(TScriptInterface<IWorldTile> Tile) override;
 
 private:
 	/**
@@ -44,5 +44,5 @@ private:
 	 * \brief Populate a list of producing resources
 	 * \param Tile The tile this building is placed on
 	 */
-	void PopulateProducedResourcesContainer(TScriptInterface<IGridPlatform> Tile);
+	void PopulateProducedResourcesContainer(TScriptInterface<IWorldTile> Tile);
 };

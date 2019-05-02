@@ -138,7 +138,7 @@ UTexture2D* ADefaultPlayerController::GetOwnerIcon() const
 	return PlayerIcon;
 }
 
-void ADefaultPlayerController::CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, const TSubclassOf<AActor> BuildingClass)
+void ADefaultPlayerController::CreateSelectedBuilding(TScriptInterface<IWorldTile> Cell, const TSubclassOf<AActor> BuildingClass)
 {
 	const auto State = GetPlayerState<ADefaultPlayerState>();
 	check(State);
@@ -189,7 +189,7 @@ void ADefaultPlayerController::ShowBuyWidget(const TScriptInterface<IPlayerPrope
 	auto& HUD = GetDefaultHUD();
 	if (PropertyToBuy->GetOwnerController() == this)
 	{
-		if (const auto GridPlatform = Cast<IGridPlatform>(PropertyToBuy.GetObject()))
+		if (const auto GridPlatform = Cast<IWorldTile>(PropertyToBuy.GetObject()))
 		{
 			if (!GridPlatform->HasBuilding())
 			{

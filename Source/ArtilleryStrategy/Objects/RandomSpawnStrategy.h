@@ -19,7 +19,7 @@ class ARTILLERYSTRATEGY_API UDEPRECATED_RandomSpawnStrategy : public UObject, pu
 public:
 	void SetTileMatrix(UTileMatrix* Matrix) override;
 
-	TScriptInterface<IGridPlatform> GetNextSpawnPoint() const override;
+	TScriptInterface<IWorldTile> GetNextSpawnPoint() const override;
 
 private:
 	UPROPERTY()

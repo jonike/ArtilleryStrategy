@@ -35,7 +35,7 @@ void UResourceDepositPass::CreateDeposits(const FWorldParams& Params) const
 	}
 }
 
-TScriptInterface<IGridPlatform> UResourceDepositPass::GetTileForDeposit(const FWorldParams& Params) const
+TScriptInterface<IWorldTile> UResourceDepositPass::GetTileForDeposit(const FWorldParams& Params) const
 {
 	const auto Row = FMath::RandRange(0, Params.TileMatrix->GetRows() - 1);
 	const auto Column = FMath::RandRange(0, Params.TileMatrix->GetColumns() - 1);

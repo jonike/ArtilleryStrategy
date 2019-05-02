@@ -7,7 +7,7 @@
 #include "Interfaces/WorldGenerationPass.h"
 #include "CapitalPlacementPass.generated.h"
 
-class IGridPlatform;
+class IWorldTile;
 class ACapitalBuilding;
 class IOwnerController;
 /**
@@ -22,7 +22,7 @@ public:
 	void GenerateWorld(FWorldParams& Params) override;
 
 protected:
-	TScriptInterface<IGridPlatform> GetSpawnCell(const FWorldParams& Params) const;
+	TScriptInterface<IWorldTile> GetSpawnCell(const FWorldParams& Params) const;
 
 private:
 	UPROPERTY(EditAnywhere, Category = Capitals, meta = (MustImplement = "IBuilding"))

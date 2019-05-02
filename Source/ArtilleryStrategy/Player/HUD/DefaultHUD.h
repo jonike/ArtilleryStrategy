@@ -8,7 +8,7 @@
 class UPlayerTurnLimitsWidget;
 class UTurnWidget;
 class UResourceStorageWidget;
-class IGridPlatform;
+class IWorldTile;
 class ICanBuyBuildings;
 class UUserWidget;
 class UBuyPlatformWidget;
@@ -26,7 +26,7 @@ class ARTILLERYSTRATEGY_API ADefaultHUD : public AHUD
 
 public:
 	void ShowBuyCellWidget(TScriptInterface<IPlayerProperty> Property);
-	void ShowBuildingSelectorWidget(TScriptInterface<IGridPlatform> Cell);
+	void ShowBuildingSelectorWidget(TScriptInterface<IWorldTile> Cell);
 	void HideBuyWidget();
 	bool IsBuyWidgetsVisible() const;
 
@@ -64,7 +64,7 @@ private:
 	UFUNCTION()
 	void ReceiveOnBuyCellClicked(TScriptInterface<IPlayerProperty> Property);
 	UFUNCTION()
-	void ReceiveOnBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass);
+	void ReceiveOnBuyBuildingClicked(TScriptInterface<IWorldTile> Cell, TSubclassOf<AActor> BuildingClass);
 	UFUNCTION()
 	void ReceiveOnCloseClicked();
 

@@ -9,7 +9,7 @@ void UDEPRECATED_RandomSpawnStrategy::SetTileMatrix(UTileMatrix* Matrix)
 	TileMatrix = Matrix;
 }
 
-TScriptInterface<IGridPlatform> UDEPRECATED_RandomSpawnStrategy::GetNextSpawnPoint() const
+TScriptInterface<IWorldTile> UDEPRECATED_RandomSpawnStrategy::GetNextSpawnPoint() const
 {
 	check(TileMatrix);
 	const auto Row = FMath::RandRange(0, TileMatrix->GetRows() - 1);

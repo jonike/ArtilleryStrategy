@@ -25,7 +25,7 @@ protected:
 	void FillBuildingsLimit(const FValueLimit& Limit);
 
 	UFUNCTION()
-	void ReceiveOnTileBought(TScriptInterface<IGridPlatform> Tile);
+	void ReceiveOnTileBought(TScriptInterface<IWorldTile> Tile);
 
 	UFUNCTION()
 	void ReceiveOnBuildingCreated(TScriptInterface<IBuilding> Tile);

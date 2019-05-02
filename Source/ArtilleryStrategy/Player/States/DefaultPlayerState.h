@@ -9,7 +9,7 @@
 #include "Interfaces/TurnDependent.h"
 #include "DefaultPlayerState.generated.h"
 
-class IGridPlatform;
+class IWorldTile;
 class IBuilding;
 class UResourceBuildingsManager;
 class UResourceStorage;
@@ -31,7 +31,7 @@ public:
 	void RegisterBuyingBuilding(TScriptInterface<IBuilding> Building);
 
 	UFUNCTION()
-	void RegisterBuyingCell(TScriptInterface<IGridPlatform> Tile);
+	void RegisterBuyingCell(TScriptInterface<IWorldTile> Tile);
 
 	void ReceiveOnTurnStarted() override;
 

@@ -5,7 +5,7 @@
 #include "UObject/Interface.h"
 #include "Building.generated.h"
 
-class IGridPlatform;
+class IWorldTile;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -27,11 +27,11 @@ public:
 	 * \brief Actions before building was placed on the tile
 	 * \param Tile where building was placed
 	 */
-	virtual void PrePlaced(TScriptInterface<IGridPlatform> Tile) = 0;
+	virtual void PrePlaced(TScriptInterface<IWorldTile> Tile) = 0;
 
 	/**
 	 * \brief Actions after the building was placed
 	 * \param Tile where building was placed
 	 */
-	virtual void PostPlaced(TScriptInterface<IGridPlatform> Tile) = 0;
+	virtual void PostPlaced(TScriptInterface<IWorldTile> Tile) = 0;
 };
