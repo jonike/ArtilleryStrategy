@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "FireManager.generated.h"
 
@@ -16,7 +15,7 @@ class UFireManager : public UInterface
 };
 
 /**
- * 
+ * \brief An object that decides when to fire owned weapon
  */
 class ARTILLERYSTRATEGY_API IFireManager
 {
@@ -24,5 +23,9 @@ class ARTILLERYSTRATEGY_API IFireManager
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	/**
+	 * \brief Binds weapon to the manager so it can fire when needed
+	 * \param Weapon weapon to add to the list
+	 */
 	virtual void AddToFireList(TScriptInterface<IWeaponBuilding> Weapon) = 0;
 };

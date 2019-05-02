@@ -14,7 +14,7 @@ class UUserWidget;
 class UBuyPlatformWidget;
 class UBuildingSelectorWidget;
 class IPlayerProperty;
-class ICanBuyCells;
+class ICanBuyTiles;
 
 /**
  * 
@@ -76,6 +76,6 @@ private:
 	void CreateBuildingSelectorWidget();
 	void CreateResourceStorageWidget();
 
-	TScriptInterface<ICanBuyCells> GetCellBuyer() const;
+	TScriptInterface<ICanBuyTiles> GetCellBuyer() const;
 	TScriptInterface<ICanBuyBuildings> GetBuildingsBuyer() const;
 };

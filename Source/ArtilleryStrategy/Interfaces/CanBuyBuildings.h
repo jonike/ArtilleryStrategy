@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "CanBuyBuildings.generated.h"
 
@@ -17,7 +16,7 @@ class UCanBuyBuildings : public UInterface
 };
 
 /**
- * 
+ * \brief Represents class that can buy buildings for itself
  */
 class ARTILLERYSTRATEGY_API ICanBuyBuildings
 {
@@ -25,5 +24,10 @@ class ARTILLERYSTRATEGY_API ICanBuyBuildings
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	/**
+	 * \brief Creates building of given class on the tile
+	 * \param Cell place where to create building
+	 * \param BuildingClass building class to spawn
+	 */
 	virtual void CreateSelectedBuilding(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass) = 0;
 };

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "Interfaces/CanBuyCells.h"
+#include "Interfaces/CanBuyTiles.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyBuildings.h"
 #include "Interfaces/FireManager.h"
@@ -23,7 +23,7 @@ class ADefaultHUD;
  *
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyCells, public IOwnerController, public ICanBuyBuildings, public IFireManager, public INeedsBuyWidget
+class ARTILLERYSTRATEGY_API ADefaultPlayerController : public APlayerController, public ICanBuyTiles, public IOwnerController, public ICanBuyBuildings, public IFireManager, public INeedsBuyWidget
 {
 	GENERATED_BODY()
 

@@ -48,7 +48,7 @@ void UBuySelectedTile::OnGameplayTaskActivated(UGameplayTask& Task)
 EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, UObject* ObjectToBuy) const
 {
 	// Can buy cells
-	if (const auto Controller = Cast<ICanBuyCells>(OwnerComp.GetAIOwner()))
+	if (const auto Controller = Cast<ICanBuyTiles>(OwnerComp.GetAIOwner()))
 	{
 		// Object can be bought
 		if (Cast<IPlayerProperty>(ObjectToBuy))

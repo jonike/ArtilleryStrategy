@@ -2,24 +2,23 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "CanBuyCells.generated.h"
+#include "CanBuyTiles.generated.h"
 
 class IGridPlatform;
 class IPlayerProperty;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UCanBuyCells : public UInterface
+class UCanBuyTiles : public UInterface
 {
 	GENERATED_BODY()
 };
 
 /**
- *
+ *	\brief Represents class that can buy tiles for itself
  */
-class ARTILLERYSTRATEGY_API ICanBuyCells
+class ARTILLERYSTRATEGY_API ICanBuyTiles
 {
 	GENERATED_BODY()
 

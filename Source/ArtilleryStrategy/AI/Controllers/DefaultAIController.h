@@ -4,7 +4,7 @@
 
 #include "AIController.h"
 #include "Interfaces/OwnerController.h"
-#include "Interfaces/CanBuyCells.h"
+#include "Interfaces/CanBuyTiles.h"
 #include "Interfaces/CanBuyBuildings.h"
 #include "DefaultAIController.generated.h"
 
@@ -12,7 +12,7 @@
  * \brief Base class for all AI controllers
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultAIController : public AAIController, public IOwnerController, public ICanBuyCells, public ICanBuyBuildings
+class ARTILLERYSTRATEGY_API ADefaultAIController : public AAIController, public IOwnerController, public ICanBuyTiles, public ICanBuyBuildings
 {
 	GENERATED_BODY()
 

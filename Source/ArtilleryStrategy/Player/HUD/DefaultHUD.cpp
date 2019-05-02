@@ -5,7 +5,7 @@
 #include "UserWidget.h"
 #include "Widgets/BuyPlatformWidget.h"
 #include "Widgets/BuildingSelectorWidget.h"
-#include "Interfaces/CanBuyCells.h"
+#include "Interfaces/CanBuyTiles.h"
 #include "Player/Controllers/DefaultPlayerController.h"
 #include "Widgets/ResourceStorageWidget.h"
 #include "Widgets/TurnWidget.h"
@@ -134,7 +134,7 @@ void ADefaultHUD::CreateResourceStorageWidget()
 	check(ResourceStorageWidget);
 }
 
-TScriptInterface<ICanBuyCells> ADefaultHUD::GetCellBuyer() const
+TScriptInterface<ICanBuyTiles> ADefaultHUD::GetCellBuyer() const
 {
 	return GetOwningPlayerController();
 }

@@ -14,7 +14,7 @@ class UConstructable : public UInterface
 };
 
 /**
- *
+ * \brief Represents all objects that can be constructed
  */
 class ARTILLERYSTRATEGY_API IConstructable
 {
