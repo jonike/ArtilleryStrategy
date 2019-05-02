@@ -8,6 +8,7 @@
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "ScriptInterface.h"
+#include "Structs/BuildingData.h"
 
 USelectBuildingClass::USelectBuildingClass()
 {
@@ -23,6 +24,7 @@ USelectBuildingClass::USelectBuildingClass()
 
 EBTNodeResult::Type USelectBuildingClass::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+	check(Buildings);
 	if (const auto TileObject = OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelectedTile.SelectedKeyName))
 	{
 		if (Cast<IGridPlatform>(TileObject))
@@ -52,6 +54,13 @@ void USelectBuildingClass::SelectClass(UBehaviorTreeComponent& OwnerComp, uint8*
 void USelectBuildingClass::SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)
 {
 	// TODO: provide logic for selecting mineral building class
+	const auto Names = Buildings->GetRowNames();
+	if (Names.Num() > 0)
+	{
+		const auto BuildingData = Buildings->FindRow<FBuildingData>(Names[0], TEXT("Get row for selecting building class"));
+		const auto Class = BuildingData->SpawnClass;
+		OwnerComp.GetBlackboardComponent()->SetValueAsClass(BuildingClass.SelectedKeyName, Class.Get());
+	}
 }
 
 void USelectBuildingClass::SelectEnergyBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IGridPlatform>& Tile)

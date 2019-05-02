@@ -34,7 +34,7 @@ protected:
 
 private:
 	UPROPERTY(Category = "Input", EditAnywhere)
-	UDataTable* ResourceBuildings;
+	UDataTable* Buildings;
 
 	UPROPERTY(Category = "Input", EditAnywhere)
 	FBlackboardKeySelector SelectedTile;
