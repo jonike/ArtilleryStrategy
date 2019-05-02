@@ -44,17 +44,19 @@ void UFindBestTileForResourceBuilding::OnGameplayTaskActivated(UGameplayTask& Ta
 EBTNodeResult::Type UFindBestTileForResourceBuilding::GetBestResourceTile(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const FWorldParams& Params)
 {
 	const auto SelfOwner = OwnerComp.GetAIOwner();
+	// TODO: refactor and remove nested for loops
 	for (auto Row = 0; Row < Params.GetRows(); ++Row)
 	{
 		for (auto Column = 0; Column < Params.GetColumns(); ++Column)
 		{
-			const auto Tile = Params.TileMatrix->Get(Row, Column).GetObject();
-			if (const auto OwnedTile = Cast<IPlayerProperty>(Tile))
+			const auto TileObject = Params.TileMatrix->Get(Row, Column).GetObject();
+			if (const auto OwnedTile = Cast<IPlayerProperty>(TileObject))
 			{
 				const auto TileOwner = OwnedTile->GetOwnerController().GetObject();
-				if (TileOwner == SelfOwner)
+				const auto TileProperty = Cast<IWorldTile>(TileObject);
+				if (TileOwner == SelfOwner && !TileProperty->HasBuilding())
 				{
-					OwnerComp.GetBlackboardComponent()->SetValueAsObject(ResultTile.SelectedKeyName, Tile);
+					OwnerComp.GetBlackboardComponent()->SetValueAsObject(ResultTile.SelectedKeyName, TileObject);
 					return EBTNodeResult::Succeeded;
 				}
 			}

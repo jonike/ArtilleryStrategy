@@ -40,6 +40,8 @@ void UCapitalPlacementPass::PlaceCapital(const TScriptInterface<IOwnerController
 	check(Property);
 	Property->SetOwnerController(Controller);
 	const auto Capital = CreateCapitalBuilding(Cell->GetBuildingSpawnLocation(), Params);
+	// TODO: refactor assigning already created building to the field in the tile object
+	Cell->SetBuilding(Capital);
 	SetupCapitalBuilding(Capital, Controller);
 }
 
