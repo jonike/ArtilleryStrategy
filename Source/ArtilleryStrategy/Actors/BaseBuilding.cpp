@@ -15,12 +15,12 @@ ABaseBuilding::ABaseBuilding()
 }
 
 // Called when the game starts or when spawned
-void ABaseBuilding::BeginPlay()
+auto ABaseBuilding::BeginPlay() -> void
 {
 	Super::BeginPlay();
 }
 
-float ABaseBuilding::TakeDamage(const float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+auto ABaseBuilding::TakeDamage(const float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) -> float
 {
 	if (!IsPendingKillPending())
 	{
@@ -33,38 +33,48 @@ float ABaseBuilding::TakeDamage(const float DamageAmount, FDamageEvent const& Da
 	return DamageAmount;
 }
 
-const FResourcePack& ABaseBuilding::GetResourcesToOwn() const
+auto ABaseBuilding::GetResourcesToOwn() const -> const FResourcePack&
 {
 	return ResourcesToOwn;
 }
 
-void ABaseBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Tile)
+auto ABaseBuilding::PostPlaced(const TScriptInterface<IGridPlatform> Tile) -> void
 {
 	UnderlyingTile = Tile;
 }
 
-void ABaseBuilding::PrePlaced(TScriptInterface<IGridPlatform> Tile)
+auto ABaseBuilding::PrePlaced(TScriptInterface<IGridPlatform> Tile) -> void
 {
 }
 
-void ABaseBuilding::ReceiveOnTurnEnded()
+auto ABaseBuilding::ReceiveOnTurnEnded() -> void
 {
 	UE_LOG(TurnProcessing, Log, TEXT("Turn ended for resource building"));
 }
 
-void ABaseBuilding::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
+auto ABaseBuilding::GetOwnerController() const -> TScriptInterface<IOwnerController>
+{
+	return OwnerController;
+}
+
+auto ABaseBuilding::SetOwnerController(TScriptInterface<IOwnerController> NewOwner) -> void
 {
 	OwnerController = NewOwner;
 	StaticMesh->SetMaterial(0, OwnerController->GetOwnerMaterial());
 }
 
-bool ABaseBuilding::RequiresResourcesToOwn() const
+auto ABaseBuilding::HasOwnerController() const -> bool
+{
+	return OwnerController.GetObject() != nullptr;
+}
+
+auto ABaseBuilding::RequiresResourcesToOwn() const -> bool
 {
 	return ResourcesToOwn.Resources.Num() != 0;
 }
 
 // Called every frame
-void ABaseBuilding::Tick(float DeltaTime)
+auto ABaseBuilding::Tick(float DeltaTime) -> void
 {
 	Super::Tick(DeltaTime);
 }

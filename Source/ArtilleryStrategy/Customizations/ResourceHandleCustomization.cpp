@@ -6,12 +6,17 @@
 #include "Framework/Application/SlateApplication.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 #include "Widgets/Input/SSearchBox.h"
+#include "IDetailChildrenBuilder.h"
+#include "Engine/DataTable.h"
+#include "Widgets/Text/STextBlock.h"
+#include "Layout/Margin.h"
+#include "Widgets/DeclarativeSyntaxSupport.h"
 
 #define LOCTEXT_NAMESPACE "FResourceHandleCustomizationLayout"
 
 TSharedPtr<FString> FResourceHandleCustomizationLayout::InitWidgetContent()
 {
-	TSharedPtr<FString> InitialValue = MakeShareable(new FString(LOCTEXT("DataTable_None", "None").ToString()));;
+	TSharedPtr<FString> InitialValue = MakeShareable(new FString(LOCTEXT("DataTable_None", "None").ToString()));
 
 	FName RowName;
 	const FPropertyAccess::Result RowResult = RowNamePropertyHandle->GetValue(RowName);
@@ -19,7 +24,7 @@ TSharedPtr<FString> FResourceHandleCustomizationLayout::InitWidgetContent()
 
 	/** Get the properties we wish to work with */
 	const UDataTable* DataTable = nullptr;
-	DataTablePropertyHandle->GetValue((UObject * &) DataTable);
+	DataTablePropertyHandle->GetValue((UObject * &)DataTable);
 
 	if (DataTable != nullptr)
 	{
@@ -62,10 +67,10 @@ void FResourceHandleCustomizationLayout::CustomizeHeader(TSharedRef<class IPrope
 	StructPropertyHandle->SetOnPropertyValueChanged(OnDataTableChangedDelegate);
 
 	HeaderRow
-		.NameContent()
-		[
-			InStructPropertyHandle->CreatePropertyNameWidget(FText::GetEmpty(), FText::GetEmpty(), false)
-		];
+	.NameContent()
+	[
+		InStructPropertyHandle->CreatePropertyNameWidget(FText::GetEmpty(), FText::GetEmpty(), false)
+	];
 
 	FDataTableRowUtils::AddSearchForReferencesContextMenu(HeaderRow, FExecuteAction::CreateSP(this, &FResourceHandleCustomizationLayout::OnSearchForReferences));
 }
@@ -87,33 +92,33 @@ void FResourceHandleCustomizationLayout::CustomizeChildren(TSharedRef<class IPro
 
 		/** Construct a asset picker widget with a custom filter */
 		StructBuilder.AddCustomRow(LOCTEXT("DataTable_TableName", "Data Table"))
-			.NameContent()
-			[
-				SNew(STextBlock)
+					.NameContent()
+		[
+			SNew(STextBlock)
 				.Text(LOCTEXT("DataTable_TableName", "Data Table"))
 			.Font(StructCustomizationUtils.GetRegularFont())
-			]
+		]
 		.ValueContent()
-			.MaxDesiredWidth(0.0f) // don't constrain the combo button width
-			[
-				SNew(SObjectPropertyEntryBox)
+		.MaxDesiredWidth(0.0f) // don't constrain the combo button width
+		[
+			SNew(SObjectPropertyEntryBox)
 				.PropertyHandle(DataTablePropertyHandle)
 			.AllowedClass(UDataTable::StaticClass())
 			.OnShouldFilterAsset(this, &FResourceHandleCustomizationLayout::ShouldFilterAsset)
-			];
+		];
 
 		/** Construct a combo box widget to select from a list of valid options */
 		StructBuilder.AddCustomRow(LOCTEXT("DataTable_RowName", "Row Name"))
-			.NameContent()
-			[
-				SNew(STextBlock)
+					.NameContent()
+		[
+			SNew(STextBlock)
 				.Text(LOCTEXT("DataTable_RowName", "Row Name"))
 			.Font(StructCustomizationUtils.GetRegularFont())
-			]
+		]
 		.ValueContent()
-			.MaxDesiredWidth(0.0f) // don't constrain the combo button width
-			[
-				SAssignNew(RowNameComboButton, SComboButton)
+		.MaxDesiredWidth(0.0f) // don't constrain the combo button width
+		[
+			SAssignNew(RowNameComboButton, SComboButton)
 				.ToolTipText(this, &FResourceHandleCustomizationLayout::GetRowNameComboBoxContentText)
 			.OnGetMenuContent(this, &FResourceHandleCustomizationLayout::GetListContent)
 			.OnComboBoxOpened(this, &FResourceHandleCustomizationLayout::HandleMenuOpen)
@@ -123,7 +128,7 @@ void FResourceHandleCustomizationLayout::CustomizeChildren(TSharedRef<class IPro
 				SNew(STextBlock)
 				.Text(this, &FResourceHandleCustomizationLayout::GetRowNameComboBoxContentText)
 			]
-			];
+		];
 	}
 }
 
@@ -152,7 +157,7 @@ TSharedRef<SWidget> FResourceHandleCustomizationLayout::GetListContent()
 	SAssignNew(RowNameComboListView, SListView<TSharedPtr<FString> >)
 		.ListItemsSource(&RowNames)
 		.OnSelectionChanged(this, &FResourceHandleCustomizationLayout::OnSelectionChanged)
-		.OnGenerateRow(this, &FResourceHandleCustomizationLayout::HandleRowNameComboBoxGenarateWidget)
+		.OnGenerateRow(this, &FResourceHandleCustomizationLayout::HandleRowNameComboBoxGenerateWidget)
 		.SelectionMode(ESelectionMode::Single);
 
 	// Ensure no filter is applied at the time the menu opens
@@ -164,22 +169,22 @@ TSharedRef<SWidget> FResourceHandleCustomizationLayout::GetListContent()
 	}
 
 	return SNew(SVerticalBox)
-		+ SVerticalBox::Slot()
-		.AutoHeight()
-		[
-			SAssignNew(SearchBox, SSearchBox)
-			.OnTextChanged(this, &FResourceHandleCustomizationLayout::OnFilterTextChanged)
-		]
+			+ SVerticalBox::Slot()
+			.AutoHeight()
+			[
+				SAssignNew(SearchBox, SSearchBox)
+				.OnTextChanged(this, &FResourceHandleCustomizationLayout::OnFilterTextChanged)
+			]
 
-	+ SVerticalBox::Slot()
-		.FillHeight(1.f)
-		[
-			SNew(SBox)
-			.MaxDesiredHeight(600)
-		[
-			RowNameComboListView.ToSharedRef()
-		]
-		];
+			+ SVerticalBox::Slot()
+			.FillHeight(1.f)
+			[
+				SNew(SBox)
+				.MaxDesiredHeight(600)
+				[
+					RowNameComboListView.ToSharedRef()
+				]
+			];
 }
 
 void FResourceHandleCustomizationLayout::OnDataTableChanged()
@@ -192,13 +197,13 @@ void FResourceHandleCustomizationLayout::OnDataTableChanged()
 	}
 }
 
-TSharedRef<ITableRow> FResourceHandleCustomizationLayout::HandleRowNameComboBoxGenarateWidget(TSharedPtr<FString> InItem, const TSharedRef<STableViewBase>& OwnerTable)
+TSharedRef<ITableRow> FResourceHandleCustomizationLayout::HandleRowNameComboBoxGenerateWidget(TSharedPtr<FString> InItem, const TSharedRef<STableViewBase>& OwnerTable)
 {
 	return
-		SNew(STableRow<TSharedPtr<FString>>, OwnerTable)
-		[
-			SNew(STextBlock).Text(FText::FromString(*InItem))
-		];
+	SNew(STableRow<TSharedPtr<FString>>, OwnerTable)
+	[
+		SNew(STextBlock).Text(FText::FromString(*InItem))
+	];
 }
 
 FText FResourceHandleCustomizationLayout::GetRowNameComboBoxContentText() const
@@ -209,14 +214,11 @@ FText FResourceHandleCustomizationLayout::GetRowNameComboBoxContentText() const
 	{
 		return FText::FromString(*RowNameValue);
 	}
-	else if (RowResult == FPropertyAccess::Fail)
+	if (RowResult == FPropertyAccess::Fail)
 	{
 		return LOCTEXT("DataTable_None", "None");
 	}
-	else
-	{
-		return LOCTEXT("MultipleValues", "Multiple Values");
-	}
+	return LOCTEXT("MultipleValues", "Multiple Values");
 }
 
 void FResourceHandleCustomizationLayout::OnSelectionChanged(TSharedPtr<FString> SelectedItem, ESelectInfo::Type SelectInfo)
@@ -242,7 +244,7 @@ void FResourceHandleCustomizationLayout::OnFilterTextChanged(const FText& InFilt
 
 	/** Get the properties we wish to work with */
 	const UDataTable* DataTable = nullptr;
-	DataTablePropertyHandle->GetValue((UObject * &) DataTable);
+	DataTablePropertyHandle->GetValue((UObject * &)DataTable);
 
 	TArray<FString> AllRowNames;
 	if (DataTable != nullptr)

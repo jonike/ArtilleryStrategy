@@ -7,7 +7,7 @@
 #include "BuySelectedTile.generated.h"
 
 /**
- * 
+ * \brief Task for buying previously selected tile
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API UBuySelectedTile : public UBTTaskNode

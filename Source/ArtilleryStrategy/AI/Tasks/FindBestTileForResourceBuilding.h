@@ -9,7 +9,7 @@
 struct FWorldParams;
 
 /**
- * 
+ * \brief Task for finding best acquired tile with resources to build a resource production building on it
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API UFindBestTileForResourceBuilding : public UBTTaskNode

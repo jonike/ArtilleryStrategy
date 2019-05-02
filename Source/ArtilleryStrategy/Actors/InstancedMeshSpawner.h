@@ -2,11 +2,13 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "InstancedMeshSpawner.generated.h"
 
 class UHierarchicalInstancedStaticMeshComponent;
+/**
+ * \brief An actor for spawning instanced meshes
+ */
 UCLASS()
 class ARTILLERYSTRATEGY_API AInstancedMeshSpawner : public AActor
 {
@@ -16,7 +18,11 @@ public:
 	// Sets default values for this actor's properties
 	AInstancedMeshSpawner();
 
-	auto GetTileInstancedMesh() const { return TileInstancedMesh; }
+	/**
+	 * \brief Get HISM component for spawning instanced meshes
+	 * \return HISM component that can spawn instanced meshes
+	 */
+	auto GetTileInstancedMesh() const -> UHierarchicalInstancedStaticMeshComponent*;
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,6 +32,9 @@ protected:
 	void Tick(float DeltaTime) override;
 
 private:
+	/**
+	 * \brief HISM component that can spawn instanced meshes
+	 */
 	UPROPERTY(Category = "Tiles", EditAnywhere)
 	UHierarchicalInstancedStaticMeshComponent* TileInstancedMesh;
 };

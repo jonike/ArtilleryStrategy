@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "AIController.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyCells.h"
@@ -10,7 +9,7 @@
 #include "DefaultAIController.generated.h"
 
 /**
- * 
+ * \brief Base class for all AI controllers
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API ADefaultAIController : public AAIController, public IOwnerController, public ICanBuyCells, public ICanBuyBuildings
@@ -44,5 +43,5 @@ private:
 	UTexture2D* OwnerIcon;
 
 	bool TryToBuyWithPack(const FResourcePack& ResourcePack) const;
-	bool TryToBuyDefaultBuilding(const TSubclassOf<AActor> BuildingClass) const;
+	bool TryToBuyDefaultBuilding(TSubclassOf<AActor> BuildingClass) const;
 };

@@ -7,7 +7,7 @@
 #include "FindBestResourceTile.generated.h"
 
 /**
- * 
+ * \brief Task for finding best tile with resources
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API UFindBestResourceTile : public UBTTaskNode

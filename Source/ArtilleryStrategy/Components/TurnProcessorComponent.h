@@ -6,6 +6,10 @@
 #include "Components/ActorComponent.h"
 #include "TurnProcessorComponent.generated.h"
 
+/**
+ * \brief Components that notifies all subscriber objects when turn starts/over.
+ * See: ITurnDependent interface
+ */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ARTILLERYSTRATEGY_API UTurnProcessorComponent : public UActorComponent
 {
@@ -18,9 +22,19 @@ public:
 	// Sets default values for this component's properties
 	UTurnProcessorComponent();
 
+	/**
+	 * \brief Notifies when turn starts
+	 */
 	FOnTurnStartedSignature OnTurnStarted;
+
+	/**
+	 * \brief Notifies when turn ends
+	 */
 	FOnTurnEndedSignature OnTurnEnded;
 
+	/**
+	 * \brief End turn and notify all subscribers
+	 */
 	void EndTurn();
 
 protected:

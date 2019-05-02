@@ -15,6 +15,11 @@ AInstancedMeshSpawner::AInstancedMeshSpawner()
 	TileInstancedMesh->SetGenerateOverlapEvents(false);
 }
 
+UHierarchicalInstancedStaticMeshComponent* AInstancedMeshSpawner::GetTileInstancedMesh() const
+{
+	return TileInstancedMesh;
+}
+
 // Called when the game starts or when spawned
 void AInstancedMeshSpawner::BeginPlay()
 {

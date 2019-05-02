@@ -2,12 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Actors/BaseBuilding.h"
 #include "CapitalBuilding.generated.h"
 
 /**
- * 
+ * \brief Base class for all capitals classes
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API ACapitalBuilding : public ABaseBuilding

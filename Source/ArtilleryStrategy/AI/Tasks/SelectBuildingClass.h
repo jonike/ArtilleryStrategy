@@ -10,7 +10,7 @@ class UDataTable;
 class IGridPlatform;
 
 /**
- *
+ * \brief Task that selects building class depending on what resources is available on the given tile
  */
 UCLASS()
 class ARTILLERYSTRATEGY_API USelectBuildingClass : public UBTTaskNode
