@@ -38,7 +38,7 @@ void UCapitalPlacementPass::PlaceCapital(const TScriptInterface<IOwnerController
 	const auto Cell = GetSpawnCell(Params);
 	auto Property = Cast<IPlayerProperty>(Cell.GetObject());
 	check(Property);
-	Property->SetOwnerController(Params.CurrentWorld->GetFirstPlayerController());
+	Property->SetOwnerController(Controller);
 	const auto Capital = CreateCapitalBuilding(Cell->GetBuildingSpawnLocation(), Params);
 	SetupCapitalBuilding(Capital, Controller);
 }
