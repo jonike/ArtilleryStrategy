@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "PlayerProperty.h"
 #include "NeedsBuyWidget.generated.h"
@@ -15,7 +14,7 @@ class UNeedsBuyWidget : public UInterface
 };
 
 /**
- * 
+ * \brief Represents class that needs to show buy widget before buying. Example: every player controller
  */
 class ARTILLERYSTRATEGY_API INeedsBuyWidget
 {
@@ -23,7 +22,13 @@ class ARTILLERYSTRATEGY_API INeedsBuyWidget
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	/**
+	 * \brief Shows buy widget when player selects some property
+	 * \param PropertyToBuy property that player has selected
+	 */
 	virtual void ShowBuyWidget(TScriptInterface<IPlayerProperty> PropertyToBuy) = 0;
+
 	virtual void HideBuyWidget() = 0;
+
 	virtual bool IsBuyWidgetVisible() const = 0;
 };

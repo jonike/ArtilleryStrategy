@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "HasSpringArm.generated.h"
 
@@ -16,7 +15,7 @@ class UHasSpringArm : public UInterface
 };
 
 /**
- *
+ * \brief Class that has SpringArm component on it
  */
 class ARTILLERYSTRATEGY_API IHasSpringArm
 {

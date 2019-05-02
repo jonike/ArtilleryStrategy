@@ -10,10 +10,10 @@
 #include "ResourceDepositGenerator.generated.h"
 
 class UDataTable;
-class ISpawnStrategy;
+class IDEPRECATED_SpawnStrategy;
 class IWorldTile;
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Deprecated)
-class ARTILLERYSTRATEGY_API UDEPRECATED_ResourceDepositGenerator : public UActorComponent, public IMapGenerator
+class ARTILLERYSTRATEGY_API UDEPRECATED_ResourceDepositGenerator : public UActorComponent, public IDEPRECATED_MapGenerator
 {
 	GENERATED_BODY()
 
@@ -38,7 +38,7 @@ private:
 	TSubclassOf<UObject> SpawnStrategyClass;
 
 	UPROPERTY()
-	TScriptInterface<ISpawnStrategy> SpawnStrategy;
+	TScriptInterface<IDEPRECATED_SpawnStrategy> SpawnStrategy;
 
 	UPROPERTY(Category = "Resources", EditDefaultsOnly)
 	int DepositsAmount = 4;

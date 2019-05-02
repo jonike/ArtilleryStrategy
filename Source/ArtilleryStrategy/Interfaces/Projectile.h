@@ -14,7 +14,7 @@ class UProjectile : public UInterface
 };
 
 /**
- * 
+ * \brief Represents projectiles that are influenced by gravity (bullets, etc)
  */
 class ARTILLERYSTRATEGY_API IProjectile
 {

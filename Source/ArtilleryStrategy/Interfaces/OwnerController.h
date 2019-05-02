@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "Wallet.h"
 #include "OwnerController.generated.h"
@@ -17,15 +16,17 @@ class UOwnerController : public UInterface
 };
 
 /**
- *
+ * \brief Controller that can own property
  */
 class ARTILLERYSTRATEGY_API IOwnerController
 {
 	GENERATED_BODY()
 
-		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	virtual UMaterialInterface* GetOwnerMaterial() const = 0;
+
 	virtual UTexture2D* GetOwnerIcon() const = 0;
+
 	virtual TScriptInterface<IWallet> GetWallet() const = 0;
 };

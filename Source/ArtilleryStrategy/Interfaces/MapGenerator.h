@@ -2,28 +2,25 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "MapGenerator.generated.h"
 
 class UTileMatrix;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UMapGenerator : public UInterface
+class UDEPRECATED_MapGenerator : public UInterface
 {
 	GENERATED_BODY()
 };
 
 /**
- * 
+ * \brief Class that participates in world generation
  */
-class ARTILLERYSTRATEGY_API IMapGenerator
+class ARTILLERYSTRATEGY_API IDEPRECATED_MapGenerator
 {
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
-public:
-
 protected:
 	UFUNCTION()
 	virtual void ReceiveOnGridGenerationEnded(UTileMatrix* Tiles) = 0;

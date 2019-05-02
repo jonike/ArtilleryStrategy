@@ -10,7 +10,7 @@
 
 class IWorldTile;
 struct FResource;
-class ISpawnStrategy;
+class IDEPRECATED_SpawnStrategy;
 /**
  * 
  */

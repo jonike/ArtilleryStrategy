@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "Objects/ResourceStorage.h"
 #include "Wallet.generated.h"
@@ -15,7 +14,7 @@ class UWallet : public UInterface
 };
 
 /**
- *
+ * \brief Class that holds all actives that player has
  */
 class ARTILLERYSTRATEGY_API IWallet
 {

@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "SpawnStrategy.generated.h"
 
@@ -10,15 +9,15 @@ class UTileMatrix;
 class IWorldTile;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class USpawnStrategy : public UInterface
+class UDEPRECATED_SpawnStrategy : public UInterface
 {
 	GENERATED_BODY()
 };
 
 /**
- * 
+ * \brief Strategy for spawning new items in the world
  */
-class ARTILLERYSTRATEGY_API ISpawnStrategy
+class ARTILLERYSTRATEGY_API IDEPRECATED_SpawnStrategy
 {
 	GENERATED_BODY()
 

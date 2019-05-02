@@ -17,7 +17,7 @@ class UResourceBuilding : public UInterface
 };
 
 /**
- * 
+ * \brief Represents resource buildings (buildings that can produce resources)
  */
 class ARTILLERYSTRATEGY_API IResourceBuilding
 {
@@ -26,6 +26,8 @@ class ARTILLERYSTRATEGY_API IResourceBuilding
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	virtual TSet<FResourceDeposit>& GetProducingResources() = 0;
+
 	virtual bool IsProducingResource() const = 0;
+
 	virtual void AddResourceDeposit(FResourceDeposit& Deposit) = 0;
 };
