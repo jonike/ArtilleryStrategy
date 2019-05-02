@@ -7,8 +7,8 @@
 #include "DefaultGS.generated.h"
 
 class UTurnProcessorComponent;
-class IDEPRECATED_MapGenerator;
-class IDEPRECATED_SpawnStrategy;
+class IMapGenerator;
+class ISpawnStrategy;
 class UWorldGenerator;
 class UTileMatrix;
 class IWorldTile;

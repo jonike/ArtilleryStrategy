@@ -9,7 +9,7 @@ class UTileMatrix;
 class IWorldTile;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UDEPRECATED_SpawnStrategy : public UInterface
+class USpawnStrategy : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -17,7 +17,7 @@ class UDEPRECATED_SpawnStrategy : public UInterface
 /**
  * \brief Strategy for spawning new items in the world
  */
-class ARTILLERYSTRATEGY_API IDEPRECATED_SpawnStrategy
+class ARTILLERYSTRATEGY_API ISpawnStrategy
 {
 	GENERATED_BODY()
 

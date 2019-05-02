@@ -8,7 +8,7 @@
 #include "ScriptInterface.h"
 #include "CapitalPlacementGenerator.generated.h"
 
-class IDEPRECATED_SpawnStrategy;
+class ISpawnStrategy;
 class IOwnerController;
 class IBuilding;
 class IWorldTile;
@@ -17,7 +17,7 @@ class AController;
 class ADefaultGS;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent), Deprecated)
-class ARTILLERYSTRATEGY_API UDEPRECATED_CapitalPlacementGenerator : public UActorComponent, public IDEPRECATED_MapGenerator
+class ARTILLERYSTRATEGY_API UDEPRECATED_CapitalPlacementGenerator : public UActorComponent, public IMapGenerator
 {
 	GENERATED_BODY()
 
@@ -42,7 +42,7 @@ private:
 	TSubclassOf<UObject> SpawnStrategyClass;
 
 	UPROPERTY()
-	TScriptInterface<IDEPRECATED_SpawnStrategy> SpawnStrategy;
+	TScriptInterface<ISpawnStrategy> SpawnStrategy;
 
 	UPROPERTY(EditAnywhere, Category = Capitals, meta = (MustImplement = "IBuilding"))
 	TSubclassOf<ACapitalBuilding> CapitalActorClass;

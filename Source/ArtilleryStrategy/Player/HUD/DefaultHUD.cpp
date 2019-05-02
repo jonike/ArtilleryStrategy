@@ -23,7 +23,7 @@ void ADefaultHUD::ShowBuyCellWidget(TScriptInterface<IPlayerProperty> Property)
 	ActiveBuyWidget = BuyCellWidget;
 }
 
-void ADefaultHUD::ShowBuildingSelectorWidget(TScriptInterface<IGridPlatform> Cell)
+void ADefaultHUD::ShowBuildingSelectorWidget(TScriptInterface<IWorldTile> Cell)
 {
 	HideBuyWidget();
 	if (!BuildingSelectorWidget)
@@ -70,7 +70,7 @@ void ADefaultHUD::ReceiveOnBuyCellClicked(TScriptInterface<IPlayerProperty> Prop
 	}
 }
 
-void ADefaultHUD::ReceiveOnBuyBuildingClicked(TScriptInterface<IGridPlatform> Cell, TSubclassOf<AActor> BuildingClass)
+void ADefaultHUD::ReceiveOnBuyBuildingClicked(TScriptInterface<IWorldTile> Cell, TSubclassOf<AActor> BuildingClass)
 {
 	const auto Buyer = GetBuildingsBuyer();
 	Buyer->CreateSelectedBuilding(Cell, BuildingClass);

@@ -8,7 +8,7 @@
 class UTileMatrix;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UDEPRECATED_MapGenerator : public UInterface
+class UMapGenerator : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -16,7 +16,7 @@ class UDEPRECATED_MapGenerator : public UInterface
 /**
  * \brief Class that participates in world generation
  */
-class ARTILLERYSTRATEGY_API IDEPRECATED_MapGenerator
+class ARTILLERYSTRATEGY_API IMapGenerator
 {
 	GENERATED_BODY()
 

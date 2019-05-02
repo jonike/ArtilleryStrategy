@@ -12,7 +12,7 @@ class UTileMatrix;
  * 
  */
 UCLASS(Deprecated)
-class ARTILLERYSTRATEGY_API UDEPRECATED_RandomSpawnStrategy : public UObject, public IDEPRECATED_SpawnStrategy
+class ARTILLERYSTRATEGY_API UDEPRECATED_RandomSpawnStrategy : public UObject, public ISpawnStrategy
 {
 	GENERATED_BODY()
 
