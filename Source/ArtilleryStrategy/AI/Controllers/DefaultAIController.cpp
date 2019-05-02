@@ -27,7 +27,7 @@ TScriptInterface<IWallet> ADefaultAIController::GetWallet() const
 	return GetPlayerState<ADefaultPlayerState>();
 }
 
-void ADefaultAIController::BuyCell(TScriptInterface<IPlayerProperty> Cell)
+void ADefaultAIController::BuyTile(TScriptInterface<IPlayerProperty> Cell)
 {
 	// TODO: copy pasted from player controller
 	const auto State = GetPlayerState<ADefaultPlayerState>();

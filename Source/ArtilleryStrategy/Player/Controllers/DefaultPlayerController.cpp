@@ -167,7 +167,7 @@ USpringArmComponent* ADefaultPlayerController::GetSpringArmComponent() const
 	return nullptr;
 }
 
-void ADefaultPlayerController::BuyCell(TScriptInterface<IPlayerProperty> Cell)
+void ADefaultPlayerController::BuyTile(TScriptInterface<IPlayerProperty> Cell)
 {
 	const auto State = GetPlayerState<ADefaultPlayerState>();
 	check(State);

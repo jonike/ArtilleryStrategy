@@ -58,7 +58,7 @@ EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerC
 				.GetTilesLimit()
 				.IsLimitReached())
 			{
-				Controller->BuyCell(ObjectToBuy);
+				Controller->BuyTile(ObjectToBuy);
 				if (bShouldClearSelectedTile)
 				{
 					OwnerComp.GetBlackboardComponent()->SetValueAsObject(SelectedTile.SelectedKeyName, nullptr);

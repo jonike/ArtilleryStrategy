@@ -38,7 +38,7 @@ public:
 	FOnTileBoughtSignature OnTileBought;
 	FOnFireSignature OnFire;
 
-	void BuyCell(TScriptInterface<IPlayerProperty> Cell) override;
+	void BuyTile(TScriptInterface<IPlayerProperty> Cell) override;
 	void HideBuyWidget() override;
 	void ShowBuyWidget(TScriptInterface<IPlayerProperty> PropertyToBuy) override;
 	bool IsBuyWidgetVisible() const override;

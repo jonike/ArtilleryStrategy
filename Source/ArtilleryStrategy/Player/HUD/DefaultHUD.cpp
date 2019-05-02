@@ -62,7 +62,7 @@ void ADefaultHUD::ReceiveOnBuyCellClicked(TScriptInterface<IPlayerProperty> Prop
 {
 	check(Property.GetInterface());
 	auto Buyer = GetCellBuyer();
-	Buyer->BuyCell(Property);
+	Buyer->BuyTile(Property);
 
 	if (bAutoCloseBuyWidget)
 	{
