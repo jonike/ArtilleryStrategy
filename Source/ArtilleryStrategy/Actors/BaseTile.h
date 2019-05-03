@@ -8,7 +8,7 @@
 #include "Interfaces/PlayerProperty.h"
 #include "Interfaces/OwnerController.h"
 #include "Structs/ResourceDeposit.h"
-#include "BaseGridPlatform.generated.h"
+#include "BaseTile.generated.h"
 
 class UBoxComponent;
 class UHierarchicalInstancedStaticMeshComponent;
@@ -19,13 +19,13 @@ class AInstancedMeshSpawner;
  * \brief A base class for all tile classes
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ABaseGridPlatform : public AActor, public IWorldTile, public IPlayerProperty
+class ARTILLERYSTRATEGY_API ABaseTile : public AActor, public IWorldTile, public IPlayerProperty
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	ABaseGridPlatform();
+	ABaseTile();
 
 	TScriptInterface<IOwnerController> GetOwnerController() const override;
 	void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) override;
@@ -37,7 +37,7 @@ public:
 	FVector GetBuildingSpawnLocation() const override;
 	bool HasBuilding() const override;
 	void SetBuilding(TScriptInterface<IBuilding> SpawnedBuilding) override;
-	TScriptInterface<IBuilding> CreateBuilding(TSubclassOf<AActor> BuildingClass) override;
+	TScriptInterface<IBuilding> SpawnBuilding(TSubclassOf<AActor> BuildingClass) override;
 
 	TSet<FResourceDeposit>& GetResourceDeposits() override;
 	bool HasResourceDeposits() const override;

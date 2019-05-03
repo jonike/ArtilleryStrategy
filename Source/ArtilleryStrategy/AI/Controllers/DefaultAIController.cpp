@@ -57,7 +57,7 @@ void ADefaultAIController::CreateSelectedBuilding(TScriptInterface<IWorldTile> C
 
 	if (TryToBuyDefaultBuilding(BuildingClass))
 	{
-		const auto Building = Cell->CreateBuilding(BuildingClass);
+		const auto Building = Cell->SpawnBuilding(BuildingClass);
 		// OnBuildingCreated.Broadcast(Building);
 		State->RegisterBuyingBuilding(Building);
 	}

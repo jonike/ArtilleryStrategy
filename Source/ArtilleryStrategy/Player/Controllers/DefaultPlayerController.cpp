@@ -149,7 +149,7 @@ void ADefaultPlayerController::CreateSelectedBuilding(TScriptInterface<IWorldTil
 
 	if (TryToBuyDefaultBuilding(BuildingClass))
 	{
-		const auto Building = Cell->CreateBuilding(BuildingClass);
+		const auto Building = Cell->SpawnBuilding(BuildingClass);
 		OnBuildingCreated.Broadcast(Building);
 		State->RegisterBuyingBuilding(Building);
 	}

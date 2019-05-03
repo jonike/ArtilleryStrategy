@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "BaseGridPlatform.h"
+#include "BaseTile.h"
 #include "ArtilleryStrategy.h"
 #include "Engine/World.h"
 #include "Interfaces/OwnerController.h"
@@ -15,7 +15,7 @@
 #include "Interfaces/NeedsBuyWidget.h"
 
 // Sets default values
-ABaseGridPlatform::ABaseGridPlatform()
+ABaseTile::ABaseTile()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -34,14 +34,14 @@ ABaseGridPlatform::ABaseGridPlatform()
 }
 
 // Called when the game starts or when spawned
-void ABaseGridPlatform::BeginPlay()
+void ABaseTile::BeginPlay()
 {
 	Super::BeginPlay();
-	OnClicked.AddDynamic(this, &ABaseGridPlatform::ReceiveOnClicked);
+	OnClicked.AddDynamic(this, &ABaseTile::ReceiveOnClicked);
 	AddInstancedMesh();
 }
 
-void ABaseGridPlatform::ReceiveOnClicked(AActor*, FKey)
+void ABaseTile::ReceiveOnClicked(AActor*, FKey)
 {
 	const auto PlayerController = GetWorld()->GetFirstPlayerController();
 	if (auto ControllerThatCanBuy = Cast<INeedsBuyWidget>(PlayerController))
@@ -50,7 +50,7 @@ void ABaseGridPlatform::ReceiveOnClicked(AActor*, FKey)
 	}
 }
 
-void ABaseGridPlatform::AddInstancedMesh()
+void ABaseTile::AddInstancedMesh()
 {
 	const auto InstancedMeshSpawner = GetInstancedMeshSpawner();
 	check(InstancedMeshSpawner);
@@ -58,29 +58,29 @@ void ABaseGridPlatform::AddInstancedMesh()
 	MeshInstanceIndex = InstancedMeshSpawner->GetTileInstancedMesh()->AddInstance(InstanceTransform);
 }
 
-AInstancedMeshSpawner* ABaseGridPlatform::GetInstancedMeshSpawner() const
+AInstancedMeshSpawner* ABaseTile::GetInstancedMeshSpawner() const
 {
 	const auto GameState = GetWorld()->GetGameState<ADefaultGS>();
 	check(GameState);
 	return GameState->GetTileMeshSpawner();
 }
 
-void ABaseGridPlatform::NotifyActorOnClicked(FKey)
+void ABaseTile::NotifyActorOnClicked(FKey)
 {
 	UE_LOG(MouseInteraction, Verbose, TEXT("Platform clicked"));
 }
 
-FVector ABaseGridPlatform::GetBuildingSpawnLocation() const
+FVector ABaseTile::GetBuildingSpawnLocation() const
 {
 	return GetActorLocation() + BuildingSpawnOffset;
 }
 
-bool ABaseGridPlatform::HasBuilding() const
+bool ABaseTile::HasBuilding() const
 {
 	return Building.GetObject() != nullptr;
 }
 
-AActor* ABaseGridPlatform::SpawnBuildingActor(const TSubclassOf<AActor> BuildingClass) const
+AActor* ABaseTile::SpawnBuildingActor(const TSubclassOf<AActor> BuildingClass) const
 {
 	const auto Location = GetBuildingSpawnLocation();
 	const auto Spawned = GetWorld()->SpawnActor(BuildingClass, &Location);
@@ -91,7 +91,7 @@ AActor* ABaseGridPlatform::SpawnBuildingActor(const TSubclassOf<AActor> Building
 	return Spawned;
 }
 
-void ABaseGridPlatform::SetBuilding(const TScriptInterface<IBuilding> SpawnedBuilding)
+void ABaseTile::SetBuilding(const TScriptInterface<IBuilding> SpawnedBuilding)
 {
 	check(SpawnedBuilding);
 	SpawnedBuilding->PrePlaced(this);
@@ -99,7 +99,7 @@ void ABaseGridPlatform::SetBuilding(const TScriptInterface<IBuilding> SpawnedBui
 	SpawnedBuilding->PostPlaced(this);
 }
 
-TScriptInterface<IBuilding> ABaseGridPlatform::CreateBuilding(TSubclassOf<AActor> BuildingClass)
+TScriptInterface<IBuilding> ABaseTile::SpawnBuilding(TSubclassOf<AActor> BuildingClass)
 {
 	const auto SpawnedBuilding = SpawnBuildingActor(BuildingClass);
 	SetBuilding(SpawnedBuilding);
@@ -110,52 +110,52 @@ TScriptInterface<IBuilding> ABaseGridPlatform::CreateBuilding(TSubclassOf<AActor
 	return SpawnedBuilding;
 }
 
-TSet<FResourceDeposit>& ABaseGridPlatform::GetResourceDeposits()
+TSet<FResourceDeposit>& ABaseTile::GetResourceDeposits()
 {
 	return ResourceDeposits;
 }
 
-bool ABaseGridPlatform::HasResourceDeposits() const
+bool ABaseTile::HasResourceDeposits() const
 {
 	return ResourceDeposits.Num() > 0;
 }
 
-void ABaseGridPlatform::SetResourceDeposits(FResourceDeposit& Deposit)
+void ABaseTile::SetResourceDeposits(FResourceDeposit& Deposit)
 {
 	ResourceDeposits.Add(Deposit);
 	ResourceBillboard->SetSprite(Deposit.ResourceAmount.GetResource(TEXT("Setting sprite for resource deposit on the tile")).Icon);
 	ResourceBillboard->bHiddenInGame = false;
 }
 
-TScriptInterface<IOwnerController> ABaseGridPlatform::GetOwnerController() const
+TScriptInterface<IOwnerController> ABaseTile::GetOwnerController() const
 {
 	return OwnerController;
 }
 
-void ABaseGridPlatform::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
+void ABaseTile::SetOwnerController(TScriptInterface<IOwnerController> NewOwner)
 {
 	OwnerController = NewOwner;
 	OwnerIconBillboard->SetSprite(NewOwner->GetOwnerIcon());
 	OwnerIconBillboard->bHiddenInGame = false;
 }
 
-bool ABaseGridPlatform::HasOwnerController() const
+bool ABaseTile::HasOwnerController() const
 {
 	return OwnerController != nullptr;
 }
 
-bool ABaseGridPlatform::RequiresResourcesToOwn() const
+bool ABaseTile::RequiresResourcesToOwn() const
 {
 	return ResourcesToOwn.Resources.Num() != 0;
 }
 
-const FResourcePack& ABaseGridPlatform::GetResourcesToOwn() const
+const FResourcePack& ABaseTile::GetResourcesToOwn() const
 {
 	return ResourcesToOwn;
 }
 
 // Called every frame
-void ABaseGridPlatform::Tick(float DeltaTime)
+void ABaseTile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
