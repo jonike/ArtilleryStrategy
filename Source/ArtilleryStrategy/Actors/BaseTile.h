@@ -86,7 +86,7 @@ private:
 	/**
 	 * \brief List of resource that player must spend in order to buy tile
 	 */
-	UPROPERTY(Category = "Resources", EditAnywhere)
+	UPROPERTY(Category = "Resources", VisibleAnywhere)
 	FResourcePack ResourcesToOwn;
 
 	/**
