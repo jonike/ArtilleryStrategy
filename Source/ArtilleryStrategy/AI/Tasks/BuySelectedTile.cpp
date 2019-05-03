@@ -18,8 +18,8 @@ UBuySelectedTile::UBuySelectedTile()
 
 EBTNodeResult::Type UBuySelectedTile::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	const auto Controller = OwnerComp.GetAIOwner();
-	if (const auto PlayerState = Controller->GetPlayerState<ADefaultPlayerState>())
+	const auto AIOwner = OwnerComp.GetAIOwner();
+	if (const auto PlayerState = AIOwner->GetPlayerState<ADefaultPlayerState>())
 	{
 		// There is stored object in the key
 		if (const auto StoredObject = OwnerComp.GetBlackboardComponent()->GetValueAsObject(SelectedTile.SelectedKeyName))
@@ -27,9 +27,10 @@ EBTNodeResult::Type UBuySelectedTile::ExecuteTask(UBehaviorTreeComponent& OwnerC
 			// The stored objects has correct type
 			if (const auto Tile = Cast<IPlayerProperty>(StoredObject))
 			{
+				const auto& RequiredResources = Tile->GetResourcesToOwn();
 				// Have enough resources
 				if (PlayerState->GetResourceWallet()
-					->IsEnoughPack(Tile->GetResourcesToOwn()))
+					->IsEnoughPack(RequiredResources))
 				{
 					const auto BuyResult = BuySelected(OwnerComp, NodeMemory, StoredObject);;
 					return BuyResult;
@@ -47,7 +48,7 @@ void UBuySelectedTile::OnGameplayTaskActivated(UGameplayTask& Task)
 
 EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, UObject* ObjectToBuy) const
 {
-	// Can buy cells
+	// Can buy tiles
 	if (const auto Controller = Cast<ICanBuyTiles>(OwnerComp.GetAIOwner()))
 	{
 		// Object can be bought
@@ -59,9 +60,10 @@ EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerC
 				.IsLimitReached())
 			{
 				Controller->BuyTile(ObjectToBuy);
+				// Clear keys if necessary
 				if (bShouldClearSelectedTile)
 				{
-					OwnerComp.GetBlackboardComponent()->SetValueAsObject(SelectedTile.SelectedKeyName, nullptr);
+					OwnerComp.GetBlackboardComponent()->ClearValue(SelectedTile.SelectedKeyName);
 				}
 				return EBTNodeResult::Succeeded;
 			}

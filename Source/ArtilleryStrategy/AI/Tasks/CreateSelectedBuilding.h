@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
+#include "Interfaces/PlayerRepository.h"
+#include "Structs/PlayerTurnLimits.h"
 #include "CreateSelectedBuilding.generated.h"
 
 /**
@@ -33,4 +35,10 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	bool bShouldClearBuildingClassKey = true;
+
+	void ClearKeys(UBehaviorTreeComponent& OwnerComp);
+	bool IsEnoughResources(TScriptInterface<IPlayerRepository> Repository, const FResourcePack& RequiredResources);
+	bool IsLimitNotReached(const FPlayerTurnLimits& Limits);
+	UActorComponent::Super* UnpackTileObject(UBehaviorTreeComponent& OwnerComp);
+	UClass* UnpackBuildingClass(UBehaviorTreeComponent& OwnerComp);
 };

@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "CreateSelectedBuilding.h"
 #include "Interfaces/WorldTile.h"
 #include "Interfaces/PlayerProperty.h"
@@ -22,34 +21,67 @@ UCreateSelectedBuilding::UCreateSelectedBuilding()
 	BuildingClassKey.AllowNoneAsValue(false);
 }
 
+void UCreateSelectedBuilding::ClearKeys(UBehaviorTreeComponent& OwnerComp)
+{
+	// Clear keys if needed
+	if (bShouldClearTileKey)
+	{
+		OwnerComp.GetBlackboardComponent()->ClearValue(TileKey.SelectedKeyName);
+	}
+	if (bShouldClearBuildingClassKey)
+	{
+		OwnerComp.GetBlackboardComponent()->ClearValue(BuildingClassKey.SelectedKeyName);
+	}
+}
+
+bool UCreateSelectedBuilding::IsEnoughResources(const TScriptInterface<IPlayerRepository> Repository, const FResourcePack& RequiredResources)
+{
+	return Repository->GetResourceWallet()->IsEnoughPack(RequiredResources);
+}
+
+bool UCreateSelectedBuilding::IsLimitNotReached(const FPlayerTurnLimits& Limits)
+{
+	return !Limits.GetBuildingsLimit().IsLimitReached();
+}
+
+UBlackboardComponent::Super::Super* UCreateSelectedBuilding::UnpackTileObject(UBehaviorTreeComponent& OwnerComp)
+{
+	return OwnerComp.GetBlackboardComponent()->GetValueAsObject(TileKey.SelectedKeyName);
+}
+
+UClass* UCreateSelectedBuilding::UnpackBuildingClass(UBehaviorTreeComponent& OwnerComp)
+{
+	return OwnerComp.GetBlackboardComponent()->GetValueAsClass(BuildingClassKey.SelectedKeyName);
+}
+
 EBTNodeResult::Type UCreateSelectedBuilding::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	const auto Controller = Cast<ICanBuyBuildings>(OwnerComp.GetAIOwner());
-	const auto Repository = UASLibrary::GetPlayerRepositoryForActor(OwnerComp.GetAIOwner());
-	const auto& Limits = UASLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner());
-	const auto TileObject = OwnerComp.GetBlackboardComponent()->GetValueAsObject(TileKey.SelectedKeyName);
-	auto BuildingClass = OwnerComp.GetBlackboardComponent()->GetValueAsClass(BuildingClassKey.SelectedKeyName);
-	if (Controller && Repository && TileObject && BuildingClass)
+	// Controller can buy buildings
+	if (const auto Controller = Cast<ICanBuyBuildings>(OwnerComp.GetAIOwner()))
 	{
-		const auto DefaultObject = BuildingClass->GetDefaultObject();
-		if (const auto Building = Cast<IPlayerProperty>(DefaultObject))
+		// Has repository with resources
+		if (const auto Repository = UASLibrary::GetPlayerRepositoryForActor(OwnerComp.GetAIOwner()))
 		{
-			const auto& RequiredResources = Building->GetResourcesToOwn();
-			if (Repository->GetResourceWallet()->IsEnoughPack(RequiredResources)
-				&& !Limits.GetBuildingsLimit().IsLimitReached())
+			// Unpack tile object
+			if (const auto TileObject = UnpackTileObject(OwnerComp))
 			{
-				if (auto Tile = Cast<IWorldTile>(TileObject))
+				// Unpack building class
+				if (auto BuildingClass = UnpackBuildingClass(OwnerComp))
 				{
-					Controller->CreateSelectedBuilding(TileObject, BuildingClass);
-					if (bShouldClearTileKey)
+					const auto DefaultObject = BuildingClass->GetDefaultObject();
+					// Object of stored class can be bought
+					if (const auto Building = Cast<IPlayerProperty>(DefaultObject))
 					{
-						OwnerComp.GetBlackboardComponent()->ClearValue(TileKey.SelectedKeyName);
+						const auto& Limits = UASLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner());
+						const auto& RequiredResources = Building->GetResourcesToOwn();
+						if (IsEnoughResources(Repository, RequiredResources)
+							&& IsLimitNotReached(Limits))
+						{
+							Controller->CreateSelectedBuilding(TileObject, BuildingClass);
+							ClearKeys(OwnerComp);
+							return EBTNodeResult::Succeeded;
+						}
 					}
-					if (bShouldClearBuildingClassKey)
-					{
-						OwnerComp.GetBlackboardComponent()->ClearValue(BuildingClassKey.SelectedKeyName);
-					}
-					return EBTNodeResult::Succeeded;
 				}
 			}
 		}
