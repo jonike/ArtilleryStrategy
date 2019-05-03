@@ -20,14 +20,14 @@ void ADefaultPlayerState::ReceiveOnTurnStarted()
 void ADefaultPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
+	const auto TurnProcessor = GetTurnProcessor(this);
+	TurnProcessor->OnTurnStarted.AddDynamic(this, &ADefaultPlayerState::ReceiveOnTurnStarted);
+	TurnProcessor->OnTurnEnded.AddDynamic(this, &ADefaultPlayerState::ReceiveOnTurnEnded);
 }
 
 void ADefaultPlayerState::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-	const auto TurnProcessor = GetTurnProcessor(this);
-	TurnProcessor->OnTurnStarted.AddDynamic(this, &ADefaultPlayerState::ReceiveOnTurnStarted);
-	TurnProcessor->OnTurnEnded.AddDynamic(this, &ADefaultPlayerState::ReceiveOnTurnEnded);
 }
 
 void ADefaultPlayerState::RegisterBuyingBuilding(TScriptInterface<IBuilding> Building)
