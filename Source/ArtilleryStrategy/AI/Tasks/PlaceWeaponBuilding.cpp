@@ -9,6 +9,7 @@
 #include "AIController.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/OwnerController.h"
+#include "Interfaces/CanBuyBuildings.h"
 
 UPlaceWeaponBuilding::UPlaceWeaponBuilding()
 {
@@ -79,8 +80,9 @@ TSubclassOf<AActor> UPlaceWeaponBuilding::GetBuildingClass(UBehaviorTreeComponen
 
 void UPlaceWeaponBuilding::SpawnBuilding(UBehaviorTreeComponent& OwnerComp, TScriptInterface<IWorldTile> Tile, TSubclassOf<AActor> BuildingClass) const
 {
-	const auto SpawnedBuilding = Tile->SpawnBuilding(BuildingClass);
-	const auto PlayerState = OwnerComp.GetAIOwner()->GetPlayerState<ADefaultPlayerState>();
-	check(PlayerState);
-	PlayerState->RegisterBuyingBuilding(SpawnedBuilding);
+	const auto Controller = OwnerComp.GetAIOwner();
+	if (const auto ControllerCanBuyBuildings = Cast<ICanBuyBuildings>(Controller))
+	{
+		ControllerCanBuyBuildings->CreateSelectedBuilding(Tile, BuildingClass);
+	}
 }
