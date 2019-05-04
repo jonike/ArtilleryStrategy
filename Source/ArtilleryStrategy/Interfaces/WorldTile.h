@@ -6,6 +6,7 @@
 #include "UObject/Interface.h"
 #include "WorldTile.generated.h"
 
+struct FTileData;
 class IBuilding;
 struct FResourceDeposit;
 
@@ -25,6 +26,9 @@ class ARTILLERYSTRATEGY_API IWorldTile
 
 		// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual void SetTileData(FTileData Data) = 0;
+	virtual const FTileData& GetTileData() = 0;
+
 	virtual FVector GetBuildingSpawnLocation() const = 0;
 	virtual bool HasBuilding() const = 0;
 	virtual void SetBuilding(TScriptInterface<IBuilding> Building) = 0;

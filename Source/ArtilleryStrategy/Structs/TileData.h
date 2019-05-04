@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "TileCoordinates.h"
 #include "TileData.generated.h"
 
 /**
@@ -12,4 +12,9 @@ USTRUCT(BlueprintType)
 struct ARTILLERYSTRATEGY_API FTileData
 {
 	GENERATED_BODY()
+
+	FTileData() = default;
+	explicit FTileData(FTileCoordinates TileCoordinates);
+
+	FTileCoordinates Coordinates;
 };

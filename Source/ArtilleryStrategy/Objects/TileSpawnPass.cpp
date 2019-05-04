@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "Structs/WorldParams.h"
 #include "Objects/TileMatrix.h"
+#include "Structs/TileData.h"
 
 FVector UPlainGridPass::CalculateStartLocation(const int Rows, const int Columns) const
 {
@@ -26,7 +27,13 @@ void UPlainGridPass::GenerateGrid(FWorldParams& Params, const int Rows, const in
 		{
 			Location.Y += ColumnSpacing;
 			Location.Z = OriginOffset.Z + Params.HeightMatrix.Get(Row, Column) * HeightSpacing;
-			Params.TileMatrix->Get(Row, Column) = SpawnPlatform(Params, Location);
+			const auto TileActor = SpawnPlatform(Params, Location);
+			Params.TileMatrix->Get(Row, Column) = TileActor;
+			if (const auto Tile = Cast<IWorldTile>(TileActor))
+			{
+				const FTileData Data({Row, Column});
+				Tile->SetTileData(Data);
+			}
 		}
 	}
 }

@@ -13,6 +13,7 @@
 #include "Game/States/DefaultGS.h"
 #include "InstancedMeshSpawner.h"
 #include "Interfaces/NeedsBuyWidget.h"
+#include "Structs/TileData.h"
 
 // Sets default values
 ABaseTile::ABaseTile()
@@ -31,6 +32,16 @@ ABaseTile::ABaseTile()
 	OwnerIconBillboard->SetupAttachment(RootComponent);
 	OwnerIconBillboard->bHiddenInGame = true;
 	OwnerIconBillboard->bIsScreenSizeScaled = true;
+}
+
+void ABaseTile::SetTileData(const FTileData Data)
+{
+	TileData = Data;
+}
+
+const FTileData& ABaseTile::GetTileData()
+{
+	return TileData;
 }
 
 // Called when the game starts or when spawned

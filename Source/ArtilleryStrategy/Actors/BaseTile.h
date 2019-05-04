@@ -8,6 +8,7 @@
 #include "Interfaces/PlayerProperty.h"
 #include "Interfaces/OwnerController.h"
 #include "Structs/ResourceDeposit.h"
+#include "Structs/TileData.h"
 #include "BaseTile.generated.h"
 
 class UBoxComponent;
@@ -26,6 +27,9 @@ class ARTILLERYSTRATEGY_API ABaseTile : public AActor, public IWorldTile, public
 public:
 	// Sets default values for this actor's properties
 	ABaseTile();
+
+	void SetTileData(FTileData Data) override;
+	const FTileData& GetTileData() override;
 
 	TScriptInterface<IOwnerController> GetOwnerController() const override;
 	void SetOwnerController(TScriptInterface<IOwnerController> NewOwner) override;
@@ -100,6 +104,9 @@ private:
 	 */
 	UPROPERTY(Category = "Visuals", VisibleInstanceOnly)
 	int MeshInstanceIndex;
+
+	UPROPERTY(VisibleInstanceOnly)
+	FTileData TileData;
 
 	/**
 	 * \brief The buildings that is placed on the tile
