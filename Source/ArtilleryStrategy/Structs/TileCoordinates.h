@@ -21,7 +21,10 @@ public:
 	TArray<FTileCoordinates> GetIncidentCoordinates(int TotalRows, int TotalColumns, int Distance) const;
 
 private:
+	UPROPERTY(VisibleInstanceOnly)
 	int Row;
+
+	UPROPERTY(VisibleInstanceOnly)
 	int Column;
 
 	bool IsValidValue(int Value, int Max) const;

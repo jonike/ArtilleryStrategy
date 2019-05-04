@@ -16,5 +16,6 @@ struct ARTILLERYSTRATEGY_API FTileData
 	FTileData() = default;
 	explicit FTileData(FTileCoordinates TileCoordinates);
 
+	UPROPERTY(VisibleInstanceOnly)
 	FTileCoordinates Coordinates;
 };
