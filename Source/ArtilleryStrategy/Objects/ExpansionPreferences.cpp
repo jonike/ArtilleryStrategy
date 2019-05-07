@@ -2,14 +2,58 @@
 
 #include "ExpansionPreferences.h"
 
-void UExpansionPreferences::AddTileToBuy(TScriptInterface<IWorldTile> Tile)
+void UExpansionPreferences::AddTileToBuy(const TScriptInterface<IWorldTile> Tile)
 {
+	FAiTileData Data;
+	Data.Tile = Tile;
+	TilesToBuy.Emplace(Data);
 }
 
-void UExpansionPreferences::AddOwnedTile(TScriptInterface<IWorldTile> Tile)
+void UExpansionPreferences::AddOwnedTile(const TScriptInterface<IWorldTile> Tile)
 {
+	FAiTileData Data;
+	Data.Tile = Tile;
+	TilesToBuy.Remove(Data);
+	OwnedTiles.Emplace(Data);
 }
 
-void UExpansionPreferences::RemoveOwnedTile(TScriptInterface<IWorldTile> Tile)
+void UExpansionPreferences::RemoveOwnedTile(const TScriptInterface<IWorldTile> Tile)
 {
+	FAiTileData Data;
+	Data.Tile = Tile;
+	OwnedTiles.Remove(Data);
+}
+
+FAiTileData* UExpansionPreferences::Get(const TScriptInterface<IWorldTile> Tile)
+{
+	FAiTileData Data;
+	Data.Tile = Tile;
+	auto Result = TilesToBuy.Find(Data);
+	if (Result)
+	{
+		return Result;
+	}
+	Result = OwnedTiles.Find(Data);
+	if (Result)
+	{
+		return Result;
+	}
+	return nullptr;
+}
+
+const FAiTileData* UExpansionPreferences::Get(const TScriptInterface<IWorldTile> Tile) const
+{
+	FAiTileData Data;
+	Data.Tile = Tile;
+	auto Result = TilesToBuy.Find(Data);
+	if (Result)
+	{
+		return Result;
+	}
+	Result = OwnedTiles.Find(Data);
+	if (Result)
+	{
+		return Result;
+	}
+	return nullptr;
 }

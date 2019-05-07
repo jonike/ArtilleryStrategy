@@ -6,3 +6,13 @@ bool operator==(const FAiTileData& Lhs, const FAiTileData& Rhs)
 {
 	return Lhs.Tile == Rhs.Tile;
 }
+
+bool operator<(const FAiTileData& Lhs, const FAiTileData& Rhs)
+{
+	return Lhs.Tile < Rhs.Tile;
+}
+
+uint32 GetTypeHash(const FAiTileData& Object)
+{
+	return GetTypeHash(Object.Tile);
+}

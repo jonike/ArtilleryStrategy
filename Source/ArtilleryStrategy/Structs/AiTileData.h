@@ -31,3 +31,7 @@ struct ARTILLERYSTRATEGY_API FAiTileData
 };
 
 bool operator==(const FAiTileData& Lhs, const FAiTileData& Rhs);
+
+bool operator<(const FAiTileData& Lhs, const FAiTileData& Rhs);
+
+uint32 GetTypeHash(const FAiTileData& Object);
