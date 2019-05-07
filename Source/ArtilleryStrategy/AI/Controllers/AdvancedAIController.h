@@ -21,5 +21,6 @@ public:
 	const UExpansionPreferences* GetExpansionPreferences() const override;
 
 private:
+	UPROPERTY(EditAnywhere)
 	UExpansionPreferences* Preferences;
 };
