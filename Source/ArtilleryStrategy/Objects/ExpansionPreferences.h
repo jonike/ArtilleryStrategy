@@ -22,6 +22,9 @@ public:
 	FAiTileData* Get(TScriptInterface<IWorldTile> Tile);
 	const FAiTileData* Get(TScriptInterface<IWorldTile> Tile) const;
 
+	const TSet<FAiTileData>& GetTilesToBuy() const;
+	const TSet<FAiTileData>& GetOwnedTiles() const;
+
 private:
 	UPROPERTY(VisibleInstanceOnly)
 	TSet<FAiTileData> TilesToBuy;

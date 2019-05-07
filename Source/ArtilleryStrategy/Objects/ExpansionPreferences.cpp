@@ -57,3 +57,13 @@ const FAiTileData* UExpansionPreferences::Get(const TScriptInterface<IWorldTile>
 	}
 	return nullptr;
 }
+
+const TSet<FAiTileData>& UExpansionPreferences::GetTilesToBuy() const
+{
+	return TilesToBuy;
+}
+
+const TSet<FAiTileData>& UExpansionPreferences::GetOwnedTiles() const
+{
+	return OwnedTiles;
+}
