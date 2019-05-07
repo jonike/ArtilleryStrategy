@@ -7,6 +7,7 @@
 #include "Interfaces/PlayerRepository.h"
 #include "Structs/PlayerTurnLimits.h"
 #include "Interfaces/TurnDependent.h"
+#include "Interfaces/OwnerState.h"
 #include "DefaultPlayerState.generated.h"
 
 class IWorldTile;
@@ -17,7 +18,7 @@ class UResourceStorage;
  *
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API ADefaultPlayerState : public APlayerState, public IPlayerRepository, public ITurnDependent
+class ARTILLERYSTRATEGY_API ADefaultPlayerState : public APlayerState, public IPlayerRepository, public ITurnDependent, public IOwnerState
 {
 	GENERATED_BODY()
 
@@ -28,10 +29,13 @@ public:
 	UResourceStorage* GetResourceWallet() const override { return Storage; }
 
 	UFUNCTION()
-	void RegisterBuyingBuilding(TScriptInterface<IBuilding> Building);
+	void RegisterBuyingBuilding(TScriptInterface<IBuilding> Building) override;
 
 	UFUNCTION()
-	void RegisterBuyingCell(TScriptInterface<IWorldTile> Tile);
+	void RegisterBuyingCell(TScriptInterface<IWorldTile> Tile) override;
+
+	TArray<TScriptInterface<IWorldTile>> GetOwnedTiles() const override;
+	TArray<TScriptInterface<IBuilding>> GetOwnedBuildings() const override;
 
 	void ReceiveOnTurnStarted() override;
 
@@ -52,4 +56,10 @@ private:
 
 	UPROPERTY(Category="Turn limits", EditAnywhere)
 	FPlayerTurnLimits TurnLimits;
+
+	UPROPERTY(VisibleInstanceOnly)
+	TArray<TScriptInterface<IWorldTile>> OwnedTiles;
+
+	UPROPERTY(VisibleInstanceOnly)
+	TArray<TScriptInterface<IBuilding>> OwnedBuildings;
 };

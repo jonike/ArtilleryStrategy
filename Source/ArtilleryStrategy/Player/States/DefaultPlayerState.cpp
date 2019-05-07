@@ -30,12 +30,24 @@ void ADefaultPlayerState::PostInitializeComponents()
 	Super::PostInitializeComponents();
 }
 
-void ADefaultPlayerState::RegisterBuyingBuilding(TScriptInterface<IBuilding> Building)
+void ADefaultPlayerState::RegisterBuyingBuilding(const TScriptInterface<IBuilding> Building)
 {
 	TurnLimits.GetBuildingsLimit().Increment();
+	OwnedBuildings.Emplace(Building);
 }
 
-void ADefaultPlayerState::RegisterBuyingCell(TScriptInterface<IWorldTile> Tile)
+void ADefaultPlayerState::RegisterBuyingCell(const TScriptInterface<IWorldTile> Tile)
 {
 	TurnLimits.GetTilesLimit().Increment();
+	OwnedTiles.Emplace(Tile);
+}
+
+TArray<TScriptInterface<IWorldTile>> ADefaultPlayerState::GetOwnedTiles() const
+{
+	return OwnedTiles;
+}
+
+TArray<TScriptInterface<IBuilding>> ADefaultPlayerState::GetOwnedBuildings() const
+{
+	return OwnedBuildings;
 }
