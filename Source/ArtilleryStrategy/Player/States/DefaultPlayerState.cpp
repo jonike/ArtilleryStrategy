@@ -33,21 +33,21 @@ void ADefaultPlayerState::PostInitializeComponents()
 void ADefaultPlayerState::RegisterBuyingBuilding(const TScriptInterface<IBuilding> Building)
 {
 	TurnLimits.GetBuildingsLimit().Increment();
-	OwnedBuildings.Emplace(Building);
+	OwnedBuildings.Emplace(Building.GetObject());
 }
 
 void ADefaultPlayerState::RegisterBuyingCell(const TScriptInterface<IWorldTile> Tile)
 {
 	TurnLimits.GetTilesLimit().Increment();
-	OwnedTiles.Emplace(Tile);
+	OwnedTiles.Emplace(Tile.GetObject());
 }
 
-TArray<TScriptInterface<IWorldTile>> ADefaultPlayerState::GetOwnedTiles() const
+TSet<UObject*> ADefaultPlayerState::GetOwnedTiles() const
 {
 	return OwnedTiles;
 }
 
-TArray<TScriptInterface<IBuilding>> ADefaultPlayerState::GetOwnedBuildings() const
+TSet<UObject*> ADefaultPlayerState::GetOwnedBuildings() const
 {
 	return OwnedBuildings;
 }

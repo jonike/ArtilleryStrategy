@@ -34,8 +34,8 @@ public:
 	UFUNCTION()
 	void RegisterBuyingCell(TScriptInterface<IWorldTile> Tile) override;
 
-	TArray<TScriptInterface<IWorldTile>> GetOwnedTiles() const override;
-	TArray<TScriptInterface<IBuilding>> GetOwnedBuildings() const override;
+	TSet<UObject*> GetOwnedTiles() const override;
+	TSet<UObject*> GetOwnedBuildings() const override;
 
 	void ReceiveOnTurnStarted() override;
 
@@ -58,8 +58,8 @@ private:
 	FPlayerTurnLimits TurnLimits;
 
 	UPROPERTY(VisibleInstanceOnly)
-	TArray<TScriptInterface<IWorldTile>> OwnedTiles;
+	TSet<UObject*> OwnedTiles;
 
 	UPROPERTY(VisibleInstanceOnly)
-	TArray<TScriptInterface<IBuilding>> OwnedBuildings;
+	TSet<UObject*> OwnedBuildings;
 };
