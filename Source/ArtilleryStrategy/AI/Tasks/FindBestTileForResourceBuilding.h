@@ -28,5 +28,5 @@ private:
 	UPROPERTY(EditAnywhere)
 	FBlackboardKeySelector ResultTile;
 
-	EBTNodeResult::Type GetBestResourceTile(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const FWorldParams& Params);
+	EBTNodeResult::Type GetBestResourceTile(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const FWorldParams& Params) const;
 };

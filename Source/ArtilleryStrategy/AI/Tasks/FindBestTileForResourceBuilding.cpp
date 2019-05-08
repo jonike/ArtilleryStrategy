@@ -1,19 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "FindBestTileForResourceBuilding.h"
 #include "Interfaces/WorldTile.h"
 #include "Interfaces/PlayerProperty.h"
 #include "AIController.h"
-#include "Player/States/DefaultPlayerState.h"
 #include "Game/States/DefaultGS.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "Engine/World.h"
 #include "Structs/WorldParams.h"
 #include "Components/WorldGenerator.h"
-#include "Objects/TileMatrix.h"
-#include "Interfaces/OwnerController.h"
+#include "Interfaces/OwnerState.h"
+#include "GameFramework/PlayerState.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Libraries/Tiles.h"
 
 UFindBestTileForResourceBuilding::UFindBestTileForResourceBuilding()
 {
@@ -38,28 +37,20 @@ EBTNodeResult::Type UFindBestTileForResourceBuilding::AbortTask(UBehaviorTreeCom
 
 void UFindBestTileForResourceBuilding::OnGameplayTaskActivated(UGameplayTask& Task)
 {
-
 }
 
-EBTNodeResult::Type UFindBestTileForResourceBuilding::GetBestResourceTile(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const FWorldParams& Params)
+EBTNodeResult::Type UFindBestTileForResourceBuilding::GetBestResourceTile(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const FWorldParams& Params) const
 {
 	const auto SelfOwner = OwnerComp.GetAIOwner();
-	// TODO: refactor and remove nested for loops
-	for (auto Row = 0; Row < Params.GetRows(); ++Row)
+	if (const auto OwnerState = SelfOwner->GetPlayerState<IOwnerState>())
 	{
-		for (auto Column = 0; Column < Params.GetColumns(); ++Column)
+		const auto TilesForBuilding = OwnerState->GetOwnedTiles();
+		const auto TilesWithoutBuildings = UTiles::FilterOnlyTilesWithoutBuildings(TilesForBuilding);
+		if (TilesWithoutBuildings.Num() > 0)
 		{
-			const auto TileObject = Params.TileMatrix->Get(Row, Column).GetObject();
-			if (const auto OwnedTile = Cast<IPlayerProperty>(TileObject))
-			{
-				const auto TileOwner = OwnedTile->GetOwnerController().GetObject();
-				const auto TileProperty = Cast<IWorldTile>(TileObject);
-				if (TileOwner == SelfOwner && !TileProperty->HasBuilding())
-				{
-					OwnerComp.GetBlackboardComponent()->SetValueAsObject(ResultTile.SelectedKeyName, TileObject);
-					return EBTNodeResult::Succeeded;
-				}
-			}
+			const auto TileObject = TilesWithoutBuildings.CreateConstIterator();
+			OwnerComp.GetBlackboardComponent()->SetValueAsObject(ResultTile.SelectedKeyName, *TileObject);
+			return EBTNodeResult::Succeeded;
 		}
 	}
 	return EBTNodeResult::Failed;
