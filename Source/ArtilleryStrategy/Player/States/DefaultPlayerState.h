@@ -8,6 +8,7 @@
 #include "Structs/PlayerTurnLimits.h"
 #include "Interfaces/TurnDependent.h"
 #include "Interfaces/OwnerState.h"
+#include "Interfaces/PlayerProperty.h"
 #include "DefaultPlayerState.generated.h"
 
 class IWorldTile;
@@ -37,11 +38,15 @@ public:
 	TSet<UObject*> GetOwnedTiles() const override;
 	TSet<UObject*> GetOwnedBuildings() const override;
 
+	bool CanBuyTile(TScriptInterface<IPlayerProperty> Tile) const override;
+	bool CanBuyBuilding(TScriptInterface<IPlayerProperty> Building) const override;
+
 	void ReceiveOnTurnStarted() override;
 
-	auto& GetTurnLimits() { return TurnLimits; }
+	FPlayerTurnLimits& GetTurnLimits();
+	const FPlayerTurnLimits& GetTurnLimits() const;
 
-	auto GetResourceBuildingsManager() const { return ResourceBuildingsManager; }
+	UResourceBuildingsManager* GetResourceBuildingsManager() const;
 
 protected:
 	void BeginPlay() override;

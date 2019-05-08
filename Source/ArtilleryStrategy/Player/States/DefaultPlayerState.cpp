@@ -5,6 +5,7 @@
 #include "Objects/ResourceBuildingsManager.h"
 #include "Components/TurnProcessorComponent.h"
 #include "Player/Controllers/DefaultPlayerController.h"
+#include "Interfaces/WorldTile.h"
 
 ADefaultPlayerState::ADefaultPlayerState()
 {
@@ -15,6 +16,21 @@ ADefaultPlayerState::ADefaultPlayerState()
 void ADefaultPlayerState::ReceiveOnTurnStarted()
 {
 	TurnLimits.ResetAllLimits();
+}
+
+FPlayerTurnLimits& ADefaultPlayerState::GetTurnLimits()
+{
+	return TurnLimits;
+}
+
+const FPlayerTurnLimits& ADefaultPlayerState::GetTurnLimits() const
+{
+	return TurnLimits;
+}
+
+UResourceBuildingsManager* ADefaultPlayerState::GetResourceBuildingsManager() const
+{
+	return ResourceBuildingsManager;
 }
 
 void ADefaultPlayerState::BeginPlay()
@@ -50,4 +66,16 @@ TSet<UObject*> ADefaultPlayerState::GetOwnedTiles() const
 TSet<UObject*> ADefaultPlayerState::GetOwnedBuildings() const
 {
 	return OwnedBuildings;
+}
+
+bool ADefaultPlayerState::CanBuyTile(const TScriptInterface<IPlayerProperty> Tile) const
+{
+	return !GetTurnLimits().GetTilesLimit().IsLimitReached()
+			&& GetResourceWallet()->IsEnoughPack(Tile->GetResourcesToOwn());
+}
+
+bool ADefaultPlayerState::CanBuyBuilding(const TScriptInterface<IPlayerProperty> Building) const
+{
+	return !GetTurnLimits().GetBuildingsLimit().IsLimitReached()
+			&& GetResourceWallet()->IsEnoughPack(Building->GetResourcesToOwn());
 }

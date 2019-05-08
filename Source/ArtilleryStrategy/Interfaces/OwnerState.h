@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "PlayerProperty.h"
 #include "OwnerState.generated.h"
 
 class IBuilding;
@@ -26,6 +27,9 @@ class ARTILLERYSTRATEGY_API IOwnerState
 public:
 	virtual TSet<UObject*> GetOwnedTiles() const = 0;
 	virtual TSet<UObject*> GetOwnedBuildings() const = 0;
+
+	virtual bool CanBuyTile(TScriptInterface<IPlayerProperty> Tile) const = 0;
+	virtual bool CanBuyBuilding(TScriptInterface<IPlayerProperty> Building) const = 0;
 
 	virtual void RegisterBuyingCell(TScriptInterface<IWorldTile> Tile) = 0;
 	virtual void RegisterBuyingBuilding(TScriptInterface<IBuilding> Building) = 0;
