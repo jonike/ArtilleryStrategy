@@ -4,7 +4,6 @@
 #include "PlaceWeaponBuilding.h"
 #include "Libraries/ASLibrary.h"
 #include "Objects/TileMatrix.h"
-#include "Interfaces/PlayerProperty.h"
 #include "Structs/BuildingData.h"
 #include "AIController.h"
 #include "Player/States/DefaultPlayerState.h"
@@ -18,8 +17,6 @@ UPlaceWeaponBuilding::UPlaceWeaponBuilding()
 
 EBTNodeResult::Type UPlaceWeaponBuilding::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	// TODO: add check whether owner has enough resources to create building
-	// TODO: add check whether the AI controller can buy anything on this turn
 	const auto Tile = GetTile(OwnerComp);
 	const auto BuildingClass = GetBuildingClass(OwnerComp);
 	if (Tile.GetObject()
@@ -43,9 +40,6 @@ void UPlaceWeaponBuilding::OnGameplayTaskActivated(UGameplayTask& Task)
 
 TScriptInterface<IWorldTile> UPlaceWeaponBuilding::GetTile(UBehaviorTreeComponent& OwnerComp) const
 {
-	const auto& Params = UASLibrary::GetWorldParams(&OwnerComp);
-	const auto Rows = Params.GetRows();
-	const auto Columns = Params.GetColumns();
 	const auto SelfOwnerController = TScriptInterface<IOwnerController>(OwnerComp.GetAIOwner());
 	// If controller can own something
 	if (SelfOwnerController)
@@ -68,10 +62,13 @@ TScriptInterface<IWorldTile> UPlaceWeaponBuilding::GetTile(UBehaviorTreeComponen
 TSubclassOf<AActor> UPlaceWeaponBuilding::GetBuildingClass(UBehaviorTreeComponent& OwnerComp) const
 {
 	const auto Names = WeaponBuildingsTable->GetRowNames();
-	if (Names.Num() > 0)
+	for (const auto& Name : Names)
 	{
-		const auto BuildingInfo = WeaponBuildingsTable->FindRow<FBuildingData>(Names.Top(), TEXT("Get weapon building data for spawning weapons for AI"));
-		return BuildingInfo->SpawnClass;
+		const auto Building = WeaponBuildingsTable->FindRow<FBuildingData>(Name, TEXT("Finding weapon building for spawning in AI task"));
+		if (Building->Type == EBuildingType::Weapon)
+		{
+			return Building->SpawnClass;
+		}
 	}
 	return nullptr;
 }
