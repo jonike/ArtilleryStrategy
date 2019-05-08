@@ -3,7 +3,6 @@
 
 #include "BuildingBuyingInfoWidget.h"
 #include "Structs/BuildingData.h"
-#include "Interfaces/CanBuyBuildings.h"
 
 void UBuildingBuyingInfoWidget::SetupWidget(FName RowName, FBuildingData& BuildingData)
 {
@@ -18,12 +17,12 @@ void UBuildingBuyingInfoWidget::SetupWidget(FName RowName, FBuildingData& Buildi
 	}
 	if (const auto CostWidget = GetCostWidget())
 	{
-		CostWidget->SetText(FText::AsNumber(BuildingData.Cost));
+		// TODO: show building cost
+		CostWidget->SetText(FText::FromString(TEXT("Not implemented!")));
 	}
 }
 
 void UBuildingBuyingInfoWidget::SpawnBuilding()
 {
 	OnBuyClicked.Broadcast(BuildingRowName);
-	// OnBuyClicked.Clear();
 }

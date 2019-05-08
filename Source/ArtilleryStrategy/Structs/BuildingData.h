@@ -4,7 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "DataTableEditor/Private/SRowEditor.h"
+#include "ResourceHandle.h"
 #include "BuildingData.generated.h"
+
+UENUM(BlueprintType)
+enum class EBuildingType : uint8
+{
+	Resource,
+	Weapon,
+	Capital,
+};
 
 /**
  *
@@ -14,13 +23,21 @@ struct ARTILLERYSTRATEGY_API FBuildingData : public FTableRowBase
 {
 	GENERATED_BODY()
 
-public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UTexture2D* Icon;
+	UTexture2D* Icon;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FName FriendlyName;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int Cost;
+	FName FriendlyName;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (MustImplement = "Building"))
-		TSubclassOf<AActor> SpawnClass;
+	TSubclassOf<AActor> SpawnClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EBuildingType Type;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSet<FResourceHandle> Resources;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSet<FString> Tags;
 };
