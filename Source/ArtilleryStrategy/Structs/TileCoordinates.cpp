@@ -33,6 +33,16 @@ TArray<FTileCoordinates> FTileCoordinates::GetIncidentCoordinates(const int Tota
 	return Results;
 }
 
+int FTileCoordinates::GetRow() const
+{
+	return Row;
+}
+
+int FTileCoordinates::GetColumn() const
+{
+	return Column;
+}
+
 bool FTileCoordinates::IsValidValue(const int Value, const int Max) const
 {
 	return Value >= 0 && Value < Max;

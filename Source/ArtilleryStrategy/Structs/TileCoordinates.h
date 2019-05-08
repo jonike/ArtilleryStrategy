@@ -18,7 +18,10 @@ public:
 	FTileCoordinates(int Row, int Column);
 
 	void Init(int R, int C);
-	TArray<FTileCoordinates> GetIncidentCoordinates(int TotalRows, int TotalColumns, int Distance) const;
+	TArray<FTileCoordinates> GetIncidentCoordinates(int TotalRows, int TotalColumns, int Distance = 1) const;
+
+	int GetRow() const;
+	int GetColumn() const;
 
 private:
 	UPROPERTY(VisibleInstanceOnly)

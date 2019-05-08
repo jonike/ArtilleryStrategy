@@ -3,6 +3,7 @@
 #pragma once
 
 #include "TileCoordinates.h"
+#include "Interfaces/WorldTile.h"
 #include "TileData.generated.h"
 
 /**
@@ -15,6 +16,8 @@ struct ARTILLERYSTRATEGY_API FTileData
 
 	FTileData() = default;
 	explicit FTileData(FTileCoordinates TileCoordinates);
+
+	TArray<TScriptInterface<IWorldTile>> GetAdjacentTiles(const UObject* Context) const;
 
 	UPROPERTY(VisibleInstanceOnly)
 	FTileCoordinates Coordinates;
