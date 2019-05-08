@@ -3,24 +3,16 @@
 #pragma once
 
 #include "AI/Controllers/DefaultAIController.h"
-#include "Interfaces/HasExpansionPreferences.h"
 #include "AdvancedAIController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API AAdvancedAIController : public ADefaultAIController, public IHasExpansionPreferences
+class ARTILLERYSTRATEGY_API AAdvancedAIController : public ADefaultAIController
 {
 	GENERATED_BODY()
 
 public:
 	AAdvancedAIController();
-
-	UExpansionPreferences* GetExpansionPreferences() override;
-	const UExpansionPreferences* GetExpansionPreferences() const override;
-
-private:
-	UPROPERTY(EditAnywhere)
-	UExpansionPreferences* Preferences;
 };
