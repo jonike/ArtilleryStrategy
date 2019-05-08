@@ -11,19 +11,19 @@
 #include "Components/WorldGenerator.h"
 #include "Player/States/DefaultPlayerState.h"
 
-TScriptInterface<IFireManager> UASLibrary::GetFireManagerForActor(AActor* Actor)
+TScriptInterface<IFireManager> UASLibrary::GetFireManagerForActor(const AActor* Actor)
 {
 	check(Actor);
 	return Actor->GetInstigatorController();
 }
 
-TScriptInterface<IFireManager> UASLibrary::GetFireManagerForPawn(APawn* Pawn)
+TScriptInterface<IFireManager> UASLibrary::GetFireManagerForPawn(const APawn* Pawn)
 {
 	check(Pawn);
 	return Pawn->GetController();
 }
 
-UWorldGenerator* UASLibrary::GetMapGenerator(UObject* Object)
+UWorldGenerator* UASLibrary::GetMapGenerator(const UObject* Object)
 {
 	check(Object);
 	const auto World = Object->GetWorld();
@@ -33,7 +33,7 @@ UWorldGenerator* UASLibrary::GetMapGenerator(UObject* Object)
 	return GameState->GetWorldGenerator();
 }
 
-TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForActor(AActor* Actor)
+TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForActor(const AActor* Actor)
 {
 	check(Actor);
 	const auto Controller = Actor->GetInstigatorController();
@@ -41,7 +41,7 @@ TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForActor(AAct
 	return Controller->GetPlayerState<APlayerState>();
 }
 
-TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForPawn(APawn* Pawn)
+TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForPawn(const APawn* Pawn)
 {
 	check(Pawn);
 	const auto Controller = Pawn->GetController();
@@ -49,14 +49,14 @@ TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForPawn(APawn
 	return Controller->GetPlayerState<APlayerState>();
 }
 
-const FWorldParams& UASLibrary::GetWorldParams(UObject* Object)
+const FWorldParams& UASLibrary::GetWorldParams(const UObject* Object)
 {
 	const auto MapGenerator = GetMapGenerator(Object);
 	check(MapGenerator);
 	return MapGenerator->GetWorldParams();
 }
 
-const FPlayerTurnLimits& UASLibrary::GetPlayerTurnLimitsForController(AController* Controller)
+const FPlayerTurnLimits& UASLibrary::GetPlayerTurnLimitsForController(const AController* Controller)
 {
 	const auto State = Controller->GetPlayerState<ADefaultPlayerState>();
 	check(State);

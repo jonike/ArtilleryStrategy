@@ -23,23 +23,23 @@ class ARTILLERYSTRATEGY_API UASLibrary : public UBlueprintFunctionLibrary
 
 public:
 	UFUNCTION(BlueprintCallable)
-	static TScriptInterface<IFireManager> GetFireManagerForActor(AActor* Actor);
+	static TScriptInterface<IFireManager> GetFireManagerForActor(const AActor* Actor);
 
 	UFUNCTION(BlueprintCallable)
-	static TScriptInterface<IFireManager> GetFireManagerForPawn(APawn* Pawn);
+	static TScriptInterface<IFireManager> GetFireManagerForPawn(const APawn* Pawn);
 
 	UFUNCTION(BlueprintCallable)
-	static UWorldGenerator* GetMapGenerator(UObject* Object);
+	static UWorldGenerator* GetMapGenerator(const UObject* Object);
 
 	UFUNCTION(BlueprintCallable)
-	static TScriptInterface<IPlayerRepository> GetPlayerRepositoryForActor(AActor* Actor);
+	static TScriptInterface<IPlayerRepository> GetPlayerRepositoryForActor(const AActor* Actor);
 
 	UFUNCTION(BlueprintCallable)
-	static TScriptInterface<IPlayerRepository> GetPlayerRepositoryForPawn(APawn* Pawn);
+	static TScriptInterface<IPlayerRepository> GetPlayerRepositoryForPawn(const APawn* Pawn);
 
 	UFUNCTION(BlueprintCallable)
-	static const FWorldParams& GetWorldParams(UObject* Object);
+	static const FWorldParams& GetWorldParams(const UObject* Object);
 
 	UFUNCTION(BlueprintCallable)
-	static const FPlayerTurnLimits& GetPlayerTurnLimitsForController(AController* Controller);
+	static const FPlayerTurnLimits& GetPlayerTurnLimitsForController(const AController* Controller);
 };
