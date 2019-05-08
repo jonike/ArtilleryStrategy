@@ -10,6 +10,7 @@
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyBuildings.h"
+#include "Libraries/Tiles.h"
 
 UPlaceWeaponBuilding::UPlaceWeaponBuilding()
 {
@@ -21,7 +22,9 @@ EBTNodeResult::Type UPlaceWeaponBuilding::ExecuteTask(UBehaviorTreeComponent& Ow
 	// TODO: add check whether the AI controller can buy anything on this turn
 	const auto Tile = GetTile(OwnerComp);
 	const auto BuildingClass = GetBuildingClass(OwnerComp);
-	if (Tile.GetObject() && BuildingClass.Get())
+	if (Tile.GetObject()
+		&& BuildingClass.Get()
+		&& CanSpawnBuilding(OwnerComp, BuildingClass))
 	{
 		SpawnBuilding(OwnerComp, Tile, BuildingClass);
 		return EBTNodeResult::Succeeded;
@@ -47,20 +50,15 @@ TScriptInterface<IWorldTile> UPlaceWeaponBuilding::GetTile(UBehaviorTreeComponen
 	// If controller can own something
 	if (SelfOwnerController)
 	{
-		// TODO: remove nested for loops
-		for (auto Row = 0; Row < Rows; ++Row)
+		const auto SelfOwner = OwnerComp.GetAIOwner();
+		if (const auto OwnerState = SelfOwner->GetPlayerState<IOwnerState>())
 		{
-			for (auto Column = 0; Column < Columns; ++Column)
+			const auto TilesForBuilding = OwnerState->GetOwnedTiles();
+			const auto TilesWithoutBuildings = UTiles::FilterOnlyTilesWithoutBuildings(TilesForBuilding);
+			if (TilesWithoutBuildings.Num() > 0)
 			{
-				const auto Tile = Params.GetTileMatrix()->Get(Row, Column);
-				const auto TileAsProperty = Cast<IPlayerProperty>(Tile.GetObject());
-				// If tile is a property && it doesn't have building && it is owned by our controller
-				if (TileAsProperty
-					&& !Tile->HasBuilding()
-					&& TileAsProperty->GetOwnerController() == SelfOwnerController)
-				{
-					return Tile;
-				}
+				const auto TileObject = TilesWithoutBuildings.CreateConstIterator();
+				return *TileObject;
 			}
 		}
 	}
@@ -78,11 +76,18 @@ TSubclassOf<AActor> UPlaceWeaponBuilding::GetBuildingClass(UBehaviorTreeComponen
 	return nullptr;
 }
 
-void UPlaceWeaponBuilding::SpawnBuilding(UBehaviorTreeComponent& OwnerComp, TScriptInterface<IWorldTile> Tile, TSubclassOf<AActor> BuildingClass) const
+auto UPlaceWeaponBuilding::SpawnBuilding(UBehaviorTreeComponent& OwnerComp, const TScriptInterface<IWorldTile> Tile, TSubclassOf<AActor> BuildingClass) const -> void
 {
 	const auto Controller = OwnerComp.GetAIOwner();
 	if (const auto ControllerCanBuyBuildings = Cast<ICanBuyBuildings>(Controller))
 	{
 		ControllerCanBuyBuildings->CreateSelectedBuilding(Tile, BuildingClass);
 	}
+}
+
+bool UPlaceWeaponBuilding::CanSpawnBuilding(UBehaviorTreeComponent& OwnerComp, TSubclassOf<AActor> BuildingClass) const
+{
+	const auto OwnerState = OwnerComp.GetAIOwner()->GetPlayerState<IOwnerState>();
+	return OwnerState
+		&& OwnerState->CanBuyBuilding(BuildingClass->GetDefaultObject());
 }

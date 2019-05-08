@@ -31,4 +31,5 @@ private:
 	TScriptInterface<IWorldTile> GetTile(UBehaviorTreeComponent& OwnerComp) const;
 	TSubclassOf<AActor> GetBuildingClass(UBehaviorTreeComponent& OwnerComp) const;
 	void SpawnBuilding(UBehaviorTreeComponent& OwnerComp, TScriptInterface<IWorldTile> Tile, TSubclassOf<AActor> BuildingClass) const;
+	bool CanSpawnBuilding(UBehaviorTreeComponent& OwnerComp, TSubclassOf<AActor> BuildingClass) const;
 };
