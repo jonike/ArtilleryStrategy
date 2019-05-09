@@ -13,7 +13,6 @@
 #include "GameFramework/PlayerState.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Libraries/Tiles.h"
-#include "Structs/ResourceDeposit.h"
 
 UFindBestTileForResourceBuilding::UFindBestTileForResourceBuilding()
 {

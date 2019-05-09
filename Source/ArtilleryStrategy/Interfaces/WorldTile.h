@@ -4,12 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "Building.h"
+#include "Structs/ResourceDeposit.h"
 #include "WorldTile.generated.h"
 
 struct FTileData;
-class IBuilding;
-struct FResourceDeposit;
-
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UWorldTile : public UInterface
