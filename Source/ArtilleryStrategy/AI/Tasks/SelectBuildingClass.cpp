@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "SelectBuildingClass.h"
 #include "Interfaces/WorldTile.h"
 #include "Interfaces/PlayerProperty.h"
@@ -42,13 +41,28 @@ EBTNodeResult::Type USelectBuildingClass::AbortTask(UBehaviorTreeComponent& Owne
 
 void USelectBuildingClass::OnGameplayTaskActivated(UGameplayTask& Task)
 {
-
 }
 
 void USelectBuildingClass::SelectClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile)
 {
-	// TODO: switch on what kind of resources tile has
-	SelectMineralBuildingClass(OwnerComp, NodeMemory, Tile);
+	ensure(MineralResourceHandle);
+	ensure(EnergyResourceHandle);
+	const auto Deposits = Tile->GetResourceDeposits();
+	for (const auto& Deposit : Deposits)
+	{
+		const auto& Handle = Deposit.ResourceAmount.ResourceHandle;
+		// TODO: add cleaner way to check whether we need to build mineral or energy buildings (or something else)
+		if (Handle == MineralResourceHandle)
+		{
+			SelectEnergyBuildingClass(OwnerComp, NodeMemory, Tile);
+			return;
+		}
+		if (Handle == EnergyResourceHandle)
+		{
+			SelectMineralBuildingClass(OwnerComp, NodeMemory, Tile);
+			return;
+		}
+	}
 }
 
 void USelectBuildingClass::SelectMineralBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile)
@@ -66,4 +80,11 @@ void USelectBuildingClass::SelectMineralBuildingClass(UBehaviorTreeComponent& Ow
 void USelectBuildingClass::SelectEnergyBuildingClass(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, const TScriptInterface<IWorldTile>& Tile)
 {
 	// TODO: provide logic for selecting energy building class
+	const auto Names = Buildings->GetRowNames();
+	if (Names.Num() > 0)
+	{
+		const auto BuildingData = Buildings->FindRow<FBuildingData>(Names[1], TEXT("Get row for selecting building class"));
+		const auto Class = BuildingData->SpawnClass;
+		OwnerComp.GetBlackboardComponent()->SetValueAsClass(BuildingClass.SelectedKeyName, Class.Get());
+	}
 }

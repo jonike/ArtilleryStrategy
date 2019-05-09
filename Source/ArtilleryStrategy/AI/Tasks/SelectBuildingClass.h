@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
+#include "Structs/ResourceHandle.h"
 #include "SelectBuildingClass.generated.h"
 
 class UDataTable;
@@ -35,6 +36,12 @@ protected:
 private:
 	UPROPERTY(Category = "Input", EditAnywhere)
 	UDataTable* Buildings;
+
+	UPROPERTY(Category = "Input", EditAnywhere)
+	FResourceHandle EnergyResourceHandle;
+
+	UPROPERTY(Category = "Input", EditAnywhere)
+	FResourceHandle MineralResourceHandle;
 
 	UPROPERTY(Category = "Input", EditAnywhere)
 	FBlackboardKeySelector SelectedTile;
