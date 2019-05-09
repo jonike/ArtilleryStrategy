@@ -3,6 +3,11 @@
 
 #include "ResourceHandle.h"
 
+FResourceHandle::operator bool() const
+{
+	return DataTable && !RowName.IsNone();
+}
+
 uint32 GetTypeHash(const FResourceHandle& Resource)
 {
 	return GetTypeHash(Resource.RowName);

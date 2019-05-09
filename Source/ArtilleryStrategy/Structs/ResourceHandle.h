@@ -13,6 +13,8 @@ USTRUCT(BlueprintType)
 struct ARTILLERYSTRATEGY_API FResourceHandle : public FDataTableRowHandle
 {
 	GENERATED_BODY()
+
+	operator bool() const;
 };
 
 uint32 GetTypeHash(const FResourceHandle& Resource);
