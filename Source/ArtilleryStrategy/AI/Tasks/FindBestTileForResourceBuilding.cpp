@@ -13,6 +13,7 @@
 #include "GameFramework/PlayerState.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Libraries/Tiles.h"
+#include "Structs/ResourceDeposit.h"
 
 UFindBestTileForResourceBuilding::UFindBestTileForResourceBuilding()
 {
@@ -47,10 +48,16 @@ EBTNodeResult::Type UFindBestTileForResourceBuilding::GetBestResourceTile(UBehav
 		const auto TilesForBuilding = OwnerState->GetOwnedTiles();
 		const auto TilesWithoutBuildings = UTiles::FilterOnlyTilesWithoutBuildings(TilesForBuilding);
 		if (TilesWithoutBuildings.Num() > 0)
+		for (const auto& TileObject : TilesWithoutBuildings)
 		{
-			const auto TileObject = TilesWithoutBuildings.CreateConstIterator();
-			OwnerComp.GetBlackboardComponent()->SetValueAsObject(ResultTile.SelectedKeyName, *TileObject);
-			return EBTNodeResult::Succeeded;
+			if (const auto Tile = Cast<IWorldTile>(TileObject))
+			{
+				if (Tile->GetResourceDeposits().Num() > 0)
+				{
+					OwnerComp.GetBlackboardComponent()->SetValueAsObject(ResultTile.SelectedKeyName, TileObject);
+					return EBTNodeResult::Succeeded;
+				}
+			}
 		}
 	}
 	return EBTNodeResult::Failed;
