@@ -49,7 +49,7 @@ void ABaseResourceBuilding::PopulateProducedResourcesContainer(const TScriptInte
 void ABaseResourceBuilding::ReceiveOnTurnEnded()
 {
 	Super::ReceiveOnTurnEnded();
-	const auto Controller = GetWorld()->GetFirstPlayerController<IOwnerController>();
+	const auto Controller = GetOwnerController();
 	if (Controller)
 	{
 		const auto Wallet = Controller->GetWallet();
