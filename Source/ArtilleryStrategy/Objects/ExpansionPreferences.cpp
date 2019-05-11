@@ -18,7 +18,11 @@ void UExpansionPreferences::RemoveTile(const TScriptInterface<IWorldTile> Tile)
 
 FAiTileData UExpansionPreferences::GetBest()
 {
-	const auto Result = *ExpansionTiles.CreateConstIterator();
-	ExpansionTiles.Remove(Result);
-	return Result;
+	// TODO: avoid creating array from set
+	const auto TilesArray = ExpansionTiles.Array();
+	check(TilesArray.Num() > 0);
+	const auto Index = FMath::RandRange(0, ExpansionTiles.Num() - 1);
+	const auto ReturnValue = TilesArray[Index];
+	ExpansionTiles.Remove(ReturnValue);
+	return ReturnValue;
 }
