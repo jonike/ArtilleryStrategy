@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "CapitalPlacementPass.h"
 #include "Structs/WorldParams.h"
 #include "Engine/World.h"
@@ -10,6 +9,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/PlayerProperty.h"
+#include "Player/States/DefaultPlayerState.h"
 
 void UCapitalPlacementPass::GenerateWorld(FWorldParams& Params)
 {
@@ -43,6 +43,17 @@ void UCapitalPlacementPass::PlaceCapital(const TScriptInterface<IOwnerController
 	// TODO: refactor assigning already created building to the field in the tile object
 	Cell->SetBuilding(Capital);
 	SetupCapitalBuilding(Capital, Controller);
+
+	// TODO: refactor this code
+	if (const auto PlayerController = Cast<AController>(Controller.GetObject()))
+	{
+		if (const auto DefaultPlayerState = PlayerController->GetPlayerState<ADefaultPlayerState>())
+		{
+			// Bug: creation of capital increases amount of acquired tiles and created buildings by one
+			DefaultPlayerState->RegisterBuyingBuilding(Capital);
+			DefaultPlayerState->RegisterBuyingCell(Cell);
+		}
+	}
 }
 
 ACapitalBuilding* UCapitalPlacementPass::CreateCapitalBuilding(FVector Location, const FWorldParams& Params) const
@@ -54,7 +65,7 @@ ACapitalBuilding* UCapitalPlacementPass::CreateCapitalBuilding(FVector Location,
 	return Cast<ACapitalBuilding>(Spawned);
 }
 
-void UCapitalPlacementPass::SetupCapitalBuilding(ACapitalBuilding* Capital, TScriptInterface<IOwnerController> Controller) const
+void UCapitalPlacementPass::SetupCapitalBuilding(ACapitalBuilding* Capital, const TScriptInterface<IOwnerController> Controller) const
 {
 	Capital->SetOwnerController(Controller);
 }

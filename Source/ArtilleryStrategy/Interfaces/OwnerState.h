@@ -25,8 +25,8 @@ class ARTILLERYSTRATEGY_API IOwnerState
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual TSet<UObject*> GetOwnedTiles() const = 0;
-	virtual TSet<UObject*> GetOwnedBuildings() const = 0;
+	virtual const TSet<UObject*>& GetOwnedTiles() const = 0;
+	virtual const TSet<UObject*>& GetOwnedBuildings() const = 0;
 
 	virtual bool CanBuyTile(TScriptInterface<IPlayerProperty> Tile) const = 0;
 	virtual bool CanBuyBuilding(TScriptInterface<IPlayerProperty> Building) const = 0;

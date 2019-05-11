@@ -35,8 +35,8 @@ public:
 	UFUNCTION()
 	void RegisterBuyingCell(TScriptInterface<IWorldTile> Tile) override;
 
-	TSet<UObject*> GetOwnedTiles() const override;
-	TSet<UObject*> GetOwnedBuildings() const override;
+	const TSet<UObject*>& GetOwnedTiles() const override;
+	const TSet<UObject*>& GetOwnedBuildings() const override;
 
 	bool CanBuyTile(TScriptInterface<IPlayerProperty> Tile) const override;
 	bool CanBuyBuilding(TScriptInterface<IPlayerProperty> Building) const override;

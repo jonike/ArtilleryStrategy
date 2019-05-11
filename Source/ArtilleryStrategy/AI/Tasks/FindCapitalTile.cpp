@@ -18,6 +18,7 @@ EBTNodeResult::Type UFindCapitalTile::ExecuteTask(UBehaviorTreeComponent& OwnerC
 {
 	if (const auto PlayerState = OwnerComp.GetAIOwner()->GetPlayerState<ADefaultPlayerState>())
 	{
+		// TODO: PlayerState should store player's capital in separate field
 		if (const auto CapitalTile = PlayerState->GetOwnedTiles().CreateConstIterator())
 		{
 			OwnerComp.GetBlackboardComponent()->SetValueAsObject(CapitalTileKey.SelectedKeyName, *CapitalTile);

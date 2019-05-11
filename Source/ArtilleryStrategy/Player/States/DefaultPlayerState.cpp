@@ -58,12 +58,12 @@ void ADefaultPlayerState::RegisterBuyingCell(const TScriptInterface<IWorldTile> 
 	OwnedTiles.Emplace(Tile.GetObject());
 }
 
-TSet<UObject*> ADefaultPlayerState::GetOwnedTiles() const
+const TSet<UObject*>& ADefaultPlayerState::GetOwnedTiles() const
 {
 	return OwnedTiles;
 }
 
-TSet<UObject*> ADefaultPlayerState::GetOwnedBuildings() const
+const TSet<UObject*>& ADefaultPlayerState::GetOwnedBuildings() const
 {
 	return OwnedBuildings;
 }

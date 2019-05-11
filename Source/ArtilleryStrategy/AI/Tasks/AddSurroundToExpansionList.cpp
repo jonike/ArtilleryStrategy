@@ -26,9 +26,9 @@ EBTNodeResult::Type UAddSurroundToExpansionList::ExecuteTask(UBehaviorTreeCompon
 				if (CheckIfNeedsToAdd(OwnerComp, NeighborTile))
 				{
 					Preferences->AddTile(NeighborTile);
-					return EBTNodeResult::Succeeded;
 				}
 			}
+			return EBTNodeResult::Succeeded;
 		}
 	}
 	return EBTNodeResult::Failed;
