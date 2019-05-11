@@ -15,20 +15,10 @@ class ARTILLERYSTRATEGY_API UExpansionPreferences : public UObject
 	GENERATED_BODY()
 
 public:
-	void AddTileToBuy(TScriptInterface<IWorldTile> Tile);
-	void AddOwnedTile(TScriptInterface<IWorldTile> Tile);
-	void RemoveOwnedTile(TScriptInterface<IWorldTile> Tile);
-
-	FAiTileData* Get(TScriptInterface<IWorldTile> Tile);
-	const FAiTileData* Get(TScriptInterface<IWorldTile> Tile) const;
-
-	const TSet<FAiTileData>& GetTilesToBuy() const;
-	const TSet<FAiTileData>& GetOwnedTiles() const;
+	void AddTile(TScriptInterface<IWorldTile> Tile);
+	void RemoveTile(TScriptInterface<IWorldTile> Tile);
 
 private:
-	UPROPERTY(VisibleInstanceOnly)
-	TSet<FAiTileData> TilesToBuy;
-
-	UPROPERTY(VisibleInstanceOnly)
-	TSet<FAiTileData> OwnedTiles;
+	UPROPERTY(VisibleAnywhere)
+	TSet<FAiTileData> ExpansionTiles;
 };
