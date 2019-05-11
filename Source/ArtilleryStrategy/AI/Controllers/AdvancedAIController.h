@@ -5,6 +5,7 @@
 #include "AI/Controllers/DefaultAIController.h"
 #include "AdvancedAIController.generated.h"
 
+class UExpansionPreferences;
 /**
  * 
  */
@@ -15,4 +16,10 @@ class ARTILLERYSTRATEGY_API AAdvancedAIController : public ADefaultAIController
 
 public:
 	AAdvancedAIController();
+
+	UExpansionPreferences* GetExpansionPreferences() const;
+
+private:
+	UPROPERTY(EditAnywhere)
+	UExpansionPreferences* Preferences;
 };
