@@ -15,3 +15,10 @@ void UExpansionPreferences::RemoveTile(const TScriptInterface<IWorldTile> Tile)
 	Data.Tile = Tile;
 	ExpansionTiles.Remove(Data);
 }
+
+FAiTileData UExpansionPreferences::GetBest()
+{
+	const auto Result = *ExpansionTiles.CreateConstIterator();
+	ExpansionTiles.Remove(Result);
+	return Result;
+}

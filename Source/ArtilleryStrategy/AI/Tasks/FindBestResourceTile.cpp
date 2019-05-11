@@ -4,30 +4,30 @@
 #include "FindBestResourceTile.h"
 #include "Engine/World.h"
 #include "Game/States/DefaultGS.h"
-#include "Components/WorldGenerator.h"
 #include "Interfaces/WorldTile.h"
+#include "AI/Controllers/AdvancedAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
-#include "Objects/TileMatrix.h"
+#include "Objects/ExpansionPreferences.h"
 
 UFindBestResourceTile::UFindBestResourceTile()
 {
 	bNotifyTick = false;
 	bNotifyTaskFinished = false;
-	Key.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestResourceTile, Key), UWorldTile::StaticClass());
+	ResultKey.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFindBestResourceTile, ResultKey), UWorldTile::StaticClass());
 }
 
 EBTNodeResult::Type UFindBestResourceTile::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	// TODO: rewrite to find best tile
-	const auto GameState = GetWorld()->GetGameState<ADefaultGS>();
-	check(GameState);
-	const auto& Params = GameState->GetWorldGenerator()->GetWorldParams();
-	const auto Row = FMath::RandRange(0, Params.GetRows() - 1);
-	const auto Column = FMath::RandRange(0, Params.GetColumns() - 1);
-	const auto Tile = Params.GetTileMatrix()->Get(Row, Column);
-	OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Object>(Key.SelectedKeyName, Tile.GetObject());
-	return EBTNodeResult::Succeeded;
+	const auto Controller = OwnerComp.GetAIOwner();
+	if (const auto AdvancedController = Cast<AAdvancedAIController>(Controller))
+	{
+		const auto& Preferences = AdvancedController->GetExpansionPreferences();
+		const auto TileData = Preferences->GetBest();
+		OwnerComp.GetBlackboardComponent()->SetValueAsObject(ResultKey.SelectedKeyName, TileData.Tile.GetObject());
+		return EBTNodeResult::Succeeded;
+	}
+	return EBTNodeResult::Failed;
 }
 
 void UFindBestResourceTile::OnGameplayTaskActivated(UGameplayTask& Task)

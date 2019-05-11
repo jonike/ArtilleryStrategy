@@ -18,6 +18,8 @@ public:
 	void AddTile(TScriptInterface<IWorldTile> Tile);
 	void RemoveTile(TScriptInterface<IWorldTile> Tile);
 
+	FAiTileData GetBest();
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TSet<FAiTileData> ExpansionTiles;

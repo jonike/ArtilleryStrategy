@@ -26,5 +26,5 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere)
-	FBlackboardKeySelector Key;
+	FBlackboardKeySelector ResultKey;
 };
