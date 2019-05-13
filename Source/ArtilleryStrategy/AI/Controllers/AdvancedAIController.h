@@ -3,6 +3,7 @@
 #pragma once
 
 #include "AI/Controllers/DefaultAIController.h"
+#include "Interfaces/FireManager.h"
 #include "AdvancedAIController.generated.h"
 
 class UExpansionPreferences;
@@ -10,12 +11,18 @@ class UExpansionPreferences;
  * 
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API AAdvancedAIController : public ADefaultAIController
+class ARTILLERYSTRATEGY_API AAdvancedAIController : public ADefaultAIController, public IFireManager
 {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFireSignature);
+
 public:
 	AAdvancedAIController();
+
+	FOnFireSignature OnFire;
+
+	void AddToFireList(TScriptInterface<IWeaponBuilding> Weapon) override;
 
 	UExpansionPreferences* GetExpansionPreferences() const;
 
