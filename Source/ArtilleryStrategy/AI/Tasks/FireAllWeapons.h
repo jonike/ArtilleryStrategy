@@ -6,6 +6,7 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "FireAllWeapons.generated.h"
 
+class UCurveFloat;
 class IWeaponBuilding;
 /**
  * 
@@ -27,6 +28,12 @@ private:
 	UPROPERTY(EditAnywhere)
 	FBlackboardKeySelector TargetKey;
 
+	UPROPERTY(EditAnywhere)
+	UCurveFloat* AngleCurve;
+
 	void RotateWeapon(TScriptInterface<IWeaponBuilding> Weapon) const;
 	void FireWeapon(TScriptInterface<IWeaponBuilding> Weapon) const;
+
+	/** Return plane angle and horizon angle (in that exact order) for weapon for shooting */
+	TPair<float, float> GetWeaponAngles(TScriptInterface<IWeaponBuilding> Weapon) const;
 };

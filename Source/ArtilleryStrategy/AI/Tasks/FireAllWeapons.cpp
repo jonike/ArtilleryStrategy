@@ -5,6 +5,7 @@
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/WeaponBuilding.h"
 #include "Engine/World.h"
+#include "Curves/CurveFloat.h"
 
 UFireAllWeapons::UFireAllWeapons()
 {
@@ -52,17 +53,25 @@ void UFireAllWeapons::FireWeapon(TScriptInterface<IWeaponBuilding> Weapon) const
 	}
 }
 
+TPair<float, float> UFireAllWeapons::GetWeaponAngles(TScriptInterface<IWeaponBuilding> Weapon) const
+{
+	const auto Target = FVector(0.f, 0.f, 0.f);
+	const auto WeaponAsActor = Cast<AActor>(Weapon.GetObject());
+	check(WeaponAsActor);
+	const auto Offset = Target - WeaponAsActor->GetActorLocation();
+	// TODO: remove radians to degrees conversion
+	const auto PlaneAngle = FMath::RadiansToDegrees(Offset.HeadingAngle());
+	const auto Distance = Offset.Size();
+	const auto HorizonAngle = AngleCurve->GetFloatValue(Distance);
+	return MakeTuple(PlaneAngle, HorizonAngle);
+}
+
 void UFireAllWeapons::RotateWeapon(TScriptInterface<IWeaponBuilding> Weapon) const
 {
 	if (Weapon)
 	{
-		const auto Target = FVector(0.f, 0.f, 0.f);
-		const auto WeaponAsActor = Cast<AActor>(Weapon.GetObject());
-		check(WeaponAsActor);
-		const auto Offset = Target - WeaponAsActor->GetActorLocation();
-		// TODO: remove radians to degrees conversion
-		const auto HorizonAngle = FMath::RadiansToDegrees(Offset.HeadingAngle());
-		Weapon->SetHorizonAngle(30.f);
-		Weapon->SetPlaneAngle(HorizonAngle);
+		const auto Angles = GetWeaponAngles(Weapon);
+		Weapon->SetPlaneAngle(Angles.Get<0>());
+		Weapon->SetHorizonAngle(Angles.Get<1>());
 	}
 }
