@@ -30,6 +30,7 @@ public:
 
 	virtual FVector GetBuildingSpawnLocation() const = 0;
 	virtual bool HasBuilding() const = 0;
+	virtual TScriptInterface<IBuilding> GetBuilding() const = 0;
 	virtual void SetBuilding(TScriptInterface<IBuilding> Building) = 0;
 	virtual TScriptInterface<IBuilding> SpawnBuilding(TSubclassOf<AActor> BuildingClass) = 0;
 

@@ -91,6 +91,11 @@ bool ABaseTile::HasBuilding() const
 	return Building.GetObject() != nullptr;
 }
 
+TScriptInterface<IBuilding> ABaseTile::GetBuilding() const
+{
+	return Building;
+}
+
 AActor* ABaseTile::SpawnBuildingActor(const TSubclassOf<AActor> BuildingClass) const
 {
 	const auto Location = GetBuildingSpawnLocation();

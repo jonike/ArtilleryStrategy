@@ -40,6 +40,7 @@ public:
 
 	FVector GetBuildingSpawnLocation() const override;
 	bool HasBuilding() const override;
+	TScriptInterface<IBuilding> GetBuilding() const override;
 	void SetBuilding(TScriptInterface<IBuilding> SpawnedBuilding) override;
 	TScriptInterface<IBuilding> SpawnBuilding(TSubclassOf<AActor> BuildingClass) override;
 
