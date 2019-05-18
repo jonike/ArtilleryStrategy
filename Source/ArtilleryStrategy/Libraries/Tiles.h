@@ -6,6 +6,8 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Tiles.generated.h"
 
+class IBuilding;
+class IWorldTile;
 /**
  * 
  */
@@ -15,5 +17,13 @@ class ARTILLERYSTRATEGY_API UTiles : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 
 public:
+	using FTileFunction = TFunction<void(TScriptInterface<IWorldTile>)>;
+
 	static TSet<UObject*> FilterOnlyTilesWithoutBuildings(const TSet<UObject*>& Tiles);
+
+	static void ForEachTileInRadius(TScriptInterface<IWorldTile> Center, int Radius, FTileFunction Function);
+
+	static TSet<TScriptInterface<IWorldTile>> GetTilesInRadius(TScriptInterface<IWorldTile> Center, int Radius);
+
+	static TSet<TScriptInterface<IBuilding>> GetBuildingsInRadius(TScriptInterface<IWorldTile> Center, int Radius);
 };
