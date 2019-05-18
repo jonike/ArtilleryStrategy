@@ -23,6 +23,7 @@ void ABaseWeaponBuilding::BeginPlay()
 
 void ABaseWeaponBuilding::Tick(float DeltaSeconds)
 {
+	// TODO: remove logic from Tick()
 	if (bIsSelected && IsReadyForFire())
 	{
 		FHitResult Hit;
@@ -91,9 +92,7 @@ void ABaseWeaponBuilding::SetPlaneAngle(const float Angle)
 
 void ABaseWeaponBuilding::SetHorizonAngle(const float Angle)
 {
-	auto Rotation = GetActorRotation();
-	Rotation.Pitch = Angle;
-	SetActorRelativeRotation(Rotation);
+	GunTip->RelativeRotation.Pitch = Angle;
 }
 
 void ABaseWeaponBuilding::ReceiveOnTurnStarted()
