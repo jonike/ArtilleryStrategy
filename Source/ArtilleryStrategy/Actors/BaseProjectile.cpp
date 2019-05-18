@@ -47,4 +47,12 @@ void ABaseProjectile::DealDamage(UPrimitiveComponent* HitComponent, AActor* Othe
 	FDamageEvent Event;
 	Event.DamageTypeClass = UKineticDamage::StaticClass();
 	OtherActor->TakeDamage(Damage, Event, GetWorld()->GetFirstPlayerController(), this);
+	if (BouncesBeforeDeath == 0)
+	{
+		Destroy();
+	}
+	else if (BouncesBeforeDeath > 0)
+	{
+		--BouncesBeforeDeath;
+	}
 }

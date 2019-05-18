@@ -41,6 +41,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* StaticMesh;
 
+	UPROPERTY(EditAnywhere)
+	int BouncesBeforeDeath = 4;
+
 	/**
 	 * \brief Deal damage to collided object
 	 * \param HitComponent The component that was hit
