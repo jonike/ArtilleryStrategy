@@ -18,6 +18,8 @@ ABaseProjectile::ABaseProjectile()
 	StaticMesh->SetSimulatePhysics(true);
 	StaticMesh->SetGenerateOverlapEvents(true);
 	StaticMesh->SetNotifyRigidBodyCollision(true);
+
+	InitialLifeSpan = 3.f;
 }
 
 void ABaseProjectile::AddImpulse(const float Value)
