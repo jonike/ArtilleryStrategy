@@ -21,5 +21,6 @@ public:
 
 private:
 	// TODO: null pointers accumulation is imminent; add mechanism to remove pointers to destroyed objects
+	UPROPERTY(VisibleInstanceOnly)
 	TSet<AActor*> Targets;
 };
