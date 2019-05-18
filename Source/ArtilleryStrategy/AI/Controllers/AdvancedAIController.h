@@ -6,6 +6,7 @@
 #include "Interfaces/FireManager.h"
 #include "AdvancedAIController.generated.h"
 
+class UAttackTargets;
 class UExpansionPreferences;
 /**
  * 
@@ -25,8 +26,12 @@ public:
 	void AddToFireList(TScriptInterface<IWeaponBuilding> Weapon) override;
 
 	UExpansionPreferences* GetExpansionPreferences() const;
+	UAttackTargets* GetAttackTargets() const;
 
 private:
 	UPROPERTY(EditAnywhere)
 	UExpansionPreferences* Preferences;
+
+	UPROPERTY(EditAnywhere)
+	UAttackTargets* AttackTargets;
 };

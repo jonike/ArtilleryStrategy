@@ -7,6 +7,7 @@
 AAdvancedAIController::AAdvancedAIController()
 {
 	Preferences = CreateDefaultSubobject<UExpansionPreferences>(TEXT("Expansion preferences"));
+	AttackTargets = CreateDefaultSubobject<UAttackTargets>(TEXT("Attack targets"));
 }
 
 void AAdvancedAIController::AddToFireList(const TScriptInterface<IWeaponBuilding> Weapon)
@@ -20,4 +21,9 @@ void AAdvancedAIController::AddToFireList(const TScriptInterface<IWeaponBuilding
 UExpansionPreferences* AAdvancedAIController::GetExpansionPreferences() const
 {
 	return Preferences;
+}
+
+UAttackTargets* AAdvancedAIController::GetAttackTargets() const
+{
+	return AttackTargets;
 }
