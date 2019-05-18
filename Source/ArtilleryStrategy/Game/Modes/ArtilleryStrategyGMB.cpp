@@ -8,6 +8,7 @@
 #include "PropertyEditor/Public/PropertyEditorModule.h"
 #include "Modules/ModuleManager.h"
 #include "Customizations/ResourceHandleCustomization.h"
+#include "Engine/World.h"
 
 AArtilleryStrategyGMB::AArtilleryStrategyGMB()
 {
@@ -18,4 +19,12 @@ AArtilleryStrategyGMB::AArtilleryStrategyGMB()
 
 	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 	PropertyModule.RegisterCustomPropertyTypeLayout("ResourceHandle", FOnGetPropertyTypeCustomizationInstance::CreateStatic(&FResourceHandleCustomizationLayout::MakeInstance));
+}
+
+void AArtilleryStrategyGMB::BeginPlay()
+{
+	for (auto i = 0; i < AIPlayers; ++i)
+	{
+		GetWorld()->SpawnActor(AIActorClass);
+	}
 }

@@ -15,4 +15,14 @@ class ARTILLERYSTRATEGY_API AArtilleryStrategyGMB : public AGameModeBase
 
 public:
 	AArtilleryStrategyGMB();
+
+protected:
+	void BeginPlay() override;
+
+private:
+	UPROPERTY(EditAnywhere)
+	int AIPlayers = 3;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> AIActorClass;
 };
