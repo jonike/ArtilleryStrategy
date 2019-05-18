@@ -5,10 +5,6 @@
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/WeaponBuilding.h"
 
-UFireAllWeapons::UFireAllWeapons()
-{
-}
-
 EBTNodeResult::Type UFireAllWeapons::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	if (const auto State = OwnerComp.GetAIOwner()->GetPlayerState<APlayerState>())
@@ -18,12 +14,10 @@ EBTNodeResult::Type UFireAllWeapons::ExecuteTask(UBehaviorTreeComponent& OwnerCo
 			const auto OwnedBuildings = DefaultState->GetOwnedBuildings();
 			for (const auto& Building : OwnedBuildings)
 			{
-				if (const auto BuildingAsWeapon = Cast<IWeaponBuilding>(Building))
+				if (Cast<IWeaponBuilding>(Building))
 				{
-					if (BuildingAsWeapon->IsReadyForFire())
-					{
-						BuildingAsWeapon->Fire();
-					}
+					RotateWeapon(Building);
+					FireWeapon(Building);
 				}
 			}
 		}
@@ -38,4 +32,24 @@ EBTNodeResult::Type UFireAllWeapons::AbortTask(UBehaviorTreeComponent& OwnerComp
 
 void UFireAllWeapons::OnGameplayTaskActivated(UGameplayTask& Task)
 {
+}
+
+void UFireAllWeapons::FireWeapon(TScriptInterface<IWeaponBuilding> Weapon) const
+{
+	if (Weapon)
+	{
+		if (Weapon->IsReadyForFire())
+		{
+			Weapon->Fire();
+		}
+	}
+}
+
+void UFireAllWeapons::RotateWeapon(TScriptInterface<IWeaponBuilding> Weapon) const
+{
+	if (Weapon)
+	{
+		Weapon->SetHorizonAngle(60.f);
+		Weapon->SetPlaneAngle(30.f);
+	}
 }
