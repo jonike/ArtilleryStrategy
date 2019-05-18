@@ -67,7 +67,7 @@ TScriptInterface<IFireManager> ABaseWeaponBuilding::GetFireManager() const
 
 void ABaseWeaponBuilding::Fire()
 {
-	if (bIsSelected && IsReadyForFire())
+	if (/*bIsSelected && */IsReadyForFire())
 	{
 		bFiredOnThisTurn = true;
 		bIsSelected = false;
