@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "Tiles.generated.h"
+#include "TilesLibrary.generated.h"
 
 class IBuilding;
 class IWorldTile;

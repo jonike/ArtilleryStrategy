@@ -6,7 +6,7 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Structs/PlayerTurnLimits.h"
 #include "Structs/WorldParams.h"
-#include "ASLibrary.generated.h"
+#include "CoreLibrary.generated.h"
 
 class AController;
 class IPlayerRepository;
