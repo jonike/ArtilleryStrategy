@@ -14,6 +14,7 @@ USetWeaponTarget::USetWeaponTarget()
 
 	TargetKey.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USetWeaponTarget, TargetKey), UPlayerProperty::StaticClass());
 	TargetKey.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USetWeaponTarget, TargetKey), UWorldTile::StaticClass());
+	TargetKey.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(USetWeaponTarget, TargetKey), AActor::StaticClass());
 }
 
 EBTNodeResult::Type USetWeaponTarget::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

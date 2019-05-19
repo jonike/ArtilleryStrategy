@@ -6,11 +6,15 @@
 #include "Interfaces/WeaponBuilding.h"
 #include "Engine/World.h"
 #include "Curves/CurveFloat.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "Interfaces/WorldTile.h"
 
 UFireAllWeapons::UFireAllWeapons()
 {
-	TargetKey.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFireAllWeapons, TargetKey), UObject::StaticClass());
-	TargetKey.AddVectorFilter(this, GET_MEMBER_NAME_CHECKED(UFireAllWeapons, TargetKey));
+	TargetKey.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFireAllWeapons, TargetKey), AActor::StaticClass());
+	TargetKey.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFireAllWeapons, TargetKey), UPlayerProperty::StaticClass());
+	TargetKey.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(UFireAllWeapons, TargetKey), UWorldTile::StaticClass());
+
 }
 
 EBTNodeResult::Type UFireAllWeapons::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -24,7 +28,8 @@ EBTNodeResult::Type UFireAllWeapons::ExecuteTask(UBehaviorTreeComponent& OwnerCo
 			{
 				if (Cast<IWeaponBuilding>(Building))
 				{
-					RotateWeapon(Building);
+					const auto Target = UnpackTarget(OwnerComp);
+					RotateWeapon(Building, Target);
 					FireWeapon(Building);
 				}
 			}
@@ -53,9 +58,8 @@ void UFireAllWeapons::FireWeapon(TScriptInterface<IWeaponBuilding> Weapon) const
 	}
 }
 
-TPair<float, float> UFireAllWeapons::GetWeaponAngles(TScriptInterface<IWeaponBuilding> Weapon) const
+TPair<float, float> UFireAllWeapons::GetWeaponAngles(const TScriptInterface<IWeaponBuilding> Weapon, const FVector& Target) const
 {
-	const auto Target = FVector(0.f, 0.f, 0.f);
 	const auto WeaponAsActor = Cast<AActor>(Weapon.GetObject());
 	check(WeaponAsActor);
 	const auto Offset = Target - WeaponAsActor->GetActorLocation();
@@ -66,11 +70,19 @@ TPair<float, float> UFireAllWeapons::GetWeaponAngles(TScriptInterface<IWeaponBui
 	return MakeTuple(PlaneAngle, HorizonAngle);
 }
 
-void UFireAllWeapons::RotateWeapon(TScriptInterface<IWeaponBuilding> Weapon) const
+FVector UFireAllWeapons::UnpackTarget(UBehaviorTreeComponent& OwnerComp) const
+{
+	const auto Object = OwnerComp.GetBlackboardComponent()->GetValueAsObject(TargetKey.SelectedKeyName);
+	const auto Actor = Cast<AActor>(Object);
+	check(Actor);
+	return Actor->GetActorLocation();
+}
+
+void UFireAllWeapons::RotateWeapon(TScriptInterface<IWeaponBuilding> Weapon, const FVector& Target) const
 {
 	if (Weapon)
 	{
-		const auto Angles = GetWeaponAngles(Weapon);
+		const auto Angles = GetWeaponAngles(Weapon, Target);
 		Weapon->SetPlaneAngle(Angles.Get<0>());
 		Weapon->SetHorizonAngle(Angles.Get<1>());
 	}

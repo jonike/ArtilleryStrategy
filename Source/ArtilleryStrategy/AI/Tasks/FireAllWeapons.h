@@ -31,9 +31,11 @@ private:
 	UPROPERTY(EditAnywhere)
 	UCurveFloat* AngleCurve;
 
-	void RotateWeapon(TScriptInterface<IWeaponBuilding> Weapon) const;
+	void RotateWeapon(TScriptInterface<IWeaponBuilding> Weapon, const FVector& Target) const;
 	void FireWeapon(TScriptInterface<IWeaponBuilding> Weapon) const;
 
 	/** Return plane angle and horizon angle (in that exact order) for weapon for shooting */
-	TPair<float, float> GetWeaponAngles(TScriptInterface<IWeaponBuilding> Weapon) const;
+	TPair<float, float> GetWeaponAngles(TScriptInterface<IWeaponBuilding> Weapon, const FVector& Target) const;
+
+	FVector UnpackTarget(UBehaviorTreeComponent& OwnerComp) const;
 };
