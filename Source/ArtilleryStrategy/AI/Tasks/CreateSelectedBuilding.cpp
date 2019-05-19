@@ -6,7 +6,7 @@
 #include "Interfaces/Building.h"
 #include "Interfaces/CanBuyBuildings.h"
 #include "AIController.h"
-#include "Libraries/ASLibrary.h"
+#include "Libraries/CoreLibrary.h"
 #include "Interfaces/PlayerRepository.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
@@ -60,7 +60,7 @@ EBTNodeResult::Type UCreateSelectedBuilding::ExecuteTask(UBehaviorTreeComponent&
 	if (const auto Controller = Cast<ICanBuyBuildings>(OwnerComp.GetAIOwner()))
 	{
 		// Has repository with resources
-		if (const auto Repository = UASLibrary::GetPlayerRepositoryForActor(OwnerComp.GetAIOwner()))
+		if (const auto Repository = UCoreLibrary::GetPlayerRepositoryForActor(OwnerComp.GetAIOwner()))
 		{
 			// Unpack tile object
 			if (const auto TileObject = UnpackTileObject(OwnerComp))
@@ -72,7 +72,7 @@ EBTNodeResult::Type UCreateSelectedBuilding::ExecuteTask(UBehaviorTreeComponent&
 					// Object of stored class can be bought
 					if (const auto Building = Cast<IPlayerProperty>(DefaultObject))
 					{
-						const auto& Limits = UASLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner());
+						const auto& Limits = UCoreLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner());
 						const auto& RequiredResources = Building->GetResourcesToOwn();
 						if (IsEnoughResources(Repository, RequiredResources)
 							&& IsLimitNotReached(Limits))

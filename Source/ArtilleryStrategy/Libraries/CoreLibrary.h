@@ -17,7 +17,7 @@ class IFireManager;
  * 
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API UASLibrary : public UBlueprintFunctionLibrary
+class ARTILLERYSTRATEGY_API UCoreLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

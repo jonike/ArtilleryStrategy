@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TurnLimitNotReached.h"
-#include "Libraries/ASLibrary.h"
+#include "Libraries/CoreLibrary.h"
 #include "AIController.h"
 
 bool UTurnLimitNotReached::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
-	const auto PlayerTurnLimits = UASLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner());
+	const auto PlayerTurnLimits = UCoreLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner());
 	switch (Type)
 	{
 		case ELimitType::Buildings:

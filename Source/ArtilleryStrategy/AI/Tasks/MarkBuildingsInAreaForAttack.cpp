@@ -3,7 +3,7 @@
 #include "MarkBuildingsInAreaForAttack.h"
 #include "Interfaces/WorldTile.h"
 #include "AI/Controllers/AdvancedAIController.h"
-#include "Libraries/Tiles.h"
+#include "Libraries/TilesLibrary.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Objects/AttackTargets.h"
 
@@ -18,7 +18,7 @@ EBTNodeResult::Type UMarkBuildingsInAreaForAttack::ExecuteTask(UBehaviorTreeComp
 	{
 		if (const auto Center = OwnerComp.GetBlackboardComponent()->GetValueAsObject(CenterTileKey.SelectedKeyName))
 		{
-			const auto BuildingsNearby = UTiles::GetBuildingsInRadius(Center, Radius);
+			const auto BuildingsNearby = UTilesLibrary::GetBuildingsInRadius(Center, Radius);
 			for (const auto& Building : BuildingsNearby)
 			{
 				if (const auto BuildingAsActor = Cast<AActor>(Building.GetObject()))

@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Tiles.h"
+#include "TilesLibrary.h"
 #include "Interfaces/WorldTile.h"
-#include "ASLibrary.h"
+#include "CoreLibrary.h"
 #include "Structs/TileData.h"
 #include "Structs/WorldParams.h"
 #include "Objects/TileMatrix.h"
 
-TSet<UObject*> UTiles::FilterOnlyTilesWithoutBuildings(const TSet<UObject*>& Tiles)
+TSet<UObject*> UTilesLibrary::FilterOnlyTilesWithoutBuildings(const TSet<UObject*>& Tiles)
 {
 	TSet<UObject*> Results;
 	for (const auto& TileObject : Tiles)
@@ -23,11 +23,11 @@ TSet<UObject*> UTiles::FilterOnlyTilesWithoutBuildings(const TSet<UObject*>& Til
 	return Results;
 }
 
-void UTiles::ForEachTileInRadius(TScriptInterface<IWorldTile> Center, const int Radius, const FTileFunction Function)
+void UTilesLibrary::ForEachTileInRadius(TScriptInterface<IWorldTile> Center, const int Radius, const FTileFunction Function)
 {
 	check(Center);
 	check(Function);
-	const auto& Params = UASLibrary::GetWorldParams(Center.GetObject());
+	const auto& Params = UCoreLibrary::GetWorldParams(Center.GetObject());
 
 	const auto CenterRow = Center->GetTileData().Coordinates.GetRow();
 	const auto CenterColumn = Center->GetTileData().Coordinates.GetColumn();
@@ -52,7 +52,7 @@ void UTiles::ForEachTileInRadius(TScriptInterface<IWorldTile> Center, const int 
 	}
 }
 
-TSet<TScriptInterface<IWorldTile>> UTiles::GetTilesInRadius(const TScriptInterface<IWorldTile> Center, const int Radius)
+TSet<TScriptInterface<IWorldTile>> UTilesLibrary::GetTilesInRadius(const TScriptInterface<IWorldTile> Center, const int Radius)
 {
 	TSet<TScriptInterface<IWorldTile>> Tiles;
 	ForEachTileInRadius(Center, Radius, [&Tiles](const auto Tile)
@@ -62,7 +62,7 @@ TSet<TScriptInterface<IWorldTile>> UTiles::GetTilesInRadius(const TScriptInterfa
 	return Tiles;
 }
 
-TSet<TScriptInterface<IBuilding>> UTiles::GetBuildingsInRadius(const TScriptInterface<IWorldTile> Center, const int Radius)
+TSet<TScriptInterface<IBuilding>> UTilesLibrary::GetBuildingsInRadius(const TScriptInterface<IWorldTile> Center, const int Radius)
 {
 	TSet<TScriptInterface<IBuilding>> Buildings;
 	ForEachTileInRadius(Center, Radius, [&Buildings](const auto Tile)

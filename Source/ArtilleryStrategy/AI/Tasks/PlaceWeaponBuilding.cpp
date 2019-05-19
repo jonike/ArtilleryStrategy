@@ -2,14 +2,14 @@
 
 
 #include "PlaceWeaponBuilding.h"
-#include "Libraries/ASLibrary.h"
+#include "Libraries/CoreLibrary.h"
 #include "Objects/TileMatrix.h"
 #include "Structs/BuildingData.h"
 #include "AIController.h"
 #include "Player/States/DefaultPlayerState.h"
 #include "Interfaces/OwnerController.h"
 #include "Interfaces/CanBuyBuildings.h"
-#include "Libraries/Tiles.h"
+#include "Libraries/TilesLibrary.h"
 
 UPlaceWeaponBuilding::UPlaceWeaponBuilding()
 {
@@ -48,7 +48,7 @@ TScriptInterface<IWorldTile> UPlaceWeaponBuilding::GetTile(UBehaviorTreeComponen
 		if (const auto OwnerState = SelfOwner->GetPlayerState<IOwnerState>())
 		{
 			const auto TilesForBuilding = OwnerState->GetOwnedTiles();
-			const auto TilesWithoutBuildings = UTiles::FilterOnlyTilesWithoutBuildings(TilesForBuilding);
+			const auto TilesWithoutBuildings = UTilesLibrary::FilterOnlyTilesWithoutBuildings(TilesForBuilding);
 			if (TilesWithoutBuildings.Num() > 0)
 			{
 				const auto TileObject = TilesWithoutBuildings.CreateConstIterator();

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ASLibrary.h"
+#include "CoreLibrary.h"
 #include "Interfaces/FireManager.h"
 #include "Interfaces/PlayerRepository.h"
 #include "Engine/World.h"
@@ -11,19 +11,19 @@
 #include "Components/WorldGenerator.h"
 #include "Player/States/DefaultPlayerState.h"
 
-TScriptInterface<IFireManager> UASLibrary::GetFireManagerForActor(const AActor* Actor)
+TScriptInterface<IFireManager> UCoreLibrary::GetFireManagerForActor(const AActor* Actor)
 {
 	check(Actor);
 	return Actor->GetInstigatorController();
 }
 
-TScriptInterface<IFireManager> UASLibrary::GetFireManagerForPawn(const APawn* Pawn)
+TScriptInterface<IFireManager> UCoreLibrary::GetFireManagerForPawn(const APawn* Pawn)
 {
 	check(Pawn);
 	return Pawn->GetController();
 }
 
-UWorldGenerator* UASLibrary::GetMapGenerator(const UObject* Object)
+UWorldGenerator* UCoreLibrary::GetMapGenerator(const UObject* Object)
 {
 	check(Object);
 	const auto World = Object->GetWorld();
@@ -33,7 +33,7 @@ UWorldGenerator* UASLibrary::GetMapGenerator(const UObject* Object)
 	return GameState->GetWorldGenerator();
 }
 
-TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForActor(const AActor* Actor)
+TScriptInterface<IPlayerRepository> UCoreLibrary::GetPlayerRepositoryForActor(const AActor* Actor)
 {
 	check(Actor);
 	const auto Controller = Actor->GetInstigatorController();
@@ -41,7 +41,7 @@ TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForActor(cons
 	return Controller->GetPlayerState<APlayerState>();
 }
 
-TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForPawn(const APawn* Pawn)
+TScriptInterface<IPlayerRepository> UCoreLibrary::GetPlayerRepositoryForPawn(const APawn* Pawn)
 {
 	check(Pawn);
 	const auto Controller = Pawn->GetController();
@@ -49,14 +49,14 @@ TScriptInterface<IPlayerRepository> UASLibrary::GetPlayerRepositoryForPawn(const
 	return Controller->GetPlayerState<APlayerState>();
 }
 
-const FWorldParams& UASLibrary::GetWorldParams(const UObject* Object)
+const FWorldParams& UCoreLibrary::GetWorldParams(const UObject* Object)
 {
 	const auto MapGenerator = GetMapGenerator(Object);
 	check(MapGenerator);
 	return MapGenerator->GetWorldParams();
 }
 
-const FPlayerTurnLimits& UASLibrary::GetPlayerTurnLimitsForController(const AController* Controller)
+const FPlayerTurnLimits& UCoreLibrary::GetPlayerTurnLimitsForController(const AController* Controller)
 {
 	const auto State = Controller->GetPlayerState<ADefaultPlayerState>();
 	check(State);

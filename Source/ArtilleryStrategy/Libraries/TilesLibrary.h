@@ -12,7 +12,7 @@ class IWorldTile;
  * 
  */
 UCLASS()
-class ARTILLERYSTRATEGY_API UTiles : public UBlueprintFunctionLibrary
+class ARTILLERYSTRATEGY_API UTilesLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

@@ -12,7 +12,7 @@
 #include "Interfaces/OwnerState.h"
 #include "GameFramework/PlayerState.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "Libraries/Tiles.h"
+#include "Libraries/TilesLibrary.h"
 
 UFindBestTileForResourceBuilding::UFindBestTileForResourceBuilding()
 {
@@ -45,7 +45,7 @@ EBTNodeResult::Type UFindBestTileForResourceBuilding::GetBestResourceTile(UBehav
 	if (const auto OwnerState = SelfOwner->GetPlayerState<IOwnerState>())
 	{
 		const auto TilesForBuilding = OwnerState->GetOwnedTiles();
-		const auto TilesWithoutBuildings = UTiles::FilterOnlyTilesWithoutBuildings(TilesForBuilding);
+		const auto TilesWithoutBuildings = UTilesLibrary::FilterOnlyTilesWithoutBuildings(TilesForBuilding);
 		if (TilesWithoutBuildings.Num() > 0)
 		for (const auto& TileObject : TilesWithoutBuildings)
 		{

@@ -8,7 +8,7 @@
 #include "Interfaces/PlayerProperty.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "AI/Controllers/DefaultAIController.h"
-#include "Libraries/ASLibrary.h"
+#include "Libraries/CoreLibrary.h"
 
 UBuySelectedTile::UBuySelectedTile()
 {
@@ -55,7 +55,7 @@ EBTNodeResult::Type UBuySelectedTile::BuySelected(UBehaviorTreeComponent& OwnerC
 		if (Cast<IPlayerProperty>(ObjectToBuy))
 		{
 			// Can buy tiles on this turn
-			if (!UASLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner())
+			if (!UCoreLibrary::GetPlayerTurnLimitsForController(OwnerComp.GetAIOwner())
 				.GetTilesLimit()
 				.IsLimitReached())
 			{
