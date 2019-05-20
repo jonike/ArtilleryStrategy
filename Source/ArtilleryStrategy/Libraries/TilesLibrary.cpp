@@ -55,9 +55,12 @@ void UTilesLibrary::ForEachTileInRadius(TScriptInterface<IWorldTile> Center, con
 TSet<TScriptInterface<IWorldTile>> UTilesLibrary::GetTilesInRadius(const TScriptInterface<IWorldTile> Center, const int Radius)
 {
 	TSet<TScriptInterface<IWorldTile>> Tiles;
-	ForEachTileInRadius(Center, Radius, [&Tiles](const auto Tile)
+	ForEachTileInRadius(Center, Radius, [&Tiles](const TScriptInterface<IWorldTile> Tile)
 	{
-		Tiles.Add(Tile);
+		if (!Tile.GetObject()->IsPendingKill())
+		{
+			Tiles.Add(Tile);
+		}
 	});
 	return Tiles;
 }
@@ -65,9 +68,11 @@ TSet<TScriptInterface<IWorldTile>> UTilesLibrary::GetTilesInRadius(const TScript
 TSet<TScriptInterface<IBuilding>> UTilesLibrary::GetBuildingsInRadius(const TScriptInterface<IWorldTile> Center, const int Radius)
 {
 	TSet<TScriptInterface<IBuilding>> Buildings;
-	ForEachTileInRadius(Center, Radius, [&Buildings](const auto Tile)
+	ForEachTileInRadius(Center, Radius, [&Buildings](const TScriptInterface<IWorldTile> Tile)
 	{
-		if (Tile->HasBuilding())
+		if (Tile->HasBuilding()
+			&& !Tile.GetObject()->IsPendingKill()
+			&& !Tile->GetBuilding().GetObject()->IsPendingKill())
 		{
 			Buildings.Add(Tile->GetBuilding());
 		}

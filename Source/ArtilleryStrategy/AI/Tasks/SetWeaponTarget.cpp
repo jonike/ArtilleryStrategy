@@ -45,7 +45,7 @@ AActor* USetWeaponTarget::SelectTarget(const UBehaviorTreeComponent& OwnerComp, 
 	{
 		return nullptr;
 	}
-	const auto TargetsAsArray = Targets->GetTargets().Array();
+	const auto& TargetsAsArray = Targets->GetTargets();
 	const auto Index = FMath::RandRange(0, TargetsAsArray.Num() - 1);
 	return TargetsAsArray[Index];
 }

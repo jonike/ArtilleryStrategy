@@ -17,10 +17,10 @@ class ARTILLERYSTRATEGY_API UAttackTargets : public UObject
 public:
 	void Add(AActor* Target);
 
-	const TSet<AActor*>& GetTargets() const;
+	const TArray<AActor*>& GetTargets();
 
 private:
 	// TODO: null pointers accumulation is imminent; add mechanism to remove pointers to destroyed objects
 	UPROPERTY(VisibleInstanceOnly)
-	TSet<AActor*> Targets;
+	TArray<AActor*> Targets;
 };
