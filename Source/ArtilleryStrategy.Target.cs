@@ -9,6 +9,6 @@ public class ArtilleryStrategyTarget : TargetRules
 	{
 		Type = TargetType.Game;
 
-		ExtraModuleNames.AddRange( new string[] { "ArtilleryStrategy" } );
+		ExtraModuleNames.AddRange( new string[] { "ArtilleryStrategy", "UtilityAI" } );
 	}
 }

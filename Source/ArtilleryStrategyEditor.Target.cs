@@ -9,6 +9,6 @@ public class ArtilleryStrategyEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 
-		ExtraModuleNames.AddRange( new string[] { "ArtilleryStrategy" } );
+		ExtraModuleNames.AddRange( new string[] { "ArtilleryStrategy", "UtilityAI" } );
 	}
 }
