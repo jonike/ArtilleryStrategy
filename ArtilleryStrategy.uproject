@@ -14,6 +14,17 @@
 				"CoreUObject",
 				"AIModule"
 			]
+		},
+		{
+			"Name": "UtilityAI",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"UMG",
+				"CoreUObject",
+				"AIModule"
+			]
 		}
 	],
 	"Plugins": [
