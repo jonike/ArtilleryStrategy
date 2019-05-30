@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Conditions/Unary.h"
+#include "Unary.h"
 #include "Not.generated.h"
 
 /**

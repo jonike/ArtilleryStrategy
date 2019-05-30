@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Conditions/Multi.h"
+#include "Multi.h"
 #include "All.generated.h"
 
 /**

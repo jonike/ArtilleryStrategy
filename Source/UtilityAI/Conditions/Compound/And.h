@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include "Conditions/Binary.h"
-#include "Xor.generated.h"
+#include "Binary.h"
+#include "And.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UTILITYAI_API UXor : public UBinary
+class UTILITYAI_API UAnd : public UBinary
 {
 	GENERATED_BODY()
 

@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Conditions/Condition.h"
 #include "Unary.generated.h"
 

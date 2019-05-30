@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Conditions/Binary.h"
+#include "Binary.h"
 #include "Or.generated.h"
 
 /**
