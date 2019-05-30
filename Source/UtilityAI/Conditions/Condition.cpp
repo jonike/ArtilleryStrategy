@@ -9,5 +9,5 @@ bool UCondition::Evaluate() const
 
 bool UCondition::EvaluateRaw() const
 {
-	return true;
+	return false;
 }

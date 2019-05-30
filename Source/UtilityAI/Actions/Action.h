@@ -20,7 +20,7 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	TArray<FActionModifier> Conditions;
+	TArray<FActionModifier> Modifiers;
 
 	float EvaluateRaw() const;
 };

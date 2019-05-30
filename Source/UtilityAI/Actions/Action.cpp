@@ -10,7 +10,7 @@ float UAction::Evaluate() const
 float UAction::EvaluateRaw() const
 {
 	auto Value = 0.f;
-	for (const auto& Condition : Conditions)
+	for (const auto& Condition : Modifiers)
 	{
 		Value += Condition.GetCurrentValue();
 	}
