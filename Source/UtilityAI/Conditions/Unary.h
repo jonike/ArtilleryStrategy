@@ -17,7 +17,7 @@ class UTILITYAI_API UUnary : public UCondition
 protected:
 	virtual bool EvaluateOne(bool Result) const;
 
-	bool EvaluateRaw() const override;
+	bool EvaluateRaw() const override final;
 
 private:
 	UPROPERTY(EditAnywhere, Instanced)
