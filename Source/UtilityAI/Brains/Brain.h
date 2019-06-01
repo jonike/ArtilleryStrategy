@@ -11,14 +11,14 @@ class UAction;
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, EditInlineNew)
 class UTILITYAI_API UBrain : public UObject
 {
 	GENERATED_BODY()
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void Start();
+	void Start(TScriptInterface<IAgent> Instigator);
 
 	UFUNCTION(BlueprintCallable)
 	void Stop();
@@ -48,6 +48,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float AutoSelectThreshold = 0.9f;
+
+	UPROPERTY()
+	TScriptInterface<IAgent> Agent;
 
 	FTimerHandle Timer;
 };

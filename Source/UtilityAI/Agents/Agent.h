@@ -22,6 +22,4 @@ class UTILITYAI_API IAgent
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	UFUNCTION(BlueprintCallable)
-	virtual void Act(UAction* Action) = 0;
 };

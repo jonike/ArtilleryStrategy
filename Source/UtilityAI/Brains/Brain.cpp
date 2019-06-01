@@ -8,8 +8,10 @@
 #include "Agents/Agent.h"
 #include "Libraries/AgentLibrary.h"
 
-void UBrain::Start()
+void UBrain::Start(const TScriptInterface<IAgent> Instigator)
 {
+	check(Instigator);
+	Agent = Instigator;
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &UBrain::Act, Step, true, -1.0);
 }
 
@@ -45,23 +47,22 @@ UAction* UBrain::SelectAction() const
 	return SelectedAction;
 }
 
+TScriptInterface<IAgent> UBrain::GetAgent() const
+{
+	return Agent;
+}
+
 float UBrain::GetAutoSelectThreshold() const
 {
 	return AutoSelectThreshold;
 }
 
-TScriptInterface<IAgent> UBrain::GetAgent() const
-{
-	return UAgentLibrary::GetAgent(this);
-}
 
 void UBrain::Act() const
 {
-	const auto Agent = GetAgent();
-	check(Agent);
 	if (const auto Action = SelectAction())
 	{
-		Agent->Act(Action);
+		Action->Run(GetAgent());
 	}
 }
 
