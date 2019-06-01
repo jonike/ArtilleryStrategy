@@ -18,10 +18,10 @@ class UTILITYAI_API UBrain : public UObject
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void Start(TScriptInterface<IAgent> Instigator);
+	virtual void Initialize(TScriptInterface<IAgent> Instigator);
 
 	UFUNCTION(BlueprintCallable)
-	void Stop();
+	virtual void Run() const;
 
 protected:
 	UFUNCTION(BlueprintCallable)
@@ -29,9 +29,6 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	virtual TScriptInterface<IAgent> GetAgent() const;
-
-	UFUNCTION(BlueprintCallable)
-	virtual void Act() const;
 
 	UFUNCTION(BlueprintCallable)
 	const TArray<UAction*>& GetActions() const;
@@ -44,13 +41,8 @@ private:
 	TArray<UAction*> Actions;
 
 	UPROPERTY(EditAnywhere)
-	float Step = 0.2f;
-
-	UPROPERTY(EditAnywhere)
 	float AutoSelectThreshold = 0.9f;
 
 	UPROPERTY()
 	TScriptInterface<IAgent> Agent;
-
-	FTimerHandle Timer;
 };

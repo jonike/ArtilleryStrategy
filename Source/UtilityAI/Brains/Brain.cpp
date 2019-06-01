@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Brain.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
@@ -8,19 +7,10 @@
 #include "Agents/Agent.h"
 #include "Libraries/AgentLibrary.h"
 
-void UBrain::Start(const TScriptInterface<IAgent> Instigator)
+void UBrain::Initialize(const TScriptInterface<IAgent> Instigator)
 {
 	check(Instigator);
 	Agent = Instigator;
-	GetWorld()->GetTimerManager().SetTimer(Timer, this, &UBrain::Act, Step, true, -1.0);
-}
-
-void UBrain::Stop()
-{
-	if (Timer.IsValid())
-	{
-		GetWorld()->GetTimerManager().ClearTimer(Timer);
-	}
 }
 
 UAction* UBrain::SelectAction() const
@@ -49,6 +39,7 @@ UAction* UBrain::SelectAction() const
 
 TScriptInterface<IAgent> UBrain::GetAgent() const
 {
+	check(Agent);
 	return Agent;
 }
 
@@ -57,8 +48,7 @@ float UBrain::GetAutoSelectThreshold() const
 	return AutoSelectThreshold;
 }
 
-
-void UBrain::Act() const
+void UBrain::Run() const
 {
 	if (const auto Action = SelectAction())
 	{
